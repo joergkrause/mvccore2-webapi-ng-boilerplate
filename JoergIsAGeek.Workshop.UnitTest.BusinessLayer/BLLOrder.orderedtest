@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="bllorder" storage="c:\apps\ipte\ipte.workshop.enterprise\ipte.workshop.unittest.businesslayer\bllorder.orderedtest" id="73738021-60dd-45ff-b8d2-be347b0eecd8" continueAfterFailure="true" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="0ad3eb57-80a9-3e25-8f24-3622f10e2b30" name="TestMethod1" storage="bin\debug\ipte.workshop.unittest.businesslayer.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="b8bb6313-a4ae-a15c-0e91-e923a017eef0" name="TestMethod2" storage="bin\debug\ipte.workshop.unittest.businesslayer.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="bdcbbc77-5024-32ed-b4a9-1e9ca2bd6c59" name="TestMethod3" storage="bin\debug\ipte.workshop.unittest.businesslayer.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

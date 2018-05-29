@@ -1,0 +1,3 @@
+﻿<%@ ServiceHost Language="C#" Debug="true"
+  Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"
+  Service="JoergIsAGeek.Workshop.Enterprise.ServiceLayer.MachineService, JoergIsAGeek.Workshop.Enterprise.ServiceLayer" CodeBehind="MachineService.svc.cs" %>

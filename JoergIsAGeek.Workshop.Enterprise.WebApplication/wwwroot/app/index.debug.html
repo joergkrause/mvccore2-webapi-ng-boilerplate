@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Angular Prototype</title>
+  <link href="assets/styles/app.css" rel="stylesheet" />
+  <link href="assets/styles/font-awesome.css" rel="stylesheet" />
+  <base href="/" />
+</head>
+<body>
+  <site-root></site-root>
+  <!-- PolyFills -->
+  <script src="/assets/js/vendor.js"></script>
+  <!-- Dynamic Loader for debugging -->
+  <script src="/assets/js/systemjs.config.js"></script>
+  <script>
+    System.import('app').catch(function (err) { console.error(err); });
+  </script>
+</body>
+</html>

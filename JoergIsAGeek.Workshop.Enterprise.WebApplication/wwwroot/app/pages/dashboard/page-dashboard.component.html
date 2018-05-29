@@ -1,0 +1,34 @@
+<div>
+    <h2 class="text-muted">Dashboard <small>Statistics Overview</small></h2>
+    <div class="row">
+        <div class="col-md-12">
+            <!--<ngb-carousel>
+                <ng-template ngbSlide *ngFor="let slider of sliders">
+                    <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide" style="width:100%">
+                    <div class="carousel-caption">
+                        <h3>{{slider.label}}</h3>
+                        <p>{{slider.text}}</p>
+                    </div>
+                </ng-template>
+            </ngb-carousel>-->
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xl-3 col-lg-6">
+            <site-stat [bgClass]="'card-primary'" [icon]="'fa-comments'" [count]="numOfMachines" label="Machines" ></site-stat>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <site-stat [bgClass]="'card-info'" [icon]="'fa-tasks'" [count]="numOfDevices" label="Devices" ></site-stat>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <site-stat [bgClass]="'card-success'" [icon]="'fa-shopping-cart'" [count]="numOfValues" label="Values" ></site-stat>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+            <site-stat [bgClass]="'card-danger'" [icon]="'fa-support'" [count]="2" [label]="'Charts'"></site-stat>
+        </div>
+    </div>
+    <hr />
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+    <hr />
+</div>
