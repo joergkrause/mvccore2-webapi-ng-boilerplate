@@ -160,7 +160,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       throw new NotImplementedException();
     }
 
-    public void SeUserDtoName(ApplicationUserDto user, string userName)
+    public void SetUserDtoName(ApplicationUserDto user, string userName)
     {
       user.UserName = userName;
     }

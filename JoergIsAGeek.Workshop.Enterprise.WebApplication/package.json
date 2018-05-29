@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@types/node": "^8.0.24",
+    "autorest": "^2.0.4262",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.0",

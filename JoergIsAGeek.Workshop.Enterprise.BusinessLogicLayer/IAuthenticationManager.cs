@@ -17,7 +17,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     string GetUserDtoId(ApplicationUserDto user);
     string GetUserDtoName(ApplicationUserDto user);
     void SetNormalizedUserName(ApplicationUserDto user, string normalizedName);
-    void SeUserDtoName(ApplicationUserDto user, string userName);
+    void SetUserDtoName(ApplicationUserDto user, string userName);
     IdentityResult UpdateUser(ApplicationUserDto user);
     IdentityResult CreateRole(ApplicationIdentityRoleDto role);
 

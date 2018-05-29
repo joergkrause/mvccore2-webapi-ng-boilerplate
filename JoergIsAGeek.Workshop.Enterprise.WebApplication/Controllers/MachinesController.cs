@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MachineServiceReference;
 using Microsoft.AspNetCore.Authorization;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
