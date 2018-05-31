@@ -145,7 +145,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       return user.UserName;
     }
 
-    public void SeIdentityRoleDtoName(ApplicationIdentityRoleDto role, string roleName)
+    public void SetIdentityRoleDtoName(ApplicationIdentityRoleDto role, string roleName)
     {
       throw new NotImplementedException();
     }

@@ -14,7 +14,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
 
   /// <summary>
   /// The main context for working data and authentication.
-  /// The Autfac cotainer shall deliver the options for config.
+  /// The Autofac cotainer shall deliver the options for config.
   /// </summary>
   public class MachineDataContext : IdentityDbContext
   {
@@ -67,47 +67,44 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
     protected override void OnModelCreating(ModelBuilder builder)
     {
       base.OnModelCreating(builder);
+      // classes we have enhanced
       builder.Entity<ApplicationUser>()
-        .Property(u => u.Id).IsUnicode(false);
+        .ToTable("Users")
+        .Property(u => u.Id).HasColumnType("char(32)").IsUnicode(false);
       builder.Entity<ApplicationUser>()
         .Property(u => u.Email).IsUnicode(false);
       builder.Entity<ApplicationRole>()
-        .Property(u => u.Id).IsUnicode(false);
-
-      builder.Entity<IdentityUser<string>>()
-        .ToTable("AspNetUsers")
-        .Property(ur => ur.Id).HasColumnType("char(32)");
-
-      builder.Entity<IdentityRole<string>>()
-        .ToTable("AspNetRoles")
-        .Property(ur => ur.Id).HasColumnType("char(32)");
-
+        .ToTable("Roles")
+        .Property(u => u.Id).HasColumnType("char(32)").IsUnicode(false);
+      // standard identity classes
       builder.Entity<IdentityUserLogin<string>>()
-        .Property(ur => ur.UserId).HasColumnType("char(32)");
+        .ToTable("UserLogins")
+        .Property(ur => ur.UserId).HasColumnType("char(32)").IsUnicode(false);
 
       builder.Entity<IdentityUserRole<string>>()
+        .ToTable("User_x_Roles")
         .HasKey(r => new { UserId = r.UserId, RoleId = r.RoleId });
 
       builder.Entity<IdentityUserRole<string>>()
-        .Property(ur => ur.RoleId).HasColumnType("char(32)");
+        .Property(ur => ur.RoleId).HasColumnType("char(32)").IsUnicode(false);
 
       builder.Entity<IdentityUserRole<string>>()
-        .Property(ur => ur.UserId).HasColumnType("char(32)");
+        .Property(ur => ur.UserId).HasColumnType("char(32)").IsUnicode(false);
 
-      builder.Entity<ApplicationUser>()
-          .HasMany(e => e.Claims)
-          .WithOne()
-          .HasForeignKey(e => e.UserId)
-          .IsRequired()
-          .OnDelete(DeleteBehavior.Cascade);
+      //builder.Entity<ApplicationUser>()
+      //    .HasMany(e => e.Claims)
+      //    .WithOne()
+      //    .HasForeignKey(e => e.UserId)
+      //    .IsRequired()
+      //    .OnDelete(DeleteBehavior.SetNull);
 
-      builder.Entity<ApplicationUser>()
-          .HasMany(e => e.Logins)
-          .WithOne()
-          .HasForeignKey(e => e.UserId)
-          .IsRequired()
-          .OnDelete(DeleteBehavior.Cascade);
-      
+      //builder.Entity<ApplicationUser>()
+      //    .HasMany(e => e.Logins)
+      //    .WithOne()
+      //    .HasForeignKey(e => e.UserId)
+      //    .IsRequired()
+      //    .OnDelete(DeleteBehavior.SetNull);
+
     }
 
 

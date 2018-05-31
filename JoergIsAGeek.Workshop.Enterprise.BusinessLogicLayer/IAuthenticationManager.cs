@@ -35,7 +35,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     void SetNormalizedRoleName(ApplicationIdentityRoleDto role, string normalizedName);
 
-    void SeIdentityRoleDtoName(ApplicationIdentityRoleDto role, string roleName);
+    void SetIdentityRoleDtoName(ApplicationIdentityRoleDto role, string roleName);
 
     IdentityResult UpdateRole(ApplicationIdentityRoleDto role);
     string GetPasswordHash(ApplicationUserDto userDto);

@@ -32,6 +32,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpPost]
+    [Route("createRole")]
     public IdentityResult CreateRole([FromBody] ApplicationIdentityRoleDto role)
     {
       return _authenticationManager.CreateRole(role);
@@ -43,6 +44,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="user"></param>
     /// <returns></returns>
     [HttpPost]
+    [Route("createUser")]
     public IdentityResult CreateUser([FromBody] ApplicationUserDto user)
     {
       return _authenticationManager.CreateUser(user);
@@ -54,6 +56,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpPost]
+    [Route("deleteRole")]
     public IdentityResult DeleteRole([FromBody] ApplicationIdentityRoleDto role)
     {
       return _authenticationManager.DeleteRole(role);
@@ -65,6 +68,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="roleId"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("findRole")]
     public ApplicationIdentityRoleDto FindRoleById(string roleId)
     {
       return _authenticationManager.FindRoleById(roleId);
@@ -76,6 +80,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="normalizedRoleName"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("findRoleByName")]
     public ApplicationIdentityRoleDto FindRoleByName(string normalizedRoleName)
     {
       return _authenticationManager.FindRoleByName(normalizedRoleName);
@@ -87,6 +92,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="userId"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("findUser")]
     public ApplicationUserDto FindUserById(string userId)
     {
       return _authenticationManager.FindUserById(userId);
@@ -98,6 +104,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="normalizedUserName"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("findUserByName")]
     public ApplicationUserDto FindUserByName(string normalizedUserName)
     {
       return _authenticationManager.FindUserByName(normalizedUserName);
@@ -109,6 +116,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("getIdentityRole")]
     public string GetIdentityRoleDtoId([FromQuery] ApplicationIdentityRoleDto role)
     {
       return _authenticationManager.GetIdentityRoleDtoId(role);
@@ -120,6 +128,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("getIdentityRoleName")]
     public string GetIdentityRoleDtoName([FromQuery] ApplicationIdentityRoleDto role)
     {
       return _authenticationManager.GetIdentityRoleDtoName(role);
@@ -131,6 +140,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("getNormalizedRole")]
     public string GetNormalizedRoleName([FromQuery] ApplicationIdentityRoleDto role)
     {
       return _authenticationManager.GetNormalizedRoleName(role);
@@ -142,6 +152,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="user"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("getNormalizedUser")]
     public string GetNormalizedUserName([FromQuery] ApplicationUserDto user)
     {
       return _authenticationManager.GetNormalizedUserName(user);
@@ -153,116 +164,118 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="user"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("getUserId")]
     public string GetUserDtoId([FromQuery] ApplicationUserDto user)
     {
       return _authenticationManager.GetUserDtoId(user);
     }
 
     [HttpGet]
+    [Route("getUserName")]
     public string GetUserDtoName([FromQuery] ApplicationUserDto user)
     {
       return _authenticationManager.GetUserDtoName(user);
     }
 
-    /// <summary>
-    /// Set the role for an identity.
-    /// </summary>
-    /// <param name="role"></param>
-    /// <param name="roleName"></param>
-    [HttpPut]
-    public void SeIdentityRoleDtoName([FromBody] ApplicationIdentityRoleDto role, string roleName)
-    {
-      _authenticationManager.SeIdentityRoleDtoName(role, roleName);
-    }
+    ///// <summary>
+    ///// Set the role for an identity.
+    ///// </summary>
+    ///// <param name="role"></param>
+    ///// <param name="roleName"></param>
+    //[HttpPut]
+    //public void SetIdentityRoleDtoName([FromBody] ApplicationIdentityRoleDto role, string roleName)
+    //{
+    //  _authenticationManager.SetIdentityRoleDtoName(role, roleName);
+    //}
 
-    [HttpPut]
-    public void SetNormalizedRoleName([FromBody] ApplicationIdentityRoleDto role, string normalizedName)
-    {
-      _authenticationManager.SetNormalizedRoleName(role, normalizedName);
-    }
+    //[HttpPut]
+    //public void SetNormalizedRoleName([FromBody] ApplicationIdentityRoleDto role, string normalizedName)
+    //{
+    //  _authenticationManager.SetNormalizedRoleName(role, normalizedName);
+    //}
 
-    [HttpPut]
-    public void SetNormalizedUserName([FromBody] ApplicationUserDto user, string normalizedName)
-    {
-      _authenticationManager.SetNormalizedUserName(user, normalizedName);
-    }
+    //[HttpPut]
+    //public void SetNormalizedUserName([FromBody] ApplicationUserDto user, string normalizedName)
+    //{
+    //  _authenticationManager.SetNormalizedUserName(user, normalizedName);
+    //}
 
-    [HttpPut]
-    public void SetUserDtoName([FromBody] ApplicationUserDto user, string userName)
-    {
-      _authenticationManager.SetUserDtoName(user, userName);
-    }
+    //[HttpPut]
+    //public void SetUserDtoName([FromBody] ApplicationUserDto user, string userName)
+    //{
+    //  _authenticationManager.SetUserDtoName(user, userName);
+    //}
 
-    [HttpPut]
-    public IdentityResult UpdateRole([FromBody] ApplicationIdentityRoleDto role)
-    {
-      return _authenticationManager.UpdateRole(role);
-    }
+    //[HttpPut]
+    //public IdentityResult UpdateRole([FromBody] ApplicationIdentityRoleDto role)
+    //{
+    //  return _authenticationManager.UpdateRole(role);
+    //}
 
-    [HttpPut]
-    public IdentityResult UpdateUser([FromBody] ApplicationUserDto user)
-    {
-      return _authenticationManager.UpdateUser(user);
-    }
+    //[HttpPut]
+    //public IdentityResult UpdateUser([FromBody] ApplicationUserDto user)
+    //{
+    //  return _authenticationManager.UpdateUser(user);
+    //}
 
-    [HttpGet]
-    public string GetPasswordHash([FromQuery] ApplicationUserDto userDto)
-    {
-      return _authenticationManager.GetPasswordHash(userDto);
-    }
+    //[HttpGet]
+    //public string GetPasswordHash([FromQuery] ApplicationUserDto userDto)
+    //{
+    //  return _authenticationManager.GetPasswordHash(userDto);
+    //}
 
-    [HttpPost]
-    public bool HasPassword([FromBody] ApplicationUserDto userDto)
-    {
-      return _authenticationManager.HasPassword(userDto);
-    }
+    //[HttpPost]
+    //public bool HasPassword([FromBody] ApplicationUserDto userDto)
+    //{
+    //  return _authenticationManager.HasPassword(userDto);
+    //}
 
-    [HttpPut]
-    public void SetPasswordHash([FromBody] ApplicationUserDto userDto, string passwordHash)
-    {
-      _authenticationManager.SetPasswordHash(userDto, passwordHash);
-    }
+    //[HttpPut]
+    //public void SetPasswordHash([FromBody] ApplicationUserDto userDto, string passwordHash)
+    //{
+    //  _authenticationManager.SetPasswordHash(userDto, passwordHash);
+    //}
 
-    [HttpGet]
-    public ApplicationUserDto FindByEmail(string normalizedEmail)
-    {
-      return _authenticationManager.FindByEmail(normalizedEmail);
-    }
+    //[HttpGet]
+    //public ApplicationUserDto FindByEmail(string normalizedEmail)
+    //{
+    //  return _authenticationManager.FindByEmail(normalizedEmail);
+    //}
 
-    [HttpGet]
-    public string GetEmail([FromQuery] ApplicationUserDto user)
-    {
-      return _authenticationManager.GetEmail(user);
-    }
+    //[HttpGet]
+    //public string GetEmail([FromQuery] ApplicationUserDto user)
+    //{
+    //  return _authenticationManager.GetEmail(user);
+    //}
 
-    [HttpGet]
-    public bool GetEmailConfirmed([FromQuery] ApplicationUserDto user)
-    {
-      return _authenticationManager.GetEmailConfirmed(user);
-    }
+    //[HttpGet]
+    //public bool GetEmailConfirmed([FromQuery] ApplicationUserDto user)
+    //{
+    //  return _authenticationManager.GetEmailConfirmed(user);
+    //}
 
-    [HttpGet]
-    public string GetNormalizedEmail([FromQuery] ApplicationUserDto user)
-    {
-      return _authenticationManager.GetNormalizedEmail(user);
-    }
+    //[HttpGet]
+    //public string GetNormalizedEmail([FromQuery] ApplicationUserDto user)
+    //{
+    //  return _authenticationManager.GetNormalizedEmail(user);
+    //}
 
-    [HttpPut]
-    public void SetEmail([FromBody] ApplicationUserDto user, string email)
-    {
-      _authenticationManager.SetEmail(user, email);
-    }
+    //[HttpPut]
+    //public void SetEmail([FromBody] ApplicationUserDto user, string email)
+    //{
+    //  _authenticationManager.SetEmail(user, email);
+    //}
 
-    [HttpPut]
-    public void SetEmailConfirmed([FromBody] ApplicationUserDto user, bool confirmed)
-    {
-      _authenticationManager.SetEmailConfirmed(user, confirmed);
-    }
+    //[HttpPut]
+    //public void SetEmailConfirmed([FromBody] ApplicationUserDto user, bool confirmed)
+    //{
+    //  _authenticationManager.SetEmailConfirmed(user, confirmed);
+    //}
 
-    [HttpPut]
-    public void SetNormalizedEmail([FromBody] ApplicationUserDto user, string normalizedEmail)
-    {
-      _authenticationManager.SetNormalizedEmail(user, normalizedEmail);
-    }
+    //[HttpPut]
+    //public void SetNormalizedEmail([FromBody] ApplicationUserDto user, string normalizedEmail)
+    //{
+    //  _authenticationManager.SetNormalizedEmail(user, normalizedEmail);
+    //}
   }
 }

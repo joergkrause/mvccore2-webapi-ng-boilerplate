@@ -31,6 +31,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="machine"></param>
     /// <returns></returns>
     [HttpPost]
+    [Route("add")]
     public bool AddMachine([FromBody] MachineDto machine)
     {
       return _machineManager.AddMachine(machine);
@@ -41,6 +42,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [Route("getAll")]
     public IEnumerable<MachineDto> GetAllMachines()
     {
       return _machineManager.GetAllMachines();
@@ -52,6 +54,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("get")]
     public MachineDto GetMachineById(int id)
     {
       return _machineManager.GetMachineById(id);
@@ -63,6 +66,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="value"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("getByVal")]
     public IEnumerable<MachineDto> GetMachineForDataValue(double value)
     {
       return _machineManager.GetMachineForDataValue(value);

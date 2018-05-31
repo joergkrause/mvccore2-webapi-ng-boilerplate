@@ -7,46 +7,69 @@ using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.UnitTests.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace JoergIsAGeek.Workshop.Enterprise.TestConsole {
   class Program {
     static void Main(string[] args) {
-      TestInitialize();
-      TestToCreateDatebase();
+      Console.WriteLine("Start creating database");
+      Console.WriteLine($"Using this connectionsstring: ");
+      var clr = Console.ForegroundColor;
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.WriteLine(GetCs());
+      Console.ForegroundColor = clr;
+      Console.WriteLine("Hint: Change connection string in 'App.config'");
+      if (TestInitialize())
+      {
+        TestToUseDatebase();
+      }
+      Console.WriteLine("Done");
+      Console.WriteLine("ENTER to close");
       Console.ReadLine();
     }
 
-    static void TestInitialize()
+    static bool TestInitialize()
     {
       var init = new DatabaseInitializer();
-      var i = 22;
-      var n = "22";
+      // no concrete value needed, this is for SaveChanges automation after init
       IUserContextProvider contextProvider = null;
-      using (var context = new MachineDataContext(GetOptions(), contextProvider))
+      try
       {
-        Console.WriteLine("Deleting...");
-        context.Database.EnsureDeleted();
-        Console.WriteLine("Creating...");
-        context.Database.EnsureCreated();
-        Console.WriteLine("Seeding...");
-        init.Seed(context);
-      } // Dispose
+        using (var context = new MachineDataContext(GetOptions(), contextProvider))
+        {
+          Console.WriteLine("Deleting...");
+          context.Database.EnsureDeleted();
+          Console.WriteLine("Creating...");
+          context.Database.EnsureCreated();
+          Console.WriteLine("Seeding...");
+          init.Seed(context);
+        } // Dispose
+        return true;
+      }
+      catch (Exception ex)
+      {
+        var clr = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(ex.Message);
+        Console.ForegroundColor = clr;
+        return false;
+      }      
     }
 
-    static void TestToCreateDatebase()
+    static void TestToUseDatebase()
     {
       IUserContextProvider contextProvider = null;
       using (var context = new MachineDataContext(GetOptions(), contextProvider))
       {
         var machines = context.Machines.ToList();
         var count = context.Machines.Count();
-        Console.WriteLine(count);
+        Console.WriteLine($"Expected value after seeding is <1>. Current value is <{count}>.");
       } // Dispose
     }
 
     private static string GetCs()
     {
-      var cs = @"Data Source=(localdb)\JoergIsAGeek;Initial Catalog=MachineDataDatabase;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30";
+      var cs = ConfigurationManager.ConnectionStrings[nameof(MachineDataContext)].ConnectionString;
       return cs;
     }
 

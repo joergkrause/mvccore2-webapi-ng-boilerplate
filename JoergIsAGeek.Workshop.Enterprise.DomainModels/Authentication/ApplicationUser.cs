@@ -23,15 +23,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication
     [StringLength(100)]
     public string ModifiedBy { get; set; }
 
-    /// <summary>
-    /// Navigation property for the claims this user possesses.
-    /// </summary>
-    public virtual ICollection<IdentityUserClaim<string>> Claims { get; } = new HashSet<IdentityUserClaim<string>>();
+    ///// <summary>
+    ///// Navigation property for the claims this user possesses.
+    ///// </summary>
+    //public virtual ICollection<IdentityUserClaim<string>> Claims { get; } = new HashSet<IdentityUserClaim<string>>();
 
-    /// <summary>
-    /// Navigation property for this users login accounts.
-    /// </summary>
-    public virtual ICollection<IdentityUserLogin<string>> Logins { get; } = new HashSet<IdentityUserLogin<string>>();
+    ///// <summary>
+    ///// Navigation property for this users login accounts.
+    ///// </summary>
+    //public virtual ICollection<IdentityUserLogin<string>> Logins { get; } = new HashSet<IdentityUserLogin<string>>();
 
 
   }
