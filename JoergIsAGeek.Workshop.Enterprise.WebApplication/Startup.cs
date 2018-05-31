@@ -3,7 +3,6 @@ using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication.Extensions;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Helpers;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
-using MachineServiceReference;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -15,10 +14,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using AuthServiceReference;
 using System;
 using System.Net;
 using System.Text;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
@@ -48,6 +47,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       services.AddSingleton<IJwtFactory, JwtFactory>();
       // Security using custom backend
       services.AddIdentity<ApplicationUser, ApplicationIdentityRole>().AddDefaultTokenProviders();
+      // Backend API 
+      services.AddSingleton<IEnterpriseServiceAPI, EnterpriseServiceAPI>();
+      // WFE logic and identity
       services.AddSingleton<UserManager<ApplicationUser>, CustomUserManager>();
       services.AddTransient<IUserStore<ApplicationUser>, CustomUserStore>();
       services.AddTransient<IRoleStore<ApplicationIdentityRole>, CustomRoleStore>();
@@ -91,9 +93,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
         options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
       });
 
-      // configure container with service access
-      services.AddSingleton(typeof(MachineSrvClient), new MachineSrvClient());
-      services.AddSingleton(typeof(AuthSrvClient), new AuthSrvClient());
       // support for object mappings
       services.AddAutoMapper();
     }

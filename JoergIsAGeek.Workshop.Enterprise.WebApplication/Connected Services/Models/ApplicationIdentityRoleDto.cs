@@ -4,29 +4,28 @@
 // regenerated.
 // </auto-generated>
 
-namespace JoergIsAGeek.ServiceProxy.Models
+namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class ApplicationUserDto
+    public partial class ApplicationIdentityRoleDto
     {
         /// <summary>
-        /// Initializes a new instance of the ApplicationUserDto class.
+        /// Initializes a new instance of the ApplicationIdentityRoleDto class.
         /// </summary>
-        public ApplicationUserDto()
+        public ApplicationIdentityRoleDto()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ApplicationUserDto class.
+        /// Initializes a new instance of the ApplicationIdentityRoleDto class.
         /// </summary>
-        public ApplicationUserDto(string id = default(string), string pwHash = default(string), bool? emailConf = default(bool?))
+        public ApplicationIdentityRoleDto(string id = default(string), string name = default(string))
         {
             Id = id;
-            PwHash = pwHash;
-            EmailConf = emailConf;
+            Name = name;
             CustomInit();
         }
 
@@ -42,13 +41,8 @@ namespace JoergIsAGeek.ServiceProxy.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "PwHash")]
-        public string PwHash { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "EmailConf")]
-        public bool? EmailConf { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
     }
 }

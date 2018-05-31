@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
 
@@ -11,9 +13,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   [Route("api/[controller]")]
   public class MachinesController : Controller {
 
-    MachineSrvClient client;
+    IEnterpriseServiceAPI client;
 
-    public MachinesController(MachineSrvClient client) {
+    public MachinesController(IEnterpriseServiceAPI client) {
       this.client = client;
     }
 

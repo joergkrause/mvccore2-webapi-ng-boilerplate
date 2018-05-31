@@ -2,16 +2,16 @@
 using System.Threading.Tasks;
 using VM = JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using ID = Microsoft.AspNetCore.Identity;
-using AuthServiceReference;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
   internal class CustomRoleStore : ID.IRoleStore<VM.ApplicationIdentityRole>
   {
 
-    private AuthSrvClient _authSrvClient;
+    private IEnterpriseServiceAPI _authSrvClient;
 
-    public CustomRoleStore(AuthSrvClient client)
+    public CustomRoleStore(IEnterpriseServiceAPI client)
     {
       _authSrvClient = client;
     }

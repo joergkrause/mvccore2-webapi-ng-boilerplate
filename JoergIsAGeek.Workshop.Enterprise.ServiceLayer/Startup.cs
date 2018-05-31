@@ -33,7 +33,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
           Contact = new Contact
           {
             Name = "Jörg Krause",
-            Email = string.Empty,
+            Email = "joerg@krause.net",
             Url = "https://twitter.com/joergisageek"
           },
           License = new License
