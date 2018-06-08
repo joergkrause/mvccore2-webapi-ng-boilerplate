@@ -5,5 +5,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
   public interface IUserContextProvider
   {
     IIdentity UserIdentity { get; }
+
+    void SetUserIdentity(IIdentity user);
   }
 }

@@ -3,7 +3,8 @@
 namespace JoergIsAGeek.Workshop.Enterprise.DomainModels {
 
 
-  public class Device : EntityBase {
+  public class Device : AuditableEntityBase
+  {
 
     public Device() {
       //DataValues = new HashSet<DataValue>();

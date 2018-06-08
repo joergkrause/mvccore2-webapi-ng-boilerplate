@@ -8,6 +8,9 @@ using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System.Threading;
+using System.ComponentModel.DataAnnotations;
+using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Configuration;
 
 namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
 {
@@ -40,13 +43,54 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
 
     public override int SaveChanges()
     {
-      this.SaveInterceptor(this.contextProvider?.UserIdentity?.Name);
+      var now = DateTime.Now;
+      SaveInterceptor(this.contextProvider?.UserIdentity?.Name, now);
+      ValidateInterceptor();
       return base.SaveChanges();
     }
 
-    private void SaveInterceptor(string contextUser)
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
     {
-      var timeStamp = DateTime.Now.ToUniversalTime();
+      var now = DateTime.Now;
+      SaveInterceptor(this.contextProvider?.UserIdentity?.Name, now);
+      ValidateInterceptor();
+      return base.SaveChangesAsync(cancellationToken);
+    }
+
+    /// <summary>
+    /// We perform an extensive validation to handle ValidationAttributes set outside
+    /// the context of EF and database. EF Core does not do this anymore (EF6 did). 
+    /// </summary>
+    public void ValidateInterceptor()
+    {
+      // all but deleted entries
+      foreach (var entry in this.ChangeTracker.Entries()
+            .Where(e => (e.State == EntityState.Added) || (e.State == EntityState.Modified)))
+      {
+        var entity = entry.Entity;
+        var context = new ValidationContext(entity);
+        var results = new List<ValidationResult>();
+
+        if (Validator.TryValidateObject(entity, context, results, true) == false)
+        {
+          foreach (var result in results)
+          {
+            if (result != ValidationResult.Success)
+            {
+              throw new ValidationException(result.ErrorMessage);
+            }
+          }
+        }
+      }
+    }
+
+    /// <summary>
+    /// Add global actions if necessary.
+    /// </summary>
+    /// <param name="contextUser">API provides a user object, if user is authenticated</param>
+    /// <param name="timeStamp">The timestamp externally.</param>
+    private void SaveInterceptor(string contextUser, DateTime timeStamp)
+    {
       var trackedItems = ChangeTracker.Entries<IAuditableEntityBase>();
       foreach (var item in trackedItems)
       {
@@ -67,12 +111,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
     protected override void OnModelCreating(ModelBuilder builder)
     {
       base.OnModelCreating(builder);
+      // external config for better readebility and flexibility
+      builder.ApplyConfiguration(new MachineConfig());
+      builder.ApplyConfiguration(new ApplicationUserConfig());
       // classes we have enhanced
-      builder.Entity<ApplicationUser>()
-        .ToTable("Users")
-        .Property(u => u.Id).HasColumnType("char(32)").IsUnicode(false);
-      builder.Entity<ApplicationUser>()
-        .Property(u => u.Email).IsUnicode(false);
       builder.Entity<ApplicationRole>()
         .ToTable("Roles")
         .Property(u => u.Id).HasColumnType("char(32)").IsUnicode(false);

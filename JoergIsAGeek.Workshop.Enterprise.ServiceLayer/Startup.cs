@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
+using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +26,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddTransient<IUserContextProvider>(s => new UserContextProvider());
       services.AddMvc();
       services.AddSwaggerGen(c =>
       {
@@ -52,12 +55,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       {
         app.UseDeveloperExceptionPage();
       }
+      // authenticate the client WFE the most secure way
+      app.UseClientCertificate();
+      // forward a custom header to create a light user object
+      app.UseUserContext();
+      // expose an API endpoint
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-        c.SwaggerEndpoint("/service/v1/service.json", "Enterprise Service V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Enterprise Service V1");
         c.RoutePrefix = string.Empty;
-      });
+      });      
       app.UseMvc();
     }
   }

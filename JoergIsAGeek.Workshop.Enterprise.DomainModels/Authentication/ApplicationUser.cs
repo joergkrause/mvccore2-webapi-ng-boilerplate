@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication
 {
-  public class ApplicationUser : IdentityUser, IEntityBase<string>
+  /// <summary>
+  /// An enhanced user object based on Identity
+  /// </summary>
+  public class ApplicationUser : IdentityUser, IEntityBase<string>, IAuditableEntityBase
   {
     [Column(TypeName = "datetime2")]
     public DateTime CreatedAt { get; set; }

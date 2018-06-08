@@ -8,6 +8,7 @@ using JoergIsAGeek.Workshop.UnitTests.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using System.IO;
 
 namespace JoergIsAGeek.Workshop.Enterprise.TestConsole {
   class Program {
@@ -39,6 +40,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.TestConsole {
         {
           Console.WriteLine("Deleting...");
           context.Database.EnsureDeleted();
+          var dbName = context.Database.GetDbConnection();
+          var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
           Console.WriteLine("Creating...");
           context.Database.EnsureCreated();
           Console.WriteLine("Seeding...");
@@ -48,6 +51,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.TestConsole {
       }
       catch (Exception ex)
       {
+
         var clr = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(ex.Message);
