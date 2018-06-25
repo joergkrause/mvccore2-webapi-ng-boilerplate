@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
+﻿using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
-using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Providers;
+using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
-{
+namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
   public class Startup
   {
     public Startup(IConfiguration configuration)
@@ -34,7 +27,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       // get connectionstring from appsettings.json
       var connectionString = Configuration.GetConnectionString(nameof(MachineDataContext));
       // store user for middleware access
-      services.AddScoped(typeof(IUserContextProvider), typeof(UserContextProvider));
+      services.AddScoped(typeof(IUserContextProvider), s => new UserContextProvider());
       // access to db globally configured
       services.AddDbContext<MachineDataContext>(o => o.UseSqlServer(connectionString), ServiceLifetime.Scoped);
       services.AddScoped(typeof(IGenericRepository<Machine, int>), typeof(GenericDbRepository<Machine, int>));
@@ -75,7 +68,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
-        c.SwaggerEndpoint("/service/v1/service.json", "Enterprise Service V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Enterprise Service V1");
         c.RoutePrefix = string.Empty;
       });
       app.UseMvc();

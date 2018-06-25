@@ -1,5 +1,5 @@
 # Local Service
-$url = "http://localhost:5000/swagger/v1/swagger.json"
+$url = "http://localhost:5001/swagger/v1/swagger.json"
 # Temp File, because autorest can't read directly from service
 $output = "$PSScriptRoot\proxy.json"
 # Get the data

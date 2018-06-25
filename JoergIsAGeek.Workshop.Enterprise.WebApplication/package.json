@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "https://github.com/joergkrause/mvccore2ng-boilerplate",
-  "author": "Joerg Krause - www.joergkrauee.de",
+  "author": "Joerg Krause - www.joergkrause.de",
   "license": "ISC",
   "dependencies": {
     "@angular/common": "^6.0.0",

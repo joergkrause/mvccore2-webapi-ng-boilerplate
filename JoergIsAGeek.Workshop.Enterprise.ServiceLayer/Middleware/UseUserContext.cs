@@ -36,8 +36,10 @@ public class UserContext
       var userName = httpContext.Request.Headers["X-User-Authenticated-Name"];
       // We forward this to a service, which other parts of the app can consume to 
       // manage user code based on roles and rights
-      var userContext = httpContext.RequestServices.GetService(typeof(IUserContextProvider)) as IUserContextProvider;
-      userContext.SetUserIdentity(new GenericIdentity(userName, "X-User"));
+      if (userName.Any()) {
+        var userContext = httpContext.RequestServices.GetService(typeof(IUserContextProvider)) as IUserContextProvider;
+        userContext.SetUserIdentity(new GenericIdentity(userName.Single(), "X-User"));
+      }
       return _next(httpContext);
     }
   }

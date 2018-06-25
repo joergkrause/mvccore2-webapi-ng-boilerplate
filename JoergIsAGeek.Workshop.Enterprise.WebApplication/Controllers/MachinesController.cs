@@ -22,13 +22,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     // GET api/machines
     [HttpGet]
     public async Task<IEnumerable<MachineDto>> Get() {
-      return await client.GetAllMachinesAsync();
+      return await client.ApiMachineServiceGetAllGetAsync();
     }
 
     // GET api/machines/5
     [HttpGet("{id}")]
     public async Task<MachineDto> Get(int id) {
-      return await client.GetMachineByIdAsync(id);
+      return await client.ApiMachineServiceGetGetAsync(id);
     }
 
     // POST api/values
