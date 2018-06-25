@@ -7,14 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.DomainModels {
-  public class Machine : EntityBase {
+  public class Machine : AuditableEntityBase
+  {
 
 
-    //[ForCsv(CsvType.AsValue)]
-    [Required, StringLength(30), Display(Name="Maschinenname")]
     public string Name { get; set; }
 
-    [StringLength(5)]
     [RegularExpression(@"[A-Z]-\d{3}")] //B-100,C-123
     public string Location { get; set; }
 

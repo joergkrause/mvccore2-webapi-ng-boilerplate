@@ -238,11 +238,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityBase.cs" />
     <Compile Include="Authentication\ApplicationRole.cs" />
     <Compile Include="Authentication\ApplicationUser.cs" />
     <Compile Include="DataValue.cs" />
     <Compile Include="Device.cs" />
-    <Compile Include="EntityBase.cs" />
+    <Compile Include="AuditableEntityBase.cs" />
     <Compile Include="IAuditableEntityBase.cs" />
     <Compile Include="IEntityBase.cs" />
     <Compile Include="Machine.cs" />

@@ -218,6 +218,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ApplicationUserConfig.cs" />
+    <Compile Include="Configuration\MachineConfig.cs" />
     <Compile Include="FileDataContext.cs" />
     <Compile Include="IUserContextProvider.cs" />
     <Compile Include="MachineDataContext.cs" />

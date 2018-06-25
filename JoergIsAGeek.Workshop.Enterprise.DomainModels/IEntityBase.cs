@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.DomainModels {
-  public interface IEntityBase<T> : IAuditableEntityBase
+  public interface IEntityBase<T>
   {
 
     T Id { get; set; }
