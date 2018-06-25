@@ -12,7 +12,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
   public class MachineManager : Manager, IMachineManager
   {
 
-    public MachineManager()
+    public MachineManager(IServiceProvider services) : base(services)
     {
       var config = new MapperConfiguration(cfg =>
       {

@@ -1,42 +1,30 @@
 ﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 {
   public abstract class Manager {
 
-    private IGenericRepository<Machine, int>   repMachine;
-    private IGenericRepository<Device, int>    repDevice;
-    private IGenericRepository<DataValue, int> repDataValue;
     protected IMapper mapper;
 
-    public Manager() {
+    public Manager(IServiceProvider service) {
+      this.RepDataValue = service.GetService<IGenericRepository<DataValue, int>>();
+      this.RepDevice = service.GetService<IGenericRepository<Device, int>>();
+      this.RepMachine = service.GetService<IGenericRepository<Machine, int>>();
     }
 
-    public IGenericRepository<DataValue, int> RepDataValue {
-      protected get {
-        return repDataValue;
-      }
-      set {
-        repDataValue = value;
-      }
+    protected IGenericRepository<DataValue, int> RepDataValue {
+      get;
     }
     public IGenericRepository<Device, int> RepDevice{
-      protected get {
-        return repDevice;
-      }
-      set {
-        repDevice = value;
-      }
+      get;
     }
     public IGenericRepository<Machine, int> RepMachine {
-      protected get {
-        return repMachine;
-      }
-      set {
-        repMachine = value;
-      }
+      get;
     }
 
 

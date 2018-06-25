@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
 using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 {
   public class AuthenticationManager : Manager, IAuthenticationManager
   {
 
-    private IGenericRepository<ApplicationUser, string> repUsers;
-    private IGenericRepository<ApplicationRole, string> repRoles;
+    IGenericRepository<ApplicationRole, string> repRoles;
+    IGenericRepository<ApplicationUser, string> repUsers;
 
-    public AuthenticationManager()
+    public AuthenticationManager(IServiceProvider service): base(service)
     {
-      var mapperConfiguration = new MapperConfiguration(configure =>
-      {
+      this.repRoles = service.GetService<IGenericRepository<ApplicationRole, string>>();
+      this.repUsers = service.GetService<IGenericRepository<ApplicationUser, string>>();
+      var mapperConfiguration = new MapperConfiguration(configure => {
         configure.CreateMap<ApplicationUser, ApplicationUserDto>();
         configure.CreateMap<ApplicationUserDto, ApplicationUser>();
         configure.CreateMap<ApplicationRole, ApplicationIdentityRoleDto>();
@@ -34,21 +36,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       return Guid.NewGuid().ToString("N");
     }
 
-    public IGenericRepository<ApplicationUser, string> RepUsers {
-      protected get {
-        return repUsers;
-      }
-      set {
-        repUsers = value;
-      }
+    protected IGenericRepository<ApplicationUser, string> RepUsers {
+      get;
     }
-    public IGenericRepository<ApplicationRole, string> RepRoles{
-      protected get {
-        return repRoles;
-      }
-      set {
-        repRoles = value;
-      }
+    protected IGenericRepository<ApplicationRole, string> RepRoles{
+      get;
     }
 
     public IdentityResult CreateRole(ApplicationIdentityRoleDto roleDto)

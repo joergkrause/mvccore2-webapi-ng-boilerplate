@@ -21,7 +21,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
 
     private IUserContextProvider contextProvider;
 
-    public MachineDataContext(DbContextOptions<DbContext> options, IUserContextProvider contextProvider) : base(options)
+    public MachineDataContext(DbContextOptions<MachineDataContext> options, IUserContextProvider contextProvider) : base(options)
     {
       // forward of the user identity
       this.contextProvider = contextProvider;

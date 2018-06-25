@@ -13,16 +13,13 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace JoergIsAGeek.Workshop.Enterprise.Repository {
   public class GenericDbRepository<T, U> : IGenericRepository<T, U> where T : class, IEntityBase<U> {
 
-    private MachineDataContext _context;
 
     public GenericDbRepository(MachineDataContext context) {
-      _context = context;
+      Context = context;
     }
 
     protected MachineDataContext Context {
-      get {
-        return _context;
-      }
+      get;
     }
 
     public T Find(U id) {
