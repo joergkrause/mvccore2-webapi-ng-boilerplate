@@ -21,7 +21,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var svogv_1 = require("svogv");
 var base_1 = require("./base");
-var MachineViewModel = (function (_super) {
+var MachineViewModel = /** @class */ (function (_super) {
     __extends(MachineViewModel, _super);
     function MachineViewModel() {
         var _this = _super !== null && _super.apply(this, arguments) || this;

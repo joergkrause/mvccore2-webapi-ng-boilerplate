@@ -26,7 +26,7 @@ var base_service_1 = require("./base.service");
 var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/toPromise");
-var UserService = (function (_super) {
+var UserService = /** @class */ (function (_super) {
     __extends(UserService, _super);
     function UserService(http, configService) {
         var _this = _super.call(this) || this;

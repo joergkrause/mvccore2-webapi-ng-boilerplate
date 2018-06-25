@@ -25,7 +25,7 @@ var config_service_1 = require("./config.service");
 var base_service_1 = require("./base.service");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/toPromise");
-var AccountService = (function (_super) {
+var AccountService = /** @class */ (function (_super) {
     __extends(AccountService, _super);
     function AccountService(http, configService) {
         var _this = _super.call(this) || this;

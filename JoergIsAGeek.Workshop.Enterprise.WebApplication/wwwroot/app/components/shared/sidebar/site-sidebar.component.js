@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var NavItem = (function () {
+var NavItem = /** @class */ (function () {
     function NavItem(path, title, icon) {
         this.path = path;
         this.title = title;
@@ -19,7 +19,7 @@ var NavItem = (function () {
     }
     return NavItem;
 }());
-var SiteSidebarComponent = (function () {
+var SiteSidebarComponent = /** @class */ (function () {
     function SiteSidebarComponent(router) {
         this.router = router;
         this.isActive = false;

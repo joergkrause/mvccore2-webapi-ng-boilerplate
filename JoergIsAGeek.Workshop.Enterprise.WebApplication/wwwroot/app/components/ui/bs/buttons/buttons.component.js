@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var ButtonsComponent = (function () {
+var ButtonsComponent = /** @class */ (function () {
     function ButtonsComponent(formBuilder) {
         this.formBuilder = formBuilder;
         this.model = 1;

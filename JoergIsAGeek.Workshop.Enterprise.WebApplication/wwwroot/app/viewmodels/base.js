@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var svogv_1 = require("svogv");
-var Base = (function () {
+var Base = /** @class */ (function () {
     function Base() {
         this.id = 0;
     }

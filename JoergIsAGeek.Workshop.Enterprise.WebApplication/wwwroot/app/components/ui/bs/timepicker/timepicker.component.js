@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var TimepickerComponent = (function () {
+var TimepickerComponent = /** @class */ (function () {
     function TimepickerComponent() {
         this.defaultTime = { hour: 13, minute: 30 };
         this.meridianTime = { hour: 13, minute: 30 };

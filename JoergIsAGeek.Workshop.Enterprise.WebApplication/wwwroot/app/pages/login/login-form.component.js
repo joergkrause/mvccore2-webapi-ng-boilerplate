@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var index_1 = require("../../services/index");
-var PageLoginComponent = (function () {
+var PageLoginComponent = /** @class */ (function () {
     function PageLoginComponent(userService, router, activatedRoute) {
         this.userService = userService;
         this.router = router;

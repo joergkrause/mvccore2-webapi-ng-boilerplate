@@ -26,7 +26,7 @@ require("rxjs/add/operator/catch");
 require("rxjs/add/observable/throw");
 // sweet global way to handle 401s - works in tandem with existing AuthGuard route checks
 // http://stackoverflow.com/questions/34934009/handling-401s-globally-with-angular-2
-var AuthenticateXHRBackend = (function (_super) {
+var AuthenticateXHRBackend = /** @class */ (function (_super) {
     __extends(AuthenticateXHRBackend, _super);
     function AuthenticateXHRBackend(_browserXhr, _baseResponseOptions, _xsrfStrategy) {
         return _super.call(this, _browserXhr, _baseResponseOptions, _xsrfStrategy) || this;

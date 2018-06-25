@@ -10,7 +10,7 @@ var core_1 = require("@angular/core");
 /**
  * Broadcast events through components using a publish/subscribe pattern.
  */
-var EmitterService = (function () {
+var EmitterService = /** @class */ (function () {
     function EmitterService() {
         this._emitters = {};
     }

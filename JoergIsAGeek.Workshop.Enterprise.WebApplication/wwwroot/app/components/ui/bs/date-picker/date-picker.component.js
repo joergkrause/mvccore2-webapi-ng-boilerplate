@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var DatePickerComponent = (function () {
+var DatePickerComponent = /** @class */ (function () {
     function DatePickerComponent() {
     }
     DatePickerComponent.prototype.ngOnInit = function () {

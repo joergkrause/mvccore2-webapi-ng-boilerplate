@@ -32,7 +32,7 @@ var services = require("./services/index");
 // routers and guards
 var routes_1 = require("./configurations/routes");
 var index_1 = require("./guards/index");
-var AppRoot = (function () {
+var AppRoot = /** @class */ (function () {
     function AppRoot() {
     }
     AppRoot = __decorate([

@@ -15,7 +15,7 @@ var svogv_1 = require("svogv");
 /**
  * A grid component that handles any sort of data decorated with SVOGV decorators.
  */
-var TableComponent = (function () {
+var TableComponent = /** @class */ (function () {
     function TableComponent(router) {
         this.router = router;
         this.searchText = 'Search';

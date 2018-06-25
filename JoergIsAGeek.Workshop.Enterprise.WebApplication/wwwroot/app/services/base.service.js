@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Observable_1 = require("rxjs/Observable");
-var BaseService = (function () {
+var BaseService = /** @class */ (function () {
     function BaseService() {
     }
     BaseService.prototype.handleError = function (error) {

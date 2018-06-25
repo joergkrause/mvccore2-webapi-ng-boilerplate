@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 /**
  * Fixes a common issue with CSS not aware of angular. It removes the host component from physical DOM.
  */
-var RemoveHostDirective = (function () {
+var RemoveHostDirective = /** @class */ (function () {
     function RemoveHostDirective(el) {
         this.el = el;
     }

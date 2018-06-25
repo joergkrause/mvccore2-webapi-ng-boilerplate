@@ -50,7 +50,7 @@ require("rxjs/add/operator/delay");
 require("rxjs/add/operator/toPromise");
 var core_1 = require("@angular/core");
 var config_service_1 = require("../services/config.service");
-var ApiService = (function () {
+var ApiService = /** @class */ (function () {
     function ApiService(http, config) {
         this.http = http;
         this.config = config;
