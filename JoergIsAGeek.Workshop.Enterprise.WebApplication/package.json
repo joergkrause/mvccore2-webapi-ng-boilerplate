@@ -32,7 +32,7 @@
     "rxjs": "^6.0.0",
     "svogv": "^0.3.0",
     "systemjs": "^0.19.40",
-    "zone.js": "^0.8.16"
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@types/node": "^8.0.24",
