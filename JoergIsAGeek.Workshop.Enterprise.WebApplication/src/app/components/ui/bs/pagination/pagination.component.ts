@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
+  
     selector: 'app-pagination',
     templateUrl: './pagination.component.html',
-    styleUrls: ['./pagination.component.css']
+    styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent {
     defaultPagination: number;

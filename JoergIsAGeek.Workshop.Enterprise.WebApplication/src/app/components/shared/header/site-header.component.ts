@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'site-header',
   templateUrl: './site-header.component.html',
-  styleUrls: ['./site-header.component.css']
+  styleUrls: ['./site-header.component.scss']
 })
 export class SiteHeaderComponent implements OnInit {
 

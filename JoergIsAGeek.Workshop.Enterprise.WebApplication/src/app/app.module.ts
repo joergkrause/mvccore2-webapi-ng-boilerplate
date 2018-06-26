@@ -1,7 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpModule, XHRBackend } from '@angular/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -56,20 +55,7 @@ import { AuthGuard } from './guards/index';
     Svogv.AcAnalogClock, 
     Svogv.AcEditor, 
     Svogv.AcInfoBox,
-    directives.RemoveHostDirective,
-    Ng.NgbAccordion, 
-    Ng.NgbAlert, 
-    Ng.NgbCarousel, 
-    Ng.NgbCheckBox, 
-    Ng.NgbCollapse, 
-    Ng.NgbPanelContent, 
-    Ng.NgbTooltip, 
-    Ng.NgbTab, 
-    Ng.NgbRating, 
-    Ng.NgbPagination, 
-    Ng.NgbProgressbar, 
-    Ng.NgbTabset, 
-    Ng.NgbTimepicker
+    directives.RemoveHostDirective
   ],
   providers: [
     services.ApiService, 
@@ -95,8 +81,6 @@ import { AuthGuard } from './guards/index';
   ],
   bootstrap: [SiteRootComponent]
 }) // {} == new object()
-class AppRoot {
+export class AppRoot {
 
 }
-
-platformBrowserDynamic().bootstrapModule(AppRoot);
