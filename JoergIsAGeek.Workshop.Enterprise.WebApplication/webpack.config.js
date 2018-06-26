@@ -1,6 +1,6 @@
 ﻿const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 // Node
@@ -65,9 +65,10 @@ module.exports = {
     ]
   },
   plugins: [
-    //new CopyWebpackPlugin([
-    //  { from: 'src/assets/images', to: 'assets/images' }
-    //]),
+    new CopyWebpackPlugin([
+      { from: 'src/assets/images', to: 'assets/images' },
+      { from: 'Data', to: 'Data' }
+    ]),
     new HtmlWebpackPlugin({
       template: __dirname + '/src/index.html',
       output: __dirname + '/wwwroot',
