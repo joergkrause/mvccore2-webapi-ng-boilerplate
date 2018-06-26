@@ -28,10 +28,11 @@
     "font-awesome": "^4.7.0",
     "ng2-charts": "^1.6.0",
     "reflect-metadata": "^0.1.10",
-    "tslib": "^1.8.0",
     "rxjs": "^6.0.0",
+    "rxjs-compat": "^6.2.1",
     "svogv": "^0.3.0",
     "systemjs": "^0.19.40",
+    "tslib": "^1.8.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

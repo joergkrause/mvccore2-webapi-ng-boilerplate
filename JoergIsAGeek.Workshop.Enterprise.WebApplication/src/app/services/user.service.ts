@@ -33,7 +33,7 @@ export class UserService extends BaseService {
     this.baseUrl = configService.apiURI;
   }
 
-  public register(email: string, password: string, firstName: string, lastName: string, location: string): Promise<UserRegistrationViewModel> {
+  public register(email: string, password: string, firstName: string, lastName: string, location: string): Promise<boolean> {
     let body = JSON.stringify({ email, password, firstName, lastName, location });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
