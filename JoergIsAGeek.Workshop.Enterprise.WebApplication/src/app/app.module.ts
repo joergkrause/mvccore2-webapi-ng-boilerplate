@@ -1,5 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, XHRBackend } from '@angular/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -7,18 +8,14 @@ import { RouterModule } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 // forms handling and validation
-import * as Svogv from 'svogv';
+import * as svogv from 'svogv';
 
 // components
 import * as directives from './directives/index';
 import * as components from './components/index';
-import { SiteRootComponent } from './pages/siteroot.component';
-import { PageDashboardComponent } from './pages/dashboard/page-dashboard.component';
-import { PageOptionsComponent } from './pages/options/page-options.component';
-import { PageRegistrationComponent } from './pages/registration-form/registration-form.component';
-import { PageLoginComponent } from './pages/login/login-form.component';
+import * as pages from './pages/index';
 
-// bootstrap 
+// bootstrap
 import * as Ng from '@ng-bootstrap/ng-bootstrap';
 // services
 import * as services from './services/index';
@@ -28,19 +25,19 @@ import { AuthGuard } from './guards/index';
 
 @NgModule({
   declarations: [
-    SiteRootComponent,
-    PageDashboardComponent,
-    PageOptionsComponent,   
-    PageRegistrationComponent,
-    PageLoginComponent,
-    components.SiteHeaderComponent,       
-    components.SiteSidebarComponent,       
+    pages.SiteRootComponent,
+    pages.PageDashboardComponent,
+    pages.PageOptionsComponent,
+    pages.PageLoginComponent,
+    pages.PageRegistrationComponent,
+    components.SiteHeaderComponent,
+    components.SiteSidebarComponent,
     components.SitePageHeaderComponent,
     components.SiteStatComponent,
-    components.ModalComponent,        
-    components.PaginationComponent,        
-    components.PopOverComponent,        
-    components.ProgressbarComponent,        
+    components.ModalComponent,
+    components.PaginationComponent,
+    components.PopOverComponent,
+    components.ProgressbarComponent,
     components.AlertComponent,
     components.ButtonsComponent,
     components.CollapseComponent,
@@ -50,23 +47,26 @@ import { AuthGuard } from './guards/index';
     components.TimepickerComponent,
     components.TooltipComponent,
     components.SiteChartComponent,
-    Svogv.AcDataGridPagination, 
-    Svogv.AcAutoForm, 
-    Svogv.AcAnalogClock, 
-    Svogv.AcEditor, 
-    Svogv.AcInfoBox,
+    svogv.AcDataGridPagination,
+    svogv.AcAutoForm,
+    svogv.AcEditor,
+    svogv.AcInfoBox,
     directives.RemoveHostDirective
   ],
   providers: [
-    services.ApiService, 
+    services.ApiService,
     services.EmitterService,
     services.AccountService,
     services.UserService,
     services.ConfigService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: XHRBackend, useClass: services.AuthenticateXHRBackend },
-    { provide: HTTP_INTERCEPTORS, useClass: services.TokenInterceptorService, multi: true },
-    Svogv.FormValidatorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: services.TokenInterceptorService,
+      multi: true
+    },
+    svogv.FormValidatorService,
     Ng.NgbCarouselConfig,
     Ng.NgbAlertConfig,
     AuthGuard
@@ -79,8 +79,13 @@ import { AuthGuard } from './guards/index';
     RouterModule.forRoot(currentRoutesConfig),
     NgbDropdownModule.forRoot()
   ],
-  bootstrap: [SiteRootComponent]
+  bootstrap: [pages.SiteRootComponent]
 }) // {} == new object()
-export class AppRoot {
+export class AppRoot {}
+// @NgModule({
+// declarations: [SiteRootComponent],
+// imports: [ BrowserModule ]
+// })
+// export class AppRoot {
 
-}
+// }

@@ -1,13 +1,16 @@
 ﻿import { Component } from '@angular/core';
 
+
+// <site-header></site-header>
+// <site-sidebar></site-sidebar>
+// <section class="main-container">
+//   <router-outlet></router-outlet>
+// </section>
+
 @Component({
   selector: 'site-root', // CSS Syntax!
   template: `
-            <site-header></site-header>
-            <site-sidebar></site-sidebar>
-            <section class="main-container">
-                <router-outlet></router-outlet>
-            </section>
+            <div>Hallo</div>
             `, 
   styles: [`
             .main-container {

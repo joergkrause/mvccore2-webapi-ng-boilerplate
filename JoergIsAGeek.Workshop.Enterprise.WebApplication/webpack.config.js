@@ -70,13 +70,13 @@ module.exports = {
       { from: 'Data', to: 'Data' }
     ]),
     new HtmlWebpackPlugin({
-      template: __dirname + '/src/index.html',
-      output: __dirname + '/wwwroot',
+      template: path.resolve(__dirname, 'src/index.html'),
+      output: path.resolve(__dirname, 'wwwroot'),
       inject: 'body'
     }),
     new AngularCompilerPlugin({
       tsConfigPath: './tsconfig.json',
-      entryModule: './src/app/app.module#AppModule',
+      //entryModule: './src/app/app.module#AppRoot',
       sourceMap: true
     })
   ]

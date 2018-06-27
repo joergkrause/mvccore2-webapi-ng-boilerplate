@@ -1,6 +1,6 @@
 ﻿import { Routes } from '@angular/router';
 
-import * as Pages from '../pages/index';
+import * as pages from '../pages/index';
 import { AuthGuard } from '../guards/index';
 
 const routes: Routes = [
@@ -11,34 +11,34 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: Pages.PageDashboardComponent,
+    component: pages.SiteRootComponent,
     data: {
       title: 'Dashboard',
       icon: 'fa-dashboard'
     }
   },
-  {
-    path: 'options',
-    component: Pages.PageOptionsComponent,
-    data: {
-      title: 'Options'
-    },
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'register',
-    component: Pages.PageRegistrationComponent,
-    data: {
-      title: 'User Registration'
-    }
-  },
-  {
-    path: 'login',
-    component: Pages.PageLoginComponent,
-    data: {
-      title: 'User Login'
-    }
-  }
+  // {
+  //   path: 'options',
+  //   component: pages.PageOptionsComponent,
+  //   data: {
+  //     title: 'Options'
+  //   },
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'register',
+  //   component: pages.PageRegistrationComponent,
+  //   data: {
+  //     title: 'User Registration'
+  //   }
+  // },
+  // {
+  //   path: 'login',
+  //   component: pages.PageLoginComponent,
+  //   data: {
+  //     title: 'User Login'
+  //   }
+  // }
 ];
 
 export default routes;
