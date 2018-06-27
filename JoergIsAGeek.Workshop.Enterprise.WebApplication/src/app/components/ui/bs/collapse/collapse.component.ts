@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-collapse',
   templateUrl: './collapse.component.html',
-  styleUrls: ['./collapse.component.css']
+  styleUrls: ['./collapse.component.scss']
 })
 export class CollapseComponent {
   public isCollapsed = false;

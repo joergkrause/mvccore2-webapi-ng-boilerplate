@@ -7,7 +7,7 @@ import { CredentialsViewModel } from '../../viewmodels/index';
 import { UserService } from '../../services/index';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'page-login',
   templateUrl: './login-form.component.html'
 })

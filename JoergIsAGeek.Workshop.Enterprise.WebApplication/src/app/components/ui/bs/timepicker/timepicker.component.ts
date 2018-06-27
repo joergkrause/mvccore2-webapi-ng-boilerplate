@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-timepicker',
   templateUrl: './timepicker.component.html',
-  styleUrls: ['./timepicker.component.css']
+  styleUrls: ['./timepicker.component.scss']
 })
 export class TimepickerComponent {
   defaultTime = { hour: 13, minute: 30 };

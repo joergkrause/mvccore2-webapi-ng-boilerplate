@@ -83,14 +83,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\Data\data.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Connected Services\" />
-    <Folder Include="Scripts\" />
     <Folder Include="src\app\modules\auth\" />
     <Folder Include="src\app\modules\machines\components\" />
     <Folder Include="src\app\modules\machines\directives\" />

@@ -44,8 +44,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       services.AddSingleton<IJwtFactory, JwtFactory>();
       // Security using custom backend
       services.AddIdentity<ApplicationUser, ApplicationIdentityRole>().AddDefaultTokenProviders();
-      // Backend API 
-      services.AddSingleton<IEnterpriseServiceAPI, EnterpriseServiceAPI>();
+      // Backend API, this is the DEBUG configuration's port
+      var backendUri = new Uri(Configuration.GetValue<string>("backEndUri"));
+      services.AddSingleton<IEnterpriseServiceAPI>(new EnterpriseServiceAPI(backendUri));
       // WFE logic and identity
       services.AddSingleton<UserManager<ApplicationUser>, CustomUserManager>();
       services.AddTransient<IUserStore<ApplicationUser>, CustomUserStore>();
@@ -84,7 +85,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser()
         .Build();
-        options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
+        // API users just need to have this particular claim to use the API
+        options.AddPolicy("ApiUser", 
+          policy => policy.RequireClaim(
+            Constants.Strings.JwtClaimIdentifiers.Role, 
+            Constants.Strings.JwtClaims.ApiAccess));
       });
 
       // support for object mappings
@@ -118,9 +123,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       app.UseAuthentication();
       // keep authenticated user in a header and forward to backend
       app.UseUserForwarder();
-      // default
+      // default file is index.html to serve out SPA
       app.UseDefaultFiles();
-      // static parts
+      // static parts such as JS, CSS, ...
       app.UseStaticFiles();
       // default route
       app.UseMvc(routes => {

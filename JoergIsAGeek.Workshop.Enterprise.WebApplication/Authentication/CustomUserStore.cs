@@ -11,8 +11,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
 
   /// <summary>
-  /// More on interfaces. https://docs.microsoft.com/de-de/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity
+  /// THe store let's Identity use the common functions against our own backend service.
   /// </summary>
+  /// <remarks>
+  /// See also more on interfaces: https://docs.microsoft.com/de-de/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity
+  /// </remarks>
   internal class CustomUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserEmailStore<ApplicationUser>
   {
 

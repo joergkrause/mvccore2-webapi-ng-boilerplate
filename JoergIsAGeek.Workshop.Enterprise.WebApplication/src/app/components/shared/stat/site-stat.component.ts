@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'site-stat',
   templateUrl: './site-stat.component.html'
 })

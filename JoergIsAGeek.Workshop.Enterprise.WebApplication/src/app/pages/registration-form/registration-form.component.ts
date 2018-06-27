@@ -5,7 +5,7 @@ import { UserRegistrationViewModel } from '../../viewmodels/userregistration.vie
 import { UserService } from '../../services/user.service';
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'site-registration',
   templateUrl: './registration-form.component.html'
 })

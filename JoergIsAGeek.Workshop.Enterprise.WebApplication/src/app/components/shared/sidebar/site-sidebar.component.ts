@@ -10,7 +10,7 @@ class NavItem {
 }
 
 @Component({
-  moduleId: module.id,
+  
   selector: 'site-sidebar',
   templateUrl: './site-sidebar.component.html',
   styleUrls: ['./site-sidebar.component.scss']

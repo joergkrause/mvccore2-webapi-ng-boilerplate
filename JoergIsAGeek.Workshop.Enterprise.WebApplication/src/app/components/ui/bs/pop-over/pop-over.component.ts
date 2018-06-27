@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
+  
     selector: 'app-pop-over',
     templateUrl: './pop-over.component.html',
-    styleUrls: ['./pop-over.component.css']
+    styleUrls: ['./pop-over.component.scss']
 })
 export class PopOverComponent implements OnInit {
 

@@ -11,13 +11,12 @@ export interface ChartTupel {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'app-chart',
   styles: [
     '.plotarea { border: 2px solid black; }',
     '.someborder { border: 1px dashed blue; }'
   ],
-  templateUrl: './site-chart.component. html'
+  templateUrl: './site-chart.component.html'
 })
 export class SiteChartComponent implements AfterViewInit, OnInit {
 

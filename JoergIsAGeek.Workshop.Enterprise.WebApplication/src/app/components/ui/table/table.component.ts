@@ -8,10 +8,10 @@ import { Base } from '../../../viewmodels/base';
  * A grid component that handles any sort of data decorated with SVOGV decorators.
  */
 @Component({
-  moduleId: module.id,
+  
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.scss']
 })
 export class TableComponent<T extends Base> implements OnInit {
 

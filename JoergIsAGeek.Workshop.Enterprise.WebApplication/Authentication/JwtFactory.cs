@@ -26,7 +26,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication
                  new Claim(JwtRegisteredClaimNames.Sub, userName),
                  new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                  new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
-                 identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol),
+                 identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Role),
                  identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id)
              };
 
@@ -44,12 +44,18 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication
       return encodedJwt;
     }
 
+    /// <summary>
+    /// Creates an identity for a user with the respected claims to access the API.
+    /// </summary>
+    /// <param name="userName"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public ClaimsIdentity GenerateClaimsIdentity(string userName, string id)
     {
       return new ClaimsIdentity(new GenericIdentity(userName, "Token"), new[]
       {
                 new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Id, id),
-                new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Rol, Helpers.Constants.Strings.JwtClaims.ApiAccess)
+                new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Role, Helpers.Constants.Strings.JwtClaims.ApiAccess)
             });
     }
 

@@ -4,8 +4,8 @@
   "description": "This is a demoapp",
   "main": "index.js",
   "scripts": {
-    "debug": "tsc && gulp debug",
-    "build": "tsc && gulp default",
+    "debug": "webpack --development",
+    "build": "webpack --production",
     "start": "dotnet run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,19 +24,24 @@
     "@ng-bootstrap/ng-bootstrap": "^2.0.0",
     "@ngx-translate/core": "^7.2.0",
     "@ngx-translate/http-loader": "^0.1.0",
+    "bootstrap": "^4.1.1",
     "core-js": "^2.5.0",
     "font-awesome": "^4.7.0",
     "ng2-charts": "^1.6.0",
     "reflect-metadata": "^0.1.10",
-    "tslib": "^1.8.0",
     "rxjs": "^6.0.0",
+    "rxjs-compat": "^6.2.1",
     "svogv": "^0.3.0",
-    "systemjs": "^0.19.40",
-    "zone.js": "^0.8.16"
+    "tslib": "^1.8.0",
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
+    "@angular/compiler-cli": "^6.0.6",
+    "@ngtools/webpack": "^6.0.8",
     "@types/node": "^8.0.24",
     "autorest": "^2.0.4262",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^0.28.11",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.0",
@@ -54,9 +59,12 @@
     "gulp-uglify": "^2.0.0",
     "gulp-uglifycss": "^1.0.6",
     "gulp-zip": "^4.0.0",
-    "http-server": "^0.11.1",
+    "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.9.0",
-    "systemjs-builder": "^0.16.13",
-    "typescript": "^2.7.2"
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "typescript": "^2.7.2",
+    "webpack": "^4.12.1",
+    "webpack-cli": "^3.0.8"
   }
 }
