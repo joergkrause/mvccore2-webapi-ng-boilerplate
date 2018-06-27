@@ -17,7 +17,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
 
   /// <summary>
   /// The main context for working data and authentication.
-  /// The Autofac cotainer shall deliver the options for config.
+  /// The Autofac container shall deliver the options for config.
   /// </summary>
   public class MachineDataContext : IdentityDbContext
   {
