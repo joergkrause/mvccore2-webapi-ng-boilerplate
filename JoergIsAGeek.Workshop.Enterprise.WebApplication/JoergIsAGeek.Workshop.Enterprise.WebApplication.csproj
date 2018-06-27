@@ -9,12 +9,16 @@
   <ItemGroup>
     <Compile Remove="app\**" />
     <Compile Remove="src\app\components\controls\**" />
+    <Compile Remove="src\app\modules\**" />
     <Content Remove="app\**" />
     <Content Remove="src\app\components\controls\**" />
+    <Content Remove="src\app\modules\**" />
     <EmbeddedResource Remove="app\**" />
     <EmbeddedResource Remove="src\app\components\controls\**" />
+    <EmbeddedResource Remove="src\app\modules\**" />
     <None Remove="app\**" />
     <None Remove="src\app\components\controls\**" />
+    <None Remove="src\app\modules\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -84,10 +88,7 @@
 
   <ItemGroup>
     <Folder Include="Connected Services\" />
-    <Folder Include="src\app\modules\auth\" />
-    <Folder Include="src\app\modules\machines\components\" />
-    <Folder Include="src\app\modules\machines\directives\" />
-    <Folder Include="src\app\modules\machines\services\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

@@ -6,16 +6,8 @@ import { AuthGuard } from '../guards/index';
 export const routesConfig: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: components.SiteRootComponent,
-    data: {
-      title: 'Dashboard',
-      icon: 'fa-dashboard'
-    }
   },
   {
     path: 'register',

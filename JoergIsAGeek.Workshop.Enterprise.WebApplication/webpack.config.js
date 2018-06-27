@@ -73,6 +73,7 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       { from: 'src/assets/images', to: 'assets/images' },
+      { from: 'node_modules/bootstrap/dist/css/bootstrap.css', to: 'assets/styles' },
       { from: 'Data', to: 'Data' }
     ]),
     new HtmlWebpackPlugin({
