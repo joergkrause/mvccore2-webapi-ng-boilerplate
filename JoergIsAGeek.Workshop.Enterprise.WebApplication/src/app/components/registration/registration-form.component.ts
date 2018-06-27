@@ -4,12 +4,11 @@ import { Router } from '@angular/router';
 import { UserRegistrationViewModel } from '../../viewmodels/userregistration.viewmodel';
 import { UserService } from '../../services/user.service';
 
-@Component({
-  
-  selector: 'site-registration',
+@Component({  
+  selector: 'registration-form',
   templateUrl: './registration-form.component.html'
 })
-export class PageRegistrationComponent implements OnInit {
+export class RegistrationFormComponent implements OnInit {
 
  errors: string;  
  isRequesting: boolean;

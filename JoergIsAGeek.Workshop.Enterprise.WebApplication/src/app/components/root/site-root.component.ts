@@ -10,7 +10,12 @@
 @Component({
   selector: 'site-root', // CSS Syntax!
   template: `
-            <div>Hallo</div>
+            <h1>Hallo</h1>
+            <a routerLink='/login'>Login</a> | <a routerLink='/register'>Register</a>            
+            <hr />
+            <section class="main-container">
+              <router-outlet></router-outlet>
+            </section>
             `, 
   styles: [`
             .main-container {

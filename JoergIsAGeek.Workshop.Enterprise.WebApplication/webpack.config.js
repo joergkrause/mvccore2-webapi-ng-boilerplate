@@ -29,6 +29,12 @@ module.exports = {
           }
         ]
       },
+      /* Embed files. */
+      { 
+        test: /\.(html|css)$/, 
+        loader: 'raw-loader',
+        exclude: /\.async\.(html|css)$/
+      },
       {
         test: /\.scss$/,
         use: [
@@ -76,7 +82,7 @@ module.exports = {
     }),
     new AngularCompilerPlugin({
       tsConfigPath: './tsconfig.json',
-      entryModule: './src/app/app.module#AppModule',
+      entryModule: './src/app/app.module/#AppModule', //#AppModule
       sourceMap: true
     })
   ]

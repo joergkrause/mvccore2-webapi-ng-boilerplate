@@ -1,9 +1,9 @@
 ﻿import { Routes } from '@angular/router';
 
-import * as pages from '../pages/index';
+import * as components from '../components/index';
 import { AuthGuard } from '../guards/index';
 
-const routes: Routes = [
+export const routesConfig: Routes = [
   {
     path: '',
     redirectTo: 'home',
@@ -11,34 +11,25 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: pages.SiteRootComponent,
+    component: components.SiteRootComponent,
     data: {
       title: 'Dashboard',
       icon: 'fa-dashboard'
     }
   },
-  // {
-  //   path: 'options',
-  //   component: pages.PageOptionsComponent,
-  //   data: {
-  //     title: 'Options'
-  //   },
-  //   canActivate: [AuthGuard]
-  // },
-  // {
-  //   path: 'register',
-  //   component: pages.PageRegistrationComponent,
-  //   data: {
-  //     title: 'User Registration'
-  //   }
-  // },
-  // {
-  //   path: 'login',
-  //   component: pages.PageLoginComponent,
-  //   data: {
-  //     title: 'User Login'
-  //   }
-  // }
+  {
+    path: 'register',
+    component: components.RegistrationFormComponent,
+    data: {
+      title: 'User Registration'
+    }
+  },
+  {
+    path: 'login',
+    component: components.LoginFormComponent,
+    data: {
+      title: 'User Login'
+    }
+  }
 ];
 
-export default routes;

@@ -7,10 +7,10 @@ import { CredentialsViewModel } from '../../viewmodels/index';
 import { UserService } from '../../services/index';
 
 @Component({
-  selector: 'page-login',
+  selector: 'login-form',
   templateUrl: 'login-form.component.html'
 })
-export class PageLoginComponent implements OnInit, OnDestroy {
+export class LoginFormComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
