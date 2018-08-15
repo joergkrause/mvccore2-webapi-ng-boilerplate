@@ -22,11 +22,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models
         /// <summary>
         /// Initializes a new instance of the ApplicationUserDto class.
         /// </summary>
-        public ApplicationUserDto(string id = default(string), string pwHash = default(string), bool? emailConf = default(bool?))
+        public ApplicationUserDto(string id = default(string), string pwHash = default(string), bool? emailConf = default(bool?), string email = default(string), string name = default(string))
         {
             Id = id;
             PwHash = pwHash;
             EmailConf = emailConf;
+            Email = email;
+            Name = name;
             CustomInit();
         }
 
@@ -49,6 +51,16 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models
         /// </summary>
         [JsonProperty(PropertyName = "EmailConf")]
         public bool? EmailConf { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "Email")]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "Name")]
+        public string Name { get; set; }
 
     }
 }

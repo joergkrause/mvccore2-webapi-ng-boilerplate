@@ -19,6 +19,7 @@ using System.Net;
 using System.Text;
 using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
 using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
+using JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
   public class Startup {
@@ -48,9 +49,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       var backendUri = new Uri(Configuration.GetValue<string>("backEndUri"));
       services.AddSingleton<IEnterpriseServiceAPI>(new EnterpriseServiceAPI(backendUri));
       // WFE logic and identity
-      services.AddSingleton<UserManager<ApplicationUser>, CustomUserManager>();
-      services.AddTransient<IUserStore<ApplicationUser>, CustomUserStore>();
-      services.AddTransient<IRoleStore<ApplicationIdentityRole>, CustomRoleStore>();
+      services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
+      services.AddScoped<IUserStore<ApplicationUser>, CustomUserStore>();
+      services.AddScoped<IRoleStore<ApplicationIdentityRole>, CustomRoleStore>();
 
       services.Configure<IdentityOptions>(options => {
         // Password settings
@@ -93,7 +94,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       });
 
       // support for object mappings
-      services.AddAutoMapper();
+      services.AddAutoMapper(typeof(ViewModelToEntityMappingProfile));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

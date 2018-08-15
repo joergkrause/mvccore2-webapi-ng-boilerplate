@@ -87,7 +87,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<string> GetPasswordHashAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      return await _authclient.ApiAuthServiceGetPasswordHashGetAsync(userName: user.UserName);
+      // provide the id only because this is PK in database, it's safer than using the (clear) user name
+      return await _authclient.ApiAuthServiceGetPasswordHashGetAsync(id: user.Id);
     }
 
     public async Task<string> GetUserIdAsync(ApplicationUser user, CancellationToken cancellationToken)

@@ -47,7 +47,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
       {
         return BadRequest(ModelState);
       }
-
+      // user name used at logon is "email"
       var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
       if (identity == null)
       {
@@ -66,19 +66,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
       return new OkObjectResult(json);
     }
 
-    private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
+    private async Task<ClaimsIdentity> GetClaimsIdentity(string eMail, string password)
     {
-      if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
+      if (!string.IsNullOrEmpty(eMail) && !string.IsNullOrEmpty(password))
       {
         // get the user to verifty
-        var userToVerify = await _userManager.FindByNameAsync(userName);
+        var userToVerify = await _userManager.FindByEmailAsync(eMail);
 
         if (userToVerify != null)
         {
           // check the credentials  
           if (await _userManager.CheckPasswordAsync(userToVerify, password))
           {
-            return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id.ToString()));
+            return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userToVerify.UserName, userToVerify.Id.ToString()));
           }
         }
       }
