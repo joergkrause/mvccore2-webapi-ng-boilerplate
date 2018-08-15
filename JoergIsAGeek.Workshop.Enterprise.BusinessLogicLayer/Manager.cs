@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
+using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       this.RepDataValue = service.GetService<IGenericRepository<DataValue, int>>();
       this.RepDevice = service.GetService<IGenericRepository<Device, int>>();
       this.RepMachine = service.GetService<IGenericRepository<Machine, int>>();
+      this.RepRoles = service.GetService<IGenericRepository<ApplicationRole, string>>();
+      this.RepUsers = service.GetService<IGenericRepository<ApplicationUser, string>>();
     }
 
     protected IGenericRepository<DataValue, int> RepDataValue {
@@ -24,6 +27,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       get;
     }
     public IGenericRepository<Machine, int> RepMachine {
+      get;
+    }
+
+    protected IGenericRepository<ApplicationUser, string> RepUsers {
+      get;
+    }
+    protected IGenericRepository<ApplicationRole, string> RepRoles {
       get;
     }
 

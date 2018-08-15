@@ -15,13 +15,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
   public class AuthenticationManager : Manager, IAuthenticationManager
   {
 
-    IGenericRepository<ApplicationRole, string> repRoles;
-    IGenericRepository<ApplicationUser, string> repUsers;
-
     public AuthenticationManager(IServiceProvider service): base(service)
-    {
-      this.repRoles = service.GetService<IGenericRepository<ApplicationRole, string>>();
-      this.repUsers = service.GetService<IGenericRepository<ApplicationUser, string>>();
+    { 
       var mapperConfiguration = new MapperConfiguration(configure => {
         configure.CreateMap<ApplicationUser, ApplicationUserDto>();
         configure.CreateMap<ApplicationUserDto, ApplicationUser>();
@@ -36,17 +31,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       return Guid.NewGuid().ToString("N");
     }
 
-    protected IGenericRepository<ApplicationUser, string> RepUsers {
-      get;
-    }
-    protected IGenericRepository<ApplicationRole, string> RepRoles{
-      get;
-    }
-
     public IdentityResult CreateRole(ApplicationIdentityRoleDto roleDto)
     {
       roleDto.Id = GetSecureId();
-      if (repRoles.InsertOrUpdate(mapper.Map<ApplicationRole>(roleDto)))
+      if (RepRoles.InsertOrUpdate(mapper.Map<ApplicationRole>(roleDto)))
       {
         return IdentityResult.GetSucceded();
       } else
@@ -58,7 +46,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     public IdentityResult CreateUser(ApplicationUserDto userDto)
     {
       userDto.Id = GetSecureId();
-      if (repUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto)))
+      if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto)))
       {
         return IdentityResult.GetSucceded();
       }
@@ -70,7 +58,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     public IdentityResult DeleteRole(ApplicationIdentityRoleDto roleDto)
     {
-      if (repRoles.Delete(mapper.Map<ApplicationRole>(roleDto)))
+      if (RepRoles.Delete(mapper.Map<ApplicationRole>(roleDto)))
       {
         return IdentityResult.GetSucceded();
       }
@@ -105,25 +93,25 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     public string GetIdentityRoleDtoId(ApplicationIdentityRoleDto roleDto)
     {
-      var role = repRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).FirstOrDefault();
+      var role = RepRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).FirstOrDefault();
       return role?.Id;
     }
 
     public string GetIdentityRoleDtoName(ApplicationIdentityRoleDto roleDto)
     {
-      var role = repRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).SingleOrDefault();
+      var role = RepRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).SingleOrDefault();
       return role?.Name;
     }
 
     public string GetNormalizedRoleName(ApplicationIdentityRoleDto roleDto)
     {
-      var role = repRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).SingleOrDefault();
+      var role = RepRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).SingleOrDefault();
       return role == null ? null : role.Name.Trim();
     }
 
     public string GetNormalizedUserName(ApplicationUserDto userDto)
     {
-      var user = repUsers.Read(r => r.Id == userDto.Id || r.UserName == userDto.UserName).SingleOrDefault();
+      var user = RepUsers.Read(r => r.Id == userDto.Id || r.UserName == userDto.UserName).SingleOrDefault();
       return user == null ? null : user.UserName.Trim();
     }
 
@@ -159,7 +147,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     public IdentityResult UpdateRole(ApplicationIdentityRoleDto roleDto)
     {
-      if (repRoles.InsertOrUpdate(mapper.Map<ApplicationRole>(roleDto)))
+      if (RepRoles.InsertOrUpdate(mapper.Map<ApplicationRole>(roleDto)))
       {
         return IdentityResult.GetSucceded();
       }
@@ -171,7 +159,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     public IdentityResult UpdateUser(ApplicationUserDto userDto)
     {
-      if (repUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto)))
+      if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto)))
       {
         return IdentityResult.GetSucceded();
       }

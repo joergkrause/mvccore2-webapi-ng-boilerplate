@@ -65,6 +65,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
       {
         app.UseDeveloperExceptionPage();
       }
+      //app.UseAuthentication();
+      app.UseUserContext();
       app.UseSwagger();
       app.UseSwaggerUI(c =>
       {
