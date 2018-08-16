@@ -93,7 +93,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<string> GetUserIdAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      return (await _authclient.ApiAuthServiceGetUserIdGetAsync(user.UserName, cancellationToken: cancellationToken)).ToString();
+      // backend may check or just return the existing id
+      return (await _authclient.ApiAuthServiceGetUserIdGetAsync(id: user.Id, userName: user.UserName, cancellationToken: cancellationToken)).ToString();
     }
 
     public async Task<string> GetUserNameAsync(ApplicationUser user, CancellationToken cancellationToken)

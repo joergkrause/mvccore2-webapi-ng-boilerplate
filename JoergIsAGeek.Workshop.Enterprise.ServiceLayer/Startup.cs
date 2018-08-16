@@ -6,6 +6,7 @@ using JoergIsAGeek.Workshop.Enterprise.Repository;
 using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +38,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
       services.AddScoped(typeof(IGenericRepository<ApplicationRole, string>), typeof(GenericDbRepository<ApplicationRole, string>));
       services.AddScoped(typeof(IAuthenticationManager), typeof(AuthenticationManager));
       services.AddScoped(typeof(IMachineManager), typeof(MachineManager));
-      services.AddMvc();
+      services.AddMvc(options =>
+      {
+        // because the API just serves the WFE, we format everything JSON conform
+        options.OutputFormatters.RemoveType<TextOutputFormatter>();
+      });
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new Info {

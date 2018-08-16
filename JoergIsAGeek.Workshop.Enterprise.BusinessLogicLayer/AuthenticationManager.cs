@@ -117,11 +117,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     public string GetUserDtoId(ApplicationUserDto user)
     {
+      // TODO: Implement some cross check here
       return user.Id;
     }
 
     public string GetUserDtoName(ApplicationUserDto user)
     {
+      // TODO: Implement some cross check here
       return user.UserName;
     }
 

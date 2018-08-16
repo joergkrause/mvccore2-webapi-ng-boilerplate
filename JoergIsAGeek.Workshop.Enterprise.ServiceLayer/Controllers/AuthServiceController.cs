@@ -11,8 +11,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
 {
   /// <summary>
   /// Access to the authentication backend based on ASP.NET identity.
+  /// All requests/responses are handled as JSON to support the front end facility using Auto REST.
   /// </summary>
   [Route("api/[controller]")]
+  [Produces("application/json")]
   public class AuthServiceController : Controller
   {
     private IAuthenticationManager _authenticationManager;
@@ -225,7 +227,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     }
 
     [HttpGet]
-    [Route("getPasswordHash")]
+    [Route("getPasswordHash")]    
     public string GetPasswordHash([FromQuery] ApplicationUserDto userDto)
     {
       return _authenticationManager.GetPasswordHash(userDto);

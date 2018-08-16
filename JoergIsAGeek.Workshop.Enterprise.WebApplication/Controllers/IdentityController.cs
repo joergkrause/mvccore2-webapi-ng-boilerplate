@@ -39,13 +39,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
       {
         return BadRequest(ModelState);
       }
-
       var userIdentity = _mapper.Map<ApplicationUser>(model);
-
       var result = await _userManager.CreateAsync(userIdentity, model.Password);
-
-      if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
-
+      if (!result.Succeeded)
+      {
+        return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
+      }
       return new OkObjectResult("Account created");
     }
 

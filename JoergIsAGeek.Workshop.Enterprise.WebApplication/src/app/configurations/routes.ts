@@ -17,10 +17,25 @@ export const routesConfig: Routes = [
     }
   },
   {
+    path: 'login/:email',
+    component: components.LoginFormComponent,
+    data: {
+      title: 'User Login'
+    }
+  },
+  {
     path: 'login',
     component: components.LoginFormComponent,
     data: {
       title: 'User Login'
+    }
+  },
+  {
+    path: 'dashboard',
+    component: components.DashboardComponent,
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Dashboard'
     }
   }
 ];
