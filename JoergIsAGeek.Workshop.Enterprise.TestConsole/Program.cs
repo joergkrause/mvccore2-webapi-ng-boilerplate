@@ -77,9 +77,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.TestConsole {
       return cs;
     }
 
-    private static DbContextOptions<DbContext> GetOptions()
+    private static DbContextOptions<MachineDataContext> GetOptions()
     {
-      var optionBuilder = new DbContextOptionsBuilder<DbContext>();
+      var optionBuilder = new DbContextOptionsBuilder<MachineDataContext>();
       optionBuilder.UseSqlServer(GetCs());
       return optionBuilder.Options;
     }

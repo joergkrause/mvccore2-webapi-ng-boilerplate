@@ -14,9 +14,8 @@ export class AccountService extends BaseService {
 
   baseUrl: string = '';
 
-  constructor(private http: HttpClient, private configService: ConfigService) {
+  constructor(private http: HttpClient, private config: ConfigService) {
     super();
-    this.baseUrl = this.configService.apiURI;
   }
 
   getUserDetails(): Promise<AccountInfoViewModel> {
@@ -24,7 +23,7 @@ export class AccountService extends BaseService {
     headers.append('Content-Type', 'application/json');
     let id = localStorage.getItem('user_id');
     return this.http
-      .get<AccountInfoViewModel>(this.baseUrl + "accounts/" + id, { headers })            
+      .get<AccountInfoViewModel>(this.config.accountURI + id, { headers })            
       .toPromise<AccountInfoViewModel>();
   }
 }

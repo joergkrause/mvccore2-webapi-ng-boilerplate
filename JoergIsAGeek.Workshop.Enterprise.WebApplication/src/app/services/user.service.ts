@@ -29,20 +29,19 @@ export class UserService extends BaseService {
 
   private loggedIn = false;
 
-  constructor(private http: HttpClient, private configService: ConfigService) {
+  constructor(private http: HttpClient, private config: ConfigService) {
     super();
     this.loggedIn = !!localStorage.getItem('auth_token');
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
     // header component resulting in authed user nav links disappearing despite the fact user is still logged in
     this._authNavStatusSource.next(this.loggedIn);
-    this.baseUrl = this.configService.apiURI;
   }
 
   public register(email: string, password: string, firstName: string, lastName: string, location: string): Promise<boolean> {
     let body = JSON.stringify({ email, password, firstName, lastName, location });
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' }); // TODO: check wheather needed?
     return this.http
-      .post<boolean>(this.baseUrl + "accounts", body, { headers: headers })      
+      .post<boolean>(this.config.accountURI, body, { headers: headers })      
       .toPromise<boolean>();
   }
 
@@ -52,7 +51,7 @@ export class UserService extends BaseService {
     let data = JSON.stringify({ userName, password });
     // logon for user with email/password
     return this.http
-      .post<tokenResponse>(this.baseUrl + 'auth/login', data, { headers: headers })
+      .post<tokenResponse>(this.config.authURI + 'login', data, { headers: headers })
       .map(res => {
         // receive the token and store for all upcoming requests
         localStorage.setItem('auth_token', res.auth_token);

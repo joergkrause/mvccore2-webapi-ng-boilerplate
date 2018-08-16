@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,31 +83,60 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       // Get options from app settings
       var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
-      // Configure JwtIssuerOptions
+      // TODO: Needed? Configure JwtIssuerOptions
       services.Configure<JwtIssuerOptions>(options => {
         options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
         options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
         options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
       });
+
+      var tokenValidationParameters = new TokenValidationParameters {
+        // The signing key must match!
+        ValidateIssuerSigningKey = true,
+        ValidateAudience = false,
+        ValidateIssuer = false,
+        IssuerSigningKeys = new List<SecurityKey> { _signingKey },
+
+        // Validate the token expiry
+        ValidateLifetime = true,
+      };
+
+
+      // Per default failed requests redirect to Account/Logon, 
+      // but here we have SPA with API and need to inform SPA app to handle this.
       services.AddAuthentication(options => {
-        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-      }).AddCookie(options => {
-        options.Events.OnRedirectToAccessDenied = DontRedirectAjaxOrApiRequestToForbidden;
-        options.Events.OnRedirectToLogin = DontRedirectAjaxOrApiRequestToForbidden;
-        options.Events.OnRedirectToLogout = DontRedirectAjaxOrApiRequestToForbidden;
-        options.Events.OnRedirectToReturnUrl = DontRedirectAjaxOrApiRequestToForbidden;
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      }).AddJwtBearer(options => {
+        options.IncludeErrorDetails = true;
+        options.TokenValidationParameters = tokenValidationParameters;
+        options.Events = new JwtBearerEvents {
+          OnAuthenticationFailed = c => {
+            c.NoResult();
+            c.Response.StatusCode = 403;
+            c.Response.ContentType = "text/plain";
+            return c.Response.WriteAsync(c.Exception.ToString());
+          },
+        };
       });
+      //options => {
+      //  options.Events..OnRedirectToAccessDenied = DontRedirectAjaxOrApiRequestToForbidden;
+      //  options.Events.OnRedirectToLogin = DontRedirectAjaxOrApiRequestToForbidden;
+      //  options.Events.OnRedirectToLogout = DontRedirectAjaxOrApiRequestToForbidden;
+      //  options.Events.OnRedirectToReturnUrl = DontRedirectAjaxOrApiRequestToForbidden;
+      //});
       services.AddAuthorization(options => {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser()
         .Build();        
         // API users just need to have this particular claim to use the API
+        // This is in the UserClaims table connected to particular users. weirdguest has no access, all others have access
         options.AddPolicy("ApiUser",
           policy => policy.RequireClaim(
-            Constants.Strings.JwtClaimIdentifiers.Role,
-            Constants.Strings.JwtClaims.ApiAccess));
+            "role",
+            "api_access"));
       });
 
       // support for object mappings
@@ -116,13 +146,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
     /// <summary>
     /// Unauthenticated ajax or API request returns 403 rather than Redirect to forbidden page
     /// </summary>
-    private static Task DontRedirectAjaxOrApiRequestToForbidden(RedirectContext<CookieAuthenticationOptions> ctx) {
+    private static Task DontRedirectAjaxOrApiRequestToForbidden(AuthenticationFailedContext ctx) {
       bool isAjaxRequest = ctx.HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
       if (isAjaxRequest || (ctx.Request.Path.StartsWithSegments("/api"))) {
-        ctx.Response.StatusCode = 403;
+        ctx.Response.StatusCode = 403; // this is where the Angular interceptor comes into the game (401 will work, too)
       }
       else {
-        ctx.Response.Redirect(ctx.RedirectUri);
+        ctx.Response.StatusCode = 400; // API only
       }
       return Task.CompletedTask;
     }

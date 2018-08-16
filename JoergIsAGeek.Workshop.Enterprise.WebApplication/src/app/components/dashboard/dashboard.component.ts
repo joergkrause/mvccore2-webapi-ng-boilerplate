@@ -27,11 +27,11 @@ export class DashboardComponent implements OnInit {
     // Get account information
     this.accountService.getUserDetails()
       .then(user => this.user = user)
-      .catch(error => this.error = error);
+      .catch(error => this.error = error.message);
     // get demo data information
     this.apiService.getMachines()
       .then(machines => this.machines = machines)
-      .catch(error => this.error = error);
+      .catch(error => this.error = error.message);
   }
 
 }

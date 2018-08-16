@@ -17,8 +17,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
 
   /// <summary>
   /// Self management for users. Register, change password, reset password and so on.
+  /// All users, including guests, can use this. But they have to have a valid account.
   /// </summary>
   [Route("api/[controller]")]
+  [Authorize()]
   public class AccountsController : Controller
   {
 
@@ -32,12 +34,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
     }
 
     /// <summary>
-    /// Registration of a new user
+    /// Registration of a new user. This is the only function with anonymous access.
     /// // POST api/accounts
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>    
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Post([FromBody]RegistrationViewModel model)
     {
       if (!ModelState.IsValid)
@@ -59,6 +62,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet]
+    [Route("{id}")]
     public async Task<ActionResult> Get(string id)
     {
       var result = await _userManager.FindByIdAsync(id);

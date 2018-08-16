@@ -14,12 +14,12 @@ export class ConfigService {
   }
 
   public get accountURI() {
-    return this._apiURI + 'account';
+    return this._apiURI + 'accounts/';
   }
   public get dataURI() {
-    return this._apiURI + 'data';
+    return this._apiURI + 'machines/';
   }
-  public get userURI() {
-    return this._apiURI + 'user';
+  public get authURI() {
+    return this._apiURI + 'auth/';
   }
 }
