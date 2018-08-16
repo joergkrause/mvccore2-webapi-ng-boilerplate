@@ -63,7 +63,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
       };
 
       var json = JsonConvert.SerializeObject(response, _serializerSettings);
-      return new OkObjectResult(json);
+      return Ok(json);
     }
 
     private async Task<ClaimsIdentity> GetClaimsIdentity(string eMail, string password)

@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { CredentialsViewModel } from '../../viewmodels/index';
-import { UserService } from '../../services/index';
+import { AccountInfoViewModel, MachineViewModel } from '../../viewmodels/index';
+import { AccountService, ApiService } from '../../services/index';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,15 +12,26 @@ import { UserService } from '../../services/index';
 })
 export class DashboardComponent implements OnInit {
 
-  private subscription: Subscription;
+  user: AccountInfoViewModel;
+  machines: Array<MachineViewModel>;
+  error: any;
 
   errors: string;
   isRequesting: boolean;
 
-  constructor(private userService: UserService) { }
+  constructor(private accountService: AccountService, private apiService: ApiService) {
+    this.machines = new Array<MachineViewModel>();    
+  }
 
   ngOnInit() {
-    this.userService.
+    // Get account information
+    this.accountService.getUserDetails()
+      .then(user => this.user = user)
+      .catch(error => this.error = error);
+    // get demo data information
+    this.apiService.getMachines()
+      .then(machines => this.machines = machines)
+      .catch(error => this.error = error);
   }
 
 }

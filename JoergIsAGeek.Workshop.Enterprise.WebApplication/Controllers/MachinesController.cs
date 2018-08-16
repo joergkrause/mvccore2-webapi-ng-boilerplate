@@ -9,6 +9,9 @@ using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
 
+  /// <summary>
+  /// This controller provides demo data
+  /// </summary>
   [Authorize(Policy = "ApiUser")]
   [Route("api/[controller]")]
   public class MachinesController : Controller {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { UserRegistrationViewModel } from '../viewmodels/index';
 import { ConfigService } from './config.service';
@@ -11,8 +11,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-@Injectable()
+type tokenResponse = {
+  auth_token: string;
+  expires_in: string;
+  id: string;
+}
 
+@Injectable()
 export class UserService extends BaseService {
 
   baseUrl: string = '';
@@ -24,7 +29,7 @@ export class UserService extends BaseService {
 
   private loggedIn = false;
 
-  constructor(private http: Http, private configService: ConfigService) {
+  constructor(private http: HttpClient, private configService: ConfigService) {
     super();
     this.loggedIn = !!localStorage.getItem('auth_token');
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
@@ -35,28 +40,24 @@ export class UserService extends BaseService {
 
   public register(email: string, password: string, firstName: string, lastName: string, location: string): Promise<boolean> {
     let body = JSON.stringify({ email, password, firstName, lastName, location });
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.post(this.baseUrl + "accounts", body, options)
-      .map(res => true)
-      .catch(this.handleError)
-      .toPromise();
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' }); // TODO: check wheather needed?
+    return this.http
+      .post<boolean>(this.baseUrl + "accounts", body, { headers: headers })      
+      .toPromise<boolean>();
   }
 
   public login(userName, password) {
-    let headers = new Headers();
+    let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
+    let data = JSON.stringify({ userName, password });
     // logon for user with email/password
     return this.http
-      .post(
-      this.baseUrl + 'auth/login',
-      JSON.stringify({ userName, password }), { headers }
-      )
-      .map(res => res.json())
+      .post<tokenResponse>(this.baseUrl + 'auth/login', data, { headers: headers })
       .map(res => {
         // receive the token and store for all upcoming requests
         localStorage.setItem('auth_token', res.auth_token);
+        localStorage.setItem('user_id', res.id);
+        localStorage.setItem('expires_in', res.expires_in); // handled by interceptor
         this.loggedIn = true;
         this._authNavStatusSource.next(true);
         return true;
@@ -69,10 +70,6 @@ export class UserService extends BaseService {
     localStorage.removeItem('auth_token');
     this.loggedIn = false;
     this._authNavStatusSource.next(false);
-  }
-
-  public userInfo() {
-
   }
 
   public isLoggedIn() {

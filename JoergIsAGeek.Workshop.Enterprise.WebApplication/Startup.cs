@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
+using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication.Extensions;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Helpers;
+using JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -17,9 +22,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Net;
 using System.Text;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
-using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
-using JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings;
+using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
   public class Startup {
@@ -44,15 +47,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       services.AddMvc();
       services.AddSingleton<IJwtFactory, JwtFactory>();
       // Security using custom backend
-      services.AddIdentity<ApplicationUser, ApplicationIdentityRole>().AddDefaultTokenProviders();
+      services.AddIdentity<ApplicationUser, ApplicationIdentityRole>()        
+        .AddDefaultTokenProviders();      
       // Backend API, this is the DEBUG configuration's port
       var backendUri = new Uri(Configuration.GetValue<string>("backEndUri"));
+      // The API as created by AutoREST from swagger definition
       services.AddSingleton<IEnterpriseServiceAPI>(new EnterpriseServiceAPI(backendUri));
       // WFE logic and identity
       services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
       services.AddScoped<IUserStore<ApplicationUser>, CustomUserStore>();
       services.AddScoped<IRoleStore<ApplicationIdentityRole>, CustomRoleStore>();
-
+      // user account settings, consider moving to config file
       services.Configure<IdentityOptions>(options => {
         // Password settings
         options.Password.RequireDigit = true;
@@ -69,6 +74,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
 
         // User settings
         options.User.RequireUniqueEmail = true;
+
+        options.SignIn.RequireConfirmedEmail = false;        
       });
 
       // JSON Web Token wire up
@@ -81,20 +88,43 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
         options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
       });
-
+      services.AddAuthentication(options => {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+      }).AddCookie(options => {
+        options.Events.OnRedirectToAccessDenied = DontRedirectAjaxOrApiRequestToForbidden;
+        options.Events.OnRedirectToLogin = DontRedirectAjaxOrApiRequestToForbidden;
+        options.Events.OnRedirectToLogout = DontRedirectAjaxOrApiRequestToForbidden;
+        options.Events.OnRedirectToReturnUrl = DontRedirectAjaxOrApiRequestToForbidden;
+      });
       services.AddAuthorization(options => {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser()
-        .Build();
+        .Build();        
         // API users just need to have this particular claim to use the API
-        options.AddPolicy("ApiUser", 
+        options.AddPolicy("ApiUser",
           policy => policy.RequireClaim(
-            Constants.Strings.JwtClaimIdentifiers.Role, 
+            Constants.Strings.JwtClaimIdentifiers.Role,
             Constants.Strings.JwtClaims.ApiAccess));
       });
 
       // support for object mappings
       services.AddAutoMapper(typeof(ViewModelToEntityMappingProfile));
+    }
+
+    /// <summary>
+    /// Unauthenticated ajax or API request returns 403 rather than Redirect to forbidden page
+    /// </summary>
+    private static Task DontRedirectAjaxOrApiRequestToForbidden(RedirectContext<CookieAuthenticationOptions> ctx) {
+      bool isAjaxRequest = ctx.HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
+      if (isAjaxRequest || (ctx.Request.Path.StartsWithSegments("/api"))) {
+        ctx.Response.StatusCode = 403;
+      }
+      else {
+        ctx.Response.Redirect(ctx.RedirectUri);
+      }
+      return Task.CompletedTask;
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +134,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         app.UseDeveloperExceptionPage();
       }
       else {
+        // TODO: Figure out how to handle global errors with SPA front end??
         app.UseExceptionHandler("/Home/Error");
       }
 

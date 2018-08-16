@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule, XHRBackend } from '@angular/http';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy, Location } from '@angular/common';
@@ -12,6 +11,7 @@ import * as components from './components/index';
 import * as services from './services/index';
 
 import { routesConfig } from './configurations/routes';
+import { TokenInterceptorService, AuthenticateXHRBackend } from './services/index';
 
 @NgModule({
   declarations: [ 
@@ -24,18 +24,28 @@ import { routesConfig } from './configurations/routes';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routesConfig),
-    BrowserModule,
-    HttpModule,
+    BrowserModule,    
     HttpClientModule
   ],
   providers: [
+    // router config
     Location,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    // handle Bearer token for all requests
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
+    // handle expired tokens and denied access
+    //{ provide: HTTP_INTERCEPTORS, useClass: AuthenticateXHRBackend, multi: true},
+    // regular demo data
     services.ApiService,
+    // Account data, user details
     services.AccountService,
+    // Login/Logout
     services.UserService,
+    // generic publish/subscribe
     services.EmitterService,
+    // global service config
     services.ConfigService,
+    // prevent routes for non-authenticated users
     AuthGuard
   ],
   bootstrap: [ components.SiteRootComponent ]

@@ -1,11 +1,37 @@
 <div class="row">
-	<div class="col-md-6">
+  <h2>Dashboard</h2>
+  <div class="alert alert-danger" *ngIf="error">
+    {{error}}
+  </div>
+	<div class="col-md-6" *ngIf="user">
 		<div class="card">
 			<div class="card-block">
-
-				<h4>Dashboard</h4>
-
+				<h4>User Data</h4>        
 			</div>
+      <div class="card-text">
+        <dl>
+          <dt>User Name</dt>
+          <dd>{{ user.username }}</dd>
+        </dl>
+        <dl>
+          <dt>E-Mail</dt>
+          <dd>{{ user.email }}</dd>
+        </dl>
+      </div>
+		</div>
+	</div>
+  	<div class="col-md-6" *ngIf="machines">
+		<div class="card">
+			<div class="card-block">
+				<h4>Machine Data</h4>        
+			</div>
+      <div class="card-text">
+        <dl>
+          <dt>Number of Machines</dt>
+          <dd>{{ machines.length }}</dd>
+        </dl>
+        <a class="btn btn-sm btn-outline-info" [routerLink]="['/machines']">Show Machines</a>
+      </div>
 		</div>
 	</div>
 </div>

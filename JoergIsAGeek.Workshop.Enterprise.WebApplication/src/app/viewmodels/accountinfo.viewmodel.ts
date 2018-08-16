@@ -1,3 +1,4 @@
 ﻿export interface AccountInfoViewModel {
-    message: string;      
+  email: string;      
+  username: string;
 }

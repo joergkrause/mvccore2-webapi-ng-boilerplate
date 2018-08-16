@@ -31,7 +31,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
       _mapper = mapper;
     }
 
-    // POST api/accounts
+    /// <summary>
+    /// Registration of a new user
+    /// // POST api/accounts
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>    
     [HttpPost]
     public async Task<IActionResult> Post([FromBody]RegistrationViewModel model)
     {
@@ -39,14 +44,29 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
       {
         return BadRequest(ModelState);
       }
-
       var userIdentity = _mapper.Map<ApplicationUser>(model);
-
       var result = await _userManager.CreateAsync(userIdentity, model.Password);
+      if (!result.Succeeded)
+      {
+        return BadRequest(Errors.AddErrorsToModelState(result, ModelState));
+      }
+      return Ok("Account created");
+    }
 
-      if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
-
-      return new OkObjectResult("Account created");
+    /// <summary>
+    /// Information about the currently logged on user.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<ActionResult> Get(string id)
+    {
+      var result = await _userManager.FindByIdAsync(id);
+      if (result == null)
+      {
+        return BadRequest("No User");
+      }
+      return Ok(result);
     }
 
   }
