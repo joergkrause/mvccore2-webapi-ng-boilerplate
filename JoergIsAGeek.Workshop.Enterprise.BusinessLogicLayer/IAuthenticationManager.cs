@@ -57,6 +57,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     void SetEmailConfirmed(ApplicationUserDto user, bool confirmed);
 
     void SetNormalizedEmail(ApplicationUserDto user, string normalizedEmail);
-
+    void AddClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims);
+    IList<ClaimDto> GetClaims(ApplicationUserDto user);
+    void ReplaceClaim(ApplicationUserDto user, ClaimDto claim, ClaimDto newClaim);
+    void RemoveClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims);
   }
 }

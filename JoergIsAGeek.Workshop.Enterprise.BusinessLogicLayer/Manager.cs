@@ -2,6 +2,7 @@
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,6 +19,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       this.RepMachine = service.GetService<IGenericRepository<Machine, int>>();
       this.RepRoles = service.GetService<IGenericRepository<ApplicationRole, string>>();
       this.RepUsers = service.GetService<IGenericRepository<ApplicationUser, string>>();
+      this.RepUserClaims = service.GetService<IGenericRepository<UserClaim, int>>();
     }
 
     protected IGenericRepository<DataValue, int> RepDataValue {
@@ -36,7 +38,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     protected IGenericRepository<ApplicationRole, string> RepRoles {
       get;
     }
-
+    protected IGenericRepository<UserClaim, int> RepUserClaims {
+      get;
+    }
 
   }
 }

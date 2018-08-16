@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
 using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
@@ -16,7 +18,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
   /// <remarks>
   /// See also more on interfaces: https://docs.microsoft.com/de-de/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity
   /// </remarks>
-  internal class CustomUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserEmailStore<ApplicationUser>
+  internal class CustomUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserEmailStore<ApplicationUser>, IUserClaimStore<ApplicationUser>
   {
 
     IEnterpriseServiceAPI _authclient;
@@ -102,6 +104,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       return await _authclient.ApiAuthServiceGetUserNameGetAsync(id: user.Id, cancellationToken: cancellationToken);
     }
 
+    public Task<IList<ApplicationUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+
     public async Task<bool> HasPasswordAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
       var userDto = _mapper.Map<ApplicationUserDto>(user);
@@ -147,6 +153,24 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       var result = await _authclient.ApiAuthServiceUpdateUserPutAsync(userDto, cancellationToken: cancellationToken);
       return _mapper.Map<Microsoft.AspNetCore.Identity.IdentityResult>(result);
     }
+
+    #region Claims
+
+    public Task AddClaimsAsync(ApplicationUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+    public Task<IList<Claim>> GetClaimsAsync(ApplicationUser user, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+    public Task RemoveClaimsAsync(ApplicationUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+
+    public Task ReplaceClaimAsync(ApplicationUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+
+    #endregion
 
   }
 }

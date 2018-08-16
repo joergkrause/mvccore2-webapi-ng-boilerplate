@@ -22,6 +22,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
         configure.CreateMap<ApplicationUserDto, ApplicationUser>();
         configure.CreateMap<ApplicationRole, ApplicationIdentityRoleDto>();
         configure.CreateMap<ApplicationIdentityRoleDto, ApplicationRole>();
+        configure.CreateMap<ClaimDto, UserClaim>();
+        configure.CreateMap<UserClaim, ClaimDto>();
       });
       mapper = mapperConfiguration.CreateMapper();
     }
@@ -239,5 +241,35 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       user.Email = normalizedEmail;
       RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(user));
     }
+
+    #region Claims
+
+    public void AddClaims(ApplicationUserDto userDto, IEnumerable<ClaimDto> claims) {
+      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+      foreach (var claim in claims) {
+        var userClaim = new UserClaim();
+        userClaim.ClaimType = claim.Type;
+        userClaim.ClaimValue = claim.Value;
+        userClaim.UserId = user.Id;
+        RepUserClaims.InsertOrUpdate(userClaim);
+      }
+    }
+
+    public IList<ClaimDto> GetClaims(ApplicationUserDto userDto) {
+      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+      var claims = RepUserClaims.Read(c => c.UserId == user.Id);
+      return mapper.Map<List<ClaimDto>>(claims);
+    }
+
+    public void ReplaceClaim(ApplicationUserDto user, ClaimDto claim, ClaimDto newClaim) {
+      throw new NotImplementedException();
+    }
+
+    public void RemoveClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims) {
+      throw new NotImplementedException();
+    }
+
+    #endregion
+
   }
 }

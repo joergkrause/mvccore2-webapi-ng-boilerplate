@@ -26,8 +26,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication
                  new Claim(JwtRegisteredClaimNames.Sub, userName),
                  new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                  new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
-                 identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Role),
-                 identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id)
+                 identity.FindFirst("role"),
+                 identity.FindFirst("id")
              };
 
       // Create the JWT security token and encode it.
@@ -54,8 +54,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication
     {
       return new ClaimsIdentity(new GenericIdentity(userName, "Token"), new[]
       {
-                new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Id, id),
-                new Claim(Helpers.Constants.Strings.JwtClaimIdentifiers.Role, Helpers.Constants.Strings.JwtClaims.ApiAccess)
+                new Claim("id", id),
+                new Claim("role", "api_access")
             });
     }
 

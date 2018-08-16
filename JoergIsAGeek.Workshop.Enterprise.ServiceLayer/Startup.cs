@@ -36,6 +36,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
       services.AddScoped(typeof(IGenericRepository<DataValue, int>), typeof(GenericDbRepository<DataValue, int>));
       services.AddScoped(typeof(IGenericRepository<ApplicationUser, string>), typeof(GenericDbRepository<ApplicationUser, string>));
       services.AddScoped(typeof(IGenericRepository<ApplicationRole, string>), typeof(GenericDbRepository<ApplicationRole, string>));
+      services.AddScoped(typeof(IGenericRepository<UserClaim, int>), typeof(GenericDbRepository<UserClaim, int>));
       services.AddScoped(typeof(IAuthenticationManager), typeof(AuthenticationManager));
       services.AddScoped(typeof(IMachineManager), typeof(MachineManager));
       services.AddMvc(options =>
