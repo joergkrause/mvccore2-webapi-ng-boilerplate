@@ -24,10 +24,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
     public MachineDataContext(DbContextOptions<MachineDataContext> options, IUserContextProvider contextProvider) : base(options) {
       // forward of the user identity
       this.contextProvider = contextProvider;
+      
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {      
       base.OnConfiguring(optionsBuilder);
+      optionsBuilder.EnableSensitiveDataLogging(true);
     }
 
     public DbSet<Machine> Machines { get; set; }
@@ -117,6 +119,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       builder.Ignore<IdentityUserToken<string>>();
 
       // to configure derived classes, such as ApplicationUser, add particular Entity calls here after
+      // this is necessary to configure both, base type and derived type, to have both in the model for mapping
+      builder.Entity<ApplicationUser>().ToTable("Users", "identity");
+      builder.Entity<ApplicationRole>().ToTable("Roles", "identity");
+      builder.Entity<UserClaim>().ToTable("UserClaims", "identity");
       // Examples:
       //builder.Entity<ApplicationUser>()
       //    .HasMany(e => e.Claims)

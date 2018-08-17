@@ -57,15 +57,19 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer {
       context.UserRoles.Add(adminUserRole);
       context.SaveChanges();
       // Assign claims to users
-      var apiPolicyClaimForUser = new IdentityUserClaim<string>();
-      apiPolicyClaimForUser.ClaimType = "role";
-      apiPolicyClaimForUser.ClaimValue = "api_access";
-      apiPolicyClaimForUser.UserId = user.Id;
+      // because we overrode the IdentityUserClaim class we need to use derived UserClaim class here
+      // otherwise the discriminator column would rule the access out
+      var apiPolicyClaimForUser = new UserClaim {
+        ClaimType = "role",
+        ClaimValue = "api_access",
+        UserId = user.Id
+      };
       context.UserClaims.Add(apiPolicyClaimForUser);
-      var apiPolicyClaimForAdmin = new IdentityUserClaim<string>();
-      apiPolicyClaimForAdmin.ClaimType = "role";
-      apiPolicyClaimForAdmin.ClaimValue = "api_access";
-      apiPolicyClaimForAdmin.UserId = admin.Id;
+      var apiPolicyClaimForAdmin = new UserClaim {
+        ClaimType = "role",
+        ClaimValue = "api_access",
+        UserId = admin.Id
+      };
       context.UserClaims.Add(apiPolicyClaimForAdmin);
       // weird guest has no access to the API backend (for demonstration purpose)
 

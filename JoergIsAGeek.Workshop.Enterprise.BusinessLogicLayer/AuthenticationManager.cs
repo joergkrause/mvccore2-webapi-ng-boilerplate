@@ -259,10 +259,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       RepUserClaims.InsertOrUpdate(userClaims);
     }
 
-    public IList<ClaimDto> GetClaims(ApplicationUserDto userDto) {
+    public IEnumerable<ClaimDto> GetClaims(ApplicationUserDto userDto) {
       var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
-      var claims = RepUserClaims.Read(c => c.UserId == user.Id);
-      return mapper.Map<List<ClaimDto>>(claims);
+      var id = user.Id;
+      var claims = RepUserClaims.Read(c => c.UserId == id);
+      return mapper.Map<IEnumerable<ClaimDto>>(claims);
     }
 
     public void ReplaceClaim(ApplicationUserDto user, ClaimDto claim, ClaimDto newClaim) {
