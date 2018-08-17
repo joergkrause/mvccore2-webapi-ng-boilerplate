@@ -60,6 +60,29 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository {
       return Context.SaveChanges() == 1;
     }
 
+    /// <summary>
+    /// Transactional batch insert.
+    /// </summary>
+    /// <param name="models"></param>
+    /// <returns></returns>
+    public bool InsertOrUpdate(IEnumerable<T> models) {
+      var result = true;
+      using (var t = Context.Database.BeginTransaction()) {
+        foreach (var model in models) {
+          // the comparer is for both key types, string and int
+          Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
+          var singleResult = Context.SaveChanges() == 1;
+          if (!singleResult) {
+            t.Rollback();
+            break;
+          }
+        }
+        t.Commit();
+      }
+      return result;
+    }
+
+
     public bool Delete(T model) {
       Context.Entry(model).State = EntityState.Deleted;
       return Context.SaveChanges() == 1;

@@ -65,7 +65,7 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer {
       var apiPolicyClaimForAdmin = new IdentityUserClaim<string>();
       apiPolicyClaimForAdmin.ClaimType = "role";
       apiPolicyClaimForAdmin.ClaimValue = "api_access";
-      apiPolicyClaimForAdmin.UserId = user.Id;
+      apiPolicyClaimForAdmin.UserId = admin.Id;
       context.UserClaims.Add(apiPolicyClaimForAdmin);
       // weird guest has no access to the API backend (for demonstration purpose)
 

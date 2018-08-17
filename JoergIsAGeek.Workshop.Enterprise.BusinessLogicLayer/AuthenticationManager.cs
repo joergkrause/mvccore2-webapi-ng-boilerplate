@@ -246,13 +246,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     public void AddClaims(ApplicationUserDto userDto, IEnumerable<ClaimDto> claims) {
       var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+      var userClaims = new List<UserClaim>();
       foreach (var claim in claims) {
-        var userClaim = new UserClaim();
-        userClaim.ClaimType = claim.Type;
-        userClaim.ClaimValue = claim.Value;
-        userClaim.UserId = user.Id;
-        RepUserClaims.InsertOrUpdate(userClaim);
+        var userClaim = new UserClaim {
+          ClaimType = claim.Type,
+          ClaimValue = claim.Value,
+          UserId = user.Id
+        };
+        userClaims.Add(userClaim);
       }
+      // This is transactional
+      RepUserClaims.InsertOrUpdate(userClaims);
     }
 
     public IList<ClaimDto> GetClaims(ApplicationUserDto userDto) {

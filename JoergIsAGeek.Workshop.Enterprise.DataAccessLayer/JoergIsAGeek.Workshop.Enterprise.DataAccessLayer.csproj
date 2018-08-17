@@ -218,7 +218,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ApplicationUserConfig.cs" />
+    <Compile Include="Configuration\IdentityUserRoleConfig.cs" />
+    <Compile Include="Configuration\IdentityUserLoginConfig.cs" />
+    <Compile Include="Configuration\IdentityRoleConfig.cs" />
+    <Compile Include="Configuration\IdentityRoleClaimConfig.cs" />
+    <Compile Include="Configuration\IdentityUserClaimConfig.cs" />
+    <Compile Include="Configuration\IdentityUserConfig.cs" />
     <Compile Include="Configuration\MachineConfig.cs" />
     <Compile Include="FileDataContext.cs" />
     <Compile Include="IUserContextProvider.cs" />

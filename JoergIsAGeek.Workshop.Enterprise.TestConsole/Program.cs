@@ -14,7 +14,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.TestConsole {
   class Program {
     static void Main(string[] args) {
       Console.WriteLine("Start creating database");
-      Console.WriteLine($"Using this connectionsstring: ");
+      Console.WriteLine($"Using this connection string: ");
       var clr = Console.ForegroundColor;
       Console.ForegroundColor = ConsoleColor.Yellow;
       Console.WriteLine(GetCs());
@@ -67,7 +67,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.TestConsole {
       {
         var machines = context.Machines.ToList();
         var count = context.Machines.Count();
-        Console.WriteLine($"Expected value after seeding is <1>. Current value is <{count}>.");
+        Console.WriteLine($"Expected value after seeding is <2>. Current value is <{count}>.");
       } // Dispose
     }
 
