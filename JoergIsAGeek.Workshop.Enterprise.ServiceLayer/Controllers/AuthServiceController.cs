@@ -275,7 +275,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
 
     [HttpGet]
     [Route("claims")]
-    public IList<ClaimDto> GetClaims(ApplicationUserDto user) {
+    public IEnumerable<ClaimDto> GetClaims(ApplicationUserDto user) {
       return _authenticationManager.GetClaims(user);
     }
 
@@ -286,9 +286,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     }
 
     [HttpPost]
-    [Route("replaceClaims")]
-    public void ReplaceClaim(ApplicationUserDto user, ClaimDto claim, ClaimDto newClaim) {
-      _authenticationManager.ReplaceClaim(user, claim, newClaim);
+    [Route("replaceClaim")]
+    public void ReplaceClaim(ApplicationUserDto user, NewClaimDto claim) {
+      _authenticationManager.ReplaceClaim(user, 
+        new ClaimDto { Type = claim.Type, Value = claim.Value }, 
+        new ClaimDto { Type = claim.NewType, Value = claim.NewValue});
     }
 
     #endregion

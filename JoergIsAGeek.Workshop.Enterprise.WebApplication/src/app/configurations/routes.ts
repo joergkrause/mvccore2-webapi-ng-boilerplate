@@ -6,8 +6,15 @@ import { AuthGuard } from '../guards/index';
 export const routesConfig: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'info',
     pathMatch: 'full'
+  },
+  {
+    path: 'info',
+    component: components.SiteInfoComponent,
+    data: {
+      title: 'Site Info'
+    }
   },
   {
     path: 'register',

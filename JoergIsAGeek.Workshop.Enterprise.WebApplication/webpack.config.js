@@ -36,13 +36,10 @@ module.exports = {
         test: /\.scss$/,
         use: [
           {
-            loader: "style-loader" // creates style nodes from JS strings
+            loader: "sass-loader" // compiles Sass to CSS
           },
           {
             loader: "css-loader" // translates CSS into CommonJS
-          },
-          {
-            loader: "sass-loader" // compiles Sass to CSS
           }
         ]
       }
@@ -71,7 +68,8 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'src/assets/images', to: 'assets/images' },
       { from: 'node_modules/bootstrap/dist/css/bootstrap.css', to: 'assets/styles' },
-      { from: 'Data', to: 'Data' }
+      { from: 'node_modules/font-awesome/css/font-awesome.css', to: 'assets/styles' },
+      { from: 'node_modules/font-awesome/fonts', to: 'assets/fonts' }
     ]),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/index.html'),

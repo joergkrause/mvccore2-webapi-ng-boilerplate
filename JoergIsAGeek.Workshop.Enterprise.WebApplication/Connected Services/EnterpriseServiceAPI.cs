@@ -3998,6 +3998,633 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             return _result;
         }
 
+        /// <param name='id'>
+        /// </param>
+        /// <param name='passwordHash'>
+        /// </param>
+        /// <param name='emailConfirmed'>
+        /// </param>
+        /// <param name='email'>
+        /// </param>
+        /// <param name='userName'>
+        /// </param>
+        /// <param name='claims'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> ApiAuthServiceAddClaimsPutWithHttpMessagesAsync(string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Tracing
+            bool _shouldTrace = ServiceClientTracing.IsEnabled;
+            string _invocationId = null;
+            if (_shouldTrace)
+            {
+                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("id", id);
+                tracingParameters.Add("passwordHash", passwordHash);
+                tracingParameters.Add("emailConfirmed", emailConfirmed);
+                tracingParameters.Add("email", email);
+                tracingParameters.Add("userName", userName);
+                tracingParameters.Add("claims", claims);
+                tracingParameters.Add("cancellationToken", cancellationToken);
+                ServiceClientTracing.Enter(_invocationId, this, "ApiAuthServiceAddClaimsPut", tracingParameters);
+            }
+            // Construct URL
+            var _baseUrl = BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AuthService/addClaims").ToString();
+            List<string> _queryParameters = new List<string>();
+            if (id != null)
+            {
+                _queryParameters.Add(string.Format("Id={0}", System.Uri.EscapeDataString(id)));
+            }
+            if (passwordHash != null)
+            {
+                _queryParameters.Add(string.Format("PasswordHash={0}", System.Uri.EscapeDataString(passwordHash)));
+            }
+            if (emailConfirmed != null)
+            {
+                _queryParameters.Add(string.Format("EmailConfirmed={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(emailConfirmed, SerializationSettings).Trim('"'))));
+            }
+            if (email != null)
+            {
+                _queryParameters.Add(string.Format("Email={0}", System.Uri.EscapeDataString(email)));
+            }
+            if (userName != null)
+            {
+                _queryParameters.Add(string.Format("UserName={0}", System.Uri.EscapeDataString(userName)));
+            }
+            if (claims != null)
+            {
+                if (claims.Count == 0)
+                {
+                    _queryParameters.Add(string.Format("claims={0}", System.Uri.EscapeDataString(string.Empty)));
+                }
+                else
+                {
+                    foreach (var _item in claims)
+                    {
+                        _queryParameters.Add(string.Format("claims={0}", System.Uri.EscapeDataString("" + _item)));
+                    }
+                }
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("PUT");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
+            }
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                if (_shouldTrace)
+                {
+                    ServiceClientTracing.Error(_invocationId, ex);
+                }
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.Exit(_invocationId, _result);
+            }
+            return _result;
+        }
+
+        /// <param name='id'>
+        /// </param>
+        /// <param name='passwordHash'>
+        /// </param>
+        /// <param name='emailConfirmed'>
+        /// </param>
+        /// <param name='email'>
+        /// </param>
+        /// <param name='userName'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IList<ClaimDto>>> ApiAuthServiceClaimsGetWithHttpMessagesAsync(string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Tracing
+            bool _shouldTrace = ServiceClientTracing.IsEnabled;
+            string _invocationId = null;
+            if (_shouldTrace)
+            {
+                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("id", id);
+                tracingParameters.Add("passwordHash", passwordHash);
+                tracingParameters.Add("emailConfirmed", emailConfirmed);
+                tracingParameters.Add("email", email);
+                tracingParameters.Add("userName", userName);
+                tracingParameters.Add("cancellationToken", cancellationToken);
+                ServiceClientTracing.Enter(_invocationId, this, "ApiAuthServiceClaimsGet", tracingParameters);
+            }
+            // Construct URL
+            var _baseUrl = BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AuthService/claims").ToString();
+            List<string> _queryParameters = new List<string>();
+            if (id != null)
+            {
+                _queryParameters.Add(string.Format("Id={0}", System.Uri.EscapeDataString(id)));
+            }
+            if (passwordHash != null)
+            {
+                _queryParameters.Add(string.Format("PasswordHash={0}", System.Uri.EscapeDataString(passwordHash)));
+            }
+            if (emailConfirmed != null)
+            {
+                _queryParameters.Add(string.Format("EmailConfirmed={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(emailConfirmed, SerializationSettings).Trim('"'))));
+            }
+            if (email != null)
+            {
+                _queryParameters.Add(string.Format("Email={0}", System.Uri.EscapeDataString(email)));
+            }
+            if (userName != null)
+            {
+                _queryParameters.Add(string.Format("UserName={0}", System.Uri.EscapeDataString(userName)));
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
+            }
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                if (_shouldTrace)
+                {
+                    ServiceClientTracing.Error(_invocationId, ex);
+                }
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IList<ClaimDto>>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = SafeJsonConvert.DeserializeObject<IList<ClaimDto>>(_responseContent, DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.Exit(_invocationId, _result);
+            }
+            return _result;
+        }
+
+        /// <param name='id'>
+        /// </param>
+        /// <param name='passwordHash'>
+        /// </param>
+        /// <param name='emailConfirmed'>
+        /// </param>
+        /// <param name='email'>
+        /// </param>
+        /// <param name='userName'>
+        /// </param>
+        /// <param name='claims'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> ApiAuthServiceDeleteClaimsDeleteWithHttpMessagesAsync(string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Tracing
+            bool _shouldTrace = ServiceClientTracing.IsEnabled;
+            string _invocationId = null;
+            if (_shouldTrace)
+            {
+                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("id", id);
+                tracingParameters.Add("passwordHash", passwordHash);
+                tracingParameters.Add("emailConfirmed", emailConfirmed);
+                tracingParameters.Add("email", email);
+                tracingParameters.Add("userName", userName);
+                tracingParameters.Add("claims", claims);
+                tracingParameters.Add("cancellationToken", cancellationToken);
+                ServiceClientTracing.Enter(_invocationId, this, "ApiAuthServiceDeleteClaimsDelete", tracingParameters);
+            }
+            // Construct URL
+            var _baseUrl = BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AuthService/deleteClaims").ToString();
+            List<string> _queryParameters = new List<string>();
+            if (id != null)
+            {
+                _queryParameters.Add(string.Format("Id={0}", System.Uri.EscapeDataString(id)));
+            }
+            if (passwordHash != null)
+            {
+                _queryParameters.Add(string.Format("PasswordHash={0}", System.Uri.EscapeDataString(passwordHash)));
+            }
+            if (emailConfirmed != null)
+            {
+                _queryParameters.Add(string.Format("EmailConfirmed={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(emailConfirmed, SerializationSettings).Trim('"'))));
+            }
+            if (email != null)
+            {
+                _queryParameters.Add(string.Format("Email={0}", System.Uri.EscapeDataString(email)));
+            }
+            if (userName != null)
+            {
+                _queryParameters.Add(string.Format("UserName={0}", System.Uri.EscapeDataString(userName)));
+            }
+            if (claims != null)
+            {
+                if (claims.Count == 0)
+                {
+                    _queryParameters.Add(string.Format("claims={0}", System.Uri.EscapeDataString(string.Empty)));
+                }
+                else
+                {
+                    foreach (var _item in claims)
+                    {
+                        _queryParameters.Add(string.Format("claims={0}", System.Uri.EscapeDataString("" + _item)));
+                    }
+                }
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("DELETE");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
+            }
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                if (_shouldTrace)
+                {
+                    ServiceClientTracing.Error(_invocationId, ex);
+                }
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.Exit(_invocationId, _result);
+            }
+            return _result;
+        }
+
+        /// <param name='id'>
+        /// </param>
+        /// <param name='passwordHash'>
+        /// </param>
+        /// <param name='emailConfirmed'>
+        /// </param>
+        /// <param name='email'>
+        /// </param>
+        /// <param name='userName'>
+        /// </param>
+        /// <param name='type'>
+        /// </param>
+        /// <param name='value'>
+        /// </param>
+        /// <param name='newType'>
+        /// </param>
+        /// <param name='newValue'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> ApiAuthServiceReplaceClaimPostWithHttpMessagesAsync(string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string type = default(string), string value = default(string), string newType = default(string), string newValue = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Tracing
+            bool _shouldTrace = ServiceClientTracing.IsEnabled;
+            string _invocationId = null;
+            if (_shouldTrace)
+            {
+                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("id", id);
+                tracingParameters.Add("passwordHash", passwordHash);
+                tracingParameters.Add("emailConfirmed", emailConfirmed);
+                tracingParameters.Add("email", email);
+                tracingParameters.Add("userName", userName);
+                tracingParameters.Add("type", type);
+                tracingParameters.Add("value", value);
+                tracingParameters.Add("newType", newType);
+                tracingParameters.Add("newValue", newValue);
+                tracingParameters.Add("cancellationToken", cancellationToken);
+                ServiceClientTracing.Enter(_invocationId, this, "ApiAuthServiceReplaceClaimPost", tracingParameters);
+            }
+            // Construct URL
+            var _baseUrl = BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/AuthService/replaceClaim").ToString();
+            List<string> _queryParameters = new List<string>();
+            if (id != null)
+            {
+                _queryParameters.Add(string.Format("Id={0}", System.Uri.EscapeDataString(id)));
+            }
+            if (passwordHash != null)
+            {
+                _queryParameters.Add(string.Format("PasswordHash={0}", System.Uri.EscapeDataString(passwordHash)));
+            }
+            if (emailConfirmed != null)
+            {
+                _queryParameters.Add(string.Format("EmailConfirmed={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(emailConfirmed, SerializationSettings).Trim('"'))));
+            }
+            if (email != null)
+            {
+                _queryParameters.Add(string.Format("Email={0}", System.Uri.EscapeDataString(email)));
+            }
+            if (userName != null)
+            {
+                _queryParameters.Add(string.Format("UserName={0}", System.Uri.EscapeDataString(userName)));
+            }
+            if (type != null)
+            {
+                _queryParameters.Add(string.Format("Type={0}", System.Uri.EscapeDataString(type)));
+            }
+            if (value != null)
+            {
+                _queryParameters.Add(string.Format("Value={0}", System.Uri.EscapeDataString(value)));
+            }
+            if (newType != null)
+            {
+                _queryParameters.Add(string.Format("NewType={0}", System.Uri.EscapeDataString(newType)));
+            }
+            if (newValue != null)
+            {
+                _queryParameters.Add(string.Format("NewValue={0}", System.Uri.EscapeDataString(newValue)));
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
+            }
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                if (_shouldTrace)
+                {
+                    ServiceClientTracing.Error(_invocationId, ex);
+                }
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.Exit(_invocationId, _result);
+            }
+            return _result;
+        }
+
         /// <param name='machine'>
         /// </param>
         /// <param name='customHeaders'>

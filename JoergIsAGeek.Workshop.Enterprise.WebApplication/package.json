@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "debug": "rimraf wwwroot/* && webpack --development",
-    "build": "rimraf wwwroot/* && webpack --production",
+    "build": "rimraf wwwroot/* && webpack --production && npm run proxy",
+    "proxy": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./CreateSwaggerAPIProxy.ps1",
     "start": "dotnet run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -44,6 +45,7 @@
     "css-loader": "^0.28.11",
     "del": "^2.2.2",
     "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.9.3",
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",

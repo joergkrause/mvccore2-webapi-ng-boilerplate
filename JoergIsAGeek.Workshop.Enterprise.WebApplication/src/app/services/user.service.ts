@@ -10,6 +10,8 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { EmitterService } from './emitter.service';
+import { AccountService } from './account.service';
 
 type tokenResponse = {
   auth_token: string;
@@ -29,9 +31,18 @@ export class UserService extends BaseService {
 
   private loggedIn = false;
 
-  constructor(private http: HttpClient, private config: ConfigService) {
+  constructor(private http: HttpClient, private config: ConfigService,
+              private emitterService: EmitterService, private accountService: AccountService) {
     super();
-    this.loggedIn = !!localStorage.getItem('auth_token');
+    // didi we have an old token=
+    let lastToken = localStorage.getItem('expires_in');
+    if (lastToken) {
+      let compareTime = new Date().getTime();
+      console.log('Last Expires In', lastToken, compareTime);      
+      if (+lastToken > compareTime) {
+        this.loggedIn = !!localStorage.getItem('auth_token');
+      }
+    }
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
     // header component resulting in authed user nav links disappearing despite the fact user is still logged in
     this._authNavStatusSource.next(this.loggedIn);
@@ -59,6 +70,10 @@ export class UserService extends BaseService {
         localStorage.setItem('expires_in', res.expires_in); // handled by interceptor
         this.loggedIn = true;
         this._authNavStatusSource.next(true);
+        // pull user data and provide through emitter
+        this.accountService.getUserDetails().then(user => {
+          this.emitterService.get('USER_LOGON').emit(user);
+        });        
         return true;
       })
       .catch(this.handleError)
@@ -71,8 +86,8 @@ export class UserService extends BaseService {
     this._authNavStatusSource.next(false);
   }
 
-  public isLoggedIn() {
-    return this.loggedIn;
+  public get isLoggedIn(): boolean {
+      return this.loggedIn;
   }
 
 }

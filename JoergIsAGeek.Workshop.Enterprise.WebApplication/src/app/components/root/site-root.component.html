@@ -1,0 +1,11 @@
+﻿<h1>Angular & ASP.NET Core Demo App</h1>
+<a routerLink='/login' *ngIf="!isLoggedIn">Login</a> |
+<a routerLink='/logout' *ngIf="isLoggedIn">Logout</a> |
+<a routerLink='/register'>Register</a> |
+<a routerLink='/dashboard'>Dashboard</a> |
+<a routerLink='/info'>Info</a>
+<span class="pull-right" *ngIf="isLoggedIn">Welcome, {{ userName }}</span>
+<hr />
+<section class="main-container">
+  <router-outlet></router-outlet>
+</section>

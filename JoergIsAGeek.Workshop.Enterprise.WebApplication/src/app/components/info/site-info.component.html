@@ -1,0 +1,21 @@
+﻿<div class="alert alert-info">
+  There are three pre-defined users:
+  <ul>
+    <li>Weird Guest (Login: weird@guest.com, Password: p@ssw0rd)</li>
+    <li>Doris Demo (Login: doris@demo.com, Password: p@ssw0rd)</li>
+    <li>Andy Admin (Login: andy@admin.com, Password: p@ssw0rd)</li>
+  </ul>
+  There are three roles defined, each role has one member:
+  <ul>
+    <li>Guest (Member: Weird Guest)</li>
+    <li>User (Member: Doris Demo)</li>
+    <li>Admin (Member: Andy Admin)</li>
+  </ul>
+  <p>There is one Policy as a User claim defined:</p> <pre>{{ '{' }}"role": "api_access" {{ '}' }}</pre>
+  <p>The members "Doris Demo" and "Andy Admin" have this claim.</p>
+  <p>Weird Guest has no claim and hence cannot access the backend API.</p>
+</div>
+<div class="alert alert-danger">
+  Login, Register amnd this Info page can be opened by all users. 
+  An Guard is protecting the dashboard from user not properly logged on. 
+</div>

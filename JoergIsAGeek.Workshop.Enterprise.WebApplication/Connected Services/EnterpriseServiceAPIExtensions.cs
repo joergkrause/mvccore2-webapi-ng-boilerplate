@@ -906,6 +906,189 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='claims'>
+            /// </param>
+            public static void ApiAuthServiceAddClaimsPut(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>))
+            {
+                operations.ApiAuthServiceAddClaimsPutAsync(id, passwordHash, emailConfirmed, email, userName, claims).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='claims'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ApiAuthServiceAddClaimsPutAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ApiAuthServiceAddClaimsPutWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, claims, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            public static IList<ClaimDto> ApiAuthServiceClaimsGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
+            {
+                return operations.ApiAuthServiceClaimsGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<ClaimDto>> ApiAuthServiceClaimsGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceClaimsGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='claims'>
+            /// </param>
+            public static void ApiAuthServiceDeleteClaimsDelete(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>))
+            {
+                operations.ApiAuthServiceDeleteClaimsDeleteAsync(id, passwordHash, emailConfirmed, email, userName, claims).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='claims'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ApiAuthServiceDeleteClaimsDeleteAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ApiAuthServiceDeleteClaimsDeleteWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, claims, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='type'>
+            /// </param>
+            /// <param name='value'>
+            /// </param>
+            /// <param name='newType'>
+            /// </param>
+            /// <param name='newValue'>
+            /// </param>
+            public static void ApiAuthServiceReplaceClaimPost(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string type = default(string), string value = default(string), string newType = default(string), string newValue = default(string))
+            {
+                operations.ApiAuthServiceReplaceClaimPostAsync(id, passwordHash, emailConfirmed, email, userName, type, value, newType, newValue).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='type'>
+            /// </param>
+            /// <param name='value'>
+            /// </param>
+            /// <param name='newType'>
+            /// </param>
+            /// <param name='newValue'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ApiAuthServiceReplaceClaimPostAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string type = default(string), string value = default(string), string newType = default(string), string newValue = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ApiAuthServiceReplaceClaimPostWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, type, value, newType, newValue, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
             /// <param name='machine'>
             /// </param>
             public static bool? ApiMachineServiceAddPost(this IEnterpriseServiceAPI operations, MachineDto machine = default(MachineDto))

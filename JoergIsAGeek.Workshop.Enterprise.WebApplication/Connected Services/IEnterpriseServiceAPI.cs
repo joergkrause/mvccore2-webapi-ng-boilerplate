@@ -402,6 +402,90 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
         /// </param>
         Task<HttpOperationResponse> ApiAuthServiceSetNormalizedEmailPutWithHttpMessagesAsync(ApplicationUserDto user = default(ApplicationUserDto), string normalizedEmail = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <param name='id'>
+        /// </param>
+        /// <param name='passwordHash'>
+        /// </param>
+        /// <param name='emailConfirmed'>
+        /// </param>
+        /// <param name='email'>
+        /// </param>
+        /// <param name='userName'>
+        /// </param>
+        /// <param name='claims'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse> ApiAuthServiceAddClaimsPutWithHttpMessagesAsync(string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <param name='id'>
+        /// </param>
+        /// <param name='passwordHash'>
+        /// </param>
+        /// <param name='emailConfirmed'>
+        /// </param>
+        /// <param name='email'>
+        /// </param>
+        /// <param name='userName'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<IList<ClaimDto>>> ApiAuthServiceClaimsGetWithHttpMessagesAsync(string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <param name='id'>
+        /// </param>
+        /// <param name='passwordHash'>
+        /// </param>
+        /// <param name='emailConfirmed'>
+        /// </param>
+        /// <param name='email'>
+        /// </param>
+        /// <param name='userName'>
+        /// </param>
+        /// <param name='claims'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse> ApiAuthServiceDeleteClaimsDeleteWithHttpMessagesAsync(string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <param name='id'>
+        /// </param>
+        /// <param name='passwordHash'>
+        /// </param>
+        /// <param name='emailConfirmed'>
+        /// </param>
+        /// <param name='email'>
+        /// </param>
+        /// <param name='userName'>
+        /// </param>
+        /// <param name='type'>
+        /// </param>
+        /// <param name='value'>
+        /// </param>
+        /// <param name='newType'>
+        /// </param>
+        /// <param name='newValue'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse> ApiAuthServiceReplaceClaimPostWithHttpMessagesAsync(string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string type = default(string), string value = default(string), string newType = default(string), string newValue = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <param name='machine'>
         /// </param>
         /// <param name='customHeaders'>
