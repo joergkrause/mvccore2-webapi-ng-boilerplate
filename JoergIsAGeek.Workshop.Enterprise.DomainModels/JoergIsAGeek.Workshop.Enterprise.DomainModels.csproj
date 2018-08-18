@@ -238,6 +238,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\UserRoles.cs" />
     <Compile Include="Authentication\UserClaim.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="Authentication\ApplicationRole.cs" />

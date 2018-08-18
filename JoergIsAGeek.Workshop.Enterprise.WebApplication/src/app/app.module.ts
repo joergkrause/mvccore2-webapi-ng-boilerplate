@@ -16,6 +16,7 @@ import { TokenInterceptorService, AuthenticateXHRBackend } from './services/inde
 @NgModule({
   declarations: [ 
     components.SiteRootComponent, 
+    components.SiteInfoComponent, 
     components.DashboardComponent,
     components.LoginFormComponent, 
     components.RegistrationFormComponent

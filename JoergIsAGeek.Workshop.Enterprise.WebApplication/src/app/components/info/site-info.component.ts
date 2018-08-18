@@ -7,7 +7,7 @@
 export class SiteInfoComponent {
 
 
-  constructor(private userService: UserService, private emitterService: EmitterService) {
+  constructor() {
   }
 
 

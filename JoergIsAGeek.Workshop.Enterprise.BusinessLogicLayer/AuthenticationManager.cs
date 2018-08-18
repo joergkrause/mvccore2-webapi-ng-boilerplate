@@ -276,5 +276,43 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     #endregion
 
+    #region Roles
+
+    public void AddToRole(ApplicationUserDto user, string roleName) {
+      var role = this.RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
+      if (role != null) {
+        var newRole = new UserRole {
+          UserId = user.Id,
+          RoleId = role.Id
+        };
+        this.RepUserRoles.InsertOrUpdate(newRole);
+      }
+    }
+
+    public void RemoveFromRole(ApplicationUserDto user, string roleName) {
+      var role = this.RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
+      if (role != null) {
+        var roleToDelete = new UserRole {
+          UserId = user.Id,
+          RoleId = role.Id
+        };
+        this.RepUserRoles.Delete(roleToDelete);
+      }
+    }
+
+    public IEnumerable<string> GetRoles(ApplicationUserDto user) {
+      return RepUserRoles.Read(r => r.u)
+    }
+
+    public bool IsInRole(ApplicationUserDto user, string roleName) {
+      throw new NotImplementedException();
+    }
+
+    public IEnumerable<ApplicationUserDto> GetUsersInRole(string roleName) {
+      throw new NotImplementedException();
+    }
+
+    #endregion
+
   }
 }

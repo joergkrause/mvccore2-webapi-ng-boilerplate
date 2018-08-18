@@ -18,7 +18,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
   /// <remarks>
   /// See also more on interfaces: https://docs.microsoft.com/de-de/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity
   /// </remarks>
-  internal class CustomUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserEmailStore<ApplicationUser>, IUserClaimStore<ApplicationUser>
+  internal class CustomUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserEmailStore<ApplicationUser>, IUserClaimStore<ApplicationUser>, IUserRoleStore<ApplicationUser>
   {
 
     IEnterpriseServiceAPI _authclient;
@@ -165,8 +165,31 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     public Task RemoveClaimsAsync(ApplicationUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken) {
       throw new NotImplementedException();
     }
+    #endregion
+
+    #region Roles
 
     public Task ReplaceClaimAsync(ApplicationUser user, Claim claim, Claim newClaim, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+
+    public Task AddToRoleAsync(ApplicationUser user, string roleName, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+
+    public Task RemoveFromRoleAsync(ApplicationUser user, string roleName, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+
+    public Task<IList<string>> GetRolesAsync(ApplicationUser user, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+
+    public Task<bool> IsInRoleAsync(ApplicationUser user, string roleName, CancellationToken cancellationToken) {
+      throw new NotImplementedException();
+    }
+
+    public Task<IList<ApplicationUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken) {
       throw new NotImplementedException();
     }
 

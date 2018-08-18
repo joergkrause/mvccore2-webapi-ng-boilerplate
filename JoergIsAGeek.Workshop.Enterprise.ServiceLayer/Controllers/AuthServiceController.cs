@@ -295,5 +295,30 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
 
     #endregion
 
+
+    #region Roles
+
+    public void AddToRole(ApplicationUserDto user, string roleName) {
+      throw new NotImplementedException();
+    }
+
+    public void RemoveFromRole(ApplicationUserDto user, string roleName) {
+      throw new NotImplementedException();
+    }
+
+    public IEnumerable<string> GetRoles(ApplicationUserDto user) {
+      throw new NotImplementedException();
+    }
+
+    public bool IsInRole(ApplicationUserDto user, string roleName) {
+      throw new NotImplementedException();
+    }
+
+    public IEnumerable<ApplicationUserDto> GetUsersInRole(string roleName) {
+      throw new NotImplementedException();
+    }
+
+    #endregion
+
   }
 }

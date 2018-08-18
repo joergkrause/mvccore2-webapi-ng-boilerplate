@@ -20,6 +20,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       this.RepRoles = service.GetService<IGenericRepository<ApplicationRole, string>>();
       this.RepUsers = service.GetService<IGenericRepository<ApplicationUser, string>>();
       this.RepUserClaims = service.GetService<IGenericRepository<UserClaim, int>>();
+      this.RepUserRoles = service.GetService<IGenericRepository<UserRole, int>>();
     }
 
     protected IGenericRepository<DataValue, int> RepDataValue {
@@ -39,6 +40,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       get;
     }
     protected IGenericRepository<UserClaim, int> RepUserClaims {
+      get;
+    }
+    protected IGenericRepository<UserRole, int> RepUserRoles {
       get;
     }
 
