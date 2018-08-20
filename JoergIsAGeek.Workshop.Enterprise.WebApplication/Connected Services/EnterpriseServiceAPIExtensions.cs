@@ -20,37 +20,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='role'>
-            /// </param>
-            public static IdentityResult ApiAuthServiceCreateRolePost(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto))
-            {
-                return operations.ApiAuthServiceCreateRolePostAsync(role).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='role'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IdentityResult> ApiAuthServiceCreateRolePostAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceCreateRolePostWithHttpMessagesAsync(role, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
             /// <param name='user'>
             /// </param>
-            public static IdentityResult ApiAuthServiceCreateUserPost(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto))
+            public static IdentityResult ApiAuthServiceUserPut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto))
             {
-                return operations.ApiAuthServiceCreateUserPostAsync(user).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserPutAsync(user).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -61,9 +35,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IdentityResult> ApiAuthServiceCreateUserPostAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IdentityResult> ApiAuthServiceUserPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiAuthServiceCreateUserPostWithHttpMessagesAsync(user, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiAuthServiceUserPutWithHttpMessagesAsync(user, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -72,76 +46,24 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='role'>
+            /// <param name='user'>
             /// </param>
-            public static IdentityResult ApiAuthServiceDeleteRolePost(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto))
+            public static IdentityResult ApiAuthServiceUserPost(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto))
             {
-                return operations.ApiAuthServiceDeleteRolePostAsync(role).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserPostAsync(user).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='role'>
+            /// <param name='user'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IdentityResult> ApiAuthServiceDeleteRolePostAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IdentityResult> ApiAuthServiceUserPostAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiAuthServiceDeleteRolePostWithHttpMessagesAsync(role, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='roleId'>
-            /// </param>
-            public static ApplicationIdentityRoleDto ApiAuthServiceFindRoleGet(this IEnterpriseServiceAPI operations, string roleId = default(string))
-            {
-                return operations.ApiAuthServiceFindRoleGetAsync(roleId).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='roleId'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<ApplicationIdentityRoleDto> ApiAuthServiceFindRoleGetAsync(this IEnterpriseServiceAPI operations, string roleId = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceFindRoleGetWithHttpMessagesAsync(roleId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='normalizedRoleName'>
-            /// </param>
-            public static ApplicationIdentityRoleDto ApiAuthServiceFindRoleByNameGet(this IEnterpriseServiceAPI operations, string normalizedRoleName = default(string))
-            {
-                return operations.ApiAuthServiceFindRoleByNameGetAsync(normalizedRoleName).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='normalizedRoleName'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<ApplicationIdentityRoleDto> ApiAuthServiceFindRoleByNameGetAsync(this IEnterpriseServiceAPI operations, string normalizedRoleName = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceFindRoleByNameGetWithHttpMessagesAsync(normalizedRoleName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiAuthServiceUserPostWithHttpMessagesAsync(user, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -152,9 +74,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='userId'>
             /// </param>
-            public static ApplicationUserDto ApiAuthServiceFindUserGet(this IEnterpriseServiceAPI operations, string userId = default(string))
+            public static ApplicationUserDto ApiAuthServiceUserFindByIdGet(this IEnterpriseServiceAPI operations, string userId = default(string))
             {
-                return operations.ApiAuthServiceFindUserGetAsync(userId).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserFindByIdGetAsync(userId).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -165,9 +87,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ApplicationUserDto> ApiAuthServiceFindUserGetAsync(this IEnterpriseServiceAPI operations, string userId = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ApplicationUserDto> ApiAuthServiceUserFindByIdGetAsync(this IEnterpriseServiceAPI operations, string userId = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiAuthServiceFindUserGetWithHttpMessagesAsync(userId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiAuthServiceUserFindByIdGetWithHttpMessagesAsync(userId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -178,9 +100,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='normalizedUserName'>
             /// </param>
-            public static ApplicationUserDto ApiAuthServiceFindUserByNameGet(this IEnterpriseServiceAPI operations, string normalizedUserName = default(string))
+            public static ApplicationUserDto ApiAuthServiceUserFindByNameGet(this IEnterpriseServiceAPI operations, string normalizedUserName = default(string))
             {
-                return operations.ApiAuthServiceFindUserByNameGetAsync(normalizedUserName).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserFindByNameGetAsync(normalizedUserName).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -191,99 +113,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ApplicationUserDto> ApiAuthServiceFindUserByNameGetAsync(this IEnterpriseServiceAPI operations, string normalizedUserName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ApplicationUserDto> ApiAuthServiceUserFindByNameGetAsync(this IEnterpriseServiceAPI operations, string normalizedUserName = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiAuthServiceFindUserByNameGetWithHttpMessagesAsync(normalizedUserName, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='name'>
-            /// </param>
-            public static string ApiAuthServiceGetIdentityRoleGet(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string))
-            {
-                return operations.ApiAuthServiceGetIdentityRoleGetAsync(id, name).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='name'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<string> ApiAuthServiceGetIdentityRoleGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceGetIdentityRoleGetWithHttpMessagesAsync(id, name, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='name'>
-            /// </param>
-            public static string ApiAuthServiceGetIdentityRoleNameGet(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string))
-            {
-                return operations.ApiAuthServiceGetIdentityRoleNameGetAsync(id, name).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='name'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<string> ApiAuthServiceGetIdentityRoleNameGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceGetIdentityRoleNameGetWithHttpMessagesAsync(id, name, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='name'>
-            /// </param>
-            public static string ApiAuthServiceGetNormalizedRoleGet(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string))
-            {
-                return operations.ApiAuthServiceGetNormalizedRoleGetAsync(id, name).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='name'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<string> ApiAuthServiceGetNormalizedRoleGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceGetNormalizedRoleGetWithHttpMessagesAsync(id, name, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiAuthServiceUserFindByNameGetWithHttpMessagesAsync(normalizedUserName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -302,9 +134,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='userName'>
             /// </param>
-            public static string ApiAuthServiceGetNormalizedUserGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
+            public static string ApiAuthServiceUserNormalizedNameGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
             {
-                return operations.ApiAuthServiceGetNormalizedUserGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserNormalizedNameGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -323,150 +155,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<string> ApiAuthServiceGetNormalizedUserGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<string> ApiAuthServiceUserNormalizedNameGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiAuthServiceGetNormalizedUserGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiAuthServiceUserNormalizedNameGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='passwordHash'>
-            /// </param>
-            /// <param name='emailConfirmed'>
-            /// </param>
-            /// <param name='email'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            public static string ApiAuthServiceGetUserIdGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
-            {
-                return operations.ApiAuthServiceGetUserIdGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='passwordHash'>
-            /// </param>
-            /// <param name='emailConfirmed'>
-            /// </param>
-            /// <param name='email'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<string> ApiAuthServiceGetUserIdGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceGetUserIdGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='passwordHash'>
-            /// </param>
-            /// <param name='emailConfirmed'>
-            /// </param>
-            /// <param name='email'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            public static string ApiAuthServiceGetUserNameGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
-            {
-                return operations.ApiAuthServiceGetUserNameGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='passwordHash'>
-            /// </param>
-            /// <param name='emailConfirmed'>
-            /// </param>
-            /// <param name='email'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<string> ApiAuthServiceGetUserNameGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceGetUserNameGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='role'>
-            /// </param>
-            /// <param name='roleName'>
-            /// </param>
-            public static void ApiAuthServiceSetIdentityRoleNamePut(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), string roleName = default(string))
-            {
-                operations.ApiAuthServiceSetIdentityRoleNamePutAsync(role, roleName).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='role'>
-            /// </param>
-            /// <param name='roleName'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task ApiAuthServiceSetIdentityRoleNamePutAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), string roleName = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.ApiAuthServiceSetIdentityRoleNamePutWithHttpMessagesAsync(role, roleName, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='role'>
-            /// </param>
-            /// <param name='normalizedName'>
-            /// </param>
-            public static void ApiAuthServiceSetNormalizedRoleNamePut(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), string normalizedName = default(string))
-            {
-                operations.ApiAuthServiceSetNormalizedRoleNamePutAsync(role, normalizedName).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='role'>
-            /// </param>
-            /// <param name='normalizedName'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task ApiAuthServiceSetNormalizedRoleNamePutAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), string normalizedName = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.ApiAuthServiceSetNormalizedRoleNamePutWithHttpMessagesAsync(role, normalizedName, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>
@@ -476,9 +170,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='normalizedName'>
             /// </param>
-            public static void ApiAuthServiceSetNormalizedUserNamePut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string normalizedName = default(string))
+            public static void ApiAuthServiceUserNormalizedNamePut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string normalizedName = default(string))
             {
-                operations.ApiAuthServiceSetNormalizedUserNamePutAsync(user, normalizedName).GetAwaiter().GetResult();
+                operations.ApiAuthServiceUserNormalizedNamePutAsync(user, normalizedName).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -491,88 +185,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ApiAuthServiceSetNormalizedUserNamePutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string normalizedName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task ApiAuthServiceUserNormalizedNamePutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string normalizedName = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ApiAuthServiceSetNormalizedUserNamePutWithHttpMessagesAsync(user, normalizedName, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='user'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            public static void ApiAuthServiceSetUserNamePut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string userName = default(string))
-            {
-                operations.ApiAuthServiceSetUserNamePutAsync(user, userName).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='user'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task ApiAuthServiceSetUserNamePutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.ApiAuthServiceSetUserNamePutWithHttpMessagesAsync(user, userName, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='role'>
-            /// </param>
-            public static IdentityResult ApiAuthServiceUpdateRolePut(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto))
-            {
-                return operations.ApiAuthServiceUpdateRolePutAsync(role).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='role'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IdentityResult> ApiAuthServiceUpdateRolePutAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceUpdateRolePutWithHttpMessagesAsync(role, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='user'>
-            /// </param>
-            public static IdentityResult ApiAuthServiceUpdateUserPut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto))
-            {
-                return operations.ApiAuthServiceUpdateUserPutAsync(user).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='user'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<IdentityResult> ApiAuthServiceUpdateUserPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceUpdateUserPutWithHttpMessagesAsync(user, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
+                (await operations.ApiAuthServiceUserNormalizedNamePutWithHttpMessagesAsync(user, normalizedName, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>
@@ -588,9 +203,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='userName'>
             /// </param>
-            public static string ApiAuthServiceGetPasswordHashGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
+            public static string ApiAuthServiceUserIdGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
             {
-                return operations.ApiAuthServiceGetPasswordHashGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserIdGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -609,9 +224,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<string> ApiAuthServiceGetPasswordHashGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<string> ApiAuthServiceUserIdGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiAuthServiceGetPasswordHashGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiAuthServiceUserIdGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -620,24 +235,109 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='userDto'>
+            /// <param name='id'>
             /// </param>
-            public static bool? ApiAuthServiceGetHasPasswordGet(this IEnterpriseServiceAPI operations, ApplicationUserDto userDto = default(ApplicationUserDto))
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            public static string ApiAuthServiceUserNameGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
             {
-                return operations.ApiAuthServiceGetHasPasswordGetAsync(userDto).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserNameGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='userDto'>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<bool?> ApiAuthServiceGetHasPasswordGetAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto userDto = default(ApplicationUserDto), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<string> ApiAuthServiceUserNameGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiAuthServiceGetHasPasswordGetWithHttpMessagesAsync(userDto, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiAuthServiceUserNameGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='user'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            public static void ApiAuthServiceUserNamePut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string userName = default(string))
+            {
+                operations.ApiAuthServiceUserNamePutAsync(user, userName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='user'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ApiAuthServiceUserNamePutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ApiAuthServiceUserNamePutWithHttpMessagesAsync(user, userName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            public static string ApiAuthServiceUserPasswordHashGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
+            {
+                return operations.ApiAuthServiceUserPasswordHashGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<string> ApiAuthServiceUserPasswordHashGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceUserPasswordHashGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -650,9 +350,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='passwordHash'>
             /// </param>
-            public static void ApiAuthServiceSetPasswordHashPut(this IEnterpriseServiceAPI operations, ApplicationUserDto userDto = default(ApplicationUserDto), string passwordHash = default(string))
+            public static void ApiAuthServiceUserPasswordHashPut(this IEnterpriseServiceAPI operations, ApplicationUserDto userDto = default(ApplicationUserDto), string passwordHash = default(string))
             {
-                operations.ApiAuthServiceSetPasswordHashPutAsync(userDto, passwordHash).GetAwaiter().GetResult();
+                operations.ApiAuthServiceUserPasswordHashPutAsync(userDto, passwordHash).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -665,9 +365,35 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ApiAuthServiceSetPasswordHashPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto userDto = default(ApplicationUserDto), string passwordHash = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task ApiAuthServiceUserPasswordHashPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto userDto = default(ApplicationUserDto), string passwordHash = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ApiAuthServiceSetPasswordHashPutWithHttpMessagesAsync(userDto, passwordHash, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.ApiAuthServiceUserPasswordHashPutWithHttpMessagesAsync(userDto, passwordHash, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='userDto'>
+            /// </param>
+            public static bool? ApiAuthServiceUserHasPasswordGet(this IEnterpriseServiceAPI operations, ApplicationUserDto userDto = default(ApplicationUserDto))
+            {
+                return operations.ApiAuthServiceUserHasPasswordGetAsync(userDto).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='userDto'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<bool?> ApiAuthServiceUserHasPasswordGetAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto userDto = default(ApplicationUserDto), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceUserHasPasswordGetWithHttpMessagesAsync(userDto, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <param name='operations'>
@@ -675,9 +401,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='normalizedEmail'>
             /// </param>
-            public static ApplicationUserDto ApiAuthServiceFindByEmailGet(this IEnterpriseServiceAPI operations, string normalizedEmail = default(string))
+            public static ApplicationUserDto ApiAuthServiceUserFindByEmailGet(this IEnterpriseServiceAPI operations, string normalizedEmail = default(string))
             {
-                return operations.ApiAuthServiceFindByEmailGetAsync(normalizedEmail).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserFindByEmailGetAsync(normalizedEmail).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -688,9 +414,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ApplicationUserDto> ApiAuthServiceFindByEmailGetAsync(this IEnterpriseServiceAPI operations, string normalizedEmail = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ApplicationUserDto> ApiAuthServiceUserFindByEmailGetAsync(this IEnterpriseServiceAPI operations, string normalizedEmail = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiAuthServiceFindByEmailGetWithHttpMessagesAsync(normalizedEmail, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiAuthServiceUserFindByEmailGetWithHttpMessagesAsync(normalizedEmail, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -709,9 +435,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='userName'>
             /// </param>
-            public static string ApiAuthServiceGetEmailOfUserGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
+            public static string ApiAuthServiceUserEmailGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
             {
-                return operations.ApiAuthServiceGetEmailOfUserGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserEmailGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -730,93 +456,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<string> ApiAuthServiceGetEmailOfUserGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<string> ApiAuthServiceUserEmailGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiAuthServiceGetEmailOfUserGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='passwordHash'>
-            /// </param>
-            /// <param name='emailConfirmed'>
-            /// </param>
-            /// <param name='email'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            public static bool? ApiAuthServiceGetEmailConfirmedGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
-            {
-                return operations.ApiAuthServiceGetEmailConfirmedGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='passwordHash'>
-            /// </param>
-            /// <param name='emailConfirmed'>
-            /// </param>
-            /// <param name='email'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<bool?> ApiAuthServiceGetEmailConfirmedGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceGetEmailConfirmedGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='passwordHash'>
-            /// </param>
-            /// <param name='emailConfirmed'>
-            /// </param>
-            /// <param name='email'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            public static string ApiAuthServiceGetNormalizedEmailGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
-            {
-                return operations.ApiAuthServiceGetNormalizedEmailGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// </param>
-            /// <param name='passwordHash'>
-            /// </param>
-            /// <param name='emailConfirmed'>
-            /// </param>
-            /// <param name='email'>
-            /// </param>
-            /// <param name='userName'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<string> ApiAuthServiceGetNormalizedEmailGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.ApiAuthServiceGetNormalizedEmailGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiAuthServiceUserEmailGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -829,9 +471,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='email'>
             /// </param>
-            public static void ApiAuthServiceSetEmailPut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string email = default(string))
+            public static void ApiAuthServiceUserEmailPut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string email = default(string))
             {
-                operations.ApiAuthServiceSetEmailPutAsync(user, email).GetAwaiter().GetResult();
+                operations.ApiAuthServiceUserEmailPutAsync(user, email).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -844,9 +486,51 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ApiAuthServiceSetEmailPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string email = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task ApiAuthServiceUserEmailPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string email = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ApiAuthServiceSetEmailPutWithHttpMessagesAsync(user, email, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.ApiAuthServiceUserEmailPutWithHttpMessagesAsync(user, email, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            public static bool? ApiAuthServiceUserEmailConfirmedGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
+            {
+                return operations.ApiAuthServiceUserEmailConfirmedGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<bool?> ApiAuthServiceUserEmailConfirmedGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceUserEmailConfirmedGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <param name='operations'>
@@ -856,9 +540,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='confirmed'>
             /// </param>
-            public static void ApiAuthServiceSetEmailConfirmedPut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), bool? confirmed = default(bool?))
+            public static void ApiAuthServiceUserEmailConfirmedPut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), bool? confirmed = default(bool?))
             {
-                operations.ApiAuthServiceSetEmailConfirmedPutAsync(user, confirmed).GetAwaiter().GetResult();
+                operations.ApiAuthServiceUserEmailConfirmedPutAsync(user, confirmed).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -871,36 +555,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ApiAuthServiceSetEmailConfirmedPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), bool? confirmed = default(bool?), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task ApiAuthServiceUserEmailConfirmedPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), bool? confirmed = default(bool?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ApiAuthServiceSetEmailConfirmedPutWithHttpMessagesAsync(user, confirmed, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='user'>
-            /// </param>
-            /// <param name='normalizedEmail'>
-            /// </param>
-            public static void ApiAuthServiceSetNormalizedEmailPut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string normalizedEmail = default(string))
-            {
-                operations.ApiAuthServiceSetNormalizedEmailPutAsync(user, normalizedEmail).GetAwaiter().GetResult();
-            }
-
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='user'>
-            /// </param>
-            /// <param name='normalizedEmail'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task ApiAuthServiceSetNormalizedEmailPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string normalizedEmail = default(string), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.ApiAuthServiceSetNormalizedEmailPutWithHttpMessagesAsync(user, normalizedEmail, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.ApiAuthServiceUserEmailConfirmedPutWithHttpMessagesAsync(user, confirmed, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>
@@ -916,11 +573,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='userName'>
             /// </param>
-            /// <param name='claims'>
-            /// </param>
-            public static void ApiAuthServiceAddClaimsPut(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>))
+            public static string ApiAuthServiceUserNormalizedEmailGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
             {
-                operations.ApiAuthServiceAddClaimsPutAsync(id, passwordHash, emailConfirmed, email, userName, claims).GetAwaiter().GetResult();
+                return operations.ApiAuthServiceUserNormalizedEmailGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -936,14 +591,42 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='userName'>
             /// </param>
-            /// <param name='claims'>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<string> ApiAuthServiceUserNormalizedEmailGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceUserNormalizedEmailGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='user'>
+            /// </param>
+            /// <param name='normalizedEmail'>
+            /// </param>
+            public static void ApiAuthServiceUserNormalizedEmailPut(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string normalizedEmail = default(string))
+            {
+                operations.ApiAuthServiceUserNormalizedEmailPutAsync(user, normalizedEmail).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='user'>
+            /// </param>
+            /// <param name='normalizedEmail'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ApiAuthServiceAddClaimsPutAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task ApiAuthServiceUserNormalizedEmailPutAsync(this IEnterpriseServiceAPI operations, ApplicationUserDto user = default(ApplicationUserDto), string normalizedEmail = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ApiAuthServiceAddClaimsPutWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, claims, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.ApiAuthServiceUserNormalizedEmailPutWithHttpMessagesAsync(user, normalizedEmail, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>
@@ -1003,9 +686,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='claims'>
             /// </param>
-            public static void ApiAuthServiceDeleteClaimsDelete(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>))
+            public static void ApiAuthServiceClaimsPut(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>))
             {
-                operations.ApiAuthServiceDeleteClaimsDeleteAsync(id, passwordHash, emailConfirmed, email, userName, claims).GetAwaiter().GetResult();
+                operations.ApiAuthServiceClaimsPutAsync(id, passwordHash, emailConfirmed, email, userName, claims).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -1026,9 +709,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ApiAuthServiceDeleteClaimsDeleteAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task ApiAuthServiceClaimsPutAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ApiAuthServiceDeleteClaimsDeleteWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, claims, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.ApiAuthServiceClaimsPutWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, claims, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <param name='operations'>
@@ -1052,9 +735,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='newValue'>
             /// </param>
-            public static void ApiAuthServiceReplaceClaimPost(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string type = default(string), string value = default(string), string newType = default(string), string newValue = default(string))
+            public static void ApiAuthServiceClaimsPost(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string type = default(string), string value = default(string), string newType = default(string), string newValue = default(string))
             {
-                operations.ApiAuthServiceReplaceClaimPostAsync(id, passwordHash, emailConfirmed, email, userName, type, value, newType, newValue).GetAwaiter().GetResult();
+                operations.ApiAuthServiceClaimsPostAsync(id, passwordHash, emailConfirmed, email, userName, type, value, newType, newValue).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -1081,9 +764,526 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ApiAuthServiceReplaceClaimPostAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string type = default(string), string value = default(string), string newType = default(string), string newValue = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task ApiAuthServiceClaimsPostAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string type = default(string), string value = default(string), string newType = default(string), string newValue = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ApiAuthServiceReplaceClaimPostWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, type, value, newType, newValue, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.ApiAuthServiceClaimsPostWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, type, value, newType, newValue, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='claims'>
+            /// </param>
+            public static void ApiAuthServiceClaimsDelete(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>))
+            {
+                operations.ApiAuthServiceClaimsDeleteAsync(id, passwordHash, emailConfirmed, email, userName, claims).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='claims'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ApiAuthServiceClaimsDeleteAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), IList<object> claims = default(IList<object>), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ApiAuthServiceClaimsDeleteWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, claims, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            public static void ApiAuthServiceRolesAddToRolePut(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string roleName = default(string))
+            {
+                operations.ApiAuthServiceRolesAddToRolePutAsync(id, passwordHash, emailConfirmed, email, userName, roleName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ApiAuthServiceRolesAddToRolePutAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string roleName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ApiAuthServiceRolesAddToRolePutWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, roleName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            public static void ApiAuthServiceRolesRemoveFromRoleDelete(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string roleName = default(string))
+            {
+                operations.ApiAuthServiceRolesRemoveFromRoleDeleteAsync(id, passwordHash, emailConfirmed, email, userName, roleName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ApiAuthServiceRolesRemoveFromRoleDeleteAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string roleName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ApiAuthServiceRolesRemoveFromRoleDeleteWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, roleName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            public static IList<string> ApiAuthServiceRolesGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string))
+            {
+                return operations.ApiAuthServiceRolesGetAsync(id, passwordHash, emailConfirmed, email, userName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<string>> ApiAuthServiceRolesGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            public static IdentityResult ApiAuthServiceRolesPut(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto))
+            {
+                return operations.ApiAuthServiceRolesPutAsync(role).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IdentityResult> ApiAuthServiceRolesPutAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesPutWithHttpMessagesAsync(role, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            public static IdentityResult ApiAuthServiceRolesPost(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto))
+            {
+                return operations.ApiAuthServiceRolesPostAsync(role).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IdentityResult> ApiAuthServiceRolesPostAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesPostWithHttpMessagesAsync(role, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            public static bool? ApiAuthServiceRolesIsInRoleGet(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string roleName = default(string))
+            {
+                return operations.ApiAuthServiceRolesIsInRoleGetAsync(id, passwordHash, emailConfirmed, email, userName, roleName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='passwordHash'>
+            /// </param>
+            /// <param name='emailConfirmed'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='userName'>
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<bool?> ApiAuthServiceRolesIsInRoleGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string passwordHash = default(string), bool? emailConfirmed = default(bool?), string email = default(string), string userName = default(string), string roleName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesIsInRoleGetWithHttpMessagesAsync(id, passwordHash, emailConfirmed, email, userName, roleName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            public static IList<ApplicationUserDto> ApiAuthServiceRolesUsersInRoleGet(this IEnterpriseServiceAPI operations, string roleName = default(string))
+            {
+                return operations.ApiAuthServiceRolesUsersInRoleGetAsync(roleName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IList<ApplicationUserDto>> ApiAuthServiceRolesUsersInRoleGetAsync(this IEnterpriseServiceAPI operations, string roleName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesUsersInRoleGetWithHttpMessagesAsync(roleName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            public static void ApiAuthServiceRolesSetIdentityNamePut(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), string roleName = default(string))
+            {
+                operations.ApiAuthServiceRolesSetIdentityNamePutAsync(role, roleName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            /// <param name='roleName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ApiAuthServiceRolesSetIdentityNamePutAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), string roleName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ApiAuthServiceRolesSetIdentityNamePutWithHttpMessagesAsync(role, roleName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            /// <param name='normalizedName'>
+            /// </param>
+            public static void ApiAuthServiceRolesSetNormalizedNamePut(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), string normalizedName = default(string))
+            {
+                operations.ApiAuthServiceRolesSetNormalizedNamePutAsync(role, normalizedName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            /// <param name='normalizedName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ApiAuthServiceRolesSetNormalizedNamePutAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), string normalizedName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ApiAuthServiceRolesSetNormalizedNamePutWithHttpMessagesAsync(role, normalizedName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            public static IdentityResult ApiAuthServiceRolesIdentityDelete(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto))
+            {
+                return operations.ApiAuthServiceRolesIdentityDeleteAsync(role).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='role'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IdentityResult> ApiAuthServiceRolesIdentityDeleteAsync(this IEnterpriseServiceAPI operations, ApplicationIdentityRoleDto role = default(ApplicationIdentityRoleDto), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesIdentityDeleteWithHttpMessagesAsync(role, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='roleId'>
+            /// </param>
+            public static ApplicationIdentityRoleDto ApiAuthServiceRolesFindByIdGet(this IEnterpriseServiceAPI operations, string roleId = default(string))
+            {
+                return operations.ApiAuthServiceRolesFindByIdGetAsync(roleId).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='roleId'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ApplicationIdentityRoleDto> ApiAuthServiceRolesFindByIdGetAsync(this IEnterpriseServiceAPI operations, string roleId = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesFindByIdGetWithHttpMessagesAsync(roleId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='normalizedRoleName'>
+            /// </param>
+            public static ApplicationIdentityRoleDto ApiAuthServiceRolesFindByNameGet(this IEnterpriseServiceAPI operations, string normalizedRoleName = default(string))
+            {
+                return operations.ApiAuthServiceRolesFindByNameGetAsync(normalizedRoleName).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='normalizedRoleName'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ApplicationIdentityRoleDto> ApiAuthServiceRolesFindByNameGetAsync(this IEnterpriseServiceAPI operations, string normalizedRoleName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesFindByNameGetWithHttpMessagesAsync(normalizedRoleName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='name'>
+            /// </param>
+            public static string ApiAuthServiceRolesIdentityIdGet(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string))
+            {
+                return operations.ApiAuthServiceRolesIdentityIdGetAsync(id, name).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='name'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<string> ApiAuthServiceRolesIdentityIdGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesIdentityIdGetWithHttpMessagesAsync(id, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='name'>
+            /// </param>
+            public static string ApiAuthServiceRolesIdentityNameGet(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string))
+            {
+                return operations.ApiAuthServiceRolesIdentityNameGetAsync(id, name).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='name'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<string> ApiAuthServiceRolesIdentityNameGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesIdentityNameGetWithHttpMessagesAsync(id, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='name'>
+            /// </param>
+            public static string ApiAuthServiceRolesNormalizedNameGet(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string))
+            {
+                return operations.ApiAuthServiceRolesNormalizedNameGetAsync(id, name).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='name'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<string> ApiAuthServiceRolesNormalizedNameGetAsync(this IEnterpriseServiceAPI operations, string id = default(string), string name = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiAuthServiceRolesNormalizedNameGetWithHttpMessagesAsync(id, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <param name='operations'>

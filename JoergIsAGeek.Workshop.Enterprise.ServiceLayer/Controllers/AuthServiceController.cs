@@ -39,6 +39,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
       return _authenticationManager.CreateUser(user);
     }
 
+    [HttpGet]
+    [Route("user")]
+    public IEnumerable<ApplicationUserDto> GetUsers() {
+      return _authenticationManager.GetUsers();
+    }
 
     /// <summary>
     /// Find a user by hashed id.
@@ -46,7 +51,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="userId"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("user/findById")]
+    [Route("user/findById/{userId}")]
     public ApplicationUserDto FindUserById(string userId) {
       return _authenticationManager.FindUserById(userId);
     }
@@ -57,7 +62,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="normalizedUserName"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("user/findByName")]
+    [Route("user/findByName/{normalizedUserName}")]
     public ApplicationUserDto FindUserByName(string normalizedUserName) {
       return _authenticationManager.FindUserByName(normalizedUserName);
     }
@@ -65,7 +70,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
 
 
     /// <summary>
-    /// Get the normalized name of the given user.
+    /// Get the normalized name of the given user. Checks both, Id and UserName fields.
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
@@ -129,7 +134,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     }
 
     [HttpGet]
-    [Route("user/findByEmail")]
+    [Route("user/findByEmail/{normalizedEmail}")]
     public ApplicationUserDto FindByEmail(string normalizedEmail) {
       return _authenticationManager.FindByEmail(normalizedEmail);
     }
@@ -205,33 +210,33 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     #region Roles
 
     [HttpPut]
-    [Route("roles/addToRole")]
+    [Route("role/addToRole")]
     public void AddToRole(ApplicationUserDto user, string roleName) {
       throw new NotImplementedException();
     }
 
     [HttpDelete]
-    [Route("roles/removeFromRole")]
+    [Route("role/removeFromRole")]
     public void RemoveFromRole(ApplicationUserDto user, string roleName) {
       throw new NotImplementedException();
     }
 
     [HttpGet]
-    [Route("roles")]
+    [Route("role/forUser")]
     public IEnumerable<string> GetRoles(ApplicationUserDto user) {
-      throw new NotImplementedException();
+      return _authenticationManager.GetRolesForUser(user);
     }
 
     [HttpGet]
-    [Route("roles/isInRole")]
+    [Route("role/isInRole")]
     public bool IsInRole(ApplicationUserDto user, string roleName) {
-      throw new NotImplementedException();
+      return _authenticationManager.IsUserInRole(user, roleName);
     }
 
     [HttpGet]
-    [Route("roles/usersInRole")]
+    [Route("role/usersInRole/{roleName}")]
     public IEnumerable<ApplicationUserDto> GetUsersInRole(string roleName) {
-      throw new NotImplementedException();
+      return _authenticationManager.GetUsersInRole(roleName);
     }
 
     /// <summary>
@@ -240,13 +245,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <param name="roleName"></param>
     [HttpPut]
-    [Route("roles/setIdentityName")]
+    [Route("role/setIdentityName")]
     public void SetIdentityRoleDtoName([FromBody] ApplicationIdentityRoleDto role, string roleName) {
       _authenticationManager.SetIdentityRoleDtoName(role, roleName);
     }
 
     [HttpPut]
-    [Route("roles/setNormalizedName")]
+    [Route("role/setNormalizedName")]
     public void SetNormalizedRoleName([FromBody] ApplicationIdentityRoleDto role, string normalizedName) {
       _authenticationManager.SetNormalizedRoleName(role, normalizedName);
     }
@@ -257,7 +262,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpPut]
-    [Route("roles")]
+    [Route("role")]
     public IdentityResult UpdateRole([FromBody] ApplicationIdentityRoleDto role) {
       return _authenticationManager.UpdateRole(role);
     }
@@ -268,7 +273,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpPost]
-    [Route("roles")]
+    [Route("role")]
     public IdentityResult CreateRole([FromBody] ApplicationIdentityRoleDto role) {
       return _authenticationManager.CreateRole(role);
     }
@@ -279,7 +284,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpDelete]
-    [Route("roles/identity")]
+    [Route("role/identity")]
     public IdentityResult DeleteRole([FromBody] ApplicationIdentityRoleDto role) {
       return _authenticationManager.DeleteRole(role);
     }
@@ -290,7 +295,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="roleId"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("roles/findById")]
+    [Route("role/findById")]
     public ApplicationIdentityRoleDto FindRoleById(string roleId) {
       return _authenticationManager.FindRoleById(roleId);
     }
@@ -301,7 +306,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="normalizedRoleName"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("roles/findByName")]
+    [Route("role/findByName")]
     public ApplicationIdentityRoleDto FindRoleByName(string normalizedRoleName) {
       return _authenticationManager.FindRoleByName(normalizedRoleName);
     }
@@ -312,7 +317,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("roles/identityId")]
+    [Route("role/identityId")]
     public string GetIdentityRoleDtoId([FromQuery] ApplicationIdentityRoleDto role) {
       return _authenticationManager.GetIdentityRoleDtoId(role);
     }
@@ -323,7 +328,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("roles/identityName")]
+    [Route("role/identityName")]
     public string GetIdentityRoleDtoName([FromQuery] ApplicationIdentityRoleDto role) {
       return _authenticationManager.GetIdentityRoleDtoName(role);
     }
@@ -334,9 +339,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
     /// <param name="role"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("roles/normalizedName")]
+    [Route("role/normalizedName")]
     public string GetNormalizedRoleName([FromQuery] ApplicationIdentityRoleDto role) {
       return _authenticationManager.GetNormalizedRoleName(role);
+    }
+
+    [HttpGet]
+    [Route("role")]
+    public IEnumerable<ApplicationIdentityRoleDto> GetRoles() {
+      return _authenticationManager.GetRoles();
     }
 
     #endregion

@@ -1,19 +1,12 @@
-﻿using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.Repository;
+﻿using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
-using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
-{
-  public partial class AuthenticationManager : Manager, IAuthenticationManager
-  {
+namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
+  public partial class AuthenticationManager : Manager, IAuthenticationManager {
 
     #region Roles
 
@@ -66,6 +59,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       }
     }
 
+    public IEnumerable<ApplicationIdentityRoleDto> GetRoles() {
+      return mapper.Map<IEnumerable<ApplicationIdentityRoleDto>>(RepRoles.Read(r => true));
+    }
+
     #endregion
 
     #region UserRoles
@@ -99,13 +96,30 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       return result.Select(r => r.Name);
     }
 
-    public bool IsInRole(ApplicationUserDto user, string roleName) {
-      throw new NotImplementedException();
+    public IEnumerable<string> GetRolesForUser(ApplicationUserDto userDto) {
+      var user = SafeFindUser(userDto);
+      var roleIds = RepUserRoles.Read(r => r.UserId == user.Id).Select(r => r.RoleId).ToList();
+      var roles = RepRoles.Read(r => roleIds.Contains(r.Id)).Select(r => r.Name);
+      return roles;
+    }
+
+    public bool IsUserInRole(ApplicationUserDto userDto, string roleName) {
+      var user = SafeFindUser(userDto);
+      var role = RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
+      if (role != null) {
+        var result = RepUserRoles.Query(r => r.UserId == user.Id && r.RoleId == role.Id).Any();
+        return result;
+      }
+      return false;
     }
 
     public IEnumerable<ApplicationUserDto> GetUsersInRole(string roleName) {
-      throw new NotImplementedException();
+      var role = RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
+      var userIds = RepUserRoles.Read(r => r.RoleId == role.Id).Select(r => r.UserId);
+      var users = RepUsers.Read(u => userIds.Contains(u.Id));
+      return mapper.Map<IEnumerable<ApplicationUserDto>>(users);
     }
+
 
     #endregion
 

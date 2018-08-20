@@ -1,22 +1,15 @@
-﻿using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.Repository;
+﻿using AutoMapper;
+using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
-using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
-{
-  public partial class AuthenticationManager : Manager, IAuthenticationManager
-  {
+namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
+  public partial class AuthenticationManager : Manager, IAuthenticationManager {
 
-    public AuthenticationManager(IServiceProvider service): base(service)
-    { 
+    public AuthenticationManager(IServiceProvider service) : base(service) {
       var mapperConfiguration = new MapperConfiguration(configure => {
         configure.CreateMap<ApplicationUser, ApplicationUserDto>();
         configure.CreateMap<ApplicationUserDto, ApplicationUser>();
@@ -28,159 +21,166 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       mapper = mapperConfiguration.CreateMapper();
     }
 
-    private static string GetSecureId()
-    {
+    private static string GetSecureId() {
       return Guid.NewGuid().ToString("N");
     }
 
-    public IdentityResult CreateRole(ApplicationIdentityRoleDto roleDto)
-    {
+    public IdentityResult CreateRole(ApplicationIdentityRoleDto roleDto) {
       roleDto.Id = GetSecureId();
-      if (RepRoles.InsertOrUpdate(mapper.Map<ApplicationRole>(roleDto)))
-      {
+      if (RepRoles.InsertOrUpdate(mapper.Map<ApplicationRole>(roleDto))) {
         return IdentityResult.GetSucceded();
-      } else
-      {
+      }
+      else {
         return IdentityResult.GetError();
       }
     }
 
-    public IdentityResult CreateUser(ApplicationUserDto userDto)
-    {
+    public IdentityResult CreateUser(ApplicationUserDto userDto) {
       userDto.Id = GetSecureId();
-      if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto)))
-      {
+      if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto))) {
         return IdentityResult.GetSucceded();
       }
-      else
-      {
+      else {
         return IdentityResult.GetError();
       }
     }
 
-    public IdentityResult DeleteRole(ApplicationIdentityRoleDto roleDto)
-    {
-      if (RepRoles.Delete(mapper.Map<ApplicationRole>(roleDto)))
-      {
+    public IdentityResult DeleteRole(ApplicationIdentityRoleDto roleDto) {
+      if (RepRoles.Delete(mapper.Map<ApplicationRole>(roleDto))) {
         return IdentityResult.GetSucceded();
       }
-      else
-      {
+      else {
         return IdentityResult.GetError();
       }
     }
 
-    public ApplicationIdentityRoleDto FindRoleById(string roleId)
-    {
+    public ApplicationIdentityRoleDto FindRoleById(string roleId) {
       return mapper.Map<ApplicationIdentityRoleDto>(RepRoles.Read(r => r.Id == roleId));
     }
 
-    public ApplicationIdentityRoleDto FindRoleByName(string normalizedRoleName)
-    {
+    public ApplicationIdentityRoleDto FindRoleByName(string normalizedRoleName) {
       var role = RepRoles.Read(r => r.Name == normalizedRoleName).FirstOrDefault();
       return role == null ? null : mapper.Map<ApplicationIdentityRoleDto>(role);
     }
 
-    public ApplicationUserDto FindUserById(string userId)
-    {
-      var user = RepUsers.Read(u => u.Id == userId).SingleOrDefault();
+    public ApplicationUserDto FindUserById(string userId) {
+      var user = SafeFindUserById(userId);
       return user == null ? null : mapper.Map<ApplicationUserDto>(user);
     }
 
-    public ApplicationUserDto FindUserByName(string normalizedUserName)
-    {
-      var user = RepUsers.Read(u => u.UserName == normalizedUserName).FirstOrDefault();
+    public ApplicationUserDto FindUserByName(string normalizedUserName) {
+      var user = SafeFindUserByName(normalizedUserName);
       return user == null ? null : mapper.Map<ApplicationUserDto>(user);
     }
 
-    public IdentityResult UpdateUser(ApplicationUserDto userDto)
-    {
-      if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto)))
-      {
+    public IdentityResult UpdateUser(ApplicationUserDto userDto) {
+      if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto))) {
         return IdentityResult.GetSucceded();
       }
-      else
-      {
+      else {
         return IdentityResult.GetError();
       }
     }
 
-    public string GetPasswordHash(ApplicationUserDto userDto)
-    {
+    public string GetPasswordHash(ApplicationUserDto userDto) {
       return RepUsers.Read(u => u.Id == userDto.Id).SingleOrDefault()?.PasswordHash;
     }
 
-    public bool HasPassword(ApplicationUserDto userDto)
-    {
+    public bool HasPassword(ApplicationUserDto userDto) {
       return !String.IsNullOrEmpty(RepUsers.Read(u => u.Id == userDto.Id).SingleOrDefault()?.PasswordHash);
     }
 
-    public void SetPasswordHash(ApplicationUserDto userDto, string passwordHash)
-    {
+    public void SetPasswordHash(ApplicationUserDto userDto, string passwordHash) {
       var user = FindUserById(userDto.Id);
-      if (user == null)
-      {
-        if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto)))
-        {
+      if (user == null) {
+        if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto))) {
           userDto = mapper.Map<ApplicationUserDto>(RepUsers.Read(u => u.Email == userDto.Email).FirstOrDefault());
         }
       }
-      if (user == null)
-      {
+      if (user == null) {
         throw new ArgumentOutOfRangeException("User not found and not created");
       }
       userDto.PasswordHash = passwordHash;
       RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto));
     }
 
-    public ApplicationUserDto FindByEmail(string normalizedEmail)
-    {
+    public ApplicationUserDto FindByEmail(string normalizedEmail) {
       var user = RepUsers.Read(r => r.Email == normalizedEmail).SingleOrDefault();
       return user == null ? null : mapper.Map<ApplicationUserDto>(user);
     }
 
-    public string GetEmail(ApplicationUserDto user)
-    {
+    public string GetEmail(ApplicationUserDto user) {
       return FindUserById(user.Id).Email;
     }
 
-    public bool GetEmailConfirmed(ApplicationUserDto user)
-    {
+    public bool GetEmailConfirmed(ApplicationUserDto user) {
       // TODO: Implement
       return true;
     }
 
-    public string GetNormalizedEmail(ApplicationUserDto user)
-    {
+    public string GetNormalizedEmail(ApplicationUserDto user) {
       return FindUserById(user.Id).Email;
     }
 
-    public void SetEmail(ApplicationUserDto userDto, string email)
-    {
+    public void SetEmail(ApplicationUserDto userDto, string email) {
       var user = FindUserById(userDto.Id);
       user.Email = email;
       RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(user));
     }
 
-    public void SetEmailConfirmed(ApplicationUserDto user, bool confirmed)
-    {
-      // TODO
+    public void SetEmailConfirmed(ApplicationUserDto userDto, bool confirmed) {
+      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+      user.EmailConfirmed = confirmed;
+      RepUsers.InsertOrUpdate(user);
     }
 
-    public void SetNormalizedEmail(ApplicationUserDto userDto, string normalizedEmail)
-    {
-      var user = FindUserById(userDto.Id);
-      user.Email = normalizedEmail;
+    public void SetNormalizedEmail(ApplicationUserDto userDto, string normalizedEmail) {
+      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+      user.NormalizedEmail = normalizedEmail;
       RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(user));
     }
 
-    public void SetNormalizedUserName(ApplicationUserDto user, string normalizedName) {
-      throw new NotImplementedException();
+    public void SetNormalizedUserName(ApplicationUserDto userDto, string normalizedName) {
+      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+      user.NormalizedUserName = normalizedName;
+      RepUsers.InsertOrUpdate(user);
     }
-    public void SetUserDtoName(ApplicationUserDto user, string userName) {
+    public void SetUserDtoName(ApplicationUserDto userDto, string userName) {
+      var user = SafeFindUser(userDto); 
       user.UserName = userName;
+      RepUsers.InsertOrUpdate(user);
     }
 
+    public IEnumerable<ApplicationUserDto> GetUsers() {
+      return mapper.Map<IEnumerable<ApplicationUserDto>>(RepUsers.Read(r => true));
+    }
+
+    #region private helpers
+
+    private ApplicationUser SafeFindUser(ApplicationUserDto userDto) {
+      var userObj = FindUserById(userDto.Id);
+      if (userObj == null) {
+        userObj = FindUserByName(userDto.UserName);
+        if (userObj == null) {
+          throw new ArgumentOutOfRangeException("Id");
+        }
+      }
+      var user = mapper.Map<ApplicationUser>(userObj);
+      return user;
+    }
+
+    private ApplicationUser SafeFindUserById(string userId) {
+      var user = RepUsers.Read(u => u.Id == userId).SingleOrDefault();
+      return user;
+    }
+
+    private ApplicationUser SafeFindUserByName(string normalizedUserName) {
+      var user = RepUsers.Read(u => u.NormalizedUserName == normalizedUserName || u.UserName == normalizedUserName).SingleOrDefault();
+      return user;
+    }
+
+
+    #endregion
 
   }
 }

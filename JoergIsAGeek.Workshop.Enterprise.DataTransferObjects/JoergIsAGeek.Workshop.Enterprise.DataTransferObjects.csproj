@@ -137,6 +137,8 @@
     <Compile Include="Authentication\ApplicationUserDto.cs" />
     <Compile Include="Authentication\NewClaimDto.cs" />
     <Compile Include="Authentication\ClaimDto.cs" />
+    <Compile Include="DataValueDto.cs" />
+    <Compile Include="DeviceDto.cs" />
     <Compile Include="MachineDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

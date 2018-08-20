@@ -38,5 +38,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     void SetEmailConfirmed(ApplicationUserDto user, bool confirmed);
 
     void SetNormalizedEmail(ApplicationUserDto user, string normalizedEmail);
+
+    IEnumerable<ApplicationUserDto> GetUsers();
   }
 }

@@ -30,5 +30,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     void SetIdentityRoleDtoName(ApplicationIdentityRoleDto role, string roleName);
 
     IdentityResult UpdateRole(ApplicationIdentityRoleDto role);
+
+    IEnumerable<ApplicationIdentityRoleDto> GetRoles();
+
+    IEnumerable<string> GetRolesForUser(ApplicationUserDto user);
+    bool IsUserInRole(ApplicationUserDto user, string roleName);
+    IEnumerable<ApplicationUserDto> GetUsersInRole(string roleName);
+
   }
 }
