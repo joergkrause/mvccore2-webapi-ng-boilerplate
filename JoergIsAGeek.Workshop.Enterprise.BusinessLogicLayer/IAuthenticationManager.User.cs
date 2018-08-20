@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 {
-  public interface IAuthenticationManager
+  public partial interface IAuthenticationManager
   {
     IdentityResult CreateUser(ApplicationUserDto user);
     ApplicationUserDto FindUserById(string userId);
@@ -19,25 +19,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     void SetNormalizedUserName(ApplicationUserDto user, string normalizedName);
     void SetUserDtoName(ApplicationUserDto user, string userName);
     IdentityResult UpdateUser(ApplicationUserDto user);
-    IdentityResult CreateRole(ApplicationIdentityRoleDto role);
-
-    IdentityResult DeleteRole(ApplicationIdentityRoleDto role);
-
-    ApplicationIdentityRoleDto FindRoleById(string roleId);
-
-    ApplicationIdentityRoleDto FindRoleByName(string normalizedRoleName);
-
-    string GetNormalizedRoleName(ApplicationIdentityRoleDto role);
-
-    string GetIdentityRoleDtoId(ApplicationIdentityRoleDto role);
-
-    string GetIdentityRoleDtoName(ApplicationIdentityRoleDto role);
-
-    void SetNormalizedRoleName(ApplicationIdentityRoleDto role, string normalizedName);
-
-    void SetIdentityRoleDtoName(ApplicationIdentityRoleDto role, string roleName);
-
-    IdentityResult UpdateRole(ApplicationIdentityRoleDto role);
     string GetPasswordHash(ApplicationUserDto userDto);
 
     bool HasPassword(ApplicationUserDto userDto);
@@ -57,9 +38,5 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     void SetEmailConfirmed(ApplicationUserDto user, bool confirmed);
 
     void SetNormalizedEmail(ApplicationUserDto user, string normalizedEmail);
-    void AddClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims);
-    IEnumerable<ClaimDto> GetClaims(ApplicationUserDto user);
-    void ReplaceClaim(ApplicationUserDto user, ClaimDto claim, ClaimDto newClaim);
-    void RemoveClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims);
   }
 }

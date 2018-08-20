@@ -464,10 +464,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationManager.cs" />
+    <Compile Include="AuthenticationManager.Claims.cs" />
+    <Compile Include="AuthenticationManager.Roles.cs" />
+    <Compile Include="AuthenticationManager.User.cs" />
+    <Compile Include="IAuthenticationManager.Roles.cs" />
+    <Compile Include="IAuthenticationManager.Claims.cs" />
     <Compile Include="IdentityError.cs" />
     <Compile Include="Authentication\IdentityResult.cs" />
-    <Compile Include="IAuthenticationManager.cs" />
+    <Compile Include="IAuthenticationManager.User.cs" />
     <Compile Include="IMachineManager.cs" />
     <Compile Include="MachineManager.cs" />
     <Compile Include="Manager.cs" />
