@@ -48,7 +48,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       return RepMachine.InsertOrUpdate(mapper.Map<Machine>(machine));
     }
 
-    public IEnumerable<DeviceDto> GetDevicesOfMachineId(Machine machine) {
+    public IEnumerable<DeviceDto> GetDevicesOfMachine(Machine machine) {
       var devices = RepMachine.Read(m => m.Id == machine.Id, m => m.Devices).SingleOrDefault()?.Devices;
       return devices == null ? null : mapper.Map<IEnumerable<DeviceDto>>(devices);
     }

@@ -16,22 +16,26 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
 
     [TestInitialize]
     public void InitTests() {
-      // all repos need to be mocked to avoid dependecy to DB layer
-      var mockMachineRepo = new Mock<GenericDbRepository<Machine, int>>();
-      mockMachineRepo.Setup(r => r.Read(m => true)).Returns(machines);
-      mockMachineRepo.Setup(r => r.Query(m => true)).Returns(machines.AsQueryable());
-      mockMachineRepo.Setup(r => r.Count()).Returns(machines.Count());
-      mockMachineRepo.Setup(r => r.Find(It.IsAny<int>())).Returns<int>(a => machines.Single(m => m.Id == a));
-
-      // all repos are injected through the service provider, so we mock the SP
-      var mockSp = new Mock<IServiceProvider>();
-      mockSp.Setup(sp => sp.GetService(typeof(IGenericRepository<Machine, int>))).Returns(mockMachineRepo.Object);
-      mockedServiceProvider = mockSp.Object;
-
+      // test data
       machines = new Machine[] {
         new Machine { Id = 1, Name ="Test machine one" },
         new Machine { Id = 2, Name ="Test machine two" },
       };
+      // all repos need to be mocked to avoid dependecy to DB layer
+      var mockMachineRepo = new Mock<IGenericRepository<Machine, int>>();
+      mockMachineRepo.Setup(r => r.Read(m => true)).Returns(machines);
+      mockMachineRepo.Setup(r => r.Read(m => true, m => m.Devices)).Returns(machines);
+      mockMachineRepo.Setup(r => r.Read(m => true, m => m.Devices, m => m.Devices.Select(d => d.DataValues))).Returns(machines);      
+      mockMachineRepo.Setup(r => r.Query(m => true)).Returns(machines.AsQueryable());
+      mockMachineRepo.Setup(r => r.Query(m => true, m => m.Devices)).Returns(machines.AsQueryable());
+      mockMachineRepo.Setup(r => r.Query(m => true, m => m.Devices, m => m.Devices.Select(d => d.DataValues))).Returns(machines.AsQueryable());
+      mockMachineRepo.Setup(r => r.Count()).Returns(machines.Count());
+      mockMachineRepo.Setup(r => r.Find(It.IsAny<int>())).Returns<int>(a => machines.Single(m => m.Id == a));
+
+      // mock the provider to simulate dependency injection
+      mockedServiceProvider = Mock.Of<IServiceProvider>(sp => 
+        sp.GetService(typeof(IGenericRepository<Machine, int>)) == mockMachineRepo.Object);
+
     }
 
     [TestMethod]
@@ -47,11 +51,9 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
     public void GetSingleMachine() {
       var machineManager = new MachineManager(mockedServiceProvider);
       var testValue = 1;
-      // mock.Setup(r => r.Find(1)).Returns(machines[0]);
       var result = machineManager.GetMachineById(testValue);
-
       Assert.AreEqual(1, result.Id, "ID nicht korrekt");
-      Assert.AreEqual("Test machine one", result.Name, "Name nicht korrekt");
+      Assert.AreEqual("Test machine one", result.Name, "Name not correct");
     }
 
     [TestMethod]
@@ -59,16 +61,7 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       var machineManager = new MachineManager(mockedServiceProvider);
       var result = machineManager.GetMachineById(1);
       Assert.AreEqual(1, result.Id, "ID nicht korrekt");
-      Assert.AreEqual("Test machine one", result.Name, "Name nicht korrekt");
-    }
-
-    [TestMethod]
-    public void GetMachineForDataValue() {
-      var machineManager = new MachineManager(mockedServiceProvider);
-      var result = machineManager.GetMachineForDataValue(100);
-      Assert.AreEqual(1, result.Count(), "Anzahl nicht korrekt 100");
-      result = machineManager.GetMachineForDataValue(101);
-      Assert.AreEqual(1, result.Count(), "Anzahl nicht korrekt 101");
+      Assert.AreEqual("Test machine one", result.Name, "Name not correct");
     }
 
   }

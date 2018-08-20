@@ -11,6 +11,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     MachineDto GetMachineById(int id);
     IEnumerable<MachineDto> GetMachineForDataValue(double value);
 
-    IEnumerable<DeviceDto> GetDevicesOfMachineId(Machine machine);
+    IEnumerable<DeviceDto> GetDevicesOfMachine(Machine machine);
   }
 }
