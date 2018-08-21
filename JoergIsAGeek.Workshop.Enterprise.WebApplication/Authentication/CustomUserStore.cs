@@ -55,13 +55,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<ApplicationUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
     {
-      var result = await _authclient.ApiAuthServiceRoleFindByIdGetAsync(userId, cancellationToken: cancellationToken);
+      var result = await _authclient.ApiAuthServiceUserFindByIdByUserIdGetAsync(userId, cancellationToken: cancellationToken);
       return _mapper.Map<ApplicationUser>(result);
     }
 
     public async Task<ApplicationUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
     {
-      var result = await _authclient.ApiAuthServiceRoleFindByNameGetAsync(normalizedUserName, cancellationToken: cancellationToken);
+      var result = await _authclient.ApiAuthServiceUserFindByNameByNormalizedUserNameGetAsync(normalizedUserName, cancellationToken: cancellationToken);
       return _mapper.Map<ApplicationUser>(result);
     }
 

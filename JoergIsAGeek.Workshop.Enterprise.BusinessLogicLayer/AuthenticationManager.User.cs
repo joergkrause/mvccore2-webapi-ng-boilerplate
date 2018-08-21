@@ -13,8 +13,18 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       var mapperConfiguration = new MapperConfiguration(configure => {
         configure.CreateMap<ApplicationUser, ApplicationUserDto>();
         configure.CreateMap<ApplicationUserDto, ApplicationUser>();
-        configure.CreateMap<ApplicationRole, ApplicationIdentityRoleDto>();
-        configure.CreateMap<ApplicationIdentityRoleDto, ApplicationRole>();
+        configure.CreateMap<ApplicationRole, ApplicationIdentityRoleDto>()
+          .ForMember(a => a.Name, opt => opt.MapFrom(i => i.Name))
+          .ForMember(a => a.Id, opt => opt.MapFrom(i => i.Id));
+        configure.CreateMap<ApplicationIdentityRoleDto, ApplicationRole>()
+          .ForMember(i => i.Name, opt => opt.MapFrom(a => a.Name))
+          .ForMember(i => i.Id, opt => opt.MapFrom(a => a.Id))
+          .ForMember(i => i.CreatedAt, opt => opt.Ignore())
+          .ForMember(i => i.CreatedBy, opt => opt.Ignore())
+          .ForMember(i => i.ModifiedAt, opt => opt.Ignore())
+          .ForMember(i => i.ModifiedBy, opt => opt.Ignore())
+          .ForMember(i => i.NormalizedName, opt => opt.Ignore())
+          .ForMember(i => i.ConcurrencyStamp, opt => opt.Ignore());
         configure.CreateMap<ClaimDto, UserClaim>();
         configure.CreateMap<UserClaim, ClaimDto>();
       });
@@ -55,11 +65,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     }
 
     public ApplicationIdentityRoleDto FindRoleById(string roleId) {
-      return mapper.Map<ApplicationIdentityRoleDto>(RepRoles.Read(r => r.Id == roleId));
+      var role = RepRoles.Read(r => r.Id == roleId).SingleOrDefault();
+      return role != null ? mapper.Map<ApplicationIdentityRoleDto>(role) : null;
     }
 
     public ApplicationIdentityRoleDto FindRoleByName(string normalizedRoleName) {
-      var role = RepRoles.Read(r => r.Name == normalizedRoleName).FirstOrDefault();
+      var role = RepRoles.Read(r => r.Name == normalizedRoleName).SingleOrDefault();
       return role == null ? null : mapper.Map<ApplicationIdentityRoleDto>(role);
     }
 

@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers
-{
+namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
   /// <summary>
   /// Access to the authentication backend based on ASP.NET identity.
   /// All requests/responses are handled as JSON to support the front end facility using Auto REST.
   /// </summary>
   [Route("api/[controller]")]
-  [Produces("application/json")]
+  [Produces("application/json")]  
+  [AllowAnonymous]
   public class AuthServiceController : Controller {
     private IAuthenticationManager _authenticationManager;
 

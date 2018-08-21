@@ -2,12 +2,10 @@
 using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication.Extensions;
-using JoergIsAGeek.Workshop.Enterprise.WebApplication.Helpers;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings;
+using JoergIsAGeek.Workshop.Enterprise.WebApplication.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +20,8 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,17 +43,26 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
     public IConfigurationRoot Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services) {
+    public void ConfigureServices(IServiceCollection services) {      
       // Add framework services.
+      services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddMvc();
       services.AddSingleton<IJwtFactory, JwtFactory>();
       // Security using custom backend
-      services.AddIdentity<ApplicationUser, ApplicationIdentityRole>()        
-        .AddDefaultTokenProviders();      
+      services.AddIdentity<ApplicationUser, ApplicationIdentityRole>()
+        .AddDefaultTokenProviders();
       // Backend API, this is the DEBUG configuration's port
       var backendUri = new Uri(Configuration.GetValue<string>("backEndUri"));
       // The API as created by AutoREST from swagger definition
-      services.AddSingleton<IEnterpriseServiceAPI>(new EnterpriseServiceAPI(backendUri));
+      var rootHandler = new HttpClientHandler();
+      // current context to get access to current user
+      var httpContextInstance = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
+      ApiAuthDelegatingHandler degHandler = new ApiAuthDelegatingHandler(httpContextInstance);
+      var apiClient = new EnterpriseServiceAPI(backendUri, rootHandler, degHandler);
+      // Alternative way: static authentication of backend
+      //var byteArray = Encoding.ASCII.GetBytes("username:password1234");
+      //apiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+      services.AddSingleton<IEnterpriseServiceAPI>(apiClient);
       // WFE logic and identity
       services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
       services.AddScoped<IUserStore<ApplicationUser>, CustomUserStore>();
@@ -76,7 +85,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         // User settings
         options.User.RequireUniqueEmail = true;
 
-        options.SignIn.RequireConfirmedEmail = false;        
+        options.SignIn.RequireConfirmedEmail = false;
       });
 
       // JSON Web Token wire up
@@ -100,7 +109,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         // Validate the token expiry
         ValidateLifetime = true,
       };
-
 
       // Per default failed requests redirect to Account/Logon, 
       // but here we have SPA with API and need to inform SPA app to handle this.
@@ -130,7 +138,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       services.AddAuthorization(options => {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser()
-        .Build();        
+        .Build();
         // API users just need to have this particular claim to use the API
         // This is in the UserClaims table connected to particular users. weirdguest has no access, all others have access
         options.AddPolicy("ApiUser",

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware {
 
@@ -27,9 +24,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware {
     }
 
     public Task Invoke(HttpContext httpContext) {
-      string userName = "NoUser";
-      if (httpContext.User.Identity.IsAuthenticated) {
-        userName = httpContext.User.Identity.Name;
+      string userName = string.Empty;
+      // See also: https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/issues/415
+      // retrieve the actual logon name by using the claims field
+      if (httpContext.User.Identity.IsAuthenticated && httpContext.User.Identity.AuthenticationType == "AuthenticationTypes.Federation") {
+        var nameClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
+        userName = ((ClaimsIdentity)httpContext.User.Identity).Claims.SingleOrDefault(c => c.Type == nameClaimType)?.Value;
       }
       httpContext.Request.Headers.Add("X-User-Authenticated-Name", userName);
       // manage user code based on roles and rights

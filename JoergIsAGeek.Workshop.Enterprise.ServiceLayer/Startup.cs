@@ -4,6 +4,7 @@ using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
 using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
+using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware.ApiProtection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -13,18 +14,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
-  public class Startup
-  {
-    public Startup(IConfiguration configuration)
-    {
+  public class Startup {
+    public Startup(IConfiguration configuration) {
       Configuration = configuration;
     }
 
     public IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
-    {
+    public void ConfigureServices(IServiceCollection services) {
       // get connectionstring from appsettings.json
       var connectionString = Configuration.GetConnectionString(nameof(MachineDataContext));
       // store user for middleware access
@@ -40,24 +38,23 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
       services.AddScoped(typeof(IGenericRepository<UserRole, int>), typeof(GenericDbRepository<UserRole, int>));
       services.AddScoped(typeof(IAuthenticationManager), typeof(AuthenticationManager));
       services.AddScoped(typeof(IMachineManager), typeof(MachineManager));
-      services.AddMvc(options =>
-      {
+      // backend protection, frontend shall provide username and passwordhash as basic auth
+      services.AddAuthentication("Basic").AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null);
+      // formatters
+      services.AddMvc(options => {
         // because the API just serves the WFE, we format everything JSON conform
         options.OutputFormatters.RemoveType<TextOutputFormatter>();
       });
-      services.AddSwaggerGen(c =>
-      {
+      services.AddSwaggerGen(c => {
         c.SwaggerDoc("v1", new Info {
           Title = "Enterprise Service API",
           Version = "v1",
-          Contact = new Contact
-          {
+          Contact = new Contact {
             Name = "Jörg Krause",
             Email = "joerg@krause.net",
             Url = "https://twitter.com/joergisageek"
           },
-          License = new License
-          {
+          License = new License {
             Name = "Use under MIT",
             Url = "https://example.com/license"
           }
@@ -66,20 +63,21 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-    {
-      if (env.IsDevelopment())
-      {
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+      if (env.IsDevelopment()) {
         app.UseDeveloperExceptionPage();
       }
-      //app.UseAuthentication();
+      // we want to authenticate the client
+      app.UseAuthentication();
+      // custom middleware
       app.UseUserContext();
+      // swagger UI and endpoint
       app.UseSwagger();
-      app.UseSwaggerUI(c =>
-      {
+      app.UseSwaggerUI(c => {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Enterprise Service V1");
         c.RoutePrefix = string.Empty;
       });
+      // for swagger UI
       app.UseMvc();
     }
   }
