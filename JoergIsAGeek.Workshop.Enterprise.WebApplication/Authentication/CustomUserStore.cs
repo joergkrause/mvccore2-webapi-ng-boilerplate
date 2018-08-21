@@ -49,19 +49,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<ApplicationUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
     {
-      var user = await _authclient.ApiAuthServiceUserFindByEmailGetAsync(normalizedEmail, cancellationToken: cancellationToken);
+      var user = await _authclient.ApiAuthServiceUserFindByEmailByNormalizedEmailGetAsync(normalizedEmail, cancellationToken: cancellationToken);
       return _mapper.Map<ApplicationUser>(user);
     }
 
     public async Task<ApplicationUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
     {
-      var result = await _authclient.ApiAuthServiceRolesFindByIdGetAsync(userId, cancellationToken: cancellationToken);
+      var result = await _authclient.ApiAuthServiceRoleFindByIdGetAsync(userId, cancellationToken: cancellationToken);
       return _mapper.Map<ApplicationUser>(result);
     }
 
     public async Task<ApplicationUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
     {
-      var result = await _authclient.ApiAuthServiceRolesFindByNameGetAsync(normalizedUserName, cancellationToken: cancellationToken);
+      var result = await _authclient.ApiAuthServiceRoleFindByNameGetAsync(normalizedUserName, cancellationToken: cancellationToken);
       return _mapper.Map<ApplicationUser>(result);
     }
 

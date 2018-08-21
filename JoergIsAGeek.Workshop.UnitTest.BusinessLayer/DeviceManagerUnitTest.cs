@@ -5,8 +5,10 @@ using JoergIsAGeek.Workshop.Enterprise.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
   [TestClass]
@@ -16,6 +18,7 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
 
     [TestInitialize]
     public void InitTests() {
+      // test data
       var devices = new Collection<Device> {
             new Device {
               Id = 1, Name = "device one",
@@ -25,8 +28,7 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
               }
             }
           };
-      // Test data
-      var machines = new Machine[] {
+      var machines = new List<Machine> {
         new Machine { Id = 1, Name ="Test machine one" },
         new Machine { Id = 2, Name ="Test machine two" },
         new Machine { Id = 99,
@@ -41,21 +43,24 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       mockMachineRepo.Setup(r => r.Read(m => true))
         .Returns(machines);
       // TODO: Setup not properly
-      //mockMachineRepo.Setup(r => r.Read(m => m.Id == It.IsAny<int>()))
-      //  .Returns<int, >((a, b) => a.Where(m => m.Id == b));
-      //mockMachineRepo.Setup(r => r.Read(m => m.Id == It.IsAny<int>(), m => m.Devices))
-      //  .Returns<int>((a, b) => a.Where(m => m.Id == b));
-      mockMachineRepo.Setup(r => r.Read(m => !m.Devices.Any()))
+      mockMachineRepo.Setup(r => r.Read(m => m.Id == It.IsAny<int>()))
+        .Returns<Func<Machine, bool>, Func<Machine, object>>((a, b) => machines.Where(a));
+      mockMachineRepo.Setup(r => r.Read(m => m.Id == It.IsAny<int>(), It.IsAny<Expression<Func<Machine, object>>[]>()))
+        .Returns<Func<Machine, bool>, Func<Machine, object>>((a, b) => machines.Where(a));
+      mockMachineRepo.Setup(r => r.Read(m => !m.Devices.Any(), It.IsAny<Expression<Func<Machine, object>>[]>()))
         .Returns(machines.Where(m => !m.Devices.Any()));
+
       mockMachineRepo.Setup(r => r.Query(m => true, m => m.Devices, m => m.Devices.Select(d => d.DataValues)))
           .Returns(machines.Where(m => m.Devices.Any()).AsQueryable());
+      mockMachineRepo.Setup(r => r.Query(m => true)).Returns(machines.AsQueryable());
+
+      mockMachineRepo.Setup(r => r.Count()).Returns(machines.Count());
+
+      mockMachineRepo.Setup(r => r.Find(It.IsAny<int>()))
+        .Returns<int>(a => machines.Single(m => m.Id == a));
       mockMachineRepo.Setup(r => r.Find(It.IsAny<int>()))
         .Returns<int>(a => machines.Single(m => m.Id == a));
 
-
-      mockMachineRepo.Setup(r => r.Query(m => true)).Returns(machines.AsQueryable());
-      mockMachineRepo.Setup(r => r.Count()).Returns(machines.Count());
-      mockMachineRepo.Setup(r => r.Find(It.IsAny<int>())).Returns<int>(a => machines.Single(m => m.Id == a));
       // devices
       var mockDeviceRepo = new Mock<IGenericRepository<Device, int>>();
       mockDeviceRepo.Setup(r => r.Read(m => true)).Returns(devices);

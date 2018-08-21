@@ -44,6 +44,14 @@ export const routesConfig: Routes = [
     data: {
       title: 'Dashboard'
     }
+  },
+  {
+    path: 'admin',
+    loadChildren: './modules/admin/admin.module#AdminModule',
+    data: {
+      title: 'Administration'
+    }
   }
+
 ];
 

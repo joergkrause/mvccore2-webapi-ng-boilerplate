@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "debug": "rimraf wwwroot/* && webpack --development",
+    "build-no-proxy": "rimraf wwwroot/* && webpack --production",
     "build": "rimraf wwwroot/* && webpack --production && npm run proxy",
     "proxy": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./CreateSwaggerAPIProxy.ps1",
     "start": "dotnet run",

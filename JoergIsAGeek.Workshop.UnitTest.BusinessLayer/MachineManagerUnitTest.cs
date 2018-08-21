@@ -6,18 +6,20 @@ using System.Linq;
 using Moq;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects;
+using System.Collections.Generic;
 
 namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
   [TestClass]
   public class MachineManagerUnitTest {
 
-    Machine[] machines;
+    List<Machine> machines;
     IServiceProvider mockedServiceProvider;
 
     [TestInitialize]
     public void InitTests() {
       // test data
-      machines = new Machine[] {
+      machines = new List<Machine> {
         new Machine { Id = 1, Name ="Test machine one" },
         new Machine { Id = 2, Name ="Test machine two" },
       };
@@ -25,11 +27,17 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       var mockMachineRepo = new Mock<IGenericRepository<Machine, int>>();
       mockMachineRepo.Setup(r => r.Read(m => true)).Returns(machines);
       mockMachineRepo.Setup(r => r.Read(m => true, m => m.Devices)).Returns(machines);
-      mockMachineRepo.Setup(r => r.Read(m => true, m => m.Devices, m => m.Devices.Select(d => d.DataValues))).Returns(machines);      
+      mockMachineRepo.Setup(r => r.Read(m => true, m => m.Devices, m => m.Devices.Select(d => d.DataValues))).Returns(machines);
+
+      mockMachineRepo.Setup(r => r.InsertOrUpdate(It.IsAny<Machine>()))
+        .Returns(true)
+        .Callback<Machine>(m => machines.Add(m));
+
       mockMachineRepo.Setup(r => r.Query(m => true)).Returns(machines.AsQueryable());
       mockMachineRepo.Setup(r => r.Query(m => true, m => m.Devices)).Returns(machines.AsQueryable());
       mockMachineRepo.Setup(r => r.Query(m => true, m => m.Devices, m => m.Devices.Select(d => d.DataValues))).Returns(machines.AsQueryable());
       mockMachineRepo.Setup(r => r.Count()).Returns(machines.Count());
+
       mockMachineRepo.Setup(r => r.Find(It.IsAny<int>())).Returns<int>(a => machines.Single(m => m.Id == a));
 
       // mock the provider to simulate dependency injection
@@ -52,7 +60,7 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       var machineManager = new MachineManager(mockedServiceProvider);
       var testValue = 1;
       var result = machineManager.GetMachineById(testValue);
-      Assert.AreEqual(1, result.Id, "ID nicht korrekt");
+      Assert.AreEqual(1, result.Id, "ID not correct");
       Assert.AreEqual("Test machine one", result.Name, "Name not correct");
     }
 
@@ -62,6 +70,18 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       var result = machineManager.GetMachineById(1);
       Assert.AreEqual(1, result.Id, "ID nicht korrekt");
       Assert.AreEqual("Test machine one", result.Name, "Name not correct");
+    }
+
+    [TestMethod]
+    public void AddMachine() {
+      var machineManager = new MachineManager(mockedServiceProvider);
+      var testId = 100;
+      machineManager.AddMachine(new MachineDto { Id = testId, Name = "Added Machine", Location = "None", HasDevices = false });
+      var all = machineManager.GetAllMachines();
+      Assert.AreEqual(3, all.Count(), "Must be 3 machines");
+      var single = machineManager.GetMachineById(testId);
+      Assert.IsNotNull(single, "Added machine not found");
+
     }
 
   }

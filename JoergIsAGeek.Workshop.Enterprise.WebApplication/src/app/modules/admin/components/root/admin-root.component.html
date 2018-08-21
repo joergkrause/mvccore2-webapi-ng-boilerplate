@@ -1,0 +1,15 @@
+﻿<h2>Administration Center</h2>
+<a [routerLink]="[{ outlets: { admin: [ 'users' ]}}]">Users</a> |
+<a [routerLink]="[{ outlets: { admin: [ 'roles' ]}}]">Roles</a> |
+<a [routerLink]="[{ outlets: { admin: [ 'claims' ]}}]">Claims</a>
+<hr/>
+<div class="alert alert-info">
+  Manage users, roles, and claims here. The backend has hardwired protection for two roles:
+  <ul>
+    <li>'admin': Administrative access to this module</li>
+    <li>'user': Access to all demo data</li>
+  </ul>
+  The backend also provides additional protection by using the claim 'role=api_access'. All users that need
+  backend API access need to carry this claim.
+</div>
+<router-outlet name="admin"></router-outlet>

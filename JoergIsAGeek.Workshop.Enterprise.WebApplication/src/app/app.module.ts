@@ -13,6 +13,9 @@ import * as services from './services/index';
 import { routesConfig } from './configurations/routes';
 import { TokenInterceptorService, AuthenticateXHRBackend } from './services/index';
 
+// The admin part is separated to it's own module
+import { AdminModule } from './modules/admin/admin.module';
+
 @NgModule({
   declarations: [ 
     components.SiteRootComponent, 
@@ -22,6 +25,7 @@ import { TokenInterceptorService, AuthenticateXHRBackend } from './services/inde
     components.RegistrationFormComponent
   ],
   imports: [
+    AdminModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routesConfig),
