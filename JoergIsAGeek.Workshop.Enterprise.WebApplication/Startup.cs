@@ -65,6 +65,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       services.AddSingleton<IEnterpriseServiceAPI>(apiClient);
       // WFE logic and identity
       services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
+      services.AddScoped<RoleManager<ApplicationIdentityRole>, CustomRoleManager>();
       services.AddScoped<IUserStore<ApplicationUser>, CustomUserStore>();
       services.AddScoped<IRoleStore<ApplicationIdentityRole>, CustomRoleStore>();
       // user account settings, consider moving to config file
