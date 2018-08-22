@@ -1,4 +1,5 @@
-﻿using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
+﻿using AutoMapper;
+using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Helpers;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -23,12 +24,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     private readonly IJwtFactory _jwtFactory;
     private readonly JsonSerializerSettings _serializerSettings;
     private readonly JwtIssuerOptions _jwtOptions;
+    private readonly IMapper _mapper;
 
-    public AuthController(UserManager<ApplicationUser> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions) {
+    public AuthController(UserManager<ApplicationUser> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IMapper mapper) {
       _userManager = userManager;
       _jwtFactory = jwtFactory;
       _jwtOptions = jwtOptions.Value;
-
+      _mapper = mapper;
       _serializerSettings = new JsonSerializerSettings {
         Formatting = Formatting.Indented
       };
@@ -56,6 +58,27 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       var json = JsonConvert.SerializeObject(response, _serializerSettings);
       return Ok(json);
     }
+
+
+    /// <summary>
+    /// Registration of a new user. This is the only function with anonymous access.
+    /// // POST api/auth/register
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>    
+    [HttpPost("register")]
+    public async Task<IActionResult> Post([FromBody]RegistrationViewModel model) {
+      if (!ModelState.IsValid) {
+        return BadRequest(ModelState);
+      }
+      var userIdentity = _mapper.Map<ApplicationUser>(model);
+      var result = await _userManager.CreateAsync(userIdentity, model.Password);
+      if (!result.Succeeded) {
+        return BadRequest(Errors.AddErrorsToModelState(result, ModelState));
+      }
+      return Ok("Account created");
+    }
+
 
     private async Task<ClaimsIdentity> GetClaimsIdentity(string eMail, string password) {
       if (!string.IsNullOrEmpty(eMail) && !string.IsNullOrEmpty(password)) {

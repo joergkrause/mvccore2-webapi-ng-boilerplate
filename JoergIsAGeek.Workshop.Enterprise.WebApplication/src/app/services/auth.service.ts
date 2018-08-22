@@ -8,7 +8,10 @@ import { BaseService } from "./base.service";
 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { of, merge } from 'rxjs';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mapTo';
+import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/toPromise';
 import { EmitterService } from './emitter.service';
 import { AccountService } from './account.service';
@@ -20,56 +23,60 @@ type tokenResponse = {
 }
 
 @Injectable()
-export class UserService extends BaseService {
+export class AuthService extends BaseService {
 
   baseUrl: string = '';
 
   // Observable navItem source
   private _authNavStatusSource = new BehaviorSubject<boolean>(false);
   // Observable navItem stream
-  authNavStatus$ = this._authNavStatusSource.asObservable();
+  public authNavStatus$ : Observable<boolean>;
 
-  private loggedIn = false;
+  private __loggedIn = false;
 
   constructor(private http: HttpClient, private config: ConfigService,
               private emitterService: EmitterService, private accountService: AccountService) {
     super();
-    // didi we have an old token=
+    this.authNavStatus$ = this._authNavStatusSource.asObservable();
+    this.authNavStatus$.subscribe(data => {
+      console.log('AuthNav Changed', data);
+    });
+    // checke for an old token=
     let lastToken = localStorage.getItem('expires_in');
     if (lastToken) {
+      let oldTime = localStorage.getItem('time');
       let compareTime = new Date().getTime();
       console.log('Last Expires In', lastToken, compareTime);      
-      if (+lastToken > compareTime) {
-        this.loggedIn = !!localStorage.getItem('auth_token');
+      if (+oldTime + +lastToken < compareTime) {
+        this.logout();
+      } else {
+        this._authNavStatusSource.next(true);
       }
     }
-    // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
-    // header component resulting in authed user nav links disappearing despite the fact user is still logged in
-    this._authNavStatusSource.next(this.loggedIn);
   }
 
   public register(email: string, password: string, firstName: string, lastName: string, location: string): Promise<boolean> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     let body = JSON.stringify({ email, password, firstName, lastName, location });
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' }); // TODO: check wheather needed?
     return this.http
-      .post<boolean>(this.config.accountURI, body, { headers: headers })      
+      .post<boolean>(`${this.config.authURI}register`, body, { headers: headers })      
       .toPromise<boolean>();
   }
 
   public login(userName, password): Promise<boolean> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    let data = JSON.stringify({ userName, password });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let body = JSON.stringify({ userName, password });
     // logon for user with email/password
     return this.http
-      .post<tokenResponse>(this.config.authURI + 'login', data, { headers: headers })
+      .post<tokenResponse>(`${this.config.authURI}login`, body, { headers: headers })
       .map(res => {
         // receive the token and store for all upcoming requests
         localStorage.setItem('auth_token', res.auth_token);
         localStorage.setItem('user_id', res.id);
         localStorage.setItem('expires_in', res.expires_in); // handled by interceptor
-        this.loggedIn = true;
-        this._authNavStatusSource.next(true);
+        let currentTime = new Date().getTime().toString();
+        localStorage.setItem('time', currentTime);
+        this.isLoggedIn = true;
         // pull user data and provide through emitter
         this.accountService.getUserDetails().then(user => {
           this.emitterService.get('USER_LOGON').emit(user);
@@ -80,15 +87,21 @@ export class UserService extends BaseService {
       .toPromise();
   }
 
-  public logout() {
+  public logout() : Promise<boolean> {
     localStorage.removeItem('auth_token');
-    this.loggedIn = false;
-    this._authNavStatusSource.next(false);
-    return Observable.create().toPromise();
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('expires_in');
+    this.isLoggedIn = false;
+    let o : Observable<boolean> = of(false);
+    return o.delay(2000).mapTo(false).toPromise();
   }
 
   public get isLoggedIn(): boolean {
-      return this.loggedIn;
+      return this.__loggedIn;
+  }
+  public set isLoggedIn(value: boolean) {
+    this.__loggedIn = value;
+    this._authNavStatusSource.next(value);
   }
 
 }

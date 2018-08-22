@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { CredentialsViewModel } from '../../viewmodels/index';
-import { UserService } from '../../services/index';
+import { AuthService } from '../../services/index';
 
 @Component({
   selector: 'login-form',
@@ -19,7 +19,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   submitted: boolean = false;  
   credentials: CredentialsViewModel = { email: '', password: '' };
 
-  constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -40,7 +40,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     this.isRequesting = true;
     this.errors = '';
     if (valid) {
-      this.userService.login(value.email, value.password)
+      this.authService.login(value.email, value.password)
         .then(() => {
           this.isRequesting = false;
           return true;

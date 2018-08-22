@@ -34,29 +34,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
     }
 
     /// <summary>
-    /// Registration of a new user. This is the only function with anonymous access.
-    /// // POST api/accounts
-    /// </summary>
-    /// <param name="model"></param>
-    /// <returns></returns>    
-    [HttpPost]
-    [AllowAnonymous]
-    public async Task<IActionResult> Post([FromBody]RegistrationViewModel model)
-    {
-      if (!ModelState.IsValid)
-      {
-        return BadRequest(ModelState);
-      }
-      var userIdentity = _mapper.Map<ApplicationUser>(model);
-      var result = await _userManager.CreateAsync(userIdentity, model.Password);
-      if (!result.Succeeded)
-      {
-        return BadRequest(Errors.AddErrorsToModelState(result, ModelState));
-      }
-      return Ok("Account created");
-    }
-
-    /// <summary>
     /// Information about the currently logged on user.
     /// </summary>
     /// <param name="id"></param>

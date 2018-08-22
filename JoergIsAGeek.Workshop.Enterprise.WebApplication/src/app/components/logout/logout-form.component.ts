@@ -1,30 +1,29 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { UserService } from '../../services/index';
+import { AuthService } from '../../services/index';
 
 @Component({
   selector: 'logout-form',
   templateUrl: 'logout-form.component.html'
 })
-export class LogoutFormComponent implements OnInit, OnDestroy {
-
-  private subscription: Subscription;
+export class LogoutFormComponent implements OnInit, AfterViewInit {
 
   errors: string;
   loggedOut: boolean = false;
 
-  constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
-
-  ngOnInit() {
-    this.userService.logout().then(() => this.loggedOut = true);
+  constructor(private authService: AuthService, private cd: ChangeDetectorRef) {
+    this.authService.logout();
   }
 
-  ngOnDestroy() {
-    // prevent memory leak by unsubscribing
-    this.subscription.unsubscribe();
+  ngOnInit() {
+    this.authService.authNavStatus$.subscribe(data => this.loggedOut = data);
+  }
+
+  ngAfterViewInit() {
+    this.cd.detectChanges();
   }
 
 

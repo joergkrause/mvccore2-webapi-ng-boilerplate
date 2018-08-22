@@ -46,7 +46,7 @@ import { AdminModule } from './modules/admin/admin.module';
     // Account data, user details
     services.AccountService,
     // Login/Logout
-    services.UserService,
+    services.AuthService,
     // generic publish/subscribe
     services.EmitterService,
     // global service config

@@ -1,6 +1,6 @@
 ﻿<h1>Angular & ASP.NET Core Demo App</h1>
-<a routerLink='/login' *ngIf="!isLoggedIn">Login</a> |
-<a routerLink='/logout' *ngIf="isLoggedIn">Logout</a> |
+<a routerLink='/login' *ngIf="!isLoggedIn">Login</a> <span *ngIf="!isLoggedIn"> | </span>
+<a routerLink='/logout' *ngIf="isLoggedIn">Logout</a> <span *ngIf="isLoggedIn"> | </span>
 <a routerLink='/register'>Register</a> |
 <a routerLink='/dashboard'>Dashboard</a> |
 <a routerLink='/info'>Info</a> |
