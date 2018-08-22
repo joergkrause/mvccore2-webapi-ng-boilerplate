@@ -6,8 +6,13 @@ $output = "$PSScriptRoot\proxy.json"
 # Test APP server
 if (Test-NetConnection -ComputerName localhost -Port $port -InformationLevel Quiet) {
   Write-Host "Backend Service is listing in Port ${port}"
+  # prepare auth of backend
+  $user = "ProxyUser" # not checked
+  $pass = "p@ssw0rd"  # this IS checked
+  $secpasswd = ConvertTo-SecureString $pass -AsPlainText -Force
+  $credential = New-Object System.Management.Automation.PSCredential($user, $secpasswd)
   # Get the data
-  Invoke-WebRequest -Uri $url -OutFile $output
+  Invoke-WebRequest -Uri $url -OutFile $output -Credential $credential
   # Create the proxy in the 'Connected Services' folder
   autorest --namespace=JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy --csharp --input-file=proxy.json --output-folder="Connected Services" --base-folder=. --clear-output-folder
 } else {

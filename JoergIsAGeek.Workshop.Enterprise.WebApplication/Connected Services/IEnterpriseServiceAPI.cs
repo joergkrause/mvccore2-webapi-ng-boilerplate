@@ -590,6 +590,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
         /// </param>
         Task<HttpOperationResponse<string>> ApiAuthServiceRoleNormalizedNameGetWithHttpMessagesAsync(string id = default(string), string name = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<IList<MachineDto>>> ApiMachineServiceGetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <param name='machine'>
         /// </param>
         /// <param name='customHeaders'>
@@ -598,15 +606,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<bool?>> ApiMachineServiceAddPostWithHttpMessagesAsync(MachineDto machine = default(MachineDto), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<bool?>> ApiMachineServicePutWithHttpMessagesAsync(MachineDto machine = default(MachineDto), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
+        /// <param name='machine'>
+        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<MachineDto>>> ApiMachineServiceGetAllGetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<bool?>> ApiMachineServicePostWithHttpMessagesAsync(MachineDto machine = default(MachineDto), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <param name='id'>
         /// </param>
@@ -616,7 +626,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<MachineDto>> ApiMachineServiceGetGetWithHttpMessagesAsync(int? id = default(int?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<MachineDto>> ApiMachineServiceByIdGetWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <param name='id'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<bool?>> ApiMachineServiceByIdDeleteWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <param name='value'>
         /// </param>
@@ -626,7 +646,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<MachineDto>>> ApiMachineServiceGetByValGetWithHttpMessagesAsync(double? value = default(double?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<MachineDto>>> ApiMachineServiceByValByValueGetWithHttpMessagesAsync(double value, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
     }
 }

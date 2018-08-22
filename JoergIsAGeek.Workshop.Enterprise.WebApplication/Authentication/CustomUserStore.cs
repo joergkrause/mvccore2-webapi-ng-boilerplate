@@ -21,20 +21,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
   internal class CustomUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserEmailStore<ApplicationUser>, IUserClaimStore<ApplicationUser>, IUserRoleStore<ApplicationUser>
   {
 
-    IEnterpriseServiceAPI _authclient;
-    IMapper _mapper;
+    private readonly IEnterpriseServiceAPI authclient;
+    private readonly IMapper mapper;
 
     public CustomUserStore(IEnterpriseServiceAPI authclient, IMapper mapper)
     {
-      _authclient = authclient;
-      _mapper = mapper;
+      this.authclient = authclient;
+      this.mapper = mapper;
     }
 
     public async Task<Microsoft.AspNetCore.Identity.IdentityResult> CreateAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      var userDto = _mapper.Map<ApplicationUserDto>(user);
-      var result = await _authclient.ApiAuthServiceUserPostAsync(userDto);
-      return _mapper.Map<Microsoft.AspNetCore.Identity.IdentityResult>(result);
+      var userDto = mapper.Map<ApplicationUserDto>(user);
+      var result = await authclient.ApiAuthServiceUserPostAsync(userDto);
+      return mapper.Map<Microsoft.AspNetCore.Identity.IdentityResult>(result);
     }
 
     public Task<Microsoft.AspNetCore.Identity.IdentityResult> DeleteAsync(ApplicationUser user, CancellationToken cancellationToken)
@@ -49,59 +49,59 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<ApplicationUser> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
     {
-      var user = await _authclient.ApiAuthServiceUserFindByEmailByNormalizedEmailGetAsync(normalizedEmail, cancellationToken: cancellationToken);
-      return _mapper.Map<ApplicationUser>(user);
+      var user = await authclient.ApiAuthServiceUserFindByEmailByNormalizedEmailGetAsync(normalizedEmail, cancellationToken: cancellationToken);
+      return mapper.Map<ApplicationUser>(user);
     }
 
     public async Task<ApplicationUser> FindByIdAsync(string userId, CancellationToken cancellationToken)
     {
-      var result = await _authclient.ApiAuthServiceUserFindByIdByUserIdGetAsync(userId, cancellationToken: cancellationToken);
-      return _mapper.Map<ApplicationUser>(result);
+      var result = await authclient.ApiAuthServiceUserFindByIdByUserIdGetAsync(userId, cancellationToken: cancellationToken);
+      return mapper.Map<ApplicationUser>(result);
     }
 
     public async Task<ApplicationUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
     {
-      var result = await _authclient.ApiAuthServiceUserFindByNameByNormalizedUserNameGetAsync(normalizedUserName, cancellationToken: cancellationToken);
-      return _mapper.Map<ApplicationUser>(result);
+      var result = await authclient.ApiAuthServiceUserFindByNameByNormalizedUserNameGetAsync(normalizedUserName, cancellationToken: cancellationToken);
+      return mapper.Map<ApplicationUser>(result);
     }
 
     public async Task<string> GetEmailAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      return await _authclient.ApiAuthServiceUserEmailGetAsync(userName: user.UserName, cancellationToken: cancellationToken);
+      return await authclient.ApiAuthServiceUserEmailGetAsync(userName: user.UserName, cancellationToken: cancellationToken);
     }
 
     public async Task<bool> GetEmailConfirmedAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      var result = await _authclient.ApiAuthServiceUserEmailConfirmedGetAsync(userName: user.UserName, cancellationToken: cancellationToken);
+      var result = await authclient.ApiAuthServiceUserEmailConfirmedGetAsync(userName: user.UserName, cancellationToken: cancellationToken);
       return result.Value;
     }
 
     public async Task<string> GetNormalizedEmailAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      return await _authclient.ApiAuthServiceUserNormalizedEmailGetAsync(userName: user.UserName, cancellationToken: cancellationToken);
+      return await authclient.ApiAuthServiceUserNormalizedEmailGetAsync(userName: user.UserName, cancellationToken: cancellationToken);
     }
 
     public async Task<string> GetNormalizedUserNameAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      var result = await _authclient.ApiAuthServiceUserNormalizedNameGetAsync(userName: user.UserName);
+      var result = await authclient.ApiAuthServiceUserNormalizedNameGetAsync(userName: user.UserName);
       return result;
     }
 
     public async Task<string> GetPasswordHashAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
       // provide the id only because this is PK in database, it's safer than using the (clear) user name
-      return await _authclient.ApiAuthServiceUserPasswordHashGetAsync(id: user.Id);
+      return await authclient.ApiAuthServiceUserPasswordHashGetAsync(id: user.Id);
     }
 
     public async Task<string> GetUserIdAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
       // backend may check or just return the existing id
-      return (await _authclient.ApiAuthServiceUserIdGetAsync(id: user.Id, userName: user.UserName, cancellationToken: cancellationToken)).ToString();
+      return (await authclient.ApiAuthServiceUserIdGetAsync(id: user.Id, userName: user.UserName, cancellationToken: cancellationToken)).ToString();
     }
 
     public async Task<string> GetUserNameAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      return await _authclient.ApiAuthServiceUserNameGetAsync(id: user.Id, cancellationToken: cancellationToken);
+      return await authclient.ApiAuthServiceUserNameGetAsync(id: user.Id, cancellationToken: cancellationToken);
     }
 
     public Task<IList<ApplicationUser>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken) {
@@ -110,58 +110,58 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<bool> HasPasswordAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      var userDto = _mapper.Map<ApplicationUserDto>(user);
-      var result = await _authclient.ApiAuthServiceUserHasPasswordGetAsync(userDto, cancellationToken);
+      var userDto = mapper.Map<ApplicationUserDto>(user);
+      var result = await authclient.ApiAuthServiceUserHasPasswordGetAsync(userDto, cancellationToken);
       return result.Value;
     }
 
     public async Task SetEmailAsync(ApplicationUser user, string email, CancellationToken cancellationToken)
     {
-      await _authclient.ApiAuthServiceUserEmailPutAsync(_mapper.Map<ApplicationUserDto>(user), email, cancellationToken: cancellationToken);
+      await authclient.ApiAuthServiceUserEmailPutAsync(mapper.Map<ApplicationUserDto>(user), email, cancellationToken: cancellationToken);
     }
 
     public async Task SetEmailConfirmedAsync(ApplicationUser user, bool confirmed, CancellationToken cancellationToken)
     {
-      await _authclient.ApiAuthServiceUserEmailConfirmedPutAsync(_mapper.Map<ApplicationUserDto>(user), confirmed, cancellationToken: cancellationToken);
+      await authclient.ApiAuthServiceUserEmailConfirmedPutAsync(mapper.Map<ApplicationUserDto>(user), confirmed, cancellationToken: cancellationToken);
     }
 
     public async Task SetNormalizedEmailAsync(ApplicationUser user, string normalizedEmail, CancellationToken cancellationToken)
     {
-      await _authclient.ApiAuthServiceUserNormalizedEmailPutAsync(_mapper.Map<ApplicationUserDto>(user), normalizedEmail, cancellationToken: cancellationToken);
+      await authclient.ApiAuthServiceUserNormalizedEmailPutAsync(mapper.Map<ApplicationUserDto>(user), normalizedEmail, cancellationToken: cancellationToken);
     }
 
     public async Task SetNormalizedUserNameAsync(ApplicationUser user, string normalizedName, CancellationToken cancellationToken)
     {
-      var User = _mapper.Map<ApplicationUserDto>(user);
-      await _authclient.ApiAuthServiceUserNormalizedNamePutAsync(User, normalizedName, cancellationToken: cancellationToken);
+      var User = mapper.Map<ApplicationUserDto>(user);
+      await authclient.ApiAuthServiceUserNormalizedNamePutAsync(User, normalizedName, cancellationToken: cancellationToken);
     }
 
     public async Task SetPasswordHashAsync(ApplicationUser user, string passwordHash, CancellationToken cancellationToken)
     {
-       await _authclient.ApiAuthServiceUserPasswordHashPutAsync(_mapper.Map<ApplicationUserDto>(user), passwordHash, cancellationToken: cancellationToken);
+       await authclient.ApiAuthServiceUserPasswordHashPutAsync(mapper.Map<ApplicationUserDto>(user), passwordHash, cancellationToken: cancellationToken);
     }
 
     public async Task SetUserNameAsync(ApplicationUser user, string userName, CancellationToken cancellationToken)
     {
-      var userDto = _mapper.Map<ApplicationUserDto>(user);
-      await _authclient.ApiAuthServiceUserNamePutAsync(userDto, userName, cancellationToken: cancellationToken);
+      var userDto = mapper.Map<ApplicationUserDto>(user);
+      await authclient.ApiAuthServiceUserNamePutAsync(userDto, userName, cancellationToken: cancellationToken);
     }
 
     public async Task<Microsoft.AspNetCore.Identity.IdentityResult> UpdateAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-      var userDto = _mapper.Map<ApplicationUserDto>(user);
-      var result = await _authclient.ApiAuthServiceUserPutAsync(userDto, cancellationToken: cancellationToken);
-      return _mapper.Map<Microsoft.AspNetCore.Identity.IdentityResult>(result);
+      var userDto = mapper.Map<ApplicationUserDto>(user);
+      var result = await authclient.ApiAuthServiceUserPutAsync(userDto, cancellationToken: cancellationToken);
+      return mapper.Map<Microsoft.AspNetCore.Identity.IdentityResult>(result);
     }
 
     #region Claims
 
     public async Task AddClaimsAsync(ApplicationUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken) {
-      await _authclient.ApiAuthServiceClaimsPostAsync(id: user.Id, userName: user.UserName, cancellationToken: cancellationToken);
+      await authclient.ApiAuthServiceClaimsPostAsync(id: user.Id, userName: user.UserName, cancellationToken: cancellationToken);
     }
     public async Task<IList<Claim>> GetClaimsAsync(ApplicationUser user, CancellationToken cancellationToken) {
-      var result = await _authclient.ApiAuthServiceClaimsGetAsync(id: user.Id, userName: user.UserName, cancellationToken: cancellationToken);
-      return _mapper.Map<IList<Claim>>(result);
+      var result = await authclient.ApiAuthServiceClaimsGetAsync(id: user.Id, userName: user.UserName, cancellationToken: cancellationToken);
+      return mapper.Map<IList<Claim>>(result);
     }
     public Task RemoveClaimsAsync(ApplicationUser user, IEnumerable<Claim> claims, CancellationToken cancellationToken) {
       throw new NotImplementedException();

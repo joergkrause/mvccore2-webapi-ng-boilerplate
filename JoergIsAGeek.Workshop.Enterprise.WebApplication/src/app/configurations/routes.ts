@@ -38,6 +38,13 @@ export const routesConfig: Routes = [
     }
   },
   {
+    path: 'logout',
+    component: components.LogoutFormComponent,
+    data: {
+      title: 'User Logout'
+    }
+  },
+  {
     path: 'dashboard',
     component: components.DashboardComponent,
     canActivate: [AuthGuard],

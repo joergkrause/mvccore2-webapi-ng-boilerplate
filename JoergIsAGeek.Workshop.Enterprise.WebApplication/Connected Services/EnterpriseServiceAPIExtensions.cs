@@ -1333,24 +1333,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='machine'>
-            /// </param>
-            public static bool? ApiMachineServiceAddPost(this IEnterpriseServiceAPI operations, MachineDto machine = default(MachineDto))
+            public static IList<MachineDto> ApiMachineServiceGet(this IEnterpriseServiceAPI operations)
             {
-                return operations.ApiMachineServiceAddPostAsync(machine).GetAwaiter().GetResult();
+                return operations.ApiMachineServiceGetAsync().GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='machine'>
-            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<bool?> ApiMachineServiceAddPostAsync(this IEnterpriseServiceAPI operations, MachineDto machine = default(MachineDto), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<MachineDto>> ApiMachineServiceGetAsync(this IEnterpriseServiceAPI operations, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiMachineServiceAddPostWithHttpMessagesAsync(machine, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiMachineServiceGetWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -1359,20 +1355,50 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            public static IList<MachineDto> ApiMachineServiceGetAllGet(this IEnterpriseServiceAPI operations)
+            /// <param name='machine'>
+            /// </param>
+            public static bool? ApiMachineServicePut(this IEnterpriseServiceAPI operations, MachineDto machine = default(MachineDto))
             {
-                return operations.ApiMachineServiceGetAllGetAsync().GetAwaiter().GetResult();
+                return operations.ApiMachineServicePutAsync(machine).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='machine'>
+            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<MachineDto>> ApiMachineServiceGetAllGetAsync(this IEnterpriseServiceAPI operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<bool?> ApiMachineServicePutAsync(this IEnterpriseServiceAPI operations, MachineDto machine = default(MachineDto), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiMachineServiceGetAllGetWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiMachineServicePutWithHttpMessagesAsync(machine, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='machine'>
+            /// </param>
+            public static bool? ApiMachineServicePost(this IEnterpriseServiceAPI operations, MachineDto machine = default(MachineDto))
+            {
+                return operations.ApiMachineServicePostAsync(machine).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='machine'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<bool?> ApiMachineServicePostAsync(this IEnterpriseServiceAPI operations, MachineDto machine = default(MachineDto), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiMachineServicePostWithHttpMessagesAsync(machine, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -1383,9 +1409,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='id'>
             /// </param>
-            public static MachineDto ApiMachineServiceGetGet(this IEnterpriseServiceAPI operations, int? id = default(int?))
+            public static MachineDto ApiMachineServiceByIdGet(this IEnterpriseServiceAPI operations, int id)
             {
-                return operations.ApiMachineServiceGetGetAsync(id).GetAwaiter().GetResult();
+                return operations.ApiMachineServiceByIdGetAsync(id).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -1396,9 +1422,35 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<MachineDto> ApiMachineServiceGetGetAsync(this IEnterpriseServiceAPI operations, int? id = default(int?), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<MachineDto> ApiMachineServiceByIdGetAsync(this IEnterpriseServiceAPI operations, int id, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiMachineServiceGetGetWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiMachineServiceByIdGetWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            public static bool? ApiMachineServiceByIdDelete(this IEnterpriseServiceAPI operations, int id)
+            {
+                return operations.ApiMachineServiceByIdDeleteAsync(id).GetAwaiter().GetResult();
+            }
+
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<bool?> ApiMachineServiceByIdDeleteAsync(this IEnterpriseServiceAPI operations, int id, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ApiMachineServiceByIdDeleteWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -1409,9 +1461,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// </param>
             /// <param name='value'>
             /// </param>
-            public static IList<MachineDto> ApiMachineServiceGetByValGet(this IEnterpriseServiceAPI operations, double? value = default(double?))
+            public static IList<MachineDto> ApiMachineServiceByValByValueGet(this IEnterpriseServiceAPI operations, double value)
             {
-                return operations.ApiMachineServiceGetByValGetAsync(value).GetAwaiter().GetResult();
+                return operations.ApiMachineServiceByValByValueGetAsync(value).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -1422,9 +1474,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<MachineDto>> ApiMachineServiceGetByValGetAsync(this IEnterpriseServiceAPI operations, double? value = default(double?), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<MachineDto>> ApiMachineServiceByValByValueGetAsync(this IEnterpriseServiceAPI operations, double value, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ApiMachineServiceGetByValGetWithHttpMessagesAsync(value, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ApiMachineServiceByValByValueGetWithHttpMessagesAsync(value, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

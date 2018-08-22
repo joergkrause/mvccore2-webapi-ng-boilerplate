@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels {
 
   [DataContract]
   public class ChartDataViewModel {
 
-    [DataMember(Name ="x")]
+    [DataMember(Name = "x")]
     public int X { get; set; }
 
     [DataMember(Name = "y")]

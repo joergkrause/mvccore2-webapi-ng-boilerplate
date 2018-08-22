@@ -56,7 +56,7 @@ export class UserService extends BaseService {
       .toPromise<boolean>();
   }
 
-  public login(userName, password) {
+  public login(userName, password): Promise<boolean> {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     let data = JSON.stringify({ userName, password });
@@ -84,6 +84,7 @@ export class UserService extends BaseService {
     localStorage.removeItem('auth_token');
     this.loggedIn = false;
     this._authNavStatusSource.next(false);
+    return Observable.create().toPromise();
   }
 
   public get isLoggedIn(): boolean {

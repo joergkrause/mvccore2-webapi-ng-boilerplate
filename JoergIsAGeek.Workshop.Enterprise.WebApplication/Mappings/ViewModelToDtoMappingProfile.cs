@@ -1,4 +1,5 @@
 using AutoMapper;
+using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models;
 using AspIdentityResult=Microsoft.AspNetCore.Identity.IdentityResult;
@@ -8,10 +9,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings
   /// <summary>
   /// Global mapper profile, called from startup when the mapper is being registered in the DI container.
   /// </summary>
-  public class ViewModelToEntityMappingProfile : Profile
+  public class ViewModelToDtoMappingProfile : Profile
   {
-    public ViewModelToEntityMappingProfile()
+    public ViewModelToDtoMappingProfile()
     {
+      # region Auth
       // Map the viewmodels used in angular to the store models
       CreateMap<RegistrationViewModel, ApplicationUser>()
         .ForMember(au => au.UserName, map => map.MapFrom(vm => vm.Email));
@@ -28,6 +30,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings
         .ForMember(au => au.Email, map => map.MapFrom(vm => vm.Email));
       CreateMap<AspIdentityResult, IdentityResult>();
       CreateMap<IdentityResult, AspIdentityResult>();
+
+      #endregion
+
+      #region Demo Data
+
+      CreateMap<MachineDto, MachineViewModel>();
+      CreateMap<MachineViewModel, MachineDto>();
+
+      #endregion
     }
   }
 }

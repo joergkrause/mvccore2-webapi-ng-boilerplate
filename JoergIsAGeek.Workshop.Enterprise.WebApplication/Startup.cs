@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication.Extensions;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings;
@@ -19,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -64,8 +64,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       //apiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
       services.AddSingleton<IEnterpriseServiceAPI>(apiClient);
       // WFE logic and identity
-      services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>();
-      services.AddScoped<RoleManager<ApplicationIdentityRole>, CustomRoleManager>();
+      services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>(); // calls IUSerStore
+      services.AddScoped<RoleManager<ApplicationIdentityRole>, CustomRoleManager>(); // calls IRoleStore
       services.AddScoped<IUserStore<ApplicationUser>, CustomUserStore>();
       services.AddScoped<IRoleStore<ApplicationIdentityRole>, CustomRoleStore>();
       // user account settings, consider moving to config file
@@ -122,20 +122,29 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         options.IncludeErrorDetails = true;
         options.TokenValidationParameters = tokenValidationParameters;
         options.Events = new JwtBearerEvents {
+          OnMessageReceived = async (context) =>
+          {
+            Debug.WriteLine("====>  JWT Message received");
+          },
+          OnTokenValidated = async (context) =>
+          {
+            Debug.WriteLine("====>  JWT token validated");
+          },
           OnAuthenticationFailed = c => {
+            Debug.WriteLine($"====>  JWT auth failed: {c.Exception}");
             c.NoResult();
             c.Response.StatusCode = 403;
             c.Response.ContentType = "text/plain";
-            return c.Response.WriteAsync(c.Exception.ToString());
+            c.Response.WriteAsync(c.Exception.ToString()).Wait();
+            return Task.CompletedTask;
           },
+          OnChallenge = c =>
+          {
+            c.HandleResponse();
+            return Task.CompletedTask;
+          }
         };
       });
-      //options => {
-      //  options.Events..OnRedirectToAccessDenied = DontRedirectAjaxOrApiRequestToForbidden;
-      //  options.Events.OnRedirectToLogin = DontRedirectAjaxOrApiRequestToForbidden;
-      //  options.Events.OnRedirectToLogout = DontRedirectAjaxOrApiRequestToForbidden;
-      //  options.Events.OnRedirectToReturnUrl = DontRedirectAjaxOrApiRequestToForbidden;
-      //});
       services.AddAuthorization(options => {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser()
@@ -149,7 +158,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       });
 
       // support for object mappings
-      services.AddAutoMapper(typeof(ViewModelToEntityMappingProfile));
+      services.AddAutoMapper(typeof(ViewModelToDtoMappingProfile));
     }
 
     /// <summary>
@@ -192,8 +201,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       });
       // run auth
       app.UseAuthentication();
-      // keep authenticated user in a header and forward to backend
-      app.UseUserForwarder();
       // default file is index.html to serve out SPA
       app.UseDefaultFiles();
       // static parts such as JS, CSS, ...

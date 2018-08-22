@@ -12,5 +12,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     IEnumerable<MachineDto> GetMachineForDataValue(double value);
 
     IEnumerable<DeviceDto> GetDevicesOfMachine(Machine machine);
+    bool EditMachine(MachineDto machine);
+    bool DeleteMachine(MachineDto machine);
   }
 }

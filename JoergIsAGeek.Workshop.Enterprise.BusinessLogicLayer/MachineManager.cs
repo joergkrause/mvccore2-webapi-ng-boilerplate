@@ -52,5 +52,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       var devices = RepMachine.Read(m => m.Id == id, m => m.Devices).SingleOrDefault()?.Devices;
       return devices == null ? null : mapper.Map<IEnumerable<DeviceDto>>(devices);
     }
+
+    public bool EditMachine(MachineDto machine) {
+      return RepMachine.InsertOrUpdate(mapper.Map<Machine>(machine));
+    }
+
+    public bool DeleteMachine(MachineDto machine) {
+      return RepMachine.Delete(mapper.Map<Machine>(machine));
+    }
   }
 }

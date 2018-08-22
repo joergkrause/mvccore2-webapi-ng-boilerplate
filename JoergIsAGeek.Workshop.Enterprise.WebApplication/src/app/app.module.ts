@@ -22,6 +22,7 @@ import { AdminModule } from './modules/admin/admin.module';
     components.SiteInfoComponent, 
     components.DashboardComponent,
     components.LoginFormComponent, 
+    components.LogoutFormComponent, 
     components.RegistrationFormComponent
   ],
   imports: [

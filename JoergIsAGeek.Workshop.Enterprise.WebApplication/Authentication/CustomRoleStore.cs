@@ -3,17 +3,20 @@ using System.Threading.Tasks;
 using VM = JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using ID = Microsoft.AspNetCore.Identity;
 using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
+using AutoMapper;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
   internal class CustomRoleStore : ID.IRoleStore<VM.ApplicationIdentityRole>
   {
 
-    private IEnterpriseServiceAPI _authSrvClient;
+    private readonly IEnterpriseServiceAPI _authSrvClient;
+    private readonly IMapper _mapper;
 
-    public CustomRoleStore(IEnterpriseServiceAPI client)
+    public CustomRoleStore(IEnterpriseServiceAPI client, IMapper mapper)
     {
       _authSrvClient = client;
+      _mapper = mapper;
     }
 
     public Task<ID.IdentityResult> CreateAsync(VM.ApplicationIdentityRole role, CancellationToken cancellationToken)
@@ -28,7 +31,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public void Dispose()
     {
-      throw new System.NotImplementedException();
     }
 
     public Task<VM.ApplicationIdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
