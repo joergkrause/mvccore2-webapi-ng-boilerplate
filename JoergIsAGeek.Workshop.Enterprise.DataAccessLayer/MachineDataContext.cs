@@ -38,16 +38,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
 
     public DbSet<DataValue> DataValues { get; set; }
 
-    #region Accessible Sets from Identity
-    //public DbSet<TUserRole> UserRoles { get; set; }
-    //public DbSet<TRole> Roles { get; set; }
-    //public DbSet<TRoleClaim> RoleClaims { get; set; }
-    //public DbSet<TUser> Users { get; set; }
-    //public DbSet<TUserClaim> UserClaims { get; set; }
-    //public DbSet<TUserLogin> UserLogins { get; set; }
-    //public DbSet<TUserToken> UserTokens { get; set; }
-    #endregion
-
     public override int SaveChanges() {
       var now = DateTime.Now;
       SaveInterceptor(this.contextProvider?.UserIdentity?.Name, now);
@@ -122,6 +112,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       // this is necessary to configure both, base type and derived type, to have both in the model for mapping
       builder.Entity<ApplicationUser>().ToTable("Users", "identity");
       builder.Entity<ApplicationRole>().ToTable("Roles", "identity");
+      builder.Entity<UserRole>().ToTable("User_x_Roles", "identity");
       builder.Entity<UserClaim>().ToTable("UserClaims", "identity");
       // Examples:
       //builder.Entity<ApplicationUser>()

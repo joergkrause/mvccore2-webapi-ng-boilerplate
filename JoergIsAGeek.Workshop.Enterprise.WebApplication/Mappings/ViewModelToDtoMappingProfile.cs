@@ -2,6 +2,7 @@ using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models;
+using System.Security.Claims;
 using AspIdentityResult=Microsoft.AspNetCore.Identity.IdentityResult;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings
@@ -30,6 +31,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings
         .ForMember(au => au.Email, map => map.MapFrom(vm => vm.Email));
       CreateMap<AspIdentityResult, IdentityResult>();
       CreateMap<IdentityResult, AspIdentityResult>();
+      CreateMap<Claim, ClaimDto>()
+        .ForMember(c => c.Type, opt => opt.MapFrom(o => o.Type))
+        .ForMember(c => c.Value, opt => opt.MapFrom(o => o.Value));
+      CreateMap<ClaimDto, Claim>()
+        .ForMember(c => c.Type, opt => opt.MapFrom(o => o.Type))
+        .ForMember(c => c.Value, opt => opt.MapFrom(o => o.Value))
+        .ForMember(c => c.Properties, opt => opt.Ignore())
+        .ForMember(c => c.Subject, opt => opt.Ignore());
 
       #endregion
 

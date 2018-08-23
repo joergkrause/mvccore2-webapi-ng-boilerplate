@@ -80,6 +80,11 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       // Auth related repos
       var mockUserRepo = new Mock<IGenericRepository<ApplicationUser, string>>();
       mockUserRepo.Setup(r => r.Read(u => true)).Returns(contextUsers);
+      mockUserRepo.Setup(r => r.Read(u => u.Id == It.IsAny<string>()))
+        .Returns<ApplicationUser, string>((u, a) => contextUsers.Where(c => c.Id == a));
+      mockUserRepo.Setup(r => r.Read(u => u.NormalizedUserName == It.IsAny<string>()
+      || u.UserName == It.IsAny<string>()))
+      .Returns<ApplicationUser, string>((u, a) => contextUsers.Where(c => c.NormalizedUserName == a || c.UserName == a));
       var mockRoleRepo = new Mock<IGenericRepository<ApplicationRole, string>>();
       mockRoleRepo.Setup(r => r.Read(u => true)).Returns(contextRoles);
       var mockClaimRepo = new Mock<IGenericRepository<UserClaim, int>>();
@@ -108,6 +113,17 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       var authManager = new AuthenticationManager(mockedServiceProvider);
       var users = authManager.GetRoles();
       Assert.AreEqual(3, users.Count());
+    }
+
+    [TestMethod]
+    public void GetClaimForUser() {
+      var authManager = new AuthenticationManager(mockedServiceProvider);
+      var user = authManager.FindUserByName("dorisdemo");
+      Assert.IsNotNull(user);
+      var claims = authManager.GetClaims(user);
+      Assert.AreEqual(1, claims.Count());
+      Assert.AreEqual("role", claims.First().Type);
+      Assert.AreEqual("api_access", claims.First().Value);
     }
 
   }

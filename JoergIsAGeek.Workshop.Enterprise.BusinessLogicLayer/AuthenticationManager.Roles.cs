@@ -31,14 +31,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       return user == null ? null : user.UserName.Trim();
     }
 
-    public string GetUserDtoId(ApplicationUserDto user) {
-      // TODO: Implement some cross check here
-      return user.Id;
+    public string GetUserDtoId(ApplicationUserDto userDto) {
+      var user = RepUsers.Read(r => r.Id == userDto.Id || r.UserName == userDto.UserName).SingleOrDefault();
+      return user?.Id;
     }
 
-    public string GetUserDtoName(ApplicationUserDto user) {
-      // TODO: Implement some cross check here
-      return user.UserName;
+    public string GetUserDtoName(ApplicationUserDto userDto) {
+      var user = RepUsers.Read(r => r.Id == userDto.Id || r.UserName == userDto.UserName).SingleOrDefault();
+      return user?.UserName;
     }
 
     public void SetIdentityRoleDtoName(ApplicationIdentityRoleDto role, string roleName) {

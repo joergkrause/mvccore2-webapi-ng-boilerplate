@@ -182,8 +182,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       throw new NotImplementedException();
     }
 
-    public Task<IList<string>> GetRolesAsync(ApplicationUser user, CancellationToken cancellationToken) {
-      throw new NotImplementedException();
+    public async Task<IList<string>> GetRolesAsync(ApplicationUser user, CancellationToken cancellationToken) {
+      return await authclient.ApiAuthServiceRoleForUserGetAsync(id: user.Id, userName: user.UserName, cancellationToken: cancellationToken);
     }
 
     public Task<bool> IsInRoleAsync(ApplicationUser user, string roleName, CancellationToken cancellationToken) {

@@ -36,7 +36,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
       var id = user.Id;
       var claims = RepUserClaims.Read(c => c.UserId == id);
-      return mapper.Map<IEnumerable<ClaimDto>>(claims);
+      var mappedClaims = mapper.Map<IEnumerable<UserClaim>, IEnumerable<ClaimDto>>(claims);
+      return mappedClaims;
     }
 
     public void ReplaceClaim(ApplicationUserDto user, ClaimDto claim, ClaimDto newClaim) {

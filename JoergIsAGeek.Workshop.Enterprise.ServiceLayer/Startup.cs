@@ -45,7 +45,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
         // because the API just serves the WFE, we format everything JSON conform
         options.OutputFormatters.RemoveType<TextOutputFormatter>();
       });
-      services.AddSwaggerGen(c => {
+      services.AddSwaggerGen(c => {        
         c.SwaggerDoc("v1", new Info {
           Title = "Enterprise Service API",
           Version = "v1",

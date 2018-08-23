@@ -15,11 +15,13 @@ export class LogoutFormComponent implements OnInit, AfterViewInit {
   loggedOut: boolean = false;
 
   constructor(private authService: AuthService, private cd: ChangeDetectorRef) {
-    this.authService.logout();
+    // function returns a delayed answer to simulate something serious
+    this.authService.logout().then(() => this.loggedOut = true);
   }
 
   ngOnInit() {
-    this.authService.authNavStatus$.subscribe(data => this.loggedOut = data);
+    // this is an alternative way to get the information immediately, no weird delay 
+    // this.authService.authNavStatus$.subscribe(data => this.loggedOut = data);
   }
 
   ngAfterViewInit() {

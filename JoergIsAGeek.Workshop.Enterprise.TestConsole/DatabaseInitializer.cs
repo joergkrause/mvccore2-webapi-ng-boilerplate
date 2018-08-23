@@ -53,6 +53,8 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer {
       context.UserRoles.Add(guestUserRole);
       var userUserRole = new IdentityUserRole<string> { UserId = user.Id, RoleId = userRole.Id };
       context.UserRoles.Add(userUserRole);
+      var userAdminRole = new IdentityUserRole<string> { UserId = admin.Id, RoleId = userRole.Id };
+      context.UserRoles.Add(userAdminRole);
       var adminUserRole = new IdentityUserRole<string> { UserId = admin.Id, RoleId = adminRole.Id };
       context.UserRoles.Add(adminUserRole);
       context.SaveChanges();

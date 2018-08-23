@@ -25,8 +25,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
           .ForMember(i => i.ModifiedBy, opt => opt.Ignore())
           .ForMember(i => i.NormalizedName, opt => opt.Ignore())
           .ForMember(i => i.ConcurrencyStamp, opt => opt.Ignore());
-        configure.CreateMap<ClaimDto, UserClaim>();
-        configure.CreateMap<UserClaim, ClaimDto>();
+        configure.CreateMap<ClaimDto, UserClaim>()
+          .ForMember(i => i.ClaimType, opt => opt.MapFrom(a => a.Type))
+          .ForMember(i => i.ClaimValue, opt => opt.MapFrom(a => a.Value));
+        configure.CreateMap<UserClaim, ClaimDto>()
+          .ForMember(i => i.Type, opt => opt.MapFrom(a => a.ClaimType))
+          .ForMember(i => i.Value, opt => opt.MapFrom(a => a.ClaimValue));
       });
       mapper = mapperConfiguration.CreateMapper();
     }

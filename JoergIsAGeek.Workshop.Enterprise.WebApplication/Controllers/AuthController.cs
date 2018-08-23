@@ -25,9 +25,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     private readonly JsonSerializerSettings _serializerSettings;
     private readonly JwtIssuerOptions _jwtOptions;
     private readonly IMapper _mapper;
+    private readonly SignInManager<ApplicationUser> _signin;
 
-    public AuthController(UserManager<ApplicationUser> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IMapper mapper) {
+    public AuthController(UserManager<ApplicationUser> userManager,
+      SignInManager<ApplicationUser> signin,
+      IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IMapper mapper) {
       _userManager = userManager;
+      _signin = signin;
       _jwtFactory = jwtFactory;
       _jwtOptions = jwtOptions.Value;
       _mapper = mapper;
@@ -47,6 +51,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       if (identity == null) {
         return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
       }
+      var user = new ApplicationUser {
+        UserName = identity.Name,
+        Id = identity.Claims.Single(c => c.Type == "id").Value
+      };
+      // log user immediately in
+      await _signin.SignInAsync(user, true);
 
       // Serialize and return the response
       var response = new {

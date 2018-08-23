@@ -8,13 +8,15 @@ using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
 using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
 
   /// <summary>
   /// This controller provides demo data
   /// </summary>
-  [Authorize(Roles = "User")] //Policy = "ApiUser")]
+  [Authorize()] //Roles = "User", Policy = "ApiUser")]
   [Route("api/[controller]")]
   public class MachinesController : Controller {
 

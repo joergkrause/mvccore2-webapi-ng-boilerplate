@@ -68,6 +68,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       services.AddScoped<RoleManager<ApplicationIdentityRole>, CustomRoleManager>(); // calls IRoleStore
       services.AddScoped<IUserStore<ApplicationUser>, CustomUserStore>();
       services.AddScoped<IRoleStore<ApplicationIdentityRole>, CustomRoleStore>();
+      services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
       // user account settings, consider moving to config file
       services.Configure<IdentityOptions>(options => {
         // Password settings
