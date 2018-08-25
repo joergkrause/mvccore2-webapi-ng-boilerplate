@@ -47,10 +47,11 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       admin.PasswordHash = hasher.HashPassword(admin, "p@ssw0rd");
 
       // Add users
-      var contextUsers = new List<ApplicationUser>();
-      contextUsers.Add(guest);
-      contextUsers.Add(user);
-      contextUsers.Add(admin);
+      var contextUsers = new List<ApplicationUser> {
+        guest,
+        user,
+        admin
+      };
       // Assign roles to users
       var contextUserRoles = new List<UserRole>();
       var guestUserRole = new UserRole { UserId = guest.Id, RoleId = guestRole.Id };
@@ -68,8 +69,9 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
         ClaimValue = "api_access",
         UserId = user.Id
       };
-      var contextUserClaims = new List<UserClaim>();
-      contextUserClaims.Add(apiPolicyClaimForUser);
+      var contextUserClaims = new List<UserClaim> {
+        apiPolicyClaimForUser
+      };
       var apiPolicyClaimForAdmin = new UserClaim {
         ClaimType = "role",
         ClaimValue = "api_access",
@@ -89,7 +91,7 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       mockRoleRepo.Setup(r => r.Read(u => true)).Returns(contextRoles);
       var mockClaimRepo = new Mock<IGenericRepository<UserClaim, int>>();
       mockClaimRepo.Setup(r => r.Read(u => true)).Returns(contextUserClaims);
-      var mockUserRoleRepo = new Mock<IGenericRepository<UserRole, int>>();
+      var mockUserRoleRepo = new Mock<IGenericRepository<UserRole, string>>();
       mockUserRoleRepo.Setup(r => r.Read(u => true)).Returns(contextUserRoles);
 
       // all repos are injected through the service provider, so we mock the SP
@@ -97,7 +99,7 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
         sp.GetService(typeof(IGenericRepository<ApplicationUser, string>)) == mockUserRepo.Object &&
         sp.GetService(typeof(IGenericRepository<ApplicationRole, string>)) == mockRoleRepo.Object &&
         sp.GetService(typeof(IGenericRepository<UserClaim, int>)) == mockClaimRepo.Object &&
-        sp.GetService(typeof(IGenericRepository<UserRole, int>)) == mockUserRoleRepo.Object);
+        sp.GetService(typeof(IGenericRepository<UserRole, string>)) == mockUserRoleRepo.Object);
 
     }
 

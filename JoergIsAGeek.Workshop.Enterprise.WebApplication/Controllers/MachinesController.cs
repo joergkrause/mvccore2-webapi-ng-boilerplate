@@ -10,22 +10,28 @@ using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
+using System.Security.Claims;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
 
   /// <summary>
   /// This controller provides demo data
   /// </summary>
-  [Authorize()] //Roles = "User", Policy = "ApiUser")]
+  [Authorize(Roles = "User", Policy = "ApiUser")]  //Roles = "User"
   [Route("api/[controller]")]
   public class MachinesController : Controller {
 
     IEnterpriseServiceAPI client;
     private readonly IMapper mapper;
 
-    public MachinesController(IEnterpriseServiceAPI client, IMapper mapper) {
+    public MachinesController(IEnterpriseServiceAPI client, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
       this.client = client;
       this.mapper = mapper;
+      // in case we need the user here we can retrieve the claimsprincipal
+      var user = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+      Debug.WriteLine(user, "** USER");
     }
 
     // GET api/machines

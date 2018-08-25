@@ -33,10 +33,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings
       CreateMap<IdentityResult, AspIdentityResult>();
       CreateMap<Claim, ClaimDto>()
         .ForMember(c => c.Type, opt => opt.MapFrom(o => o.Type))
-        .ForMember(c => c.Value, opt => opt.MapFrom(o => o.Value));
+        .ForMember(c => c.Value, opt => {
+          opt.AllowNull();
+          opt.MapFrom(o => o.Value);
+          });
       CreateMap<ClaimDto, Claim>()
         .ForMember(c => c.Type, opt => opt.MapFrom(o => o.Type))
-        .ForMember(c => c.Value, opt => opt.MapFrom(o => o.Value))
+        .ForMember(c => c.Value, opt => {          
+          opt.MapFrom(o => o.Value ?? string.Empty);
+        })
         .ForMember(c => c.Properties, opt => opt.Ignore())
         .ForMember(c => c.Subject, opt => opt.Ignore());
 

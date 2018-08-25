@@ -22,7 +22,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       this.RepRoles = service.GetService<IGenericRepository<ApplicationRole, string>>();
       this.RepUsers = service.GetService<IGenericRepository<ApplicationUser, string>>();
       this.RepUserClaims = service.GetService<IGenericRepository<UserClaim, int>>();
-      this.RepUserRoles = service.GetService<IGenericRepository<UserRole, int>>();
+      this.RepUserRoles = service.GetService<IGenericRepository<UserRole, string>>();
     }
 
     #region Demo Data
@@ -54,7 +54,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       get;
     }
 
-    protected IGenericRepository<UserRole, int> RepUserRoles {
+    protected IGenericRepository<UserRole, string> RepUserRoles {
       get;
     }
 

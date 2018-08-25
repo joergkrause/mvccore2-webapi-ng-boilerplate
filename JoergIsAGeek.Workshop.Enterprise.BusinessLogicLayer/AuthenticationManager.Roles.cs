@@ -23,12 +23,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     public string GetNormalizedRoleName(ApplicationIdentityRoleDto roleDto) {
       var role = RepRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).SingleOrDefault();
-      return role == null ? null : role.Name.Trim();
+      return role?.Name.Trim();
     }
 
     public string GetNormalizedUserName(ApplicationUserDto userDto) {
       var user = RepUsers.Read(r => r.Id == userDto.Id || r.UserName == userDto.UserName).SingleOrDefault();
-      return user == null ? null : user.UserName.Trim();
+      return user?.UserName.Trim();
     }
 
     public string GetUserDtoId(ApplicationUserDto userDto) {

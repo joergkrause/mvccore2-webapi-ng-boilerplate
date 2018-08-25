@@ -49,27 +49,27 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer {
       context.Users.Add(admin);
       context.SaveChanges();
       // Assign roles to users
-      var guestUserRole = new IdentityUserRole<string> { UserId = guest.Id, RoleId = guestRole.Id };
+      var guestUserRole = new UserRole { UserId = guest.Id, RoleId = guestRole.Id };
       context.UserRoles.Add(guestUserRole);
-      var userUserRole = new IdentityUserRole<string> { UserId = user.Id, RoleId = userRole.Id };
+      var userUserRole = new UserRole { UserId = user.Id, RoleId = userRole.Id };
       context.UserRoles.Add(userUserRole);
-      var userAdminRole = new IdentityUserRole<string> { UserId = admin.Id, RoleId = userRole.Id };
+      var userAdminRole = new UserRole { UserId = admin.Id, RoleId = userRole.Id };
       context.UserRoles.Add(userAdminRole);
-      var adminUserRole = new IdentityUserRole<string> { UserId = admin.Id, RoleId = adminRole.Id };
+      var adminUserRole = new UserRole { UserId = admin.Id, RoleId = adminRole.Id };
       context.UserRoles.Add(adminUserRole);
       context.SaveChanges();
       // Assign claims to users
       // because we overrode the IdentityUserClaim class we need to use derived UserClaim class here
       // otherwise the discriminator column would rule the access out
       var apiPolicyClaimForUser = new UserClaim {
-        ClaimType = "role",
-        ClaimValue = "api_access",
+        ClaimType = "api_access",
+        ClaimValue = null, // the pure existence is enough, claims don't require a value, but often has one
         UserId = user.Id
       };
       context.UserClaims.Add(apiPolicyClaimForUser);
       var apiPolicyClaimForAdmin = new UserClaim {
-        ClaimType = "role",
-        ClaimValue = "api_access",
+        ClaimType = "api_access",
+        ClaimValue = null,
         UserId = admin.Id
       };
       context.UserClaims.Add(apiPolicyClaimForAdmin);

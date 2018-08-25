@@ -35,7 +35,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
       services.AddScoped(typeof(IGenericRepository<ApplicationUser, string>), typeof(GenericDbRepository<ApplicationUser, string>));
       services.AddScoped(typeof(IGenericRepository<ApplicationRole, string>), typeof(GenericDbRepository<ApplicationRole, string>));
       services.AddScoped(typeof(IGenericRepository<UserClaim, int>), typeof(GenericDbRepository<UserClaim, int>));
-      services.AddScoped(typeof(IGenericRepository<UserRole, int>), typeof(GenericDbRepository<UserRole, int>));
+      services.AddScoped(typeof(IGenericRepository<UserRole, string>), typeof(GenericDbRepository<UserRole, string>));
       services.AddScoped(typeof(IAuthenticationManager), typeof(AuthenticationManager));
       services.AddScoped(typeof(IMachineManager), typeof(MachineManager));
       // backend protection, frontend shall provide username and passwordhash as basic auth

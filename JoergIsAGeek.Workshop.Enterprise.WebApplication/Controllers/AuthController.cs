@@ -56,8 +56,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
         Id = identity.Claims.Single(c => c.Type == "id").Value
       };
       // log user immediately in
-      await _signin.SignInAsync(user, true);
-
+      var result = await _signin.CheckPasswordSignInAsync(user, credentials.Password, true);
+      
       // Serialize and return the response
       var response = new {
         id = identity.Claims.Single(c => c.Type == "id").Value,

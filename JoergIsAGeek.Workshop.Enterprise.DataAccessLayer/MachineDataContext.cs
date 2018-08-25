@@ -19,7 +19,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
   /// </summary>
   public class MachineDataContext : IdentityDbContext {
 
-    private IUserContextProvider contextProvider;
+    private readonly IUserContextProvider contextProvider;
 
     public MachineDataContext(DbContextOptions<MachineDataContext> options, IUserContextProvider contextProvider) : base(options) {
       // forward of the user identity
@@ -113,6 +113,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       builder.Entity<ApplicationUser>().ToTable("Users", "identity");
       builder.Entity<ApplicationRole>().ToTable("Roles", "identity");
       builder.Entity<UserRole>().ToTable("User_x_Roles", "identity");
+      builder.Entity<UserRole>().Property(ur => ur.Id).HasColumnType("char(64)").IsUnicode(false);
       builder.Entity<UserClaim>().ToTable("UserClaims", "identity");
       // Examples:
       //builder.Entity<ApplicationUser>()

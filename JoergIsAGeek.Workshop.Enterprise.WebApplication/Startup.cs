@@ -47,7 +47,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       // Add framework services.
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddMvc();
-      services.AddSingleton<IJwtFactory, JwtFactory>();
       // Security using custom backend
       services.AddIdentity<ApplicationUser, ApplicationIdentityRole>()
         .AddDefaultTokenProviders();
@@ -69,6 +68,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       services.AddScoped<IUserStore<ApplicationUser>, CustomUserStore>();
       services.AddScoped<IRoleStore<ApplicationIdentityRole>, CustomRoleStore>();
       services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+      services.AddScoped<IJwtFactory, JwtFactory>();
       // user account settings, consider moving to config file
       services.Configure<IdentityOptions>(options => {
         // Password settings
@@ -118,6 +118,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
       }).AddJwtBearer(options => {
         options.IncludeErrorDetails = true;
@@ -152,10 +153,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         .Build();
         // API users just need to have this particular claim to use the API
         // This is in the UserClaims table connected to particular users. weirdguest has no access, all others have access
-        options.AddPolicy("ApiUser",
-          policy => policy.RequireClaim(
-            "role",
-            "api_access"));
+        options.AddPolicy("ApiUser", policy => policy.RequireClaim("api_access"));
       });
 
       // support for object mappings
