@@ -39,7 +39,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings
           });
       CreateMap<ClaimDto, Claim>()
         .ForMember(c => c.Type, opt => opt.MapFrom(o => o.Type))
-        .ForMember(c => c.Value, opt => {          
+        .ForMember(c => c.Value, opt => {
+          opt.NullSubstitute(string.Empty);
           opt.MapFrom(o => o.Value ?? string.Empty);
         })
         .ForMember(c => c.Properties, opt => opt.Ignore())

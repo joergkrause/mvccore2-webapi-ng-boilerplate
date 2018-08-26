@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,7 +42,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
     public IConfigurationRoot Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services) {      
+    public void ConfigureServices(IServiceCollection services) {
       // Add framework services.
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddMvc();
@@ -124,12 +123,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         options.IncludeErrorDetails = true;
         options.TokenValidationParameters = tokenValidationParameters;
         options.Events = new JwtBearerEvents {
-          OnMessageReceived = async (context) =>
-          {
+          OnMessageReceived = async (context) => {
             Debug.WriteLine("====>  JWT Message received");
           },
-          OnTokenValidated = async (context) =>
-          {
+          OnTokenValidated = async (context) => {
             Debug.WriteLine("====>  JWT token validated");
           },
           OnAuthenticationFailed = c => {
@@ -140,8 +137,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
             c.Response.WriteAsync(c.Exception.ToString()).Wait();
             return Task.CompletedTask;
           },
-          OnChallenge = c =>
-          {
+          OnChallenge = c => {
             c.HandleResponse();
             return Task.CompletedTask;
           }
@@ -151,9 +147,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser()
         .Build();
-        // API users just need to have this particular claim to use the API
-        // This is in the UserClaims table connected to particular users. weirdguest has no access, all others have access
-        options.AddPolicy("ApiUser", policy => policy.RequireClaim("api_access"));
+        // API users just need to have this particular claim to use the API        
+        options.AddPolicy("ApiUser", policy => {
+          // this is in Roles/UserRoles and connecting it to the policy simplifies the [Authoize] attribute
+          policy.RequireRole("User");
+          // this is in the UserClaims table connected to particular users. weirdguest has no access, all others have access
+          policy.RequireClaim("api_access");
+        });
       });
 
       // support for object mappings

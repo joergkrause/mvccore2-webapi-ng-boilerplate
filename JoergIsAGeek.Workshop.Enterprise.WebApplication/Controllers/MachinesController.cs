@@ -19,7 +19,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   /// <summary>
   /// This controller provides demo data
   /// </summary>
-  [Authorize(Roles = "User", Policy = "ApiUser")]  //Roles = "User"
+  [Authorize(Policy = "ApiUser")]  //Roles = "User"
   [Route("api/[controller]")]
   public class MachinesController : Controller {
 

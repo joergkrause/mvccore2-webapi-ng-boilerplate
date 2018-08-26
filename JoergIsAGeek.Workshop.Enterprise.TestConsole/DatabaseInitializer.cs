@@ -63,13 +63,13 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer {
       // otherwise the discriminator column would rule the access out
       var apiPolicyClaimForUser = new UserClaim {
         ClaimType = "api_access",
-        ClaimValue = null, // the pure existence is enough, claims don't require a value, but often has one
+        ClaimValue = string.Empty, // the pure existence is enough, claims don't require a value, but often has one
         UserId = user.Id
       };
       context.UserClaims.Add(apiPolicyClaimForUser);
       var apiPolicyClaimForAdmin = new UserClaim {
         ClaimType = "api_access",
-        ClaimValue = null,
+        ClaimValue = string.Empty,
         UserId = admin.Id
       };
       context.UserClaims.Add(apiPolicyClaimForAdmin);

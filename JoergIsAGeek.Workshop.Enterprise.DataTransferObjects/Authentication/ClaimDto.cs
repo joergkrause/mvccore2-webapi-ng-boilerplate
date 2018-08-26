@@ -9,7 +9,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication {
 
     public string Type { get; set; }
 
-    public string Value { get; set; }
+    public string Value { get; set; } = String.Empty;
 
   }
 }

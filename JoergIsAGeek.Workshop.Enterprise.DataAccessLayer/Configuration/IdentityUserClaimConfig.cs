@@ -17,7 +17,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Configuration
     {
       builder.ToTable("UserClaims", "identity");
       builder.Property(u => u.UserId).HasColumnType("char(32)").IsUnicode(false);      
-      builder.Property(u => u.ClaimType).HasMaxLength(128);
+      builder.Property(u => u.ClaimType).HasMaxLength(128).IsRequired();
       builder.Property(u => u.ClaimValue).HasMaxLength(512);
     }
   }
