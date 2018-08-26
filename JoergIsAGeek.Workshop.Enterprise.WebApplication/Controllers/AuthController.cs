@@ -20,15 +20,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   [AllowAnonymous]
   public class AuthController : Controller {
 
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<UserViewModel> _userManager;
     private readonly IJwtFactory _jwtFactory;
     private readonly JsonSerializerSettings _serializerSettings;
     private readonly JwtIssuerOptions _jwtOptions;
     private readonly IMapper _mapper;
-    private readonly SignInManager<ApplicationUser> _signin;
+    private readonly SignInManager<UserViewModel> _signin;
 
-    public AuthController(UserManager<ApplicationUser> userManager,
-      SignInManager<ApplicationUser> signin,
+    public AuthController(UserManager<UserViewModel> userManager,
+      SignInManager<UserViewModel> signin,
       IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IMapper mapper) {
       _userManager = userManager;
       _signin = signin;
@@ -51,7 +51,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       if (identity == null) {
         return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
       }
-      var user = new ApplicationUser {
+      var user = new UserViewModel {
         UserName = identity.Name,
         Id = identity.Claims.Single(c => c.Type == "id").Value
       };
@@ -81,7 +81,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       if (!ModelState.IsValid) {
         return BadRequest(ModelState);
       }
-      var userIdentity = _mapper.Map<ApplicationUser>(model);
+      var userIdentity = _mapper.Map<UserViewModel>(model);
       var result = await _userManager.CreateAsync(userIdentity, model.Password);
       if (!result.Succeeded) {
         return BadRequest(Errors.AddErrorsToModelState(result, ModelState));

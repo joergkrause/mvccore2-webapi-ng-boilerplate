@@ -23,7 +23,8 @@ import { AdminModule } from './modules/admin/admin.module';
     components.DashboardComponent,
     components.LoginFormComponent, 
     components.LogoutFormComponent, 
-    components.RegistrationFormComponent
+    components.RegistrationFormComponent,
+    components.ProfileFormComponent
   ],
   imports: [
     AdminModule,

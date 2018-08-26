@@ -14,9 +14,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication {
   public class JwtFactory : IJwtFactory {
 
     private readonly JwtIssuerOptions _jwtOptions;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<UserViewModel> _userManager;
 
-    public JwtFactory(IOptions<JwtIssuerOptions> jwtOptions, UserManager<ApplicationUser> userManager) {
+    public JwtFactory(IOptions<JwtIssuerOptions> jwtOptions, UserManager<UserViewModel> userManager) {
       _jwtOptions = jwtOptions.Value;
       _userManager = userManager;
       ThrowIfInvalidOptions(_jwtOptions);

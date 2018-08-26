@@ -13,9 +13,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication
   /// <summary>
   /// This is the user manager which is simple here to give access to the custom <see cref="CustomUserStore"/>.
   /// </summary>
-  public class CustomRoleManager : RoleManager<ApplicationIdentityRole>
+  public class CustomRoleManager : RoleManager<RoleViewModel>
   {
-    public CustomRoleManager(IRoleStore<ApplicationIdentityRole> store, IEnumerable<IRoleValidator<ApplicationIdentityRole>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<ApplicationIdentityRole>> logger) 
+    public CustomRoleManager(IRoleStore<RoleViewModel> store, IEnumerable<IRoleValidator<RoleViewModel>> roleValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, ILogger<RoleManager<RoleViewModel>> logger) 
       : base(store, roleValidators, keyNormalizer, errors, logger) {
 
     }

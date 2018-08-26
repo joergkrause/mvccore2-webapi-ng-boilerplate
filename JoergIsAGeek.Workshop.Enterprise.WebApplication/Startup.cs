@@ -47,7 +47,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddMvc();
       // Security using custom backend
-      services.AddIdentity<ApplicationUser, ApplicationIdentityRole>()
+      services.AddIdentity<UserViewModel, RoleViewModel>()
         .AddDefaultTokenProviders();
       // Backend API, this is the DEBUG configuration's port
       var backendUri = new Uri(Configuration.GetValue<string>("backEndUri"));
@@ -61,12 +61,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       //var byteArray = Encoding.ASCII.GetBytes("username:password1234");
       //apiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
       services.AddSingleton<IEnterpriseServiceAPI>(apiClient);
-      // WFE logic and identity
-      services.AddScoped<UserManager<ApplicationUser>, CustomUserManager>(); // calls IUSerStore
-      services.AddScoped<RoleManager<ApplicationIdentityRole>, CustomRoleManager>(); // calls IRoleStore
-      services.AddScoped<IUserStore<ApplicationUser>, CustomUserStore>();
-      services.AddScoped<IRoleStore<ApplicationIdentityRole>, CustomRoleStore>();
-      services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+      // WFE logic and identity based on view models
+      services.AddScoped<UserManager<UserViewModel>, CustomUserManager>(); // calls IUSerStore
+      services.AddScoped<RoleManager<RoleViewModel>, CustomRoleManager>(); // calls IRoleStore
+      services.AddScoped<IUserStore<UserViewModel>, CustomUserStore>();
+      services.AddScoped<IRoleStore<RoleViewModel>, CustomRoleStore>();
+      services.AddScoped<SignInManager<UserViewModel>, SignInManager<UserViewModel>>();
       services.AddScoped<IJwtFactory, JwtFactory>();
       // user account settings, consider moving to config file
       services.Configure<IdentityOptions>(options => {
@@ -205,11 +205,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       // static parts such as JS, CSS, ...
       app.UseStaticFiles();
       // default route
-      app.UseMvc(routes => {
-        routes.MapRoute(
-            name: "default",
-            template: "{controller=Home}/{action=Index}/{id?}");
-      });
+      app.UseMvc();
     }
   }
 }

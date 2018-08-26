@@ -482,6 +482,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj">
+      <Project>{9251CB79-CDB0-468C-80F1-E1392601824C}</Project>
+      <Name>JoergIsAGeek.Workshop.Enterprise.DataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj">
       <Project>{46de08af-cecf-45c3-a975-f62018188eda}</Project>
       <Name>JoergIsAGeek.Workshop.Enterprise.DataTransferObjects</Name>

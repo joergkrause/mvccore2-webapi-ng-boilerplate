@@ -13,9 +13,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication
   /// <summary>
   /// This is the user manager which is simple here to give access to the custom <see cref="CustomUserStore"/>.
   /// </summary>
-  public class CustomUserManager : UserManager<ApplicationUser>
+  public class CustomUserManager : UserManager<UserViewModel>
   {
-    public CustomUserManager(IUserStore<ApplicationUser> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<ApplicationUser> passwordHasher, IEnumerable<IUserValidator<ApplicationUser>> userValidators, IEnumerable<IPasswordValidator<ApplicationUser>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<ApplicationUser>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
+    public CustomUserManager(IUserStore<UserViewModel> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<UserViewModel> passwordHasher, IEnumerable<IUserValidator<UserViewModel>> userValidators, IEnumerable<IPasswordValidator<UserViewModel>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<UserViewModel>> logger) : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
     {
     }
   }

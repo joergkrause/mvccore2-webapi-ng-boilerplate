@@ -24,10 +24,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
   public class AccountsController : Controller
   {
 
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<UserViewModel> _userManager;
     private readonly IMapper _mapper;
 
-    public AccountsController(UserManager<ApplicationUser> userManager, IMapper mapper)
+    public AccountsController(UserManager<UserViewModel> userManager, IMapper mapper)
     {
       _userManager = userManager;
       _mapper = mapper;
@@ -49,6 +49,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
       }
       return Ok(result);
     }
+
+
 
   }
 }

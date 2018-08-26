@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication
-{
-  public class LogonViewModel
-  {
+namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication {
+  public class LogonViewModel {
     [StringLength(200)]
     [Required]
     public string UserName { get; set; }
