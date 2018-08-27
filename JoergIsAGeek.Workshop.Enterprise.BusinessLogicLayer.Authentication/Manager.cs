@@ -19,9 +19,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     public Manager(IServiceProvider service) {
       // we pull the repos from container to avoid to many ctor params (see startup.cs for definitions)
-      this.RepDataValue = service.GetService<IGenericRepository<DataValue, int>>();
-      this.RepDevice = service.GetService<IGenericRepository<Device, int>>();
-      this.RepMachine = service.GetService<IGenericRepository<Machine, int>>();
       this.RepRoles = service.GetService<IGenericRepository<ApplicationRole, string>>();
       this.RepUsers = service.GetService<IGenericRepository<ApplicationUser, string>>();
       this.RepUserClaims = service.GetService<IGenericRepository<UserClaim, int>>();
@@ -29,21 +26,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       // user management
       this.userContext = service.GetService<IUserContextProvider>();
     }
-
-    #region Demo Data
-
-    protected IGenericRepository<DataValue, int> RepDataValue {
-      get;
-    }
-
-    protected IGenericRepository<Device, int> RepDevice {
-      get;
-    }
-    protected IGenericRepository<Machine, int> RepMachine {
-      get;
-    }
-
-    #endregion
 
     #region Authentication
 
