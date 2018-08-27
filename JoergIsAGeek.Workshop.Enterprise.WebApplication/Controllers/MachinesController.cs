@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models;
+﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels;
-using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
 

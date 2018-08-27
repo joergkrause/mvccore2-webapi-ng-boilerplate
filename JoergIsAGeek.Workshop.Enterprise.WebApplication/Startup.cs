@@ -4,7 +4,8 @@ using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication.Extensions;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -54,11 +55,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       // current context to get access to current user
       var httpContextInstance = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
       ApiAuthDelegatingHandler degHandler = new ApiAuthDelegatingHandler(httpContextInstance, Configuration);
-      var apiClient = new EnterpriseServiceAPI(backendUri, rootHandler, degHandler);
+      var apiClientAuthService = new WebFrontEnd.ServiceProxy.Authentication.EnterpriseServiceAPI(backendUri, rootHandler, degHandler);
+      var apiClientMachineService = new WebFrontEnd.ServiceProxy.MachineData.EnterpriseServiceAPI(backendUri, rootHandler, degHandler);
       // Alternative way: static authentication of backend
       //var byteArray = Encoding.ASCII.GetBytes("username:secretKey");
       //apiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-      services.AddSingleton<IEnterpriseServiceAPI>(apiClient);
+      services.AddSingleton<WebFrontEnd.ServiceProxy.Authentication.IEnterpriseServiceAPI>(apiClientAuthService);
+      services.AddSingleton<WebFrontEnd.ServiceProxy.MachineData.IEnterpriseServiceAPI>(apiClientMachineService);
       // WFE logic and identity based on view models
       services.AddScoped<UserManager<UserViewModel>, CustomUserManager>(); // calls IUSerStore
       services.AddScoped<RoleManager<RoleViewModel>, CustomRoleManager>(); // calls IRoleStore
