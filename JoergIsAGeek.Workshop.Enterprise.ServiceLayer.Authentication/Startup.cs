@@ -3,6 +3,8 @@ using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
+using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware;
+using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware.ApiProtection;
 using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware.ApiProtection;
 using Microsoft.AspNetCore.Builder;

@@ -3,8 +3,8 @@ using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
-using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
-using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware.ApiProtection;
+using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware;
+using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware.ApiProtection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -45,7 +45,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
         // because the API just serves the WFE, we format everything JSON conform
         options.OutputFormatters.RemoveType<TextOutputFormatter>();
       });
-      services.AddSwaggerGen(c => {        
+      services.AddSwaggerGen(c => {
         c.SwaggerDoc("v1", new Info {
           Title = "Enterprise Service API",
           Version = "v1",
