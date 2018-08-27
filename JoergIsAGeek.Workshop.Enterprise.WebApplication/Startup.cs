@@ -27,8 +27,6 @@ using System.Threading.Tasks;
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
   public class Startup {
 
-    private const string SecretKey = "iNivDmHLpUA223sqsfhqGbMRdRj1PVkH"; // todo: get this from somewhere secure
-    private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
     public Startup(IHostingEnvironment env) {
       var builder = new ConfigurationBuilder()
@@ -55,10 +53,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       var rootHandler = new HttpClientHandler();
       // current context to get access to current user
       var httpContextInstance = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
-      ApiAuthDelegatingHandler degHandler = new ApiAuthDelegatingHandler(httpContextInstance);
+      ApiAuthDelegatingHandler degHandler = new ApiAuthDelegatingHandler(httpContextInstance, Configuration);
       var apiClient = new EnterpriseServiceAPI(backendUri, rootHandler, degHandler);
       // Alternative way: static authentication of backend
-      //var byteArray = Encoding.ASCII.GetBytes("username:password1234");
+      //var byteArray = Encoding.ASCII.GetBytes("username:secretKey");
       //apiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
       services.AddSingleton<IEnterpriseServiceAPI>(apiClient);
       // WFE logic and identity based on view models
@@ -93,8 +91,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       // Get options from app settings
       var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
-      // TODO: Needed? Configure JwtIssuerOptions
-      services.Configure<JwtIssuerOptions>(options => {
+      var SecretKey = Configuration.GetSection("Keys").GetValue<string>("TokenSecret");
+      var _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+
+    // TODO: Needed? Configure JwtIssuerOptions
+    services.Configure<JwtIssuerOptions>(options => {
         options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
         options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
         options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);

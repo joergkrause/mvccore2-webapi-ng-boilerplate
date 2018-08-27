@@ -29,7 +29,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Areas.UserAdmin.Contro
     }
 
     // GET: api/User/5
-    [HttpGet("{id}", Name = "GetById")]
+    [HttpGet("{id}", Name = "GetByUserId")]
     public async Task<UserViewModel> GetById(string id) {
       return await _userManager.FindByIdAsync(id);
     }

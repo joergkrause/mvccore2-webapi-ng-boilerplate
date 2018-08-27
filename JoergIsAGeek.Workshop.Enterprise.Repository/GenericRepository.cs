@@ -88,6 +88,37 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository {
       return Context.SaveChanges() == 1;
     }
 
+    #region Async Calls
+
+    public async Task<bool> InsertOrUpdateAsync(T model) {
+      // the comparer is for both key types, string and int
+      Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
+      return await Context.SaveChangesAsync() == 1;
+    }
+
+    public async Task<bool> InsertOrUpdateAsync(IEnumerable<T> models) {
+      var result = true;
+      using (var t = Context.Database.BeginTransaction()) {
+        foreach (var model in models) {
+          // the comparer is for both key types, string and int
+          Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
+          var singleResult = await Context.SaveChangesAsync() == 1;
+          if (!singleResult) {
+            t.Rollback();
+            break;
+          }
+        }
+        t.Commit();
+      }
+      return result;
+    }
+
+    public async Task<bool> DeleteAsync(T model) {
+      Context.Entry(model).State = EntityState.Deleted;
+      return await Context.SaveChangesAsync() == 1;
+    }
+
+    #endregion
 
   }
 }

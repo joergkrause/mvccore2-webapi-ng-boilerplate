@@ -26,7 +26,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Areas.UserAdmin.Contro
     }
 
     // GET: api/Role/5
-    [HttpGet("{id}", Name = "GetById")]
+    [HttpGet("{id}", Name = "GetByRoleId")]
     public async Task<RoleViewModel> GetbyId(string id) {
       var role = await _roleManager.FindByIdAsync(id);
       return role;

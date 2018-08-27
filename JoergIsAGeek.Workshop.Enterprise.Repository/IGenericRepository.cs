@@ -13,6 +13,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository {
     T Find(U id);
     bool InsertOrUpdate(T model);
     bool InsertOrUpdate(IEnumerable<T> models);
+    Task<bool> InsertOrUpdateAsync(T model);
+    Task<bool> InsertOrUpdateAsync(IEnumerable<T> models);
+    Task<bool> DeleteAsync(T model);
     IQueryable<T> Query(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths);
     IEnumerable<T> Read(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths);
   }

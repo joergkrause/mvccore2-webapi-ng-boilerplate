@@ -23,11 +23,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services) {
+      // store user for middleware access
+      services.AddScoped(typeof(IUserContextProvider), s => new UserContextProvider(Configuration));
+      // access to db globally configured
       // get connectionstring from appsettings.json
       var connectionString = Configuration.GetConnectionString(nameof(MachineDataContext));
-      // store user for middleware access
-      services.AddScoped(typeof(IUserContextProvider), s => new UserContextProvider());
-      // access to db globally configured
       services.AddDbContext<MachineDataContext>(o => o.UseSqlServer(connectionString), ServiceLifetime.Scoped);
       services.AddScoped(typeof(IGenericRepository<Machine, int>), typeof(GenericDbRepository<Machine, int>));
       services.AddScoped(typeof(IGenericRepository<Device, int>), typeof(GenericDbRepository<Device, int>));

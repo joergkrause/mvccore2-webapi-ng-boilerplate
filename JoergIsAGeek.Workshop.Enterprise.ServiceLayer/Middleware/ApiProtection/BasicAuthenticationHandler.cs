@@ -1,6 +1,4 @@
-﻿using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
-using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
-using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
+﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -21,18 +19,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware.ApiProtection
   public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions> {
 
     private readonly IUserContextProvider userContext;
-    private readonly IAuthenticationManager authManager;
 
     public BasicAuthenticationHandler(
     IOptionsMonitor<BasicAuthenticationOptions> options,
     ILoggerFactory logger,
     UrlEncoder encoder,
     ISystemClock clock,
-    IUserContextProvider userContext,
-    IAuthenticationManager authManager)
+    IUserContextProvider userContext)
     : base(options, logger, encoder, clock) {
       this.userContext = userContext;
-      this.authManager = authManager;
     }
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync() {
@@ -57,7 +52,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware.ApiProtection
       string user = parts[0];
       string password = parts[1];
       // static password as a secret for backend protection, username is dynamic - the currently authenticated user
-      bool isValidUser = password == "p@ssw0rd";
+      bool isValidUser = password == userContext.SecretKey;
 
       if (!isValidUser) {
         return AuthenticateResult.Fail("Invalid username or password");
@@ -66,15 +61,22 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware.ApiProtection
       // we even make access here before we have a user, so we skip the user specific part in case it's just a logon attempt
       if (!String.IsNullOrEmpty(user)) {
         claims.Add(new Claim(ClaimTypes.Name, user));
-        // retrieve claims from database and map manually      
-        var userDto = authManager.FindUserByName(user);
-        var userClaims = authManager.GetClaims(userDto).Select(c => new Claim(c.Type, c.Value)).ToList();
-        claims.AddRange(userClaims);
+        var claimsHeader = Request.Headers["X-User-Claims"];
+        if (!string.IsNullOrEmpty(claimsHeader)) {
+          var userClaims = claimsHeader
+            .SelectMany(c => c.Split(','))
+            .Select(c => Encoding.ASCII.GetString(Convert.FromBase64String(c.Trim())))
+            .Select(c => {
+              var claimParts = c.Split('|');
+              return new Claim(claimParts[0], claimParts[1]);
+            });
+          claims.AddRange(userClaims);
+        }
       }
       var identity = new ClaimsIdentity(claims, Scheme.Name);
       // this keeps the user's identity for business logic purpose
       userContext.SetUserIdentity(identity);
-      var principal = new ClaimsPrincipal(identity);      
+      var principal = new ClaimsPrincipal(identity);
       var ticket = new AuthenticationTicket(principal, Scheme.Name);
       return AuthenticateResult.Success(ticket);
     }
