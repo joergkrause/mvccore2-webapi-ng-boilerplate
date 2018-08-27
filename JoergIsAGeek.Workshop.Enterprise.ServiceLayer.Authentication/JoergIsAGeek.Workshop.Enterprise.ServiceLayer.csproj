@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.ServiceBase\JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj" />
   </ItemGroup>
 
   <ItemGroup>
