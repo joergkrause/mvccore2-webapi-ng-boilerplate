@@ -4,28 +4,28 @@
 // regenerated.
 // </auto-generated>
 
-namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models
+namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class IdentityError
+    public partial class ApplicationIdentityRoleDto
     {
         /// <summary>
-        /// Initializes a new instance of the IdentityError class.
+        /// Initializes a new instance of the ApplicationIdentityRoleDto class.
         /// </summary>
-        public IdentityError()
+        public ApplicationIdentityRoleDto()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the IdentityError class.
+        /// Initializes a new instance of the ApplicationIdentityRoleDto class.
         /// </summary>
-        public IdentityError(string code = default(string), string description = default(string))
+        public ApplicationIdentityRoleDto(string id = default(string), string name = default(string))
         {
-            Code = code;
-            Description = description;
+            Id = id;
+            Name = name;
             CustomInit();
         }
 
@@ -36,13 +36,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "code")]
-        public string Code { get; set; }
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "description")]
-        public string Description { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
     }
 }

@@ -1,15 +1,4 @@
 $machineName = 'localhost';
-# Local Service start
-$exe = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer.exe"
-$serviceExecutables = @{
-  "Authentication"="\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication\bin\Debug\net47\$exe";
-  "MachineData"="\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.MachineData\bin\Debug\net47\$exe"
-}
-$pid = @()
-$root = (get-item $PSScriptRoot ).parent.FullName
-$serviceExecutables.Keys | % { Join-Path -Path $root -ChildPath $serviceExecutables.Item($_) | Write-Host  }
-$serviceExecutables.Keys | % { $pid += [Diagnostics.Process]::Start((Join-Path -Path $root -ChildPath $serviceExecutables.Item($_))) }
-Start-Sleep 5
 # endpoints
 $serviceUrls = @{
   "Authentication"="http://localhost:5001/swagger/v1/swagger.json";
@@ -28,13 +17,11 @@ if ($testAuth -and $testMach) {
   # Get the data
   $serviceUrls.Keys | % { 
       $url = $serviceUrls.Item($_)
-      $outfile = "$_-proxy.json"
+      $outfile =  "./$_-proxy.json"
       Invoke-WebRequest -Uri $url -OutFile $output -Credential $credential
       # Create the proxy in the 'Connected Services' folder
-      autorest --namespace=JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.$_ --csharp --input-file=$outfile --output-folder="Connected Services" --base-folder=. --clear-output-folder
+      autorest --namespace=JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.$_ --csharp --input-file=$outfile --output-folder="./Connected Services/$_" --base-folder=. --clear-output-folder
    }
 } else {
   Write-Host "Backend Service is not listing, please start service."
 }
-Write-Host "Done, killing service processes"
-$pid | % { Write-host $_ }

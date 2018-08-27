@@ -42,7 +42,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
       });
       services.AddSwaggerGen(c => {
         c.SwaggerDoc("v1", new Info {
-          Title = "Enterprise Service API",
+          Title = "Authentication API",
           Version = "v1",
           Contact = new Contact {
             Name = "Jörg Krause",
@@ -69,7 +69,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
       // swagger UI and endpoint
       app.UseSwagger();
       app.UseSwaggerUI(c => {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Enterprise Service V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentication Service V1");
         c.RoutePrefix = string.Empty;
       });
       // for swagger UI

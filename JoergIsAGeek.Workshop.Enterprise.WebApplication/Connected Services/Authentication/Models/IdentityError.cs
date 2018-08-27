@@ -4,28 +4,28 @@
 // regenerated.
 // </auto-generated>
 
-namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models
+namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class ClaimDto
+    public partial class IdentityError
     {
         /// <summary>
-        /// Initializes a new instance of the ClaimDto class.
+        /// Initializes a new instance of the IdentityError class.
         /// </summary>
-        public ClaimDto()
+        public IdentityError()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ClaimDto class.
+        /// Initializes a new instance of the IdentityError class.
         /// </summary>
-        public ClaimDto(string type = default(string), string value = default(string))
+        public IdentityError(string code = default(string), string description = default(string))
         {
-            Type = type;
-            Value = value;
+            Code = code;
+            Description = description;
             CustomInit();
         }
 
@@ -36,13 +36,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "type")]
-        public string Type { get; set; }
+        [JsonProperty(PropertyName = "code")]
+        public string Code { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        public string Value { get; set; }
+        [JsonProperty(PropertyName = "description")]
+        public string Description { get; set; }
 
     }
 }
