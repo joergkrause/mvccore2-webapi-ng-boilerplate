@@ -1,7 +1,6 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
 using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware.ApiProtection;
@@ -32,11 +31,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
       services.AddScoped(typeof(IGenericRepository<Machine, int>), typeof(GenericDbRepository<Machine, int>));
       services.AddScoped(typeof(IGenericRepository<Device, int>), typeof(GenericDbRepository<Device, int>));
       services.AddScoped(typeof(IGenericRepository<DataValue, int>), typeof(GenericDbRepository<DataValue, int>));
-      services.AddScoped(typeof(IGenericRepository<ApplicationUser, string>), typeof(GenericDbRepository<ApplicationUser, string>));
-      services.AddScoped(typeof(IGenericRepository<ApplicationRole, string>), typeof(GenericDbRepository<ApplicationRole, string>));
-      services.AddScoped(typeof(IGenericRepository<UserClaim, int>), typeof(GenericDbRepository<UserClaim, int>));
-      services.AddScoped(typeof(IGenericRepository<UserRole, string>), typeof(GenericDbRepository<UserRole, string>));
-      services.AddScoped(typeof(IAuthenticationManager), typeof(AuthenticationManager));
       services.AddScoped(typeof(IMachineManager), typeof(MachineManager));
       // backend protection, frontend shall provide username and passwordhash as basic auth
       services.AddAuthentication("Basic").AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null);
