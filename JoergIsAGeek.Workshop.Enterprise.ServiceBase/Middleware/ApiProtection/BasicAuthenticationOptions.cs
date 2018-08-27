@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware.ApiProtection {
+namespace JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware.ApiProtection {
   public class BasicAuthenticationOptions : AuthenticationSchemeOptions {
     public string Realm { get; set; }
   }

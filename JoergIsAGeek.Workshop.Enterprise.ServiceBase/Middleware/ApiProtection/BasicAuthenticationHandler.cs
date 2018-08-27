@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware.ApiProtection {
+namespace JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware.ApiProtection {
 
   /// <summary>
   /// See at https://joonasw.net/view/creating-auth-scheme-in-aspnet-core-2

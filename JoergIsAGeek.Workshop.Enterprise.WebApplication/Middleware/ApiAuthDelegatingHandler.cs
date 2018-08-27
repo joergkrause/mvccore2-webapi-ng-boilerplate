@@ -37,7 +37,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Middleware {
         //userName = ((ClaimsIdentity)httpContext.User.Identity).Claims.SingleOrDefault(c => c.Type == nameClaimType)?.Value;
         userName = ((ClaimsIdentity)httpContext.User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value;
         // a custom header that avoids retrieving the claims for the business layer again
-        // using | avoids conflict while splitting because claim identifiers might by URIs
+        // using | avoids conflict while splitting because claim type identifiers might by URIs
         // HINT: an alternative way would be a cache in the backend service logic
         request.Headers.Add("X-User-Claims", 
           claimsIdentity.Claims.Select(c => convertToBase64($"{c.Type}|{c.Value}")));

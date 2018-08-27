@@ -8,7 +8,7 @@ using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware
+namespace JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware
 {
 
   /// <summary>

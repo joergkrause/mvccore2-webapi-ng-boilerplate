@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware
+namespace JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware
 {
   // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
   public class ClientCertificate

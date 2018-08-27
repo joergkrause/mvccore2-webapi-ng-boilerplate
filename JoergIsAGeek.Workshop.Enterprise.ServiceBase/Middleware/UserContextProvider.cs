@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware
+namespace JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware
 {
   public class UserContextProvider : IUserContextProvider
   {
