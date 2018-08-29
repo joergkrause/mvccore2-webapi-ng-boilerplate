@@ -55,13 +55,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       // current context to get access to current user
       var httpContextInstance = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
       ApiAuthDelegatingHandler degHandler = new ApiAuthDelegatingHandler(httpContextInstance, Configuration);
-      var apiClientAuthService = new AuthenticationServiceAPI(backendUri, rootHandler, degHandler);
-      var apiClientMachineService = new MachineServiceAPI(backendUri, rootHandler, degHandler);
+      var apiClientAuthService = new AuthenticationAPI(backendUri, rootHandler, degHandler);
+      var apiClientMachineService = new MachineDataAPI(backendUri, rootHandler, degHandler);
       // Alternative way: static authentication of backend
       //var byteArray = Encoding.ASCII.GetBytes("username:secretKey");
       //apiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-      services.AddSingleton<IAuthenticationServiceAPI>(apiClientAuthService);
-      services.AddSingleton<IMachineServiceAPI>(apiClientMachineService);
+      services.AddSingleton<IAuthenticationAPI>(apiClientAuthService);
+      services.AddSingleton<IMachineDataAPI>(apiClientMachineService);
       // WFE logic and identity based on view models
       services.AddScoped<UserManager<UserViewModel>, CustomUserManager>(); // calls IUSerStore
       services.AddScoped<RoleManager<RoleViewModel>, CustomRoleManager>(); // calls IRoleStore

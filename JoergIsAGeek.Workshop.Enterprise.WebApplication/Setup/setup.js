@@ -146,8 +146,8 @@ if (args && args[2]) {
       dotnetRun(projDesc.mdat.path, projDesc.mdat.sn);
       setTimeout(() => {
         console.log('Start building')
-        autoRest(projDesc.auth.url, projDesc.auth.ns, projDesc.auth.sn, false);
-        autoRest(projDesc.mdat.url, projDesc.mdat.ns, projDesc.mdat.sn, false);
+        autoRest(projDesc.auth.url, projDesc.auth.ns, projDesc.auth.sn, true);
+        autoRest(projDesc.mdat.url, projDesc.mdat.ns, projDesc.mdat.sn, true);
       }, 10000);
       break;
     case 'bc':
