@@ -29,7 +29,7 @@ if ($testAuth -and $testMach) {
   $serviceUrls.Keys | % { 
       $url = $serviceUrls.Item($_)
       $outfile = "$_-proxy.json"
-      Invoke-WebRequest -Uri $url -OutFile $output -Credential $credential
+      Invoke-WebRequest -Uri $url -OutFile $outfile -Credential $credential
       # Create the proxy in the 'Connected Services' folder
       autorest --namespace=JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.$_ --csharp --input-file=$outfile --output-folder="Connected Services" --base-folder=. --clear-output-folder
    }

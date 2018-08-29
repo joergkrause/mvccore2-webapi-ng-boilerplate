@@ -1,13 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels;
-using System.Linq;
-using Moq;
-using JoergIsAGeek.Workshop.Enterprise.Repository;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
+﻿using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects;
+using JoergIsAGeek.Workshop.Enterprise.DomainModels;
+using JoergIsAGeek.Workshop.Enterprise.Repository;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
   [TestClass]
@@ -41,7 +40,7 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
       mockMachineRepo.Setup(r => r.Find(It.IsAny<int>())).Returns<int>(a => machines.Single(m => m.Id == a));
 
       // mock the provider to simulate dependency injection
-      mockedServiceProvider = Mock.Of<IServiceProvider>(sp => 
+      mockedServiceProvider = Mock.Of<IServiceProvider>(sp =>
         sp.GetService(typeof(IGenericRepository<Machine, int>)) == mockMachineRepo.Object);
 
     }

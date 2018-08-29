@@ -240,6 +240,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj">
+      <Project>{56C1242D-BEA9-41FD-80CD-4B29ABEFF454}</Project>
+      <Name>JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj">
       <Project>{9251cb79-cdb0-468c-80f1-e1392601824c}</Project>
       <Name>JoergIsAGeek.Workshop.Enterprise.DataAccessLayer</Name>

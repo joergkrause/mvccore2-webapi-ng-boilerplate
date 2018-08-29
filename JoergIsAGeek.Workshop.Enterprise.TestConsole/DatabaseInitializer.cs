@@ -34,7 +34,7 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer {
         Id = Guid.NewGuid().ToString("N"),
         Email = "doris@demo.com"
       };
-      user.PasswordHash = hasher.HashPassword(user, "p@ssw0rd");
+      user.PasswordHash = hasher.HashPassword(user, "p@ssw0rd"); // K€nnw0rt
       var admin = new ApplicationUser
       {
         UserName = "andyadmin",

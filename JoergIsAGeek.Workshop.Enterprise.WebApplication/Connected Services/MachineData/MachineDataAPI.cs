@@ -17,7 +17,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData
     using System.Threading;
     using System.Threading.Tasks;
 
-    public partial class MachineServiceAPI : ServiceClient<MachineServiceAPI>, IMachineServiceAPI
+    public partial class MachineDataAPI : ServiceClient<MachineDataAPI>, IMachineDataAPI
     {
         /// <summary>
         /// The base URI of the service.
@@ -35,31 +35,31 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData
         public JsonSerializerSettings DeserializationSettings { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the MachineServiceAPI class.
+        /// Initializes a new instance of the MachineDataAPI class.
         /// </summary>
         /// <param name='httpClient'>
         /// HttpClient to be used
         /// </param>
         /// <param name='disposeHttpClient'>
-        /// True: will dispose the provided httpClient on calling MachineServiceAPI.Dispose(). False: will not dispose provided httpClient</param>
-        public MachineServiceAPI(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
+        /// True: will dispose the provided httpClient on calling MachineDataAPI.Dispose(). False: will not dispose provided httpClient</param>
+        public MachineDataAPI(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the MachineServiceAPI class.
+        /// Initializes a new instance of the MachineDataAPI class.
         /// </summary>
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public MachineServiceAPI(params DelegatingHandler[] handlers) : base(handlers)
+        public MachineDataAPI(params DelegatingHandler[] handlers) : base(handlers)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the MachineServiceAPI class.
+        /// Initializes a new instance of the MachineDataAPI class.
         /// </summary>
         /// <param name='rootHandler'>
         /// Optional. The http client handler used to handle http transport.
@@ -67,13 +67,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public MachineServiceAPI(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
+        public MachineDataAPI(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the MachineServiceAPI class.
+        /// Initializes a new instance of the MachineDataAPI class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -84,7 +84,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public MachineServiceAPI(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
+        public MachineDataAPI(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (baseUri == null)
             {
@@ -94,7 +94,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData
         }
 
         /// <summary>
-        /// Initializes a new instance of the MachineServiceAPI class.
+        /// Initializes a new instance of the MachineDataAPI class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -108,7 +108,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public MachineServiceAPI(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
+        public MachineDataAPI(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
         {
             if (baseUri == null)
             {
