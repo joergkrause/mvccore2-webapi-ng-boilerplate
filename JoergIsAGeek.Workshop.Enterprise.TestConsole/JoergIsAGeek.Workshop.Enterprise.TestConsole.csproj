@@ -57,6 +57,7 @@
     <PackageReference Include="System.Collections" version="4.3.0" />
     <PackageReference Include="System.Collections.Immutable" version="1.5.0" />
     <PackageReference Include="System.ComponentModel.Annotations" version="4.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
     <PackageReference Include="System.Data.SqlClient" version="4.5.1" />
     <PackageReference Include="System.Diagnostics.Debug" version="4.3.0" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" version="4.5.0" />
@@ -85,5 +86,8 @@
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj" />
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj" />
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.Repository\JoergIsAGeek.Workshop.Enterprise.Repository.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 </Project>
