@@ -19,10 +19,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   [Route("api/[controller]")]
   public class MachinesController : Controller {
 
-    IEnterpriseServiceAPI client;
+    IMachineServiceAPI client;
     private readonly IMapper mapper;
 
-    public MachinesController(IEnterpriseServiceAPI client, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
+    public MachinesController(IMachineServiceAPI client, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
       this.client = client;
       this.mapper = mapper;
       // in case we need the user here we can retrieve the claimsprincipal

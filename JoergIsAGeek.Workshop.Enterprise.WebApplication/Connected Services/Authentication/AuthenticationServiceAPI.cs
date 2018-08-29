@@ -17,7 +17,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authenticati
     using System.Threading;
     using System.Threading.Tasks;
 
-    public partial class EnterpriseServiceAPI : ServiceClient<EnterpriseServiceAPI>, IEnterpriseServiceAPI
+    public partial class AuthenticationServiceAPI : ServiceClient<AuthenticationServiceAPI>, IAuthenticationServiceAPI
     {
         /// <summary>
         /// The base URI of the service.
@@ -35,31 +35,31 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authenticati
         public JsonSerializerSettings DeserializationSettings { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the EnterpriseServiceAPI class.
+        /// Initializes a new instance of the AuthenticationServiceAPI class.
         /// </summary>
         /// <param name='httpClient'>
         /// HttpClient to be used
         /// </param>
         /// <param name='disposeHttpClient'>
-        /// True: will dispose the provided httpClient on calling EnterpriseServiceAPI.Dispose(). False: will not dispose provided httpClient</param>
-        public EnterpriseServiceAPI(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
+        /// True: will dispose the provided httpClient on calling AuthenticationServiceAPI.Dispose(). False: will not dispose provided httpClient</param>
+        public AuthenticationServiceAPI(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the EnterpriseServiceAPI class.
+        /// Initializes a new instance of the AuthenticationServiceAPI class.
         /// </summary>
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public EnterpriseServiceAPI(params DelegatingHandler[] handlers) : base(handlers)
+        public AuthenticationServiceAPI(params DelegatingHandler[] handlers) : base(handlers)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the EnterpriseServiceAPI class.
+        /// Initializes a new instance of the AuthenticationServiceAPI class.
         /// </summary>
         /// <param name='rootHandler'>
         /// Optional. The http client handler used to handle http transport.
@@ -67,13 +67,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authenticati
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public EnterpriseServiceAPI(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
+        public AuthenticationServiceAPI(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the EnterpriseServiceAPI class.
+        /// Initializes a new instance of the AuthenticationServiceAPI class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -84,7 +84,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authenticati
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public EnterpriseServiceAPI(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
+        public AuthenticationServiceAPI(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (baseUri == null)
             {
@@ -94,7 +94,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authenticati
         }
 
         /// <summary>
-        /// Initializes a new instance of the EnterpriseServiceAPI class.
+        /// Initializes a new instance of the AuthenticationServiceAPI class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -108,7 +108,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authenticati
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public EnterpriseServiceAPI(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
+        public AuthenticationServiceAPI(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
         {
             if (baseUri == null)
             {

@@ -16,7 +16,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authenticati
 
     /// <summary>
     /// </summary>
-    public partial interface IEnterpriseServiceAPI : System.IDisposable
+    public partial interface IAuthenticationServiceAPI : System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.

@@ -16,7 +16,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData
 
     /// <summary>
     /// </summary>
-    public partial interface IEnterpriseServiceAPI : System.IDisposable
+    public partial interface IMachineServiceAPI : System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.
