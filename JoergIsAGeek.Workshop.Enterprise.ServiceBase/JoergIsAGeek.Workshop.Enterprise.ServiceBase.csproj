@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Routing" version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Routing.Abstractions" version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" version="2.1.1" />
@@ -64,6 +65,7 @@
     <PackageReference Include="Microsoft.Net.Http.Headers" version="2.1.1" />
     <PackageReference Include="Microsoft.Win32.Registry" version="4.5.0" />
     <PackageReference Include="Newtonsoft.Json" version="11.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
     <PackageReference Include="System.Buffers" version="4.5.0" />
     <PackageReference Include="System.Collections.Immutable" version="1.5.0" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" version="4.5.0" />

@@ -8,6 +8,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
   /// <summary>
   /// Machine Data Endpoint for application server access.
   /// </summary>
+  [ApiController]
   [Route("api/[controller]")]
   [Authorize]
   public class MachineServiceController : Controller {

@@ -126,8 +126,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       }).AddJwtBearer(options => {
         options.IncludeErrorDetails = true;
         options.TokenValidationParameters = tokenValidationParameters;
+#pragma warning disable CS1998 // #warning directive for await/async violation, it's just while debug code is in here
         options.Events = new JwtBearerEvents {
-          OnMessageReceived = async (context) => {
+          OnMessageReceived = async (context) =>
+          {
             Debug.WriteLine("====>  JWT Message received");
           },
           OnTokenValidated = async (context) => {
@@ -146,6 +148,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
             return Task.CompletedTask;
           }
         };
+#pragma warning restore CS1998 // #warning directive
       });
       services.AddAuthorization(options => {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)

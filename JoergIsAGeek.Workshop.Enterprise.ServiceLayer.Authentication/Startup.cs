@@ -2,28 +2,26 @@
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
-using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware;
-using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware.ApiProtection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
-  public class Startup {
-    public Startup(IConfiguration configuration) {
-      Configuration = configuration;
+namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
+{
+  public class Startup : StartupBase
+  {
+
+    public Startup(IConfiguration configuration) : base(configuration)
+    {
     }
 
-    public IConfiguration Configuration { get; }
-
     // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services) {
-      // store user for middleware access
-      services.AddScoped(typeof(IUserContextProvider), s => new UserContextProvider(Configuration));
+    public override void ConfigureServices(IServiceCollection services)
+    {
+      base.ConfigureServices(services);
       // access to db globally configured
       // get connectionstring from appsettings.json
       var connectionString = Configuration.GetConnectionString(nameof(MachineDataContext));
@@ -33,23 +31,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
       services.AddScoped(typeof(IGenericRepository<UserClaim, int>), typeof(GenericDbRepository<UserClaim, int>));
       services.AddScoped(typeof(IGenericRepository<UserRole, string>), typeof(GenericDbRepository<UserRole, string>));
       services.AddScoped(typeof(IAuthenticationManager), typeof(AuthenticationManager));
-      // backend protection, frontend shall provide username and passwordhash as basic auth
-      services.AddAuthentication("Basic").AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null);
-      // formatters
-      services.AddMvc(options => {
-        // because the API just serves the WFE, we format everything JSON conform
-        options.OutputFormatters.RemoveType<TextOutputFormatter>();
-      });
-      services.AddSwaggerGen(c => {
-        c.SwaggerDoc("v1", new Info {
+      services.AddSwaggerGen(c =>
+      {
+        c.SwaggerDoc("v1", new Info
+        {
           Title = "Authentication API",
           Version = "v1",
-          Contact = new Contact {
+          Contact = new Contact
+          {
             Name = "Jörg Krause",
             Email = "joerg@krause.net",
             Url = "https://twitter.com/joergisageek"
           },
-          License = new License {
+          License = new License
+          {
             Name = "Use under MIT",
             Url = "https://example.com/license"
           }
@@ -58,22 +53,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-      if (env.IsDevelopment()) {
-        app.UseDeveloperExceptionPage();
+    public override void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    {
+      if (env.IsDevelopment())
+      {
+        // swagger UI and endpoint only at dev-time
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
+        {
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentication Service V1");
+          c.RoutePrefix = string.Empty;
+        });
       }
-      // we want to authenticate the client
-      app.UseAuthentication();
-      // custom middleware
-      app.UseUserContext();
-      // swagger UI and endpoint
-      app.UseSwagger();
-      app.UseSwaggerUI(c => {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentication Service V1");
-        c.RoutePrefix = string.Empty;
-      });
-      // for swagger UI
-      app.UseMvc();
+      base.Configure(app, env);
     }
   }
 }

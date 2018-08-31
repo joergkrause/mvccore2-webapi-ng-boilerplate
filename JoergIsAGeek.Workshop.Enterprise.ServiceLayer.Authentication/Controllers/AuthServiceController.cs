@@ -8,11 +8,14 @@ using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
+// TODO: https://stackoverflow.com/questions/37681023/swashbuckle-parameter-descriptions
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
   /// <summary>
   /// Access to the authentication backend based on ASP.NET identity.
   /// All requests/responses are handled as JSON to support the front end facility using Auto REST.
   /// </summary>
+  [ApiController] // automate ModelState.IsValid for all calls
   [Route("api/[controller]")]
   [Produces("application/json")]  
   [AllowAnonymous]
@@ -182,7 +185,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
 
     [HttpPut]
     [Route("claims")]
-    public void AddClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims) {
+    public void AddClaims([FromQuery] ApplicationUserDto user, IEnumerable<ClaimDto> claims) {
       _authenticationManager.AddClaims(user, claims);
     }
 
@@ -194,13 +197,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
 
     [HttpDelete]
     [Route("claims")]
-    public void RemoveClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims) {
+    public void RemoveClaims([FromQuery] ApplicationUserDto user, IEnumerable<ClaimDto> claims) {
       _authenticationManager.RemoveClaims(user, claims);
     }
 
     [HttpPost]
     [Route("claims")]
-    public void ReplaceClaim(ApplicationUserDto user, NewClaimDto claim) {
+    public void ReplaceClaim([FromQuery] ApplicationUserDto user, NewClaimDto claim) {
       _authenticationManager.ReplaceClaim(user, 
         new ClaimDto { Type = claim.Type, Value = claim.Value }, 
         new ClaimDto { Type = claim.NewType, Value = claim.NewValue});
