@@ -21,7 +21,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware
   /// specific client (by certificate) to make such calls. Hence, the infrastructure is
   /// save.
   /// </remarks>
-public class UserContext
+  public class UserContext
   {
     private readonly RequestDelegate _next;
 
@@ -33,11 +33,16 @@ public class UserContext
     public Task Invoke(HttpContext httpContext)
     {
       // The client layer provides the authenticated user as a header
-      var userName = httpContext.Request.Headers["X-User-Authenticated-Name"];
-      // We forward this to a service, which other parts of the app can consume to 
-      // manage user code based on roles and rights
-      var userContext = httpContext.RequestServices.GetService(typeof(IUserContextProvider)) as IUserContextProvider;
-      userContext.SetUserIdentity(new GenericIdentity(userName, "X-User"));
+      var userName = httpContext.Request.Headers["X-User-Authenticated-Name"].ToString();
+      // if there is no header we keep the identity unset, consumer my decide 
+      // to treat this as an error
+      if (!String.IsNullOrEmpty(userName))
+      {
+        // We forward this to a service, which other parts of the app can consume to 
+        // manage user code based on roles and rights
+        var userContext = httpContext.RequestServices.GetService(typeof(IUserContextProvider)) as IUserContextProvider;
+        userContext.SetUserIdentity(new GenericIdentity(userName, "X-User"));
+      }
       return _next(httpContext);
     }
   }
