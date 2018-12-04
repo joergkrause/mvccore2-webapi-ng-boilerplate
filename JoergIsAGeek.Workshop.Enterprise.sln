@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "JoergIsAGeek.Workshop.Enterprise.ServiceLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{A5ACFC1B-B655-4C45-9F9D-9ACADCE1D315}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoergIsAGeek.Workshop.Enterprise.ServiceBase", "JoergIsAGeek.Workshop.Enterprise.ServiceBase\JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj", "{EE85CFE5-91EB-40BA-99A2-A61F428A1D30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceBase", "JoergIsAGeek.Workshop.Enterprise.ServiceBase\JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj", "{EE85CFE5-91EB-40BA-99A2-A61F428A1D30}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer", "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "{56C1242D-BEA9-41FD-80CD-4B29ABEFF454}"
 EndProject
