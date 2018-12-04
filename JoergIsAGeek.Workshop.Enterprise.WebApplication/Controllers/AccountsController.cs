@@ -17,37 +17,40 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
 
   /// <summary>
   /// Self management for users. Register, change password, reset password and so on.
+  /// All users, including guests, can use this. But they have to have a valid account.
   /// </summary>
   [Route("api/[controller]")]
+  [Authorize()]
   public class AccountsController : Controller
   {
 
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<UserViewModel> _userManager;
     private readonly IMapper _mapper;
 
-    public AccountsController(UserManager<ApplicationUser> userManager, IMapper mapper)
+    public AccountsController(UserManager<UserViewModel> userManager, IMapper mapper)
     {
       _userManager = userManager;
       _mapper = mapper;
     }
 
-    // POST api/accounts
-    [HttpPost]
-    public async Task<IActionResult> Post([FromBody]RegistrationViewModel model)
+    /// <summary>
+    /// Information about the currently logged on user.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult> Get(string id)
     {
-      if (!ModelState.IsValid)
+      var result = await _userManager.FindByIdAsync(id);
+      if (result == null)
       {
-        return BadRequest(ModelState);
+        return BadRequest("No User");
       }
-
-      var userIdentity = _mapper.Map<ApplicationUser>(model);
-
-      var result = await _userManager.CreateAsync(userIdentity, model.Password);
-
-      if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
-
-      return new OkObjectResult("Account created");
+      return Ok(result);
     }
+
+
 
   }
 }

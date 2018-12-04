@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels {
   public class MachineViewModel : BaseViewModel {
+
+    [Required]
     public string Name { get; set; }
 
+    [StringLength(100)]
     public string Location { get; set; }
 
     public bool HasDevices { get; set; }

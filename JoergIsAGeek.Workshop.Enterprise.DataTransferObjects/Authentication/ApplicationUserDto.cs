@@ -24,8 +24,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication
     [DataMember(Name = "EmailConf")]
     public virtual bool EmailConfirmed { get; set; }
 
+    [DataMember(Name = "Email")]
     public virtual string Email { get; set; }
 
+    [DataMember(Name = "Name")]
     public virtual string UserName { get; set; }
 
   }

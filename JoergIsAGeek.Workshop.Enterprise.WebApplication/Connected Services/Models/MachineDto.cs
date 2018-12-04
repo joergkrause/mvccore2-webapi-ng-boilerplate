@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Models
+namespace Demo.Models
 {
     using Newtonsoft.Json;
     using System.Linq;

@@ -1,44 +1,64 @@
 ﻿import { Routes } from '@angular/router';
 
-import * as Pages from '../pages/index';
+import * as components from '../components/index';
 import { AuthGuard } from '../guards/index';
 
-const routes: Routes = [
+export const routesConfig: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'info',
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    component: Pages.PageDashboardComponent,
+    path: 'info',
+    component: components.SiteInfoComponent,
     data: {
-      title: 'Dashboard',
-      icon: 'fa-dashboard'
+      title: 'Site Info'
     }
   },
   {
-    path: 'options',
-    component: Pages.PageOptionsComponent,
-    data: {
-      title: 'Options'
-    },
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'register',
-    component: Pages.PageRegistrationComponent,
+    component: components.RegistrationFormComponent,
     data: {
       title: 'User Registration'
     }
   },
   {
-    path: 'login',
-    component: Pages.PageLoginComponent,
+    path: 'login/:email',
+    component: components.LoginFormComponent,
     data: {
       title: 'User Login'
     }
+  },
+  {
+    path: 'login',
+    component: components.LoginFormComponent,
+    data: {
+      title: 'User Login'
+    }
+  },
+  {
+    path: 'logout',
+    component: components.LogoutFormComponent,
+    data: {
+      title: 'User Logout'
+    }
+  },
+  {
+    path: 'dashboard',
+    component: components.DashboardComponent,
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Dashboard'
+    }
+  },
+  {
+    path: 'admin',
+    loadChildren: './modules/admin/admin.module#AdminModule',
+    data: {
+      title: 'Administration'
+    }
   }
+
 ];
 
-export default routes;

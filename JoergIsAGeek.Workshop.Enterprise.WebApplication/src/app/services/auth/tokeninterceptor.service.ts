@@ -3,6 +3,9 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 
 import { Observable } from 'rxjs/Observable';
 
+/**
+ * Adds the bearer token and the global JSON support, the latter header is required by ASP.NET Core WebAPI
+ * */
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
 
@@ -12,7 +15,8 @@ export class TokenInterceptorService implements HttpInterceptor {
 
     request = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.token}`
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`
       }
     });
     return next.handle(request);

@@ -14,6 +14,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication
   /// </summary>
   public class ApplicationUser : IdentityUser, IEntityBase<string>, IAuditableEntityBase
   {
+
     [Column(TypeName = "datetime2")]
     public DateTime CreatedAt { get; set; }
 

@@ -1,31 +1,25 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Autofac;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
-using System.Linq;
-using Moq;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
-using Autofac.Core;
-using Autofac;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
   [TestClass]
   public class DeviceManagerUnitTest {
 
-    Machine[] machines;
-    MachineManager machineManager;
-    IContainer container;
+    IServiceProvider mockedServiceProvider;
 
     [TestInitialize]
     public void InitTests() {
-      // Testdaten
-      machines = new Machine[] {
-        new Machine { Id = 1, Name ="Test machine one" },
-        new Machine { Id = 2, Name ="Test machine two" },
-        new Machine { Id = 99,
-          Name ="Test machine with devices",
-          Devices = new Collection<Device> {
+      // test data
+      var devices = new Collection<Device> {
             new Device {
               Id = 1, Name = "device one",
               DataValues = new Collection<DataValue> {
@@ -33,51 +27,94 @@ namespace JoergIsAGeek.Workshop.UnitTest.BusinessLayer {
                 new DataValue { Id = 2, Unit = "V", Value = 99 },
               }
             }
-          }
+          };
+      var machines = new List<Machine> {
+        new Machine { Id = 1, Name ="Test machine one" },
+        new Machine { Id = 2, Name ="Test machine two" },
+        new Machine { Id = 99,
+          Name ="Test machine with devices",
+          Devices = devices
         },
       };
-      machineManager = new MachineManager();
-      // Mock zentral erstellen
-      var mock = new Mock<IGenericRepository<Machine, int>>();
-      mock.Setup(r => r.Read(m => true))
-          .Returns(machines.Where(m => !m.Devices.Any()));
-      mock.Setup(r => r.Query(m => true, m => m.Devices, m => m.Devices.Select(d => d.DataValues)))
+
+      // all repos need to be mocked to avoid dependecy to DB layer
+      var mockMachineRepo = new Mock<IGenericRepository<Machine, int>>();
+      // machines
+      mockMachineRepo.Setup(r => r.Read(m => true))
+        .Returns(machines);
+      // TODO: Setup not properly
+      mockMachineRepo.Setup(r => r.Read(m => m.Id == It.IsAny<int>()))
+        .Returns<Func<Machine, bool>, Func<Machine, object>>((a, b) => machines.Where(a));
+      mockMachineRepo.Setup(r => r.Read(m => m.Id == It.IsAny<int>(), It.IsAny<Expression<Func<Machine, object>>[]>()))
+        .Returns<Func<Machine, bool>, Func<Machine, object>>((a, b) => machines.Where(a));
+      mockMachineRepo.Setup(r => r.Read(m => !m.Devices.Any(), It.IsAny<Expression<Func<Machine, object>>[]>()))
+        .Returns(machines.Where(m => !m.Devices.Any()));
+
+      mockMachineRepo.Setup(r => r.Query(m => true, m => m.Devices, m => m.Devices.Select(d => d.DataValues)))
           .Returns(machines.Where(m => m.Devices.Any()).AsQueryable());
-      var testValue = 1;
-      mock.Setup(r => r.Find(testValue)).Returns(machines.Single(m => m.Id == testValue));
+      mockMachineRepo.Setup(r => r.Query(m => true)).Returns(machines.AsQueryable());
 
-      // Mock per DI bereitstellen
-      var builder = new ContainerBuilder();
-      builder.RegisterInstance(mock.Object);
-      builder.RegisterType<MachineManager>().AsSelf().PropertiesAutowired();      
-      //
+      mockMachineRepo.Setup(r => r.Count()).Returns(machines.Count());
 
-      container = builder.Build();
-      machineManager = container.Resolve<MachineManager>();
+      mockMachineRepo.Setup(r => r.Find(It.IsAny<int>()))
+        .Returns<int>(a => machines.Single(m => m.Id == a));
+      mockMachineRepo.Setup(r => r.Find(It.IsAny<int>()))
+        .Returns<int>(a => machines.Single(m => m.Id == a));
+
+      // devices
+      var mockDeviceRepo = new Mock<IGenericRepository<Device, int>>();
+      mockDeviceRepo.Setup(r => r.Read(m => true)).Returns(devices);
+      mockDeviceRepo.Setup(r => r.Query(m => true)).Returns(devices.AsQueryable());
+      mockDeviceRepo.Setup(r => r.Count()).Returns(devices.Count());
+      mockDeviceRepo.Setup(r => r.Find(It.IsAny<int>())).Returns<int>(a => devices.Single(m => m.Id == a));
+
+      // all repos are injected through the service provider, so we mock the SP
+      mockedServiceProvider = Mock.Of<IServiceProvider>(sp =>
+        sp.GetService(typeof(IGenericRepository<Machine, int>)) == mockMachineRepo.Object &&
+        sp.GetService(typeof(IGenericRepository<Device, int>)) == mockDeviceRepo.Object);
+
     }
 
     [TestMethod]
-    public void TestMethod1() {
-      var result = machineManager.GetAllMachines();
-      Assert.IsNotNull(result, "Result was NULL");    // Testfunktion
+    public void GetMachinesWithDevices() {
+      var machineManager = new MachineManager(mockedServiceProvider);
+      var result = machineManager.GetAllMachines().Select(m => m.HasDevices);
+      Assert.IsNotNull(result, "Result was NULL");
       var count = result.Count();
-      Assert.AreEqual(2, count, "COUNT failed");   // Testfunktion
+      Assert.AreEqual(1, count, "COUNT failed");
     }
 
     [TestMethod]
-    public void TestMethod2() {
-      var result = machineManager.GetMachineById(1);
-      Assert.AreEqual(1, result.Id, "ID nicht korrekt");
-      Assert.AreEqual("Test machine one", result.Name, "Name nicht korrekt");
+    public void GetDevicesOfMachine() {
+      var machineManager = new MachineManager(mockedServiceProvider);
+      var machine = new Machine { Id = 99 };
+      var result = machineManager.GetDevicesOfMachine(machine);
+      // positive, some devices
+      Assert.IsNotNull(result, "Result was NULL");
+      var count = result.Count();
+      Assert.AreEqual(2, count, "COUNT failed");
+      // negative, no devices
+      machine.Id = 1;
+      result = machineManager.GetDevicesOfMachine(machine);
+      Assert.IsNotNull(result, "Result was NULL");
+      count = result.Count();
+      Assert.AreEqual(0, count, "COUNT failed");
+      // false, no machine
+      machine.Id = 4;
+      result = machineManager.GetDevicesOfMachine(machine);
+      Assert.IsNull(result, "Result was not NULL");
     }
 
+
     [TestMethod]
-    public void TestMethod3() {
+    public void GetMachineForDataValue() {
+      var machineManager = new MachineManager(mockedServiceProvider);
       var result = machineManager.GetMachineForDataValue(100);
-      Assert.AreEqual(1, result.Count(), "Anzahl nicht korrekt 100");
+      Assert.AreEqual(1, result.Count(), "Machines for value 100 not correct");
       result = machineManager.GetMachineForDataValue(101);
-      Assert.AreEqual(1, result.Count(), "Anzahl nicht korrekt 101");
+      Assert.AreEqual(1, result.Count(), "Machines for value 101 not correct");
     }
+
 
   }
 }

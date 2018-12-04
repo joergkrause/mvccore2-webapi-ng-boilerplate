@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
-namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects
-{
+namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects {
 
   [DataContract]
-  public class MachineDto
-  {
+  public class MachineDto {
 
     [DataMember]
     public int Id { get; set; }

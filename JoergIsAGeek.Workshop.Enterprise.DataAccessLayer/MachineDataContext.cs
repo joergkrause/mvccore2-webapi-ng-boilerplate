@@ -1,38 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Configuration;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using System.Threading;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Configuration;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
-{
+namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
 
   /// <summary>
   /// The main context for working data and authentication.
-  /// The Autofac cotainer shall deliver the options for config.
+  /// The Autofac container shall deliver the options for config.
   /// </summary>
-  public class MachineDataContext : IdentityDbContext
-  {
+  public class MachineDataContext : IdentityDbContext {
 
-    private IUserContextProvider contextProvider;
+    private readonly IUserContextProvider contextProvider;
 
-    public MachineDataContext(DbContextOptions<DbContext> options, IUserContextProvider contextProvider) : base(options)
-    {
+    public MachineDataContext(DbContextOptions<MachineDataContext> options, IUserContextProvider contextProvider) : base(options) {
       // forward of the user identity
       this.contextProvider = contextProvider;
+      
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {      
       base.OnConfiguring(optionsBuilder);
+      optionsBuilder.EnableSensitiveDataLogging(true);
     }
 
     public DbSet<Machine> Machines { get; set; }
@@ -41,16 +38,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
 
     public DbSet<DataValue> DataValues { get; set; }
 
-    public override int SaveChanges()
-    {
+    public override int SaveChanges() {
       var now = DateTime.Now;
       SaveInterceptor(this.contextProvider?.UserIdentity?.Name, now);
       ValidateInterceptor();
       return base.SaveChanges();
     }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
-    {
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken)) {
       var now = DateTime.Now;
       SaveInterceptor(this.contextProvider?.UserIdentity?.Name, now);
       ValidateInterceptor();
@@ -61,22 +56,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
     /// We perform an extensive validation to handle ValidationAttributes set outside
     /// the context of EF and database. EF Core does not do this anymore (EF6 did). 
     /// </summary>
-    public void ValidateInterceptor()
-    {
+    public void ValidateInterceptor() {
       // all but deleted entries
       foreach (var entry in this.ChangeTracker.Entries()
-            .Where(e => (e.State == EntityState.Added) || (e.State == EntityState.Modified)))
-      {
+            .Where(e => (e.State == EntityState.Added) || (e.State == EntityState.Modified))) {
         var entity = entry.Entity;
         var context = new ValidationContext(entity);
         var results = new List<ValidationResult>();
 
-        if (Validator.TryValidateObject(entity, context, results, true) == false)
-        {
-          foreach (var result in results)
-          {
-            if (result != ValidationResult.Success)
-            {
+        if (Validator.TryValidateObject(entity, context, results, true) == false) {
+          foreach (var result in results) {
+            if (result != ValidationResult.Success) {
               throw new ValidationException(result.ErrorMessage);
             }
           }
@@ -89,13 +79,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
     /// </summary>
     /// <param name="contextUser">API provides a user object, if user is authenticated</param>
     /// <param name="timeStamp">The timestamp externally.</param>
-    private void SaveInterceptor(string contextUser, DateTime timeStamp)
-    {
+    private void SaveInterceptor(string contextUser, DateTime timeStamp) {
       var trackedItems = ChangeTracker.Entries<IAuditableEntityBase>();
-      foreach (var item in trackedItems)
-      {
-        switch (item.State)
-        {
+      foreach (var item in trackedItems) {
+        switch (item.State) {
           case EntityState.Added:
             item.Entity.CreatedAt = timeStamp;
             item.Entity.CreatedBy = contextUser ?? "TestUser";
@@ -108,31 +95,27 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
       }
     }
 
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
+    protected override void OnModelCreating(ModelBuilder builder) {
       base.OnModelCreating(builder);
       // external config for better readebility and flexibility
       builder.ApplyConfiguration(new MachineConfig());
-      builder.ApplyConfiguration(new ApplicationUserConfig());
-      // classes we have enhanced
-      builder.Entity<ApplicationRole>()
-        .ToTable("Roles")
-        .Property(u => u.Id).HasColumnType("char(32)").IsUnicode(false);
-      // standard identity classes
-      builder.Entity<IdentityUserLogin<string>>()
-        .ToTable("UserLogins")
-        .Property(ur => ur.UserId).HasColumnType("char(32)").IsUnicode(false);
+      builder.ApplyConfiguration(new IdentityUserConfig());      
+      builder.ApplyConfiguration(new IdentityUserClaimConfig());
+      builder.ApplyConfiguration(new IdentityUserLoginConfig());
+      builder.ApplyConfiguration(new IdentityRoleConfig());
+      builder.ApplyConfiguration(new IdentityUserRoleConfig());
+      builder.ApplyConfiguration(new IdentityRoleClaimConfig());
+      // currently we don't store the tokens
+      builder.Ignore<IdentityUserToken<string>>();
 
-      builder.Entity<IdentityUserRole<string>>()
-        .ToTable("User_x_Roles")
-        .HasKey(r => new { UserId = r.UserId, RoleId = r.RoleId });
-
-      builder.Entity<IdentityUserRole<string>>()
-        .Property(ur => ur.RoleId).HasColumnType("char(32)").IsUnicode(false);
-
-      builder.Entity<IdentityUserRole<string>>()
-        .Property(ur => ur.UserId).HasColumnType("char(32)").IsUnicode(false);
-
+      // to configure derived classes, such as ApplicationUser, add particular Entity calls here after
+      // this is necessary to configure both, base type and derived type, to have both in the model for mapping
+      builder.Entity<ApplicationUser>().ToTable("Users", "identity");
+      builder.Entity<ApplicationRole>().ToTable("Roles", "identity");
+      builder.Entity<UserRole>().ToTable("User_x_Roles", "identity");
+      builder.Entity<UserRole>().Property(ur => ur.Id).HasColumnType("char(64)").IsUnicode(false);
+      builder.Entity<UserClaim>().ToTable("UserClaims", "identity");
+      // Examples:
       //builder.Entity<ApplicationUser>()
       //    .HasMany(e => e.Claims)
       //    .WithOne()
@@ -145,7 +128,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer
       //    .WithOne()
       //    .HasForeignKey(e => e.UserId)
       //    .IsRequired()
-      //    .OnDelete(DeleteBehavior.SetNull);
+      //    .OnDelete(DeleteBehavior.SetNull);     
 
     }
 

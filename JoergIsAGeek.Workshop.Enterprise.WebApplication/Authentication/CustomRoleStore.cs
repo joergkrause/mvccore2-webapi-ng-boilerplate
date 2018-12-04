@@ -1,73 +1,61 @@
-﻿using System.Threading;
+﻿using AutoMapper;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication;
+using System.Threading;
 using System.Threading.Tasks;
-using VM = JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using ID = Microsoft.AspNetCore.Identity;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy;
+using VM = JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 
-namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
-{
-  internal class CustomRoleStore : ID.IRoleStore<VM.ApplicationIdentityRole>
-  {
+namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
+  internal class CustomRoleStore : ID.IRoleStore<VM.RoleViewModel> {
 
-    private IEnterpriseServiceAPI _authSrvClient;
+    private readonly IAuthenticationAPI _authSrvClient;
+    private readonly IMapper _mapper;
 
-    public CustomRoleStore(IEnterpriseServiceAPI client)
-    {
+    public CustomRoleStore(IAuthenticationAPI client, IMapper mapper) {
       _authSrvClient = client;
+      _mapper = mapper;
     }
 
-    public Task<ID.IdentityResult> CreateAsync(VM.ApplicationIdentityRole role, CancellationToken cancellationToken)
-    {
+    public Task<ID.IdentityResult> CreateAsync(VM.RoleViewModel role, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
 
-    public Task<ID.IdentityResult> DeleteAsync(VM.ApplicationIdentityRole role, CancellationToken cancellationToken)
-    {
+    public Task<ID.IdentityResult> DeleteAsync(VM.RoleViewModel role, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
 
-    public void Dispose()
-    {
+    public void Dispose() {
+    }
+
+    public Task<VM.RoleViewModel> FindByIdAsync(string roleId, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
 
-    public Task<VM.ApplicationIdentityRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
-    {
+    public Task<VM.RoleViewModel> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
 
-    public Task<VM.ApplicationIdentityRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
-    {
+    public Task<string> GetNormalizedRoleNameAsync(VM.RoleViewModel role, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
 
-    public Task<string> GetNormalizedRoleNameAsync(VM.ApplicationIdentityRole role, CancellationToken cancellationToken)
-    {
+    public Task<string> GetRoleIdAsync(VM.RoleViewModel role, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
 
-    public Task<string> GetRoleIdAsync(VM.ApplicationIdentityRole role, CancellationToken cancellationToken)
-    {
+    public Task<string> GetRoleNameAsync(VM.RoleViewModel role, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
 
-    public Task<string> GetRoleNameAsync(VM.ApplicationIdentityRole role, CancellationToken cancellationToken)
-    {
+    public Task SetNormalizedRoleNameAsync(VM.RoleViewModel role, string normalizedName, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
 
-    public Task SetNormalizedRoleNameAsync(VM.ApplicationIdentityRole role, string normalizedName, CancellationToken cancellationToken)
-    {
+    public Task SetRoleNameAsync(VM.RoleViewModel role, string roleName, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
 
-    public Task SetRoleNameAsync(VM.ApplicationIdentityRole role, string roleName, CancellationToken cancellationToken)
-    {
-      throw new System.NotImplementedException();
-    }
-
-    public Task<ID.IdentityResult> UpdateAsync(VM.ApplicationIdentityRole role, CancellationToken cancellationToken)
-    {
+    public Task<ID.IdentityResult> UpdateAsync(VM.RoleViewModel role, CancellationToken cancellationToken) {
       throw new System.NotImplementedException();
     }
   }
