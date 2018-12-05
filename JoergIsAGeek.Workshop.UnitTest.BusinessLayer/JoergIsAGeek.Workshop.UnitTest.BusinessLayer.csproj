@@ -248,10 +248,6 @@
       <Project>{9251cb79-cdb0-468c-80f1-e1392601824c}</Project>
       <Name>JoergIsAGeek.Workshop.Enterprise.DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj">
-      <Project>{46de08af-cecf-45c3-a975-f62018188eda}</Project>
-      <Name>JoergIsAGeek.Workshop.Enterprise.DataTransferObjects</Name>
-    </ProjectReference>
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj">
       <Project>{f7012709-60fd-4a4e-9acf-1c636776e43f}</Project>
       <Name>JoergIsAGeek.Workshop.Enterprise.DomainModels</Name>

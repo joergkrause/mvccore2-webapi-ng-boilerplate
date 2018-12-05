@@ -156,7 +156,6 @@
     <PackageReference Include="System.Xml.XPath.XDocument" version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj" />
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj" />
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.Repository\JoergIsAGeek.Workshop.Enterprise.Repository.csproj" />
   </ItemGroup>
