@@ -1,5 +1,7 @@
 FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 WORKDIR /app
+EXPOSE 80
+EXPOSE 443
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
@@ -14,6 +16,6 @@ RUN dotnet publish "JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Rel
 
 FROM base AS final
 WORKDIR /app
-EXPOSE 5001
+EXPOSE 5005
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "JoergIsAGeek.Workshop.Enterprise.ServiceLayer.dll"]

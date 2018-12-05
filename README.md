@@ -1,8 +1,8 @@
 # Content
 
-Multi tier application with ASP.NET Core WebAPI, WebAPI service layer and Entity Framework Core backend. The frontend is made with Angular 6.
+Multi tier application with ASP.NET Core WebAPI, WebAPI service layer and Entity Framework Core backend. The frontend is made with Angular 7.
 
-Currently running ASP.NET Core 2.1 and EF 2.1 Core and build against .NET 4.7.
+Currently running ASP.NET Core 2.1 and EF 2.1 Core and build against .NET 4.7 and Core 2.1.
 
 ## Usage
 
@@ -12,19 +12,42 @@ Currently running ASP.NET Core 2.1 and EF 2.1 Core and build against .NET 4.7.
 * Go to WebFrontEnd project's folder and execute `npm run build`
 	* This creates the Angular app and the proxy from swagger data
 * Now build the FrontEnd
-* Start the front end - it's on port 5000 by default
+* Start the front end - it's on port 5000 by default (or 8080 if run on docker, see below).
 
 # Setup
 
 ## Settings
 
-The connection string goes to (localdb)\MSSQLLocalDb. You change this in Testconsole and ServiceLayer.
+The connection string goes to (localdb)\JoergIsAGeek. You change this in Testconsole and ServiceLayers (micro services).
 
-The WebFrontEnd has no direct DB access.
+Create a DB instance on the console like that:
+
+~~~
+sqllocaldb create JoergIsAGeek
+~~~
+
+The WebFrontEnd has no direct DB access. Use docker to overcome manual settings and setup everything automatically, see below.
 
 ### API
 
 The service layer exposes the API as OpenAPI (f.k.a. Swagger). The frontend uses AutoRest to create the proxy. Changes require to recreate the proxy.
+
+# Docker Support
+
+The projects are organized in sub folders. That's because the flat *.sln structure does not allow the existence of multiple *DockerFile* files. While renaming would be an option, the editor 
+will not work properly with renamed *DockerFile* files. Hence, using sub folders is a solution. This would not be necessary if just a *docker_compose.yml* exists, but this is hard to debug if the 
+complex single containers are not tested one by one.
+
+## Container landscape
+
+There are 4 containers:
+
+* Linux with MSSQL 2017 for database --> Port 1433
+* Linux with ASPNET Core for micro service 1 (Authentication) --> Port 5001
+* Linux with ASPNET Core for micro service 2 (MachineData demo data) --> Port 5005
+* Linux with ASPNET Core for web front end (Angular App) --> Port 5000, exposed externally as Port 8080
+
+The composer file runs all of them in production mode. The final solution runs on http://localhost:8080 on your host system or any other external IP. The 500X ports are for inter-container communication only.
 
 
 # Usage
