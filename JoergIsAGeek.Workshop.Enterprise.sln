@@ -10,6 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationServer", "ApplicationServer", "{581DA9F7-3C4B-4329-8AD2-4358C4188038}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebFrontEnd", "WebFrontEnd", "{344C7732-A990-4455-85DE-CFCC732EDE2E}"
+	ProjectSection(SolutionItems) = preProject
+		Sources\WebApp\DockerFile = Sources\WebApp\DockerFile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DD0BC866-8E26-4E01-AEA9-CEB1BC9079A7}"
 EndProject
@@ -29,12 +32,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServices", "MicroServi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{DF058096-80A1-41B3-AC1D-A9A823EB3E13}"
 	ProjectSection(SolutionItems) = preProject
-		MicroServices\Authentication\DockerFile = MicroServices\Authentication\DockerFile
+		Sources\MicroServices\Authentication\DockerFile = Sources\MicroServices\Authentication\DockerFile
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MachineData", "MachineData", "{0523FDAA-B05D-439C-A320-D1B869DC6079}"
 	ProjectSection(SolutionItems) = preProject
-		MicroServices\MachineData\DockerFile = MicroServices\MachineData\DockerFile
+		Sources\MicroServices\MachineData\DockerFile = Sources\MicroServices\MachineData\DockerFile
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "Sources\MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{55FABA94-5C7A-411D-9DA7-CC5EE0AA3A61}"
@@ -54,9 +57,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataTransferObjects", "Sources\MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "{FE4FD737-9D28-416F-A348-38AD80DED0AE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C158D699-66D5-451D-A93A-D8942316F787}"
-	ProjectSection(SolutionItems) = preProject
-		Database\DockerFile = Database\DockerFile
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E9A20052-5438-403D-9E8B-CA2E18AA0652}"
 	ProjectSection(SolutionItems) = preProject
