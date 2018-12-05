@@ -1,0 +1,38 @@
+version: '3' 
+services: 
+  wfe: 
+    image: workshop/frontend 
+    environment: 
+      - AuthServiceUrl=http://localhost:5001/api/auth 
+      - MachineDataServiceUrl=http://localhost:5005/api/machinedata 
+    ports: 
+      - "8080:5000" 
+    depends_on: 
+      - auth.api 
+      - machinedata.api
+  
+  auth.api: 
+    image: workshop/auth.api 
+    environment: 
+      - ConnectionString=Server=sql.server;Database=MachineDataDatabase;UserId=SA;Pwd=Joerg1sA*Geek
+    ports: 
+      - "5001:5001" 
+    depends_on: 
+      - sql.server
+
+  machinedata.api: 
+    image: workshop/machinedata.api 
+    environment: 
+      - ConnectionString=Server=sql.server;Database=MachineDataDatabase;UserId=SA;Pwd=Joerg1sA*Geek 
+    ports: 
+      - "5005:5005" 
+    depends_on: 
+      - sql.server 
+
+  sql.server: 
+    image: microsoft/mssql-server-linux:latest 
+    environment: 
+      - SA_PASSWORD=Joerg1sA*Geek 
+      - ACCEPT_EULA=Y 
+    ports: 
+      - "5433:1433"

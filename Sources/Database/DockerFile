@@ -1,0 +1,6 @@
+FROM microsoft/mssql-server-linux AS db
+ENV ACCEPT_EULA=Y
+ENV SA_PASSWORD=Joerg1sA*Geek
+ENV MSSQL_PID=Developer
+
+EXPOSE 1433

@@ -240,19 +240,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj">
+    <ProjectReference Include="..\Sources\MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj">
       <Project>{56C1242D-BEA9-41FD-80CD-4B29ABEFF454}</Project>
       <Name>JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Database\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj">
+    <ProjectReference Include="..\Sources\Database\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj">
       <Project>{9251cb79-cdb0-468c-80f1-e1392601824c}</Project>
       <Name>JoergIsAGeek.Workshop.Enterprise.DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Database\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj">
+    <ProjectReference Include="..\Sources\Database\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj">
       <Project>{f7012709-60fd-4a4e-9acf-1c636776e43f}</Project>
       <Name>JoergIsAGeek.Workshop.Enterprise.DomainModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Database\JoergIsAGeek.Workshop.Enterprise.Repository\JoergIsAGeek.Workshop.Enterprise.Repository.csproj">
+    <ProjectReference Include="..\Sources\Database\JoergIsAGeek.Workshop.Enterprise.Repository\JoergIsAGeek.Workshop.Enterprise.Repository.csproj">
       <Project>{9f5161ca-3b8a-4d5c-9630-ee99bd1fbb0a}</Project>
       <Name>JoergIsAGeek.Workshop.Enterprise.Repository</Name>
     </ProjectReference>

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DomainModels", "Database\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj", "{F7012709-60FD-4A4E-9ACF-1C636776E43F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DomainModels", "Sources\Database\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj", "{F7012709-60FD-4A4E-9ACF-1C636776E43F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.Repository", "Database\JoergIsAGeek.Workshop.Enterprise.Repository\JoergIsAGeek.Workshop.Enterprise.Repository.csproj", "{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.Repository", "Sources\Database\JoergIsAGeek.Workshop.Enterprise.Repository\JoergIsAGeek.Workshop.Enterprise.Repository.csproj", "{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationServer", "ApplicationServer", "{581DA9F7-3C4B-4329-8AD2-4358C4188038}"
 EndProject
@@ -19,11 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApps", "ConsoleApps"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoergIsAGeek.Workshop.UnitTest.BusinessLayer", "JoergIsAGeek.Workshop.UnitTest.BusinessLayer\JoergIsAGeek.Workshop.UnitTest.BusinessLayer.csproj", "{667FFC0B-3BEC-4C17-9068-CC966FC7F79B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication", "WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication\JoergIsAGeek.Workshop.Enterprise.WebApplication.csproj", "{F2D9969E-10BC-4521-89B7-7651EA677ECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication", "Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication\JoergIsAGeek.Workshop.Enterprise.WebApplication.csproj", "{F2D9969E-10BC-4521-89B7-7651EA677ECB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels", "WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.csproj", "{BCA30391-1AC1-4FFA-942F-5DC2418E364A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels", "Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.csproj", "{BCA30391-1AC1-4FFA-942F-5DC2418E364A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataAccessLayer", "Database\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj", "{9251CB79-CDB0-468C-80F1-E1392601824C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataAccessLayer", "Sources\Database\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj", "{9251CB79-CDB0-468C-80F1-E1392601824C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServices", "MicroServices", "{6BFD38C2-22E5-4DA1-B3CB-16A3E061A1B3}"
 EndProject
@@ -37,25 +37,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MachineData", "MachineData"
 		MicroServices\MachineData\DockerFile = MicroServices\MachineData\DockerFile
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{55FABA94-5C7A-411D-9DA7-CC5EE0AA3A61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "Sources\MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{55FABA94-5C7A-411D-9DA7-CC5EE0AA3A61}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{A5ACFC1B-B655-4C45-9F9D-9ACADCE1D315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "Sources\MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{A5ACFC1B-B655-4C45-9F9D-9ACADCE1D315}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceBase", "MicroServices\JoergIsAGeek.Workshop.Enterprise.ServiceBase\JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj", "{EE85CFE5-91EB-40BA-99A2-A61F428A1D30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceBase", "Sources\MicroServices\JoergIsAGeek.Workshop.Enterprise.ServiceBase\JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj", "{EE85CFE5-91EB-40BA-99A2-A61F428A1D30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer", "MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "{56C1242D-BEA9-41FD-80CD-4B29ABEFF454}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer", "Sources\MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "{56C1242D-BEA9-41FD-80CD-4B29ABEFF454}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer", "MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "{3073F99F-04C5-4844-8D09-6C09F15CF3A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer", "Sources\MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "{3073F99F-04C5-4844-8D09-6C09F15CF3A1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.SetupConsole", "JoergIsAGeek.Workshop.Enterprise.SetupConsole\JoergIsAGeek.Workshop.Enterprise.SetupConsole.csproj", "{98C42821-AE8D-4BD7-9EBF-B4AD373BDD3B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataTransferObjects", "MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.MachineData\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "{D326AA9E-A9AB-4E83-9ED7-6BCE929FBAF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataTransferObjects", "Sources\MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.MachineData\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "{D326AA9E-A9AB-4E83-9ED7-6BCE929FBAF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataTransferObjects", "MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "{FE4FD737-9D28-416F-A348-38AD80DED0AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataTransferObjects", "Sources\MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "{FE4FD737-9D28-416F-A348-38AD80DED0AE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C158D699-66D5-451D-A93A-D8942316F787}"
 	ProjectSection(SolutionItems) = preProject
 		Database\DockerFile = Database\DockerFile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E9A20052-5438-403D-9E8B-CA2E18AA0652}"
+	ProjectSection(SolutionItems) = preProject
+		docker_composer.yml = docker_composer.yml
+		DockerFile = DockerFile
 	EndProjectSection
 EndProject
 Global
