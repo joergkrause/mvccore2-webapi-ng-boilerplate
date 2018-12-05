@@ -98,6 +98,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
     protected override void OnModelCreating(ModelBuilder builder) {
       base.OnModelCreating(builder);
       // external config for better readebility and flexibility
+     
       builder.ApplyConfiguration(new MachineConfig());
       builder.ApplyConfiguration(new IdentityUserConfig());      
       builder.ApplyConfiguration(new IdentityUserClaimConfig());

@@ -1,6 +1,7 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware.ApiProtection;
+using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;

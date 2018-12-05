@@ -21,11 +21,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware
   /// specific client (by certificate) to make such calls. Hence, the infrastructure is
   /// save.
   /// </remarks>
-  public class UserContext
+  public class UseUserContext
   {
     private readonly RequestDelegate _next;
 
-    public UserContext(RequestDelegate next)
+    public UseUserContext(RequestDelegate next)
     {
       _next = next;
     }
@@ -52,7 +52,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Middleware
   {
     public static IApplicationBuilder UseUserContext(this IApplicationBuilder builder)
     {
-      return builder.UseMiddleware<UserContext>();
+      return builder.UseMiddleware<UseUserContext>();
     }
   }
 }

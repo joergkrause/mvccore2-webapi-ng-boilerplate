@@ -35,7 +35,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository {
       foreach (var path in paths) {
         model = model.Include(path); // 
       }
-      return model.Where(predicate).ToList();
+      return model.Where(predicate).AsNoTracking().ToList();
     }
 
     public IQueryable<T> Query(Expression<Func<T, bool>> predicate, 
@@ -47,7 +47,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository {
       foreach (var path in paths) {
         model = model.Include(path);
       }
-      return model.Where(predicate);
+      return model.Where(predicate).AsNoTracking();
     }
 
     public int Count() {
