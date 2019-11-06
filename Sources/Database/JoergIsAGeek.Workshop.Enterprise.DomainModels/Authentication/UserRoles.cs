@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
+using Microsoft.AspNetCore.Identity;
 
 namespace JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication {
   public class UserRole : IdentityUserRole<string>, IEntityBase<string> {

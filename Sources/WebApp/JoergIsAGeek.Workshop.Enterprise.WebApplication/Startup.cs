@@ -33,7 +33,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
   {
 
 
-    public Startup(IHostingEnvironment env)
+    public Startup(IWebHostEnvironment env)
     {
       var builder = new ConfigurationBuilder()
           .SetBasePath(env.ContentRootPath)
@@ -126,43 +126,43 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
       // Per default failed requests redirect to Account/Logon, 
       // but here we have SPA with API and need to inform SPA app to handle this.
-      services.AddAuthentication(options =>
-      {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-      }).AddJwtBearer(options =>
-      {
-        options.IncludeErrorDetails = true;
-        options.TokenValidationParameters = tokenValidationParameters;
+      _ = services.AddAuthentication(options =>
+        {
+          options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+          options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+          options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+          options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+          options.IncludeErrorDetails = true;
+          options.TokenValidationParameters = tokenValidationParameters;
 #pragma warning disable CS1998 // #warning directive for await/async violation, it's just while debug code is in here
         options.Events = new JwtBearerEvents
-        {
-          OnMessageReceived = async (context) =>
           {
-            Debug.WriteLine("====>  JWT Message received");
-          },
-          OnTokenValidated = async (context) =>
-          {
-            Debug.WriteLine("====>  JWT token validated");
-          },
-          OnAuthenticationFailed = c =>
-          {
-            Debug.WriteLine($"====>  JWT auth failed: {c.Exception}");
-            c.NoResult();
-            c.Response.StatusCode = 403;
-            c.Response.ContentType = "text/plain";
-            c.Response.WriteAsync(c.Exception.ToString()).Wait();
-            return Task.CompletedTask;
-          },
-          OnChallenge = c =>
-          {
-            c.HandleResponse();
-            return Task.CompletedTask;
-          }
-        };
+            OnMessageReceived = async (context) =>
+            {
+              Debug.WriteLine("====>  JWT Message received");
+            },
+            OnTokenValidated = async (context) =>
+            {
+              Debug.WriteLine("====>  JWT token validated");
+            },
+            OnAuthenticationFailed = c =>
+            {
+              Debug.WriteLine($"====>  JWT auth failed: {c.Exception}");
+              c.NoResult();
+              c.Response.StatusCode = 403;
+              c.Response.ContentType = "text/plain";
+              c.Response.WriteAsync(c.Exception.ToString()).Wait();
+              return Task.CompletedTask;
+            },
+            OnChallenge = c =>
+            {
+              c.HandleResponse();
+              return Task.CompletedTask;
+            }
+          };
 #pragma warning restore CS1998 // #warning directive
       });
       services.AddAuthorization(options =>
@@ -219,7 +219,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
     {
 
       if (env.IsDevelopment())

@@ -4,41 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" version="2.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" version="2.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" version="2.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" version="2.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" version="2.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Primitives" version="2.1.1" />
-    <PackageReference Include="Remotion.Linq" version="2.2.0" />
-    <PackageReference Include="System.Buffers" version="4.5.0" />
-    <PackageReference Include="System.Collections" version="4.3.0" />
-    <PackageReference Include="System.Collections.Immutable" version="1.5.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" version="4.5.0" />
-    <PackageReference Include="System.Diagnostics.Debug" version="4.3.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" version="4.5.0" />
-    <PackageReference Include="System.Interactive.Async" version="3.2.0" />
-    <PackageReference Include="System.Linq" version="4.3.0" />
-    <PackageReference Include="System.Linq.Expressions" version="4.3.0" />
-    <PackageReference Include="System.Linq.Queryable" version="4.3.0" />
-    <PackageReference Include="System.Memory" version="4.5.1" />
-    <PackageReference Include="System.Numerics.Vectors" version="4.5.0" />
-    <PackageReference Include="System.ObjectModel" version="4.3.0" />
-    <PackageReference Include="System.Reflection" version="4.3.0" />
-    <PackageReference Include="System.Reflection.Extensions" version="4.3.0" />
-    <PackageReference Include="System.Runtime" version="4.3.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" version="4.5.1" />
-    <PackageReference Include="System.Runtime.Extensions" version="4.3.0" />
-    <PackageReference Include="System.Threading" version="4.3.0" />
-    <PackageReference Include="System.ValueTuple" version="4.5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

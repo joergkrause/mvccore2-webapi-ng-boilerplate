@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DomainModels", "Sources\Database\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj", "{F7012709-60FD-4A4E-9ACF-1C636776E43F}"
 EndProject
@@ -14,13 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebFrontEnd", "WebFrontEnd"
 		Sources\WebApp\DockerFile = Sources\WebApp\DockerFile
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DD0BC866-8E26-4E01-AEA9-CEB1BC9079A7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoergIsAGeek.Workshop.UnitTests.DataAccessLayer", "JoergIsAGeek.Workshop.UnitTests.DataAccessLayer\JoergIsAGeek.Workshop.UnitTests.DataAccessLayer.csproj", "{6B8DB1A2-4857-46D5-A3B5-EF01BF18FE4E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApps", "ConsoleApps", "{FCBB36E7-3E2F-443D-A9CD-A234B5790E2F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoergIsAGeek.Workshop.UnitTest.BusinessLayer", "JoergIsAGeek.Workshop.UnitTest.BusinessLayer\JoergIsAGeek.Workshop.UnitTest.BusinessLayer.csproj", "{667FFC0B-3BEC-4C17-9068-CC966FC7F79B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication", "Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication\JoergIsAGeek.Workshop.Enterprise.WebApplication.csproj", "{F2D9969E-10BC-4521-89B7-7651EA677ECB}"
 EndProject
@@ -78,12 +72,6 @@ Global
 		{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B8DB1A2-4857-46D5-A3B5-EF01BF18FE4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B8DB1A2-4857-46D5-A3B5-EF01BF18FE4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B8DB1A2-4857-46D5-A3B5-EF01BF18FE4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{667FFC0B-3BEC-4C17-9068-CC966FC7F79B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{667FFC0B-3BEC-4C17-9068-CC966FC7F79B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{667FFC0B-3BEC-4C17-9068-CC966FC7F79B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F2D9969E-10BC-4521-89B7-7651EA677ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F2D9969E-10BC-4521-89B7-7651EA677ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2D9969E-10BC-4521-89B7-7651EA677ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -135,8 +123,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F7012709-60FD-4A4E-9ACF-1C636776E43F} = {C158D699-66D5-451D-A93A-D8942316F787}
 		{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A} = {C158D699-66D5-451D-A93A-D8942316F787}
-		{6B8DB1A2-4857-46D5-A3B5-EF01BF18FE4E} = {DD0BC866-8E26-4E01-AEA9-CEB1BC9079A7}
-		{667FFC0B-3BEC-4C17-9068-CC966FC7F79B} = {DD0BC866-8E26-4E01-AEA9-CEB1BC9079A7}
 		{F2D9969E-10BC-4521-89B7-7651EA677ECB} = {344C7732-A990-4455-85DE-CFCC732EDE2E}
 		{BCA30391-1AC1-4FFA-942F-5DC2418E364A} = {344C7732-A990-4455-85DE-CFCC732EDE2E}
 		{9251CB79-CDB0-468C-80F1-E1392601824C} = {C158D699-66D5-451D-A93A-D8942316F787}
