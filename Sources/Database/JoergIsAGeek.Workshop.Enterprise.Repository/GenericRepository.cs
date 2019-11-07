@@ -1,16 +1,14 @@
-﻿using JoergIsAGeek.Workshop.Enterprise.DomainModels;
+﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
+using JoergIsAGeek.Workshop.Enterprise.DomainModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace JoergIsAGeek.Workshop.Enterprise.Repository {
+namespace JoergIsAGeek.Workshop.Enterprise.Repository
+{
   public class GenericDbRepository<T, U> : IGenericRepository<T, U> where T : class, IEntityBase<U> {
 
 
@@ -26,8 +24,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository {
       return Context.Set<T>().Find(id); //.Single(u => u.Id == id);
     }
 
-    public IEnumerable<T> Read(Expression<Func<T, bool>> predicate, 
-      params Expression<Func<T, object>>[] paths) {
+    public IEnumerable<T> Read(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths) {
       if (Count() > 10000) {
         throw new ArgumentOutOfRangeException("to many results");
       }
@@ -38,8 +35,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository {
       return model.Where(predicate).AsNoTracking().ToList();
     }
 
-    public IQueryable<T> Query(Expression<Func<T, bool>> predicate, 
-      params Expression<Func<T, object>>[] paths) {
+    public IQueryable<T> Query(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths) {
       if (Count() > 10000) {
         throw new ArgumentOutOfRangeException("to many results");
       }

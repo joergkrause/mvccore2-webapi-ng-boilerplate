@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication.Models
+namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.AuthenticationService.Models
 {
     using Newtonsoft.Json;
     using System.Collections;

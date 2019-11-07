@@ -49,7 +49,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       // custom middleware
       app.UseUserContext();
       // for swagger UI
-      app.UseMvc();
+      //app.UseMvc();
     }
   }
 }

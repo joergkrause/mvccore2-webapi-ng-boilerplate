@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData.Models;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineDataService;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineDataService.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

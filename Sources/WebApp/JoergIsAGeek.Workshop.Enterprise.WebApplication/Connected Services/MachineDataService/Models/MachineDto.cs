@@ -4,28 +4,30 @@
 // regenerated.
 // </auto-generated>
 
-namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication.Models
+namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineDataService.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class ApplicationIdentityRoleDto
+    public partial class MachineDto
     {
         /// <summary>
-        /// Initializes a new instance of the ApplicationIdentityRoleDto class.
+        /// Initializes a new instance of the MachineDto class.
         /// </summary>
-        public ApplicationIdentityRoleDto()
+        public MachineDto()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ApplicationIdentityRoleDto class.
+        /// Initializes a new instance of the MachineDto class.
         /// </summary>
-        public ApplicationIdentityRoleDto(string id = default(string), string name = default(string))
+        public MachineDto(int? id = default(int?), string name = default(string), string location = default(string), bool? hasDevices = default(bool?))
         {
             Id = id;
             Name = name;
+            Location = location;
+            HasDevices = hasDevices;
             CustomInit();
         }
 
@@ -37,12 +39,22 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authenticati
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "location")]
+        public string Location { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "hasDevices")]
+        public bool? HasDevices { get; set; }
 
     }
 }

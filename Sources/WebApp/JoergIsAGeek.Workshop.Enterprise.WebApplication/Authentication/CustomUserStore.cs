@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using Microsoft.AspNetCore.Identity;
 using AutoMapper;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication.Models;
 using System.Collections.Generic;
 using System.Security.Claims;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.AuthenticationService;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.AuthenticationService.Models;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {

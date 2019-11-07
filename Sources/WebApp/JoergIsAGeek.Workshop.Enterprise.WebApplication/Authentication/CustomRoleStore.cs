@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.AuthenticationService;
 using System.Threading;
 using System.Threading.Tasks;
 using ID = Microsoft.AspNetCore.Identity;

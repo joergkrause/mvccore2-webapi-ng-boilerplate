@@ -7,16 +7,12 @@
     <Compile Remove="FileDataContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" version="3.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" version="3.0.0" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
   </ItemGroup>
 </Project>

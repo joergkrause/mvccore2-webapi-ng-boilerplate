@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
@@ -25,27 +27,27 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       // access to db globally configured
       // get connectionstring from appsettings.json
       var connectionString = Configuration.GetConnectionString(nameof(MachineDataContext));
-      services.AddDbContext<MachineDataContext>(o => o.UseSqlServer(connectionString), ServiceLifetime.Scoped);
+      services.AddDbContext<MachineDataContext>((slt) => slt.UseSqlServer(connectionString), ServiceLifetime.Scoped);
       services.AddScoped(typeof(IGenericRepository<Machine, int>), typeof(GenericDbRepository<Machine, int>));
       services.AddScoped(typeof(IGenericRepository<Device, int>), typeof(GenericDbRepository<Device, int>));
       services.AddScoped(typeof(IGenericRepository<DataValue, int>), typeof(GenericDbRepository<DataValue, int>));
       services.AddScoped(typeof(IMachineManager), typeof(MachineManager));
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new Info
+        c.SwaggerDoc("v1.0", new OpenApiInfo
         {
           Title = "Machine Data API",
-          Version = "v1",
-          Contact = new Contact
+          Version = "v1.0",
+          Contact = new OpenApiContact
           {
             Name = "Jörg Krause",
             Email = "joerg@krause.net",
-            Url = "https://twitter.com/joergisageek"
+            Url =  new System.Uri("https://twitter.com/joergisageek")
           },
-          License = new License
+          License = new OpenApiLicense
           {
             Name = "Use under MIT",
-            Url = "https://example.com/license"
+            Url = new System.Uri("https://example.com/license")
           }
         });
       });
@@ -60,7 +62,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Machine Data Service V1");
+          c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Machine Data Service V1.0");
           c.RoutePrefix = string.Empty;
         });
       }

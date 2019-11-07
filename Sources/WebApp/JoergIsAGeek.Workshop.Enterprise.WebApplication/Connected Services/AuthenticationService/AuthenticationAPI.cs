@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication
+namespace JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.AuthenticationService
 {
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;

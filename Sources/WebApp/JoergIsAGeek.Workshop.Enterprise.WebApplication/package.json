@@ -4,7 +4,7 @@
   "description": "This is a demoapp",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf wwwroot/* && webpack --production && npm run proxy",
+    "build": "rimraf wwwroot/* && webpack --production",
     "build-no-proxy": "rimraf wwwroot/* && webpack --production",
     "debug": "rimraf wwwroot/* && webpack --development",
     "proxy-ps": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./CreateSwaggerAPIProxy.ps1",

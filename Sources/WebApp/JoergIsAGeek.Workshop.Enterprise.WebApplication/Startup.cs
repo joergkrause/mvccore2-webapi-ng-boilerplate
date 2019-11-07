@@ -4,8 +4,6 @@ using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication.Extensions;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineData;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -26,12 +25,13 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.AuthenticationService;
+using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineDataService;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
   public class Startup
   {
-
 
     public Startup(IWebHostEnvironment env)
     {
@@ -48,9 +48,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      // Add framework services.
-      services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-      services.AddMvc();
+      // Add framework services
+      services.AddHttpContextAccessor();
+      services.AddMvc(option => option.EnableEndpointRouting = false);
       // Security using custom backend
       services.AddIdentity<UserViewModel, RoleViewModel>()
         .AddDefaultTokenProviders();
@@ -59,8 +59,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       // The API as created by AutoREST from swagger definition
       var rootHandler = new HttpClientHandler();
       // current context to get access to current user
-      var httpContextInstance = services.BuildServiceProvider().GetService<IHttpContextAccessor>();
-      ApiAuthDelegatingHandler degHandler = new ApiAuthDelegatingHandler(httpContextInstance, Configuration);
+      var httpContextInstance = services.Single(s => s.ServiceType.Equals(typeof(IHttpContextAccessor))).ImplementationInstance as IHttpContextAccessor;
+      var degHandler = new ApiAuthDelegatingHandler(httpContextInstance, Configuration);
       var apiClientAuthService = new AuthenticationAPI(backendUri, rootHandler, degHandler);
       var apiClientMachineService = new MachineDataAPI(backendUri, rootHandler, degHandler);
       // Alternative way: static authentication of backend
@@ -254,7 +254,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       app.UseDefaultFiles();
       // static parts such as JS, CSS, ...
       app.UseStaticFiles();
-      // default route
+      // Sites
       app.UseMvc();
     }
   }
