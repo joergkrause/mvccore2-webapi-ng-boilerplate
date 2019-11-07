@@ -2,7 +2,7 @@
 
 Multi tier application with ASP.NET Core WebAPI, WebAPI service layer and Entity Framework Core backend. The frontend is made with Angular 7.
 
-Currently running ASP.NET Core 2.1 and EF 2.1 Core and build against .NET 4.7 and Core 2.1.
+Currently running ASP.NET Core 3.0 and EF 3.0 Core and build against Core 3.0 (Assemblys are .NET Standard 2.1).
 
 ## Usage
 
@@ -30,7 +30,9 @@ The WebFrontEnd has no direct DB access. Use docker to overcome manual settings 
 
 ### API
 
-The service layer exposes the API as OpenAPI (f.k.a. Swagger). The frontend uses AutoRest to create the proxy. Changes require to recreate the proxy.
+The service layer exposes the API as OpenAPI 2 (f.k.a. Swagger). The frontend uses AutoRest to create the proxy. Changes require to recreate the proxy.
+
+> Currently *autorest* does not support OpenAPI 3 fully. So we stay with v2 here.
 
 # Docker Support
 
