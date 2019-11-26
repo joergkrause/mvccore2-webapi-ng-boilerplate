@@ -1,0 +1,213 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Machine Data API",
+    "contact": {
+      "name": "Jörg Krause",
+      "url": "https://twitter.com/joergisageek",
+      "email": "joerg@krause.net"
+    },
+    "license": {
+      "name": "Use under MIT",
+      "url": "https://example.com/license"
+    },
+    "version": "v1.0"
+  },
+  "paths": {
+    "/api/MachineService": {
+      "post": {
+        "tags": [
+          "MachineService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MachineDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "MachineService"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MachineDto"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "MachineService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MachineDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/MachineService/{id}": {
+      "get": {
+        "tags": [
+          "MachineService"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MachineDto"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MachineService"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/MachineService/byVal/{value}": {
+      "get": {
+        "tags": [
+          "MachineService"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "value",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MachineDto"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "MachineDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "hasDevices": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

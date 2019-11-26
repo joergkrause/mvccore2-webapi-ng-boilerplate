@@ -60,7 +60,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       if (env.IsDevelopment())
       {
         // swagger UI and endpoint only at dev-time
-        app.UseSwagger();
+        app.UseSwagger(s => s.SerializeAsV2 = true);
         app.UseSwaggerUI(c =>
         {
           c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Authentication Service V1.0");

@@ -1,0 +1,1452 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Authentication API",
+    "contact": {
+      "name": "Jörg Krause",
+      "url": "https://twitter.com/joergisageek",
+      "email": "joerg@krause.net"
+    },
+    "license": {
+      "name": "Use under MIT",
+      "url": "https://example.com/license"
+    },
+    "version": "v1.0"
+  },
+  "paths": {
+    "/api/AuthService/user": {
+      "post": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentityResult"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ApplicationUserDto"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentityResult"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/findById/{userId}": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/findByName/{normalizedUserName}": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "normalizedUserName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/normalizedName": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "normalizedName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/id": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/name": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/passwordHash": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "passwordHash",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/hasPassword": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/findByEmail/{normalizedEmail}": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "normalizedEmail",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/email": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/emailConfirmed": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "confirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/normalizedEmail": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "normalizedEmail",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/claims": {
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ClaimDto"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ClaimDto"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ClaimDto"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "PasswordHash",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "EmailConfirmed",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "Email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "UserName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/NewClaimDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/addToRole": {
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "roleName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/removeFromRole": {
+      "delete": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "roleName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/forUser": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/isInRole": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "roleName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationUserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/usersInRole/{roleName}": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "roleName",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ApplicationUserDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/setIdentityName": {
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "roleName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationIdentityRoleDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/setNormalizedName": {
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "normalizedName",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationIdentityRoleDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/AuthService/role": {
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationIdentityRoleDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentityResult"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationIdentityRoleDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentityResult"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ApplicationIdentityRoleDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/identity": {
+      "delete": {
+        "tags": [
+          "AuthService"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ApplicationIdentityRoleDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentityResult"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/findById": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "roleId",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApplicationIdentityRoleDto"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/findByName": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "normalizedRoleName",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ApplicationIdentityRoleDto"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/identityId": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/identityName": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/role/normalizedName": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "Name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ApplicationUserDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "PwHash": {
+          "type": "string"
+        },
+        "EmailConf": {
+          "type": "boolean"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        }
+      }
+    },
+    "IdentityError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "IdentityResult": {
+      "type": "object",
+      "properties": {
+        "succeeded": {
+          "type": "boolean",
+          "readOnly": true
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IdentityError"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "ClaimDto": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "NewClaimDto": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "newType": {
+          "type": "string"
+        },
+        "newValue": {
+          "type": "string"
+        }
+      }
+    },
+    "ApplicationIdentityRoleDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

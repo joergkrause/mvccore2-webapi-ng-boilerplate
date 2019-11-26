@@ -12,8 +12,8 @@ $serviceExecutables.Keys | % { $pid += [Diagnostics.Process]::Start((Join-Path -
 Start-Sleep 5
 # endpoints
 $serviceUrls = @{
-  "Authentication"="http://localhost:5001/swagger/v1/swagger.json";
-  "MachineData"="http://localhost:5005/swagger/v1/swagger.json"
+  "Authentication"="http://localhost:5001/swagger/v1.0/swagger.json";
+  "MachineData"="http://localhost:5005/swagger/v1.0/swagger.json"
 }
 $testAuth = Test-NetConnection -ComputerName $machineName -Port 5001 -InformationLevel Quiet
 $testMach = Test-NetConnection -ComputerName $machineName -Port 5005 -InformationLevel Quiet
