@@ -183,7 +183,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     }
 
     public async Task<IList<string>> GetRolesAsync(UserViewModel user, CancellationToken cancellationToken) {
-      return await authclient.ApiAuthServiceRoleForUserGetAsync(id: user.Id, userName: user.UserName, cancellationToken: cancellationToken);
+      return await authclient.ApiAuthServiceRoleForUserGetAsync(id: user.Id, userName: user.Email, cancellationToken: cancellationToken);
     }
 
     public Task<bool> IsInRoleAsync(UserViewModel user, string roleName, CancellationToken cancellationToken) {

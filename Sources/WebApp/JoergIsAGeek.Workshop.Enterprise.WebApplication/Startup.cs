@@ -54,20 +54,26 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       // Security using custom backend
       services.AddIdentity<UserViewModel, RoleViewModel>()
         .AddDefaultTokenProviders();
-      // Backend API, this is the DEBUG configuration's port
-      var backendUri = new Uri(Configuration.GetValue<string>("backEndUri"));
-      // The API as created by AutoREST from swagger definition
       var rootHandler = new HttpClientHandler();
-      // current context to get access to current user
-      var httpContextInstance = services.Single(s => s.ServiceType.Equals(typeof(IHttpContextAccessor))).ImplementationInstance as IHttpContextAccessor;
-      var degHandler = new ApiAuthDelegatingHandler(httpContextInstance, Configuration);
-      var apiClientAuthService = new AuthenticationAPI(backendUri, rootHandler, degHandler);
-      var apiClientMachineService = new MachineDataAPI(backendUri, rootHandler, degHandler);
       // Alternative way: static authentication of backend
       //var byteArray = Encoding.ASCII.GetBytes("username:secretKey");
       //apiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-      services.AddSingleton<IAuthenticationAPI>(apiClientAuthService);
-      services.AddSingleton<IMachineDataAPI>(apiClientMachineService);
+      services.AddSingleton<IAuthenticationAPI>(ctx =>
+      {
+        var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
+        var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
+        var backendUri = new Uri(Configuration.GetValue<string>($"{nameof(AuthenticationAPI)}-backEndUri"));
+        var apiClientAuthService = new AuthenticationAPI(backendUri, rootHandler, degHandler);
+        return apiClientAuthService;
+      });
+      services.AddSingleton<IMachineDataAPI>(ctx =>
+      {
+        var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
+        var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
+        var backendUri = new Uri(Configuration.GetValue<string>($"{nameof(MachineDataAPI)}-backEndUri"));
+        var apiClientMachineService = new MachineDataAPI(backendUri, rootHandler, degHandler);
+        return apiClientMachineService;
+      });
       // WFE logic and identity based on view models
       services.AddScoped<UserManager<UserViewModel>, CustomUserManager>(); // calls IUSerStore
       services.AddScoped<RoleManager<RoleViewModel>, CustomRoleManager>(); // calls IRoleStore

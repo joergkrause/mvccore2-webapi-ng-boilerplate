@@ -30,7 +30,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication {
                  new Claim(JwtRegisteredClaimNames.Email, userName)
              };
       // add roles to token, this is necessary to make [Authorize(Roles="")] attribute working against these roles
-      var user = await _userManager.FindByNameAsync(identity.Name);
+      var user = await _userManager.FindByEmailAsync(identity.Name);
       var roles = await _userManager.GetRolesAsync(user);
       claims.AddRange(roles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role)));
       // add the users claims to the token to make [Authorize(Policy="")] attribute working against these claims

@@ -185,25 +185,25 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
 
     [HttpPut]
     [Route("claims")]
-    public void AddClaims([FromQuery] ApplicationUserDto user, IEnumerable<ClaimDto> claims) {
+    public void AddClaims([FromBody] ApplicationUserDto user, [FromQuery] IEnumerable<ClaimDto> claims) {
       _authenticationManager.AddClaims(user, claims);
     }
 
     [HttpGet]
     [Route("claims")]
-    public IEnumerable<ClaimDto> GetClaims(ApplicationUserDto user) {
+    public IEnumerable<ClaimDto> GetClaims([FromQuery] ApplicationUserDto user) {
       return _authenticationManager.GetClaims(user);
     }
 
     [HttpDelete]
     [Route("claims")]
-    public void RemoveClaims([FromQuery] ApplicationUserDto user, IEnumerable<ClaimDto> claims) {
+    public void RemoveClaims([FromBody] ApplicationUserDto user, [FromQuery] IEnumerable<ClaimDto> claims) {
       _authenticationManager.RemoveClaims(user, claims);
     }
 
     [HttpPost]
     [Route("claims")]
-    public void ReplaceClaim([FromQuery] ApplicationUserDto user, NewClaimDto claim) {
+    public void ReplaceClaim([FromBody] ApplicationUserDto user, [FromQuery] NewClaimDto claim) {
       _authenticationManager.ReplaceClaim(user, 
         new ClaimDto { Type = claim.Type, Value = claim.Value }, 
         new ClaimDto { Type = claim.NewType, Value = claim.NewValue});
@@ -215,25 +215,25 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
 
     [HttpPut]
     [Route("role/addToRole")]
-    public void AddToRole(ApplicationUserDto user, string roleName) {
+    public void AddToRole([FromBody] ApplicationUserDto user, string roleName) {
       throw new NotImplementedException();
     }
 
     [HttpDelete]
     [Route("role/removeFromRole")]
-    public void RemoveFromRole(ApplicationUserDto user, string roleName) {
+    public void RemoveFromRole([FromBody] ApplicationUserDto user, string roleName) {
       throw new NotImplementedException();
     }
 
     [HttpGet]
     [Route("role/forUser")]
-    public IEnumerable<string> GetRoles(ApplicationUserDto user) {
+    public IEnumerable<string> GetRoles([FromQuery] ApplicationUserDto user) {
       return _authenticationManager.GetRolesForUser(user);
     }
 
     [HttpGet]
     [Route("role/isInRole")]
-    public bool IsInRole(ApplicationUserDto user, string roleName) {
+    public bool IsInRole([FromQuery] ApplicationUserDto user, string roleName) {
       return _authenticationManager.IsUserInRole(user, roleName);
     }
 

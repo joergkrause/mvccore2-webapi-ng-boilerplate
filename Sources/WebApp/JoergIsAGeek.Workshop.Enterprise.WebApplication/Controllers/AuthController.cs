@@ -98,7 +98,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
         if (userToVerify != null) {
           // check the credentials  
           if (await _userManager.CheckPasswordAsync(userToVerify, password)) {
-            return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userToVerify.UserName, userToVerify.Id.ToString()));
+            return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userToVerify.Email, userToVerify.Id.ToString()));
           }
         }
       }

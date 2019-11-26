@@ -67,7 +67,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
           c.RoutePrefix = string.Empty;
         });
       }
-      base.Configure(app, env);
+      app.UseRouting();
+
+      app.UseAuthorization();
+
+      app.UseEndpoints(endpoints =>
+      {
+        endpoints.MapControllers();
+      });
     }
 
   }

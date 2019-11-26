@@ -39,6 +39,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
 
     public DbSet<DataValue> DataValues { get; set; }
 
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+    public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+
     public override int SaveChanges() {
       var now = DateTime.Now;
       SaveInterceptor(this.contextProvider?.UserIdentity?.Name, now);
