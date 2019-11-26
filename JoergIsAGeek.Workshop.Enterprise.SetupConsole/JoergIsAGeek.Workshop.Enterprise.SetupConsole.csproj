@@ -7,9 +7,27 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" version="3.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.1" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -18,5 +36,6 @@
     <ProjectReference Include="..\Sources\Database\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj" />
     <ProjectReference Include="..\Sources\Database\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj" />
     <ProjectReference Include="..\Sources\Database\JoergIsAGeek.Workshop.Enterprise.Repository\JoergIsAGeek.Workshop.Enterprise.Repository.csproj" />
+    <ProjectReference Include="..\Sources\MicroServices\JoergIsAGeek.Workshop.Enterprise.ServiceBase\JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj" />
   </ItemGroup>
 </Project>

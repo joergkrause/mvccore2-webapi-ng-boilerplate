@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace JoergIsAGeek.Workshop.Enterprise.DomainModels {
-  public class Machine : AuditableEntityBase
+namespace JoergIsAGeek.Workshop.Enterprise.DomainModels
+{
+  public class Machine : AuditableEntityBase, IHistoryTracking
   {
-
-
     public string Name { get; set; }
 
     [RegularExpression(@"[A-Z]-\d{3}")] //B-100,C-123

@@ -7,17 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="app\**" />
-    <Compile Remove="src\app\components\controls\**" />
-    <Content Remove="app\**" />
-    <Content Remove="src\app\components\controls\**" />
-    <EmbeddedResource Remove="app\**" />
-    <EmbeddedResource Remove="src\app\components\controls\**" />
-    <None Remove="app\**" />
-    <None Remove="src\app\components\controls\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Data\data.txt" />
     <None Remove="src\app\modules\admin\components\index.ts" />
     <None Remove="src\app\components\index.ts" />
@@ -48,23 +37,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="src\app\modules\admin\components\index.ts" />
-    <TypeScriptCompile Include="src\app\components\index.ts" />
-    <TypeScriptCompile Include="src\app\directives\index.ts" />
-    <TypeScriptCompile Include="src\app\guards\index.ts" />
-    <TypeScriptCompile Include="src\app\pipes\index.ts" />
-    <TypeScriptCompile Include="src\app\services\account.service.ts" />
-    <TypeScriptCompile Include="src\app\services\index.ts" />
-    <TypeScriptCompile Include="src\app\services\auth\tokeninterceptor.service.ts" />
-    <TypeScriptCompile Include="src\app\viewmodels\accountinfo.viewmodel.ts" />
-    <TypeScriptCompile Include="src\app\viewmodels\index.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
   <ItemGroup>

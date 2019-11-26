@@ -18,21 +18,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApps", "ConsoleApps"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication", "Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication\JoergIsAGeek.Workshop.Enterprise.WebApplication.csproj", "{F2D9969E-10BC-4521-89B7-7651EA677ECB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels", "Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.csproj", "{BCA30391-1AC1-4FFA-942F-5DC2418E364A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels", "Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.csproj", "{BCA30391-1AC1-4FFA-942F-5DC2418E364A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataAccessLayer", "Sources\Database\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj", "{9251CB79-CDB0-468C-80F1-E1392601824C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServices", "MicroServices", "{6BFD38C2-22E5-4DA1-B3CB-16A3E061A1B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{DF058096-80A1-41B3-AC1D-A9A823EB3E13}"
-	ProjectSection(SolutionItems) = preProject
-		Sources\MicroServices\Authentication\DockerFile = Sources\MicroServices\Authentication\DockerFile
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MachineData", "MachineData", "{0523FDAA-B05D-439C-A320-D1B869DC6079}"
-	ProjectSection(SolutionItems) = preProject
-		Sources\MicroServices\MachineData\DockerFile = Sources\MicroServices\MachineData\DockerFile
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "Sources\MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{55FABA94-5C7A-411D-9DA7-CC5EE0AA3A61}"
 EndProject
@@ -54,8 +48,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E9A20052-5438-403D-9E8B-CA2E18AA0652}"
 	ProjectSection(SolutionItems) = preProject
-		docker_composer.yml = docker_composer.yml
-		DockerFile = DockerFile
+		docker-compose.yml = docker-compose.yml
+		Sources\DockerFile-Auth = Sources\DockerFile-Auth
+		Sources\DockerFile-MachineData = Sources\DockerFile-MachineData
 	EndProjectSection
 EndProject
 Global

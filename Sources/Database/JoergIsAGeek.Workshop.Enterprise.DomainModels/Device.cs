@@ -2,13 +2,8 @@
 
 namespace JoergIsAGeek.Workshop.Enterprise.DomainModels {
 
-
-  public class Device : AuditableEntityBase
+  public class Device : AuditableEntityBase, IHistoryTracking
   {
-
-    public Device() {
-      //DataValues = new HashSet<DataValue>();
-    }
 
     public string Name { get; set; }
 

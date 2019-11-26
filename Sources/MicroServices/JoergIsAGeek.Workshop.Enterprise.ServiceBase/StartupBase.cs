@@ -48,8 +48,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       app.UseAuthorization();
       // custom middleware
       app.UseUserContext();
-      // for swagger UI
-      //app.UseMvc();
     }
   }
 }

@@ -9,9 +9,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\JoergIsAGeek.Workshop.Enterprise.ServiceBase\JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj" />
-    <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj" />
-    <ProjectReference Include="..\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj" />
+    <ProjectReference Include="../../JoergIsAGeek.Workshop.Enterprise.ServiceBase/JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj" />
+    <ProjectReference Include="../JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication/JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj" />
+    <ProjectReference Include="../JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication/JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj" />
   </ItemGroup>
 
 </Project>

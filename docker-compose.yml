@@ -12,7 +12,9 @@ services:
       - machinedata.api
   
   auth.api: 
-    image: workshop/auth.api 
+    build:
+      context: ./Sources
+      dockerfile: DockerFile-Auth
     environment: 
       - ConnectionString=Server=sql.server;Database=MachineDataDatabase;UserId=SA;Pwd=Joerg1sA*Geek
     ports: 
@@ -21,7 +23,9 @@ services:
       - sql.server
 
   machinedata.api: 
-    image: workshop/machinedata.api 
+    build:
+      context: ./Sources
+      dockerfile: DockerFile-MachineData
     environment: 
       - ConnectionString=Server=sql.server;Database=MachineDataDatabase;UserId=SA;Pwd=Joerg1sA*Geek 
     ports: 

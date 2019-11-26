@@ -1,6 +1,7 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Configuration;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.DomainModels.History;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -93,6 +94,23 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
             break;
         }
       }
+      var historyItems = ChangeTracker.Entries<IHistoryTracking>().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
+      foreach (var item in historyItems)
+      {
+        item.Properties.Where(p => p.IsModified).ToList().ForEach(p =>
+        {
+          Set<TrackHistory>().Add(new TrackHistory
+          {
+            ActionAt = timeStamp,
+            ActionBy = contextUser,
+            OldValue = p.OriginalValue?.ToString(),
+            NewValue = p.CurrentValue?.ToString(),
+            Table = p.EntityEntry.Metadata.DisplayName(),
+            Column = p.Metadata.Name
+          });
+        });
+
+      }
     }
 
     protected override void OnModelCreating(ModelBuilder builder) {
@@ -100,6 +118,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       // external config for better readebility and flexibility
      
       builder.ApplyConfiguration(new MachineConfig());
+      builder.ApplyConfiguration(new TrackHistoryConfig());
       builder.ApplyConfiguration(new IdentityUserConfig());      
       builder.ApplyConfiguration(new IdentityUserClaimConfig());
       builder.ApplyConfiguration(new IdentityUserLoginConfig());
@@ -111,11 +130,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
 
       // to configure derived classes, such as ApplicationUser, add particular Entity calls here after
       // this is necessary to configure both, base type and derived type, to have both in the model for mapping
-      builder.Entity<ApplicationUser>().ToTable("Users", "identity");
-      builder.Entity<ApplicationRole>().ToTable("Roles", "identity");
-      builder.Entity<UserRole>().ToTable("User_x_Roles", "identity");
+      builder.Entity<IdentityUser>().ToTable("Users", "identity");
+      builder.Entity<IdentityRole>().ToTable("Roles", "identity");
+      builder.Entity<IdentityUserRole<string>>().ToTable("User_x_Roles", "identity");
       builder.Entity<UserRole>().Property(ur => ur.Id).HasColumnType("char(64)").IsUnicode(false);
-      builder.Entity<UserClaim>().ToTable("UserClaims", "identity");
+      builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "identity");
       // Examples:
       //builder.Entity<ApplicationUser>()
       //    .HasMany(e => e.Claims)

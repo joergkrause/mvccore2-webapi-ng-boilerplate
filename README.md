@@ -18,6 +18,8 @@ Currently running ASP.NET Core 3.0 and EF 3.0 Core and build against Core 3.0 (A
 
 ## Settings
 
+### Windows (for VS Environment on Windows 10)
+
 The connection string goes to (localdb)\JoergIsAGeek. You change this in Testconsole and ServiceLayers (micro services).
 
 Create a DB instance on the console like that:
@@ -27,6 +29,26 @@ sqllocaldb create JoergIsAGeek
 ~~~
 
 The WebFrontEnd has no direct DB access. Use docker to overcome manual settings and setup everything automatically, see below.
+
+### Docker
+
+There is a docker compose file that starts all parts in 5 containers:
+
+1. SQL Server on Linux 
+	- Run and Stay
+2. DB Setup Console to have demo data
+	- Run and Close
+3. Authentication API 
+	- Build
+	- Run and Stay
+4. Machine Data API (Demo Data)
+	- Build
+	- Run and Stay
+5. Frontend App
+	- Build
+	- Run and Stay
+
+After all is done, open a browser and point to http://localhost:8080. See chapter *Docker* belowfor details.
 
 ### API
 
@@ -50,7 +72,6 @@ There are 4 containers:
 * Linux with ASPNET Core for web front end (Angular App) --> Port 5000, exposed externally as Port 8080
 
 The composer file runs all of them in production mode. The final solution runs on http://localhost:8080 on your host system or any other external IP. The 500X ports are for inter-container communication only.
-
 
 # Usage
 
@@ -82,3 +103,9 @@ to the login form.
 
 The demo data is a shop floor definition, we have a machine, which has devices and these devices have values. Only the user 
 in the Role "User" can access these data.
+
+# Frontend
+
+Currently on Angular 8.2; I will update this from time to time.
+
+
