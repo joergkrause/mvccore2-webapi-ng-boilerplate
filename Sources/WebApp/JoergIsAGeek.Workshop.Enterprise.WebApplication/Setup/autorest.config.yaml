@@ -1,7 +1,0 @@
-﻿input-file:
-  - MachineData-proxy.json
-directive:
-  namespace: JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.$
-  from: swagger-document
-  where: $.paths.*.* 
-  transform: $.operationId = `Transport_${$.tags[0]}`

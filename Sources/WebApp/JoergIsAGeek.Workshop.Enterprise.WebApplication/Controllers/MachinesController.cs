@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
+using JoergIsAGeek.ServiceProxy.MachineData;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineDataService;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineDataService.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +18,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   [Route("api/[controller]")]
   public class MachinesController : Controller {
 
-    IMachineDataAPI client;
+    MachineServiceClient client;
     private readonly IMapper mapper;
 
-    public MachinesController(IMachineDataAPI client, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
+    public MachinesController(MachineServiceClient client, IHttpContextAccessor httpContextAccessor, IMapper mapper) {
       this.client = client;
       this.mapper = mapper;
       // in case we need the user here we can retrieve the claimsprincipal
@@ -33,14 +32,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     // GET api/machines
     [HttpGet]
     public async Task<IEnumerable<MachineViewModel>> Get() {
-      var dto = await client.ApiMachineServiceGetAsync();
+      var dto = await client.GetAllMachinesAsync();
       return mapper.Map<IEnumerable<MachineViewModel>>(dto);
     }
 
     // GET api/machines/5
     [HttpGet("{id}")]
     public async Task<MachineViewModel> Get(int id) {
-      var dto = await client.ApiMachineServiceByIdGetAsync(id);
+      var dto = await client.GetMachineByIdAsync(id);
       return mapper.Map<MachineViewModel>(dto);
     }
 
@@ -48,8 +47,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     [HttpPost]
     public async Task<IActionResult> Post([FromBody]MachineViewModel value) {
       var machine = mapper.Map<MachineDto>(value);
-      var result = await client.ApiMachineServicePostAsync(machine);
-      if (result.Value) {
+      var result = await client.AddMachineAsync(machine);
+      if (result) {
         return NoContent();
       }
       return BadRequest();
@@ -60,8 +59,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     public async Task<IActionResult> Put(int id, [FromBody]MachineViewModel value) {
       var machine = mapper.Map<MachineDto>(value);
       machine.Id = id;
-      var result = await client.ApiMachineServicePutAsync(machine);
-      if (result.Value) {
+      var result = await client.EditMachineAsync(machine);
+      if (result) {
         return NoContent();
       }
       return BadRequest();
@@ -70,8 +69,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     // DELETE api/machines/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id) {
-      var result = await client.ApiMachineServiceByIdDeleteAsync(id);
-      if (result.Value) {
+      var result = await client.DeleteMachineAsync(id);
+      if (result) {
         return NoContent();
       }
       return BadRequest();

@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
 {
@@ -32,24 +32,30 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       services.AddScoped(typeof(IGenericRepository<Device, int>), typeof(GenericDbRepository<Device, int>));
       services.AddScoped(typeof(IGenericRepository<DataValue, int>), typeof(GenericDbRepository<DataValue, int>));
       services.AddScoped(typeof(IMachineManager), typeof(MachineManager));
-      services.AddSwaggerGen(c =>
+      services.AddOpenApiDocument(cfg =>
       {
-        c.SwaggerDoc("v1.0", new OpenApiInfo
+        cfg.Title = "Machine Data API";
+        cfg.Description = "OpenAPI 3 backend with simple Basic authentication using a static secret. This API provides Demo data.";
+        cfg.DocumentName = "v1";
+        cfg.PostProcess = document =>
         {
-          Title = "Machine Data API",
-          Version = "v1.0",
-          Contact = new OpenApiContact
+          document.Info.Contact = new OpenApiContact
           {
             Name = "Jörg Krause",
             Email = "joerg@krause.net",
-            Url =  new System.Uri("https://twitter.com/joergisageek")
-          },
-          License = new OpenApiLicense
+            Url = "https://twitter.com/joergisageek"
+          };
+          document.Info.License = new OpenApiLicense
           {
             Name = "Use under MIT",
-            Url = new System.Uri("https://example.com/license")
-          }
-        });
+            Url = "https://github.com/joergkrause/mvccore2-webapi-ng-boilerplate/blob/master/LICENSE"
+          };
+        };
+        cfg.DocumentProcessors.Add(new SecurityDefinitionAppender("Basic", new OpenApiSecurityScheme
+        {
+          Type = OpenApiSecuritySchemeType.Basic,
+          Description = "For testing: Type a space for Username and this value as the password: D99BCD2C-1FD4-4374-B68F-45E84C59D510",
+        }));
       });
     }
 
@@ -58,13 +64,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
     {
       if (env.IsDevelopment())
       {
-        // swagger UI and endpoint, only at dev-time
-        app.UseSwagger(s => s.SerializeAsV2 = true);
-        app.UseSwaggerUI(c =>
-        {
-          c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Machine Data Service V1.0");
-          c.RoutePrefix = string.Empty;
-        });
+        // swagger UI and endpoint only at dev-time
+        app.UseOpenApi();
+        app.UseSwaggerUi3();
       }
       app.UseRouting();
 

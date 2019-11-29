@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,24 +11,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     public AuthenticationManager(IServiceProvider service) : base(service) {
       var mapperConfiguration = new MapperConfiguration(configure => {
-        configure.CreateMap<ApplicationUser, ApplicationUserDto>();
-        configure.CreateMap<ApplicationUserDto, ApplicationUser>();
-        configure.CreateMap<ApplicationRole, ApplicationIdentityRoleDto>()
+        configure.CreateMap<IdentityUser, ApplicationUserDto>();
+        configure.CreateMap<ApplicationUserDto, IdentityUser>();
+        configure.CreateMap<IdentityRole, ApplicationIdentityRoleDto>()
           .ForMember(a => a.Name, opt => opt.MapFrom(i => i.Name))
           .ForMember(a => a.Id, opt => opt.MapFrom(i => i.Id));
-        configure.CreateMap<ApplicationIdentityRoleDto, ApplicationRole>()
+        configure.CreateMap<ApplicationIdentityRoleDto, IdentityRole>()
           .ForMember(i => i.Name, opt => opt.MapFrom(a => a.Name))
           .ForMember(i => i.Id, opt => opt.MapFrom(a => a.Id))
-          .ForMember(i => i.CreatedAt, opt => opt.Ignore())
-          .ForMember(i => i.CreatedBy, opt => opt.Ignore())
-          .ForMember(i => i.ModifiedAt, opt => opt.Ignore())
-          .ForMember(i => i.ModifiedBy, opt => opt.Ignore())
           .ForMember(i => i.NormalizedName, opt => opt.Ignore())
           .ForMember(i => i.ConcurrencyStamp, opt => opt.Ignore());
-        configure.CreateMap<ClaimDto, UserClaim>()
+        configure.CreateMap<ClaimDto, IdentityUserClaim<string>>()
           .ForMember(i => i.ClaimType, opt => opt.MapFrom(a => a.Type))
           .ForMember(i => i.ClaimValue, opt => opt.MapFrom(a => a.Value));
-        configure.CreateMap<UserClaim, ClaimDto>()
+        configure.CreateMap<IdentityUserClaim<string>, ClaimDto>()
           .ForMember(i => i.Type, opt => opt.MapFrom(a => a.ClaimType))
           .ForMember(i => i.Value, opt => opt.MapFrom(a => a.ClaimValue));
       });
@@ -59,8 +55,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       }
     }
 
-    public IdentityResult DeleteRole(ApplicationIdentityRoleDto roleDto) {
-      if (RepRoles.Delete(mapper.Map<ApplicationRole>(roleDto))) {
+    public IdentityResult DeleteRole(string roleId) {
+      if (RepRoles.Delete(new ApplicationRole { Id = roleId })) {
         return IdentityResult.GetSucceded();
       }
       else {

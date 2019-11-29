@@ -25,8 +25,8 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.AuthenticationService;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineDataService;
+using JoergIsAGeek.ServiceProxy.Authentication;
+using JoergIsAGeek.ServiceProxy.MachineData;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
@@ -58,20 +58,24 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       // Alternative way: static authentication of backend
       //var byteArray = Encoding.ASCII.GetBytes("username:secretKey");
       //apiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-      services.AddSingleton<IAuthenticationAPI>(ctx =>
+      services.AddSingleton<AuthServiceClient>(ctx =>
       {
         var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
         var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
-        var backendUri = new Uri(Configuration.GetValue<string>($"{nameof(AuthenticationAPI)}-backEndUri"));
-        var apiClientAuthService = new AuthenticationAPI(backendUri, rootHandler, degHandler);
+        var backendUri = new Uri(Configuration.GetValue<string>($"{nameof(AuthServiceClient)}-backEndUri"));
+        var httpClient = new HttpClient(degHandler);
+        var apiClientAuthService = new AuthServiceClient(httpClient);
+        apiClientAuthService.BaseUrl = backendUri.AbsoluteUri;
         return apiClientAuthService;
       });
-      services.AddSingleton<IMachineDataAPI>(ctx =>
+      services.AddSingleton<MachineServiceClient>(ctx =>
       {
         var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
         var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
-        var backendUri = new Uri(Configuration.GetValue<string>($"{nameof(MachineDataAPI)}-backEndUri"));
-        var apiClientMachineService = new MachineDataAPI(backendUri, rootHandler, degHandler);
+        var backendUri = new Uri(Configuration.GetValue<string>($"{nameof(MachineServiceClient)}-backEndUri"));
+        var httpClient = new HttpClient(degHandler);
+        var apiClientMachineService = new MachineServiceClient(httpClient);
+        apiClientMachineService.BaseUrl = backendUri.AbsoluteUri;
         return apiClientMachineService;
       });
       // WFE logic and identity based on view models

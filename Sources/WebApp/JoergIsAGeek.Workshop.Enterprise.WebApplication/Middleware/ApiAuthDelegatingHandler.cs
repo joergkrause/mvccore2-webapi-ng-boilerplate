@@ -25,6 +25,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Middleware {
       if (string.IsNullOrEmpty(backendSecret)) {
         throw new ArgumentOutOfRangeException("configuration", "BackendSecret not set. Set the same value as registered at backend in section 'Keys' and value 'BackendSecret'.");
       }
+      InnerHandler = new HttpClientHandler();
     }
 
 

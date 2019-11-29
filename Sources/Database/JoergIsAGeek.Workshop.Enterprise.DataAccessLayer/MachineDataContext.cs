@@ -1,6 +1,5 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Configuration;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.History;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -38,9 +37,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
     public DbSet<Device> Devices { get; set; }
 
     public DbSet<DataValue> DataValues { get; set; }
-
-    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-    public DbSet<ApplicationRole> ApplicationRoles { get; set; }
 
     public override int SaveChanges() {
       var now = DateTime.Now;
@@ -134,9 +130,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       // to configure derived classes, such as ApplicationUser, add particular Entity calls here after
       // this is necessary to configure both, base type and derived type, to have both in the model for mapping
       builder.Entity<IdentityUser>().ToTable("Users", "identity");
+      builder.Entity<IdentityUser>().Property<DateTime>(nameof(AuditableEntityBase.CreatedAt));
+      builder.Entity<IdentityUser>().Property<DateTime>(nameof(AuditableEntityBase.ModifiedAt));
+      builder.Entity<IdentityUser>().Property<string>(nameof(AuditableEntityBase.CreatedBy)).HasMaxLength(100);
+      builder.Entity<IdentityUser>().Property<string>(nameof(AuditableEntityBase.ModifiedBy)).HasMaxLength(100);
+      // https://www.heise.de/developer/artikel/Viele-Breaking-Changes-in-Entity-Framework-Core-3-0-4411902.html
       builder.Entity<IdentityRole>().ToTable("Roles", "identity");
+      builder.Entity<IdentityRole>().Property<DateTime>(nameof(AuditableEntityBase.CreatedAt));
+      builder.Entity<IdentityRole>().Property<DateTime>(nameof(AuditableEntityBase.ModifiedAt));
+      builder.Entity<IdentityRole>().Property<string>(nameof(AuditableEntityBase.CreatedBy)).HasMaxLength(100);
+      builder.Entity<IdentityRole>().Property<string>(nameof(AuditableEntityBase.ModifiedBy)).HasMaxLength(100);
       builder.Entity<IdentityUserRole<string>>().ToTable("User_x_Roles", "identity");
-      builder.Entity<UserRole>().Property(ur => ur.Id).HasColumnType("char(64)").IsUnicode(false);
+      //builder.Entity<IdentityUserRole<string>>().Property(ur => ur.UserId).HasColumnType("char(64)").IsUnicode(false);
+      //builder.Entity<IdentityUserRole<string>>().Property(ur => ur.RoleId).HasColumnType("char(64)").IsUnicode(false);
+      builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "identity");
       builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "identity");
       // Examples:
       //builder.Entity<ApplicationUser>()

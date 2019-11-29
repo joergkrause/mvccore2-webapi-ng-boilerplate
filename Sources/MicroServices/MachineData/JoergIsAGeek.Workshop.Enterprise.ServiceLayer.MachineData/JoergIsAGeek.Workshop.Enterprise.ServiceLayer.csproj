@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.1.6" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../JoergIsAGeek.Workshop.Enterprise.ServiceBase/JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj" />

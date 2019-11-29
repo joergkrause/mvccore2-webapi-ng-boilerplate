@@ -1,6 +1,6 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +70,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     public void AddToRole(ApplicationUserDto user, string roleName) {
       var role = this.RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
       if (role != null) {
-        var newRole = new UserRole {
+        var newRole = new IdentityRole {
           UserId = user.Id,
           RoleId = role.Id
         };
@@ -81,7 +81,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     public void RemoveFromRole(ApplicationUserDto user, string roleName) {
       var role = this.RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
       if (role != null) {
-        var roleToDelete = new UserRole {
+        var roleToDelete = new IdentityRole {
           UserId = user.Id,
           RoleId = role.Id
         };
@@ -96,9 +96,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       return result.Select(r => r.Name);
     }
 
-    public IEnumerable<string> GetRolesForUser(ApplicationUserDto userDto) {
-      var user = SafeFindUser(userDto);
-      var roleIds = RepUserRoles.Read(r => r.UserId == user.Id).Select(r => r.RoleId).ToList();
+    public IEnumerable<string> GetRolesForUser(string userId) {
+      var roleIds = RepUserRoles.Read(r => r.UserId == userId).Select(r => r.RoleId).ToList();
       var roles = RepRoles.Read(r => roleIds.Contains(r.Id)).Select(r => r.Name);
       return roles;
     }

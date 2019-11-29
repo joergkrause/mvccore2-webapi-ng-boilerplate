@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Security.Claims;
@@ -19,29 +18,29 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     public Manager(IServiceProvider service) {
       // we pull the repos from container to avoid to many ctor params (see startup.cs for definitions)
-      this.RepRoles = service.GetService<IGenericRepository<ApplicationRole, string>>();
-      this.RepUsers = service.GetService<IGenericRepository<ApplicationUser, string>>();
-      this.RepUserClaims = service.GetService<IGenericRepository<UserClaim, int>>();
-      this.RepUserRoles = service.GetService<IGenericRepository<UserRole, string>>();
+      this.RepRoles = service.GetService<IAuthenticationDbRepository<IdentityRole, string>>();
+      this.RepUsers = service.GetService<IAuthenticationDbRepository<IdentityUser, string>>();
+      this.RepUserClaims = service.GetService<IAuthenticationDbRepository<IdentityUserClaim<string>, string>>();
+      this.RepUserRoles = service.GetService<IAuthenticationDbRepository<IdentityUserRole<string>, string>>();
       // user management
       this.userContext = service.GetService<IUserContextProvider>();
     }
 
     #region Authentication
 
-    protected IGenericRepository<ApplicationUser, string> RepUsers {
+    protected IAuthenticationDbRepository<IdentityUser, string> RepUsers {
       get;
     }
 
-    protected IGenericRepository<ApplicationRole, string> RepRoles {
+    protected IAuthenticationDbRepository<IdentityRole, string> RepRoles {
       get;
     }
 
-    protected IGenericRepository<UserClaim, int> RepUserClaims {
+    protected IAuthenticationDbRepository<IdentityUserClaim<string>, string> RepUserClaims {
       get;
     }
 
-    protected IGenericRepository<UserRole, string> RepUserRoles {
+    protected IAuthenticationDbRepository<IdentityUserRole<string>, string> RepUserRoles {
       get;
     }
 

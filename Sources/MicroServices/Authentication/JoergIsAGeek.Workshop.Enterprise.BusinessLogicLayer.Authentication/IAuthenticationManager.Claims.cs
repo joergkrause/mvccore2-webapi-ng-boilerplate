@@ -11,9 +11,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
   public partial interface IAuthenticationManager
   {
 
-    void AddClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims);
-    IEnumerable<ClaimDto> GetClaims(ApplicationUserDto user);
-    void ReplaceClaim(ApplicationUserDto user, ClaimDto claim, ClaimDto newClaim);
-    void RemoveClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims);
+    void AddClaims(string userId, IEnumerable<ClaimDto> claims);
+    IEnumerable<ClaimDto> GetClaims(string userId);
+    void ReplaceClaim(string userId, ClaimDto claim, ClaimDto newClaim);
+    void RemoveClaims(string userId, IEnumerable<ClaimDto> claims);
   }
 }

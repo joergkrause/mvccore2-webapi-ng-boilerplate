@@ -13,7 +13,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     IdentityResult CreateRole(ApplicationIdentityRoleDto role);
 
-    IdentityResult DeleteRole(ApplicationIdentityRoleDto role);
+    IdentityResult DeleteRole(string roleId);
 
     ApplicationIdentityRoleDto FindRoleById(string roleId);
 
@@ -33,7 +33,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     IEnumerable<ApplicationIdentityRoleDto> GetRoles();
 
-    IEnumerable<string> GetRolesForUser(ApplicationUserDto user);
+    IEnumerable<string> GetRolesForUser(string userId);
     bool IsUserInRole(ApplicationUserDto user, string roleName);
     IEnumerable<ApplicationUserDto> GetUsersInRole(string roleName);
 

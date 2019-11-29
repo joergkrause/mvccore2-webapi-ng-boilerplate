@@ -17,14 +17,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     #region Claims
 
-    public void AddClaims(ApplicationUserDto userDto, IEnumerable<ClaimDto> claims) {
-      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+    public void AddClaims(string userId, IEnumerable<ClaimDto> claims) {
       var userClaims = new List<UserClaim>();
       foreach (var claim in claims) {
         var userClaim = new UserClaim {
           ClaimType = claim.Type,
           ClaimValue = claim.Value,
-          UserId = user.Id
+          UserId = userId
         };
         userClaims.Add(userClaim);
       }
@@ -32,19 +31,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       RepUserClaims.InsertOrUpdate(userClaims);
     }
 
-    public IEnumerable<ClaimDto> GetClaims(ApplicationUserDto userDto) {
-      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+    public IEnumerable<ClaimDto> GetClaims(string userId) {
+      var user = mapper.Map<ApplicationUser>(FindUserById(userId));
       var id = user.Id;
       var claims = RepUserClaims.Read(c => c.UserId == id);
       var mappedClaims = mapper.Map<IEnumerable<UserClaim>, IEnumerable<ClaimDto>>(claims);
       return mappedClaims;
     }
 
-    public void ReplaceClaim(ApplicationUserDto user, ClaimDto claim, ClaimDto newClaim) {
+    public void ReplaceClaim(string userId, ClaimDto claim, ClaimDto newClaim) {
       throw new NotImplementedException();
     }
 
-    public void RemoveClaims(ApplicationUserDto user, IEnumerable<ClaimDto> claims) {
+    public void RemoveClaims(string userId, IEnumerable<ClaimDto> claims) {
       throw new NotImplementedException();
     }
 

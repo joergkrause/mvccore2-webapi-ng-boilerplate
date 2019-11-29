@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
@@ -8,8 +9,6 @@ using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-
-// TODO: https://stackoverflow.com/questions/37681023/swashbuckle-parameter-descriptions
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
   /// <summary>
   /// Access to the authentication backend based on ASP.NET identity.
@@ -39,6 +38,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpPost]
     [Route("user")]
+    [ProducesResponseType(typeof(IdentityResult), (int)HttpStatusCode.OK)]
     public IdentityResult CreateUser([FromBody] ApplicationUserDto user) {
       return _authenticationManager.CreateUser(user);
     }
@@ -55,7 +55,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <param name="userId"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("user/findById/{userId}")]
+    [Route("user/findById/{userId}")]    
     public ApplicationUserDto FindUserById(string userId) {
       return _authenticationManager.FindUserById(userId);
     }
@@ -80,6 +80,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpGet]
     [Route("user/normalizedName")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetNormalizedUserName([FromQuery] ApplicationUserDto user) {
       return _authenticationManager.GetNormalizedUserName(user);
     }
@@ -91,48 +93,64 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpGet]
     [Route("user/id")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetUserDtoId([FromQuery] ApplicationUserDto user) {
       return _authenticationManager.GetUserDtoId(user);
     }
 
     [HttpGet]
     [Route("user/name")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetUserDtoName([FromQuery] ApplicationUserDto user) {
       return _authenticationManager.GetUserDtoName(user);
     }
 
     [HttpPut]
     [Route("user/normalizedName")]
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void SetNormalizedUserName([FromBody] ApplicationUserDto user, string normalizedName) {
       _authenticationManager.SetNormalizedUserName(user, normalizedName);
     }
 
     [HttpPut]
     [Route("user/name")]
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void SetUserDtoName([FromBody] ApplicationUserDto user, string userName) {
       _authenticationManager.SetUserDtoName(user, userName);
     }
 
     [HttpPut]
     [Route("user")]
+    [ProducesResponseType(typeof(IdentityResult), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public IdentityResult UpdateUser([FromBody] ApplicationUserDto user) {
       return _authenticationManager.UpdateUser(user);
     }
 
     [HttpGet]
     [Route("user/passwordHash")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetPasswordHash([FromQuery] ApplicationUserDto userDto) {
       return _authenticationManager.GetPasswordHash(userDto);
     }
 
     [HttpGet]
     [Route("user/hasPassword")]
-    public bool HasPassword([FromBody] ApplicationUserDto userDto) {
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public bool HasPassword([FromQuery] ApplicationUserDto userDto) {
       return _authenticationManager.HasPassword(userDto);
     }
 
     [HttpPut]
     [Route("user/passwordHash")]
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void SetPasswordHash([FromBody] ApplicationUserDto userDto, string passwordHash) {
       _authenticationManager.SetPasswordHash(userDto, passwordHash);
     }
@@ -145,36 +163,48 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
 
     [HttpGet]
     [Route("user/email")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetEmail([FromQuery] ApplicationUserDto user) {
       return _authenticationManager.GetEmail(user);
     }
 
     [HttpGet]
     [Route("user/emailConfirmed")]
-    public bool GetEmailConfirmed([FromQuery] ApplicationUserDto user) {
-      return _authenticationManager.GetEmailConfirmed(user);
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public IActionResult GetEmailConfirmed([FromQuery] ApplicationUserDto user) {
+      return Ok(_authenticationManager.GetEmailConfirmed(user));
     }
 
     [HttpGet]
     [Route("user/normalizedEmail")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetNormalizedEmail([FromQuery] ApplicationUserDto user) {
       return _authenticationManager.GetNormalizedEmail(user);
     }
 
     [HttpPut]
     [Route("user/email")]
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void SetEmail([FromBody] ApplicationUserDto user, string email) {
       _authenticationManager.SetEmail(user, email);
     }
 
     [HttpPut]
     [Route("user/emailConfirmed")]
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void SetEmailConfirmed([FromBody] ApplicationUserDto user, bool confirmed) {
       _authenticationManager.SetEmailConfirmed(user, confirmed);
     }
 
     [HttpPut]
     [Route("user/normalizedEmail")]
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void SetNormalizedEmail([FromBody] ApplicationUserDto user, string normalizedEmail) {
       _authenticationManager.SetNormalizedEmail(user, normalizedEmail);
     }
@@ -185,54 +215,74 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
 
     [HttpPut]
     [Route("claims")]
-    public void AddClaims([FromBody] ApplicationUserDto user, [FromQuery] IEnumerable<ClaimDto> claims) {
-      _authenticationManager.AddClaims(user, claims);
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public void AddClaims([FromQuery] string userId, [FromBody] IEnumerable<ClaimDto> claims) {
+      _authenticationManager.AddClaims(userId, claims);
     }
 
     [HttpGet]
     [Route("claims")]
-    public IEnumerable<ClaimDto> GetClaims([FromQuery] ApplicationUserDto user) {
-      return _authenticationManager.GetClaims(user);
+    [ProducesResponseType(typeof(IEnumerable<ClaimDto>), 200)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.NotFound)]
+    public IActionResult GetClaims([FromQuery] string userId) {
+      if (_authenticationManager.FindUserById(userId) == null)
+      {
+        return NotFound();
+      }
+      return Ok(_authenticationManager.GetClaims(userId));
     }
 
     [HttpDelete]
     [Route("claims")]
-    public void RemoveClaims([FromBody] ApplicationUserDto user, [FromQuery] IEnumerable<ClaimDto> claims) {
-      _authenticationManager.RemoveClaims(user, claims);
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public void RemoveClaims([FromQuery] DeleteClaimForUserDto claims) {      
+      _authenticationManager.RemoveClaims(claims.UserId, new ClaimDto[] { new ClaimDto { Type = claims.Type, Value = claims.Value } });
     }
 
     [HttpPost]
     [Route("claims")]
-    public void ReplaceClaim([FromBody] ApplicationUserDto user, [FromQuery] NewClaimDto claim) {
-      _authenticationManager.ReplaceClaim(user, 
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public void ReplaceClaim([FromQuery] string userId, [FromBody] NewClaimDto claim) {
+      _authenticationManager.ReplaceClaim(userId, 
         new ClaimDto { Type = claim.Type, Value = claim.Value }, 
         new ClaimDto { Type = claim.NewType, Value = claim.NewValue});
     }
 
-    #endregion
+    #endregion Claims
 
     #region Roles
 
     [HttpPut]
     [Route("role/addToRole")]
-    public void AddToRole([FromBody] ApplicationUserDto user, string roleName) {
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public void AddToRole([FromQuery] string userId, string roleName) {
       throw new NotImplementedException();
     }
 
     [HttpDelete]
     [Route("role/removeFromRole")]
-    public void RemoveFromRole([FromBody] ApplicationUserDto user, string roleName) {
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public void RemoveFromRole([FromQuery] string userId, [FromQuery] string roleName) {
       throw new NotImplementedException();
     }
 
     [HttpGet]
     [Route("role/forUser")]
-    public IEnumerable<string> GetRoles([FromQuery] ApplicationUserDto user) {
-      return _authenticationManager.GetRolesForUser(user);
+    [ProducesResponseType(typeof(IEnumerable<string>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public IEnumerable<string> GetForUserRoles([FromQuery] string userId) {
+      return _authenticationManager.GetRolesForUser(userId);
     }
 
     [HttpGet]
     [Route("role/isInRole")]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public bool IsInRole([FromQuery] ApplicationUserDto user, string roleName) {
       return _authenticationManager.IsUserInRole(user, roleName);
     }
@@ -250,12 +300,16 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <param name="roleName"></param>
     [HttpPut]
     [Route("role/setIdentityName")]
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void SetIdentityRoleDtoName([FromBody] ApplicationIdentityRoleDto role, string roleName) {
       _authenticationManager.SetIdentityRoleDtoName(role, roleName);
     }
 
     [HttpPut]
     [Route("role/setNormalizedName")]
+    [ProducesResponseType(typeof(void), 201)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void SetNormalizedRoleName([FromBody] ApplicationIdentityRoleDto role, string normalizedName) {
       _authenticationManager.SetNormalizedRoleName(role, normalizedName);
     }
@@ -267,6 +321,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpPut]
     [Route("role")]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public IdentityResult UpdateRole([FromBody] ApplicationIdentityRoleDto role) {
       return _authenticationManager.UpdateRole(role);
     }
@@ -278,6 +333,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpPost]
     [Route("role")]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public IdentityResult CreateRole([FromBody] ApplicationIdentityRoleDto role) {
       return _authenticationManager.CreateRole(role);
     }
@@ -289,8 +345,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpDelete]
     [Route("role/identity")]
-    public IdentityResult DeleteRole([FromBody] ApplicationIdentityRoleDto role) {
-      return _authenticationManager.DeleteRole(role);
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public IdentityResult DeleteRole([FromQuery] string roleId) {
+      return _authenticationManager.DeleteRole(roleId);
     }
 
     /// <summary>
@@ -322,6 +379,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpGet]
     [Route("role/identityId")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetIdentityRoleDtoId([FromQuery] ApplicationIdentityRoleDto role) {
       return _authenticationManager.GetIdentityRoleDtoId(role);
     }
@@ -333,6 +392,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpGet]
     [Route("role/identityName")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetIdentityRoleDtoName([FromQuery] ApplicationIdentityRoleDto role) {
       return _authenticationManager.GetIdentityRoleDtoName(role);
     }
@@ -344,12 +405,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpGet]
     [Route("role/normalizedName")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetNormalizedRoleName([FromQuery] ApplicationIdentityRoleDto role) {
       return _authenticationManager.GetNormalizedRoleName(role);
     }
 
     [HttpGet]
     [Route("role")]
+    [ProducesResponseType(typeof(IEnumerable<ApplicationIdentityRoleDto>), (int)HttpStatusCode.OK)]
     public IEnumerable<ApplicationIdentityRoleDto> GetRoles() {
       return _authenticationManager.GetRoles();
     }

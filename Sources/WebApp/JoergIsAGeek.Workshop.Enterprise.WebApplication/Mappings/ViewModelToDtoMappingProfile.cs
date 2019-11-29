@@ -1,8 +1,8 @@
 using AutoMapper;
+using JoergIsAGeek.ServiceProxy.Authentication;
+using JoergIsAGeek.ServiceProxy.MachineData;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.AuthenticationService.Models;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.MachineDataService.Models;
 using System.Security.Claims;
 using AspIdentityResult = Microsoft.AspNetCore.Identity.IdentityResult;
 

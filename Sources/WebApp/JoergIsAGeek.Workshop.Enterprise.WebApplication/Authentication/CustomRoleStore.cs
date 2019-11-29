@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using JoergIsAGeek.Workshop.Enterprise.WebFrontEnd.ServiceProxy.AuthenticationService;
+using JoergIsAGeek.ServiceProxy.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using ID = Microsoft.AspNetCore.Identity;
@@ -8,10 +8,10 @@ using VM = JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentica
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
   internal class CustomRoleStore : ID.IRoleStore<VM.RoleViewModel> {
 
-    private readonly IAuthenticationAPI _authSrvClient;
+    private readonly AuthServiceClient _authSrvClient;
     private readonly IMapper _mapper;
 
-    public CustomRoleStore(IAuthenticationAPI client, IMapper mapper) {
+    public CustomRoleStore(AuthServiceClient client, IMapper mapper) {
       _authSrvClient = client;
       _mapper = mapper;
     }
