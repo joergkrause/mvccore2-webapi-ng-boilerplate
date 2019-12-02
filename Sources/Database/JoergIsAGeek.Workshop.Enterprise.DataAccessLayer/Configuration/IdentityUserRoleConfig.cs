@@ -1,9 +1,9 @@
-﻿using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Configuration {
+namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Configuration
+{
   internal class IdentityUserRoleConfig : IEntityTypeConfiguration<IdentityUserRole<string>> {
     public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder) {
       builder

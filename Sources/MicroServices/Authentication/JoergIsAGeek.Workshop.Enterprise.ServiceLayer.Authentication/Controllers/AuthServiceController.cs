@@ -7,6 +7,7 @@ using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
@@ -238,7 +239,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     [ProducesResponseType(typeof(void), 201)]
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void RemoveClaims([FromQuery] DeleteClaimForUserDto claims) {      
-      _authenticationManager.RemoveClaims(claims.UserId, new ClaimDto[] { new ClaimDto { Type = claims.Type, Value = claims.Value } });
+      _authenticationManager.RemoveClaims(claims.UserId, new ClaimDto[] { new ClaimDto { ClaimType = claims.ClaimType, ClaimValue = claims.ClaimValue } });
     }
 
     [HttpPost]
@@ -247,8 +248,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public void ReplaceClaim([FromQuery] string userId, [FromBody] NewClaimDto claim) {
       _authenticationManager.ReplaceClaim(userId, 
-        new ClaimDto { Type = claim.Type, Value = claim.Value }, 
-        new ClaimDto { Type = claim.NewType, Value = claim.NewValue});
+        new ClaimDto { ClaimType = claim.Type, ClaimValue = claim.Value }, 
+        new ClaimDto { ClaimType = claim.NewType, ClaimValue = claim.NewValue});
     }
 
     #endregion Claims

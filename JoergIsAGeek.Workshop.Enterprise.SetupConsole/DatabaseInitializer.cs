@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
+﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using Microsoft.AspNetCore.Identity;
+using System;
 
-namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer {
+namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer
+{
   internal class DatabaseInitializer {
 
     internal void Seed(MachineDataContext context) {
       // Demo user and admin for frontend administration
-      var guestRole = new ApplicationRole { Name = "Guest", Id = Guid.NewGuid().ToString("N") };
-      var userRole = new ApplicationRole { Name = "User", Id = Guid.NewGuid().ToString("N") };
-      var adminRole = new ApplicationRole { Name = "Admin", Id = Guid.NewGuid().ToString("N") };
+      var guestRole = new IdentityRole { Name = "Guest", Id = Guid.NewGuid().ToString("N") };
+      var userRole = new IdentityRole { Name = "User", Id = Guid.NewGuid().ToString("N") };
+      var adminRole = new IdentityRole { Name = "Admin", Id = Guid.NewGuid().ToString("N") };
 
       // Add roles
       context.Roles.AddRange(new [] { guestRole, userRole, adminRole });
-      var hasher = new PasswordHasher<ApplicationUser>();
-      var guest = new ApplicationUser
+      var hasher = new PasswordHasher<IdentityUser>();
+      var guest = new IdentityUser
       {
         UserName = "weirdguest",
         Id = Guid.NewGuid().ToString("N"),
@@ -28,14 +24,14 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer {
       };
       guest.PasswordHash = hasher.HashPassword(guest, "p@ssw0rd");
       // Assign users to roles
-      var user = new ApplicationUser
+      var user = new IdentityUser
       {
         UserName = "dorisdemo",
         Id = Guid.NewGuid().ToString("N"),
         Email = "doris@demo.com"
       };
       user.PasswordHash = hasher.HashPassword(user, "p@ssw0rd"); // K€nnw0rt
-      var admin = new ApplicationUser
+      var admin = new IdentityUser
       {
         UserName = "andyadmin",
         Id = Guid.NewGuid().ToString("N"),
@@ -49,25 +45,25 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer {
       context.Users.Add(admin);
       context.SaveChanges();
       // Assign roles to users
-      var guestUserRole = new UserRole { UserId = guest.Id, RoleId = guestRole.Id };
+      var guestUserRole = new IdentityUserRole<string> { UserId = guest.Id, RoleId = guestRole.Id };
       context.UserRoles.Add(guestUserRole);
-      var userUserRole = new UserRole { UserId = user.Id, RoleId = userRole.Id };
+      var userUserRole = new IdentityUserRole<string> { UserId = user.Id, RoleId = userRole.Id };
       context.UserRoles.Add(userUserRole);
-      var userAdminRole = new UserRole { UserId = admin.Id, RoleId = userRole.Id };
+      var userAdminRole = new IdentityUserRole<string> { UserId = admin.Id, RoleId = userRole.Id };
       context.UserRoles.Add(userAdminRole);
-      var adminUserRole = new UserRole { UserId = admin.Id, RoleId = adminRole.Id };
+      var adminUserRole = new IdentityUserRole<string> { UserId = admin.Id, RoleId = adminRole.Id };
       context.UserRoles.Add(adminUserRole);
       context.SaveChanges();
       // Assign claims to users
       // because we overrode the IdentityUserClaim class we need to use derived UserClaim class here
       // otherwise the discriminator column would rule the access out
-      var apiPolicyClaimForUser = new UserClaim {
+      var apiPolicyClaimForUser = new IdentityUserClaim<string> {
         ClaimType = "api_access",
         ClaimValue = string.Empty, // the pure existence is enough, claims don't require a value, but often has one
         UserId = user.Id
       };
       context.UserClaims.Add(apiPolicyClaimForUser);
-      var apiPolicyClaimForAdmin = new UserClaim {
+      var apiPolicyClaimForAdmin = new IdentityUserClaim<string>      {
         ClaimType = "api_access",
         ClaimValue = string.Empty,
         UserId = admin.Id

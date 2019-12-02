@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.Repository
 {
-  public class AuthenticationDbRepository<T, U> : IAuthenticationDbRepository<T, U> where T : class
+  public class AuthenticationDbRepository<T, U> : IAuthenticationRepository<T, U> where T : class
   {
 
     public AuthenticationDbRepository(MachineDataContext context)

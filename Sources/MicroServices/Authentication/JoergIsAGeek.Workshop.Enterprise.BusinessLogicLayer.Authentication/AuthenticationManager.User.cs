@@ -21,12 +21,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
           .ForMember(i => i.Id, opt => opt.MapFrom(a => a.Id))
           .ForMember(i => i.NormalizedName, opt => opt.Ignore())
           .ForMember(i => i.ConcurrencyStamp, opt => opt.Ignore());
-        configure.CreateMap<ClaimDto, IdentityUserClaim<string>>()
-          .ForMember(i => i.ClaimType, opt => opt.MapFrom(a => a.Type))
-          .ForMember(i => i.ClaimValue, opt => opt.MapFrom(a => a.Value));
-        configure.CreateMap<IdentityUserClaim<string>, ClaimDto>()
-          .ForMember(i => i.Type, opt => opt.MapFrom(a => a.ClaimType))
-          .ForMember(i => i.Value, opt => opt.MapFrom(a => a.ClaimValue));
+        configure.CreateMap<ClaimDto, IdentityUserClaim<string>>();
+        configure.CreateMap<IdentityUserClaim<string>, ClaimDto>();
       });
       mapper = mapperConfiguration.CreateMapper();
     }
@@ -37,30 +33,30 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     public IdentityResult CreateRole(ApplicationIdentityRoleDto roleDto) {
       roleDto.Id = GetSecureId();
-      if (RepRoles.InsertOrUpdate(mapper.Map<ApplicationRole>(roleDto))) {
-        return IdentityResult.GetSucceded();
+      if (RepRoles.Insert(mapper.Map<IdentityRole>(roleDto))) {
+        return IdentityResult.Success;
       }
       else {
-        return IdentityResult.GetError();
+        return IdentityResult.Failed();
       }
     }
 
     public IdentityResult CreateUser(ApplicationUserDto userDto) {
       userDto.Id = GetSecureId();
-      if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto))) {
-        return IdentityResult.GetSucceded();
+      if (RepUsers.Insert(mapper.Map<IdentityUser>(userDto))) {
+        return IdentityResult.Success;
       }
       else {
-        return IdentityResult.GetError();
+        return IdentityResult.Failed();
       }
     }
 
     public IdentityResult DeleteRole(string roleId) {
-      if (RepRoles.Delete(new ApplicationRole { Id = roleId })) {
-        return IdentityResult.GetSucceded();
+      if (RepRoles.Delete(new IdentityRole { Id = roleId })) {
+        return IdentityResult.Success;
       }
       else {
-        return IdentityResult.GetError();
+        return IdentityResult.Failed();
       }
     }
 
@@ -85,11 +81,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     }
 
     public IdentityResult UpdateUser(ApplicationUserDto userDto) {
-      if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto))) {
-        return IdentityResult.GetSucceded();
+      if (RepUsers.Update(mapper.Map<IdentityUser>(userDto))) {
+        return IdentityResult.Success;
       }
       else {
-        return IdentityResult.GetError();
+        return IdentityResult.Failed();
       }
     }
 
@@ -104,7 +100,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     public void SetPasswordHash(ApplicationUserDto userDto, string passwordHash) {
       var user = FindUserById(userDto.Id);
       if (user == null) {
-        if (RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto))) {
+        if (RepUsers.Update(mapper.Map<IdentityUser>(userDto))) {
           userDto = mapper.Map<ApplicationUserDto>(RepUsers.Read(u => u.Email == userDto.Email).FirstOrDefault());
         }
       }
@@ -112,7 +108,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
         throw new ArgumentOutOfRangeException("User not found and not created");
       }
       userDto.PasswordHash = passwordHash;
-      RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(userDto));
+      RepUsers.Update(mapper.Map<IdentityUser>(userDto));
     }
 
     public ApplicationUserDto FindByEmail(string normalizedEmail) {
@@ -136,30 +132,30 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     public void SetEmail(ApplicationUserDto userDto, string email) {
       var user = FindUserById(userDto.Id);
       user.Email = email;
-      RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(user));
+      RepUsers.Update(mapper.Map<IdentityUser>(user));
     }
 
     public void SetEmailConfirmed(ApplicationUserDto userDto, bool confirmed) {
-      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+      var user = mapper.Map<IdentityUser>(FindUserById(userDto.Id));
       user.EmailConfirmed = confirmed;
-      RepUsers.InsertOrUpdate(user);
+      RepUsers.Update(user);
     }
 
     public void SetNormalizedEmail(ApplicationUserDto userDto, string normalizedEmail) {
-      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+      var user = mapper.Map<IdentityUser>(FindUserById(userDto.Id));
       user.NormalizedEmail = normalizedEmail;
-      RepUsers.InsertOrUpdate(mapper.Map<ApplicationUser>(user));
+      RepUsers.Update(mapper.Map<IdentityUser>(user));
     }
 
     public void SetNormalizedUserName(ApplicationUserDto userDto, string normalizedName) {
-      var user = mapper.Map<ApplicationUser>(FindUserById(userDto.Id));
+      var user = mapper.Map<IdentityUser>(FindUserById(userDto.Id));
       user.NormalizedUserName = normalizedName;
-      RepUsers.InsertOrUpdate(user);
+      RepUsers.Update(user);
     }
     public void SetUserDtoName(ApplicationUserDto userDto, string userName) {
       var user = SafeFindUser(userDto); 
       user.UserName = userName;
-      RepUsers.InsertOrUpdate(user);
+      RepUsers.Update(user);
     }
 
     public IEnumerable<ApplicationUserDto> GetUsers() {
@@ -168,7 +164,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     #region private helpers
 
-    private ApplicationUser SafeFindUser(ApplicationUserDto userDto) {
+    private IdentityUser SafeFindUser(ApplicationUserDto userDto) {
       var userObj = FindUserById(userDto.Id);
       if (userObj == null) {
         userObj = FindUserByName(userDto.UserName);
@@ -176,16 +172,16 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
           throw new ArgumentOutOfRangeException("Id");
         }
       }
-      var user = mapper.Map<ApplicationUser>(userObj);
+      var user = mapper.Map<IdentityUser>(userObj);
       return user;
     }
 
-    private ApplicationUser SafeFindUserById(string userId) {
+    private IdentityUser SafeFindUserById(string userId) {
       var user = RepUsers.Read(u => u.Id == userId).SingleOrDefault();
       return user;
     }
 
-    private ApplicationUser SafeFindUserByName(string normalizedUserName) {
+    private IdentityUser SafeFindUserByName(string normalizedUserName) {
       var user = RepUsers.Read(u => u.NormalizedUserName == normalizedUserName || u.UserName == normalizedUserName).SingleOrDefault();
       return user;
     }

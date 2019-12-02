@@ -51,11 +51,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
 
     public IdentityResult UpdateRole(ApplicationIdentityRoleDto roleDto) {
-      if (RepRoles.InsertOrUpdate(mapper.Map<ApplicationRole>(roleDto))) {
-        return IdentityResult.GetSucceded();
+      if (RepRoles.Update(mapper.Map<IdentityRole>(roleDto))) {
+        return IdentityResult.Success;
       }
       else {
-        return IdentityResult.GetError();
+        return IdentityResult.Failed();
       }
     }
 
@@ -70,20 +70,21 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     public void AddToRole(ApplicationUserDto user, string roleName) {
       var role = this.RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
       if (role != null) {
-        var newRole = new IdentityRole {
-          UserId = user.Id,
-          RoleId = role.Id
+        var newRole = new IdentityUserRole<string> {
+          RoleId = role.Id,
+          UserId = user.Id
         };
-        this.RepUserRoles.InsertOrUpdate(newRole);
+        this.RepUserRoles.Insert(newRole);
       }
     }
 
     public void RemoveFromRole(ApplicationUserDto user, string roleName) {
       var role = this.RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
       if (role != null) {
-        var roleToDelete = new IdentityRole {
-          UserId = user.Id,
-          RoleId = role.Id
+        var roleToDelete = new IdentityUserRole<string>
+        {
+          RoleId = role.Id,
+          UserId = user.Id
         };
         this.RepUserRoles.Delete(roleToDelete);
       }

@@ -18,29 +18,29 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     public Manager(IServiceProvider service) {
       // we pull the repos from container to avoid to many ctor params (see startup.cs for definitions)
-      this.RepRoles = service.GetService<IAuthenticationDbRepository<IdentityRole, string>>();
-      this.RepUsers = service.GetService<IAuthenticationDbRepository<IdentityUser, string>>();
-      this.RepUserClaims = service.GetService<IAuthenticationDbRepository<IdentityUserClaim<string>, string>>();
-      this.RepUserRoles = service.GetService<IAuthenticationDbRepository<IdentityUserRole<string>, string>>();
+      this.RepRoles = service.GetService<IAuthenticationRepository<IdentityRole, string>>();
+      this.RepUsers = service.GetService<IAuthenticationRepository<IdentityUser, string>>();
+      this.RepUserClaims = service.GetService<IAuthenticationRepository<IdentityUserClaim<string>, string>>();
+      this.RepUserRoles = service.GetService<IAuthenticationRepository<IdentityUserRole<string>, string>>();
       // user management
       this.userContext = service.GetService<IUserContextProvider>();
     }
 
     #region Authentication
 
-    protected IAuthenticationDbRepository<IdentityUser, string> RepUsers {
+    protected IAuthenticationRepository<IdentityUser, string> RepUsers {
       get;
     }
 
-    protected IAuthenticationDbRepository<IdentityRole, string> RepRoles {
+    protected IAuthenticationRepository<IdentityRole, string> RepRoles {
       get;
     }
 
-    protected IAuthenticationDbRepository<IdentityUserClaim<string>, string> RepUserClaims {
+    protected IAuthenticationRepository<IdentityUserClaim<string>, string> RepUserClaims {
       get;
     }
 
-    protected IAuthenticationDbRepository<IdentityUserRole<string>, string> RepUserRoles {
+    protected IAuthenticationRepository<IdentityUserRole<string>, string> RepUserRoles {
       get;
     }
 

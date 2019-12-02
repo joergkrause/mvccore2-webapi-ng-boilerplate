@@ -1,14 +1,7 @@
-﻿using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.Repository;
+﻿using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
-using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 {
@@ -18,24 +11,25 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     #region Claims
 
     public void AddClaims(string userId, IEnumerable<ClaimDto> claims) {
-      var userClaims = new List<UserClaim>();
+      var userClaims = new List<IdentityUserClaim<string>>();
       foreach (var claim in claims) {
-        var userClaim = new UserClaim {
-          ClaimType = claim.Type,
-          ClaimValue = claim.Value,
+        var userClaim = new IdentityUserClaim<string>
+        {
+          ClaimType = claim.ClaimType,
+          ClaimValue = claim.ClaimValue,
           UserId = userId
         };
         userClaims.Add(userClaim);
       }
       // This is transactional
-      RepUserClaims.InsertOrUpdate(userClaims);
+      RepUserClaims.Insert(userClaims);
     }
 
     public IEnumerable<ClaimDto> GetClaims(string userId) {
-      var user = mapper.Map<ApplicationUser>(FindUserById(userId));
+      var user = mapper.Map<IdentityUser>(FindUserById(userId));
       var id = user.Id;
       var claims = RepUserClaims.Read(c => c.UserId == id);
-      var mappedClaims = mapper.Map<IEnumerable<UserClaim>, IEnumerable<ClaimDto>>(claims);
+      var mappedClaims = mapper.Map<IEnumerable<IdentityUserClaim<string>>, IEnumerable<ClaimDto>>(claims);
       return mappedClaims;
     }
 

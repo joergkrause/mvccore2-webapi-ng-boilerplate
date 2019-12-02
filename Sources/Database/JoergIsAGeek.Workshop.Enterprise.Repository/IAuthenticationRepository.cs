@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.Repository
 {
-  public interface IAuthenticationDbRepository<T, U> where T : class
+  public interface IAuthenticationRepository<T, U> where T : class
   {
     int Count();
     bool Delete(T model);

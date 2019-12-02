@@ -1,9 +1,9 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,10 +28,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       // get connectionstring from appsettings.json
       var connectionString = Configuration.GetConnectionString(nameof(MachineDataContext));
       services.AddDbContext<MachineDataContext>(o => o.UseSqlServer(connectionString), ServiceLifetime.Scoped);
-      services.AddScoped(typeof(IGenericRepository<ApplicationUser, string>), typeof(GenericDbRepository<ApplicationUser, string>));
-      services.AddScoped(typeof(IGenericRepository<ApplicationRole, string>), typeof(GenericDbRepository<ApplicationRole, string>));
-      services.AddScoped(typeof(IGenericRepository<UserClaim, int>), typeof(GenericDbRepository<UserClaim, int>));
-      services.AddScoped(typeof(IGenericRepository<UserRole, string>), typeof(GenericDbRepository<UserRole, string>));
+      services.AddScoped(typeof(IAuthenticationRepository<IdentityUser, string>), typeof(AuthenticationDbRepository<IdentityUser, string>));
+      services.AddScoped(typeof(IAuthenticationRepository<IdentityRole, string>), typeof(AuthenticationDbRepository<IdentityRole, string>));
+      services.AddScoped(typeof(IAuthenticationRepository<IdentityUserClaim<string>, string>), typeof(AuthenticationDbRepository<IdentityUserClaim<string>, string>));
+      services.AddScoped(typeof(IAuthenticationRepository<IdentityUserRole<string>, string>), typeof(AuthenticationDbRepository<IdentityUserRole<string>, string>));
       services.AddScoped(typeof(IAuthenticationManager), typeof(AuthenticationManager));
       services.AddOpenApiDocument(cfg =>
       {

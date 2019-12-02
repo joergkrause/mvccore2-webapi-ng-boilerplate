@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Security.Claims;
 
-namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
+namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
+{
 
   /// <summary>
   /// Base class that provides all repositories and mapping to DTO types.
