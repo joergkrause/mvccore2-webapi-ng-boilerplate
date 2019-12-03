@@ -1238,7 +1238,7 @@
             "x-position": 1
           },
           {
-            "name": "Type",
+            "name": "ClaimType",
             "in": "query",
             "schema": {
               "type": "string",
@@ -1247,7 +1247,7 @@
             "x-position": 2
           },
           {
-            "name": "Value",
+            "name": "ClaimValue",
             "in": "query",
             "schema": {
               "type": "string",
@@ -2089,11 +2089,11 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "type": {
+          "claimType": {
             "type": "string",
             "nullable": true
           },
-          "value": {
+          "claimValue": {
             "type": "string",
             "nullable": true
           }

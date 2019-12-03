@@ -30,19 +30,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings {
       CreateMap<AspIdentityResult, IdentityResult>();
       CreateMap<IdentityResult, AspIdentityResult>();
       CreateMap<Claim, ClaimDto>()
-        .ForMember(c => c.Type, opt => opt.MapFrom(o => o.Type))
-        .ForMember(c => c.Value, opt => {
+        .ForMember(c => c.ClaimType, opt => opt.MapFrom(o => o.Type))
+        .ForMember(c => c.ClaimValue, opt => {
           opt.AllowNull();
           opt.MapFrom(o => o.Value);
         });
       CreateMap<ClaimDto, Claim>()
         // the db could hold NULL values for claims where just the existence matters 
         // and Automapper does not support NullSubst on ctors and Claim does not provide an empty ctor
-        .ForCtorParam("value", opt => opt.MapFrom(o => o.Value ?? string.Empty))
-        .ForMember(c => c.Type, opt => opt.MapFrom(o => o.Type))
+        .ForCtorParam("value", opt => opt.MapFrom(o => o.ClaimValue ?? string.Empty))
+        .ForCtorParam("type", opt => opt.MapFrom(o => o.ClaimType ?? string.Empty))
+        .ForMember(c => c.Type, opt => opt.MapFrom(o => o.ClaimType))
         .ForMember(c => c.Value, opt => {
           opt.NullSubstitute(string.Empty);
-          opt.MapFrom(o => o.Value ?? string.Empty);
+          opt.MapFrom(o => o.ClaimValue ?? string.Empty);
         })
         .ForMember(c => c.Properties, opt => opt.Ignore())
         .ForMember(c => c.Subject, opt => opt.Ignore());

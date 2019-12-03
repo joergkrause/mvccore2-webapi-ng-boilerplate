@@ -1788,14 +1788,14 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task RemoveClaimsAsync(string userId, string type, string value)
+        public System.Threading.Tasks.Task RemoveClaimsAsync(string userId, string claimType, string claimValue)
         {
-            return RemoveClaimsAsync(userId, type, value, System.Threading.CancellationToken.None);
+            return RemoveClaimsAsync(userId, claimType, claimValue, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task RemoveClaimsAsync(string userId, string type, string value, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task RemoveClaimsAsync(string userId, string claimType, string claimValue, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/claims?");
@@ -1803,13 +1803,13 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("UserId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
-            if (type != null) 
+            if (claimType != null) 
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Type") + "=").Append(System.Uri.EscapeDataString(ConvertToString(type, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder_.Append(System.Uri.EscapeDataString("ClaimType") + "=").Append(System.Uri.EscapeDataString(ConvertToString(claimType, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
-            if (value != null) 
+            if (claimValue != null) 
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Value") + "=").Append(System.Uri.EscapeDataString(ConvertToString(value, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder_.Append(System.Uri.EscapeDataString("ClaimValue") + "=").Append(System.Uri.EscapeDataString(ConvertToString(claimValue, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
     
@@ -3266,11 +3266,11 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.28.0 (Newtonsoft.Json v11.0.0.0)")]
     public partial class ClaimDto 
     {
-        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Type { get; set; }
+        [Newtonsoft.Json.JsonProperty("claimType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ClaimType { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Value { get; set; }
+        [Newtonsoft.Json.JsonProperty("claimValue", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ClaimValue { get; set; }
     
     
     }
