@@ -4,8 +4,8 @@
   "description": "This is a demoapp",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf ../WebApi/wwwroot/* && webpack --production && xcopy /s /y ./wwwroot/* ../WebApi/wwwroot/",
-    "debug": "rimraf ../WebApi/wwwroot/* && webpack --development && xcopy /s /y ./wwwroot/* ../WebApi/wwwroot/"
+    "build": "rimraf ../WebApi/wwwroot/* && webpack --production && xcopy /s /y .\\wwwroot\\* ..\\WebApi\\wwwroot\\",
+    "debug": "rimraf ../WebApi/wwwroot/* && webpack --development && xcopy /s /y .\\wwwroot\\* ..\\WebApi\\wwwroot\\"
   },
   "repository": "https://github.com/joergkrause/mvccore2ng-boilerplate",
   "author": "Joerg Krause - www.joergkrause.de",

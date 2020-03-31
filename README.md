@@ -107,11 +107,13 @@ npm run build
 
 This makes a production build and copies the final bundle to the *wwwroot* folder of the WebApi project for delivery.
 
-# Docker Support
+The file *Launch.ps1* creates a network with all the 4 containers (see below) to get everything running.
+
+### Docker Support
 
 The easiest way to run all parts is Docker. There are no specific settings required, you can skip installing SQL Server and Core SDK.
 
-## Container landscape
+#### Container landscape
 
 There are 4 containers:
 
@@ -124,7 +126,7 @@ The composer file runs all of them in production mode. The final solution runs o
 
 The setup is in one batch file (Powershell), and it has some distinct parts you have to know.
 
-### Ports
+#### Ports
 
 The default ports are provided by runtime settings. All services start with a line such as this:
 
@@ -134,7 +136,7 @@ webBuilder.UseStartup<Startup>().UseUrls(args);
 
 That means, you can provide the bindings as runtime parameters. 
 
-### Images
+#### Images
 
 After a first build runs fine it's time to create the images. The appropriate *Dockerfile* files are in the folder *Sources*:
 
@@ -148,9 +150,7 @@ docker build --tag authservice:1.0 -f DockerFile-Auth .
 docker build --tag machinedataservice:1.0 -f DockerFile-MachineData .
 ~~~
 
-
-
-# Usage
+# App Usage
 
 There are three demo users and some demo data available. The 'TestConsole' app adds these data:
 

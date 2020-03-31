@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="wwwroot\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Data\data.txt" />
   </ItemGroup>
 
@@ -40,6 +36,7 @@
     <Folder Include="Connected Services\" />
     <Folder Include="Connected Services\AuthenticationService\" />
     <Folder Include="Connected Services\MachineDataService\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
