@@ -134,7 +134,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       builder.Entity<IdentityUser>().Property<DateTime>(nameof(AuditableEntityBase.ModifiedAt));
       builder.Entity<IdentityUser>().Property<string>(nameof(AuditableEntityBase.CreatedBy)).HasMaxLength(100);
       builder.Entity<IdentityUser>().Property<string>(nameof(AuditableEntityBase.ModifiedBy)).HasMaxLength(100);
-      // https://www.heise.de/developer/artikel/Viele-Breaking-Changes-in-Entity-Framework-Core-3-0-4411902.html
       builder.Entity<IdentityRole>().ToTable("Roles", "identity");
       builder.Entity<IdentityRole>().Property<DateTime>(nameof(AuditableEntityBase.CreatedAt));
       builder.Entity<IdentityRole>().Property<DateTime>(nameof(AuditableEntityBase.ModifiedAt));
@@ -143,7 +142,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       builder.Entity<IdentityUserRole<string>>().ToTable("User_x_Roles", "identity");
       //builder.Entity<IdentityUserRole<string>>().Property(ur => ur.UserId).HasColumnType("char(64)").IsUnicode(false);
       //builder.Entity<IdentityUserRole<string>>().Property(ur => ur.RoleId).HasColumnType("char(64)").IsUnicode(false);
-      builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "identity");
       builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "identity");
       // Examples:
       //builder.Entity<ApplicationUser>()

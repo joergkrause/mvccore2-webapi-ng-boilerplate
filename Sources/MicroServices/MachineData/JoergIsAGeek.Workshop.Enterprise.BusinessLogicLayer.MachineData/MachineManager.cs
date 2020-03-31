@@ -26,7 +26,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     }
 
     public IEnumerable<MachineDto> GetAllMachines() {
-      return RepMachine.Read(m => true, m => m.Devices).Select(m => mapper.Map<MachineDto>(m));
+      return RepMachine.Read(m => true, m => m.Devices)
+        .Select(m => mapper.Map<MachineDto>(m));
     }
 
     public MachineDto GetMachineById(int id) {

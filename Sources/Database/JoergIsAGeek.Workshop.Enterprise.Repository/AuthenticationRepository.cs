@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.Repository
 {
-  public class AuthenticationDbRepository<T, U> : IAuthenticationRepository<T, U> where T : class
+  public class AuthenticationDbRepository<T, U> : IAuthAdapter<T, U>, IAuthenticationRepository<T, U> where T : class
   {
 
     public AuthenticationDbRepository(MachineDataContext context)
@@ -21,10 +21,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
       get;
     }
 
-    public T Find(U id)
-    {
-      return Context.Set<T>().Find(id); //.Single(u => u.Id == id);
-    }
 
     public IEnumerable<T> Read(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
     {
@@ -188,6 +184,76 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     {
       Context.Entry(model).State = EntityState.Deleted;
       return await Context.SaveChangesAsync() == 1;
+    }
+
+    int IAuthenticationRepository<T, U>.Count()
+    {
+      throw new NotImplementedException();
+    }
+
+    bool IAuthenticationRepository<T, U>.Delete(T model)
+    {
+      throw new NotImplementedException();
+    }
+
+    T IAuthenticationRepository<T, U>.Find(U id)
+    {
+      throw new NotImplementedException();
+    }
+
+    bool IAuthenticationRepository<T, U>.Insert(IEnumerable<T> models)
+    {
+      throw new NotImplementedException();
+    }
+
+    bool IAuthenticationRepository<T, U>.Insert(T model)
+    {
+      throw new NotImplementedException();
+    }
+
+    Task<bool> IAuthenticationRepository<T, U>.InsertAsync(IEnumerable<T> models)
+    {
+      return InsertAsync(models);
+    }
+
+    Task<bool> IAuthenticationRepository<T, U>.InsertAsync(T model)
+    {
+      return InsertAsync(model);
+    }
+
+    IQueryable<T> IAuthenticationRepository<T, U>.Query(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
+    {
+      return Query(predicate, paths);
+    }
+
+    IEnumerable<T> IAuthenticationRepository<T, U>.Read(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
+    {
+      return Read(predicate, paths);
+    }
+
+    bool IAuthenticationRepository<T, U>.Update(IEnumerable<T> models)
+    {
+      return Update(models);
+    }
+
+    bool IAuthenticationRepository<T, U>.Update(T model)
+    {
+      return Update(model);
+    }
+
+    Task<bool> IAuthenticationRepository<T, U>.UpdateAsync(IEnumerable<T> models)
+    {
+      throw new NotImplementedException();
+    }
+
+    Task<bool> IAuthenticationRepository<T, U>.UpdateAsync(T model)
+    {
+      throw new NotImplementedException();
+    }
+
+    public IEnumerable<T> AdapterRead(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
+    {
+      return Read(predicate, paths);
     }
 
     #endregion

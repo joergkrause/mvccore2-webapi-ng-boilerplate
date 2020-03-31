@@ -14,7 +14,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects {
     [DataMember]
     public string Location { get; set; }
 
-    [DataMember]
+    [DataMember] //(Name = "hd")]
     public bool HasDevices { get; set; }
 
   }
