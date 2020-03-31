@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
   public class Program {
@@ -13,7 +14,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
-              webBuilder.UseStartup<Startup>();
+              webBuilder.UseStartup<Startup>().UseUrls(args);
             });
   }
 }

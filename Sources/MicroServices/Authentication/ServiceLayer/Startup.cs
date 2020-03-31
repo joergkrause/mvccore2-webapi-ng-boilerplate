@@ -24,7 +24,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
     public override void ConfigureServices(IServiceCollection services)
     {
       base.ConfigureServices(services);
-      // access to db globally configured
+      // access to db globally configured      
       // get connectionstring from appsettings.json
       var connectionString = Configuration.GetConnectionString(nameof(MachineDataContext));
       services.AddDbContext<MachineDataContext>(o => o.UseSqlServer(connectionString), ServiceLifetime.Scoped);
@@ -64,9 +64,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-      if (env.IsDevelopment())
+      // swagger UI and endpoint only at dev-time
+      // if (env.IsDevelopment())
       {
-        // swagger UI and endpoint only at dev-time
         app.UseOpenApi();
         app.UseSwaggerUi3(); // settings => settings.DocumentPath = "/swagger/v1/swagger.json");
       }

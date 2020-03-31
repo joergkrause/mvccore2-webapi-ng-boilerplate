@@ -59,9 +59,11 @@ sqllocaldb create JoergIsAGeek
 
 Locate the connection strings in the *appsettings.json* file, one for the setup and one for each service runtime. 
 
+This is an example for the sqllocaldb:
+
 ~~~
 "ConnectionStrings": {
-   "MachineDataContext": "Data Source=(localdb)\\JoergIsAGeek;Initial Catalog=MachineDataDatabase;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30"
+   "MachineDataContext": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MachineDataDatabase;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30"
 }
 ~~~
 
@@ -89,47 +91,64 @@ The WebAPI consumes two services. That demonstrates a Microservice approach. To 
 > The build script is using Powershell.
 > See here: *Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication\BuildClientApp.ps1*
 
-### Docker
-
-There is a docker compose file that starts all parts in 5 containers:
-
-1. SQL Server on Linux 
-	- Run and Stay
-2. DB Setup Console to have demo data
-	- Run and Close
-3. Authentication API 
-	- Build
-	- Run and Stay
-4. Machine Data API (Demo Data)
-	- Build
-	- Run and Stay
-5. Frontend App
-	- Build
-	- Run and Stay
-
-After all is done, open a browser and point to http://localhost:8080. See chapter *Docker* below for details.
-
 ### API
 
 The service layer exposes the API as OpenAPI 2 (f.k.a. Swagger, powered by NSwag). The frontend uses NSwag to create the proxy. 
 Changes require to recreate the proxy. This is part of the build step.
 
+### Angular
+
+The frontend project contains the Angular files. It works as usual.
+
+~~~
+npm i
+npm run build
+~~~
+
+This makes a production build and copies the final bundle to the *wwwroot* folder of the WebApi project for delivery.
+
 # Docker Support
 
-The projects are organized in sub folders. That's because the flat *.sln structure does not allow the existence of multiple *DockerFile* files. While renaming would be an option, the editor 
-will not work properly with renamed *DockerFile* files. Hence, using sub folders is a solution. This would not be necessary if just a *docker_compose.yml* exists, but this is hard to debug if the 
-complex single containers are not tested one by one.
+The easiest way to run all parts is Docker. There are no specific settings required, you can skip installing SQL Server and Core SDK.
 
 ## Container landscape
 
 There are 4 containers:
 
 * Linux with MSSQL 2017 for database --> Port 1433
-* Linux with ASPNET Core for micro service 1 (Authentication) --> Port 5001
-* Linux with ASPNET Core for micro service 2 (MachineData demo data) --> Port 5005
+* Linux with ASPNET Core for micro service 1 (AuthService) --> Port 5001
+* Linux with ASPNET Core for micro service 2 (MachineDataService) --> Port 5005
 * Linux with ASPNET Core for web front end (Angular App) --> Port 5000, exposed externally as Port 8080
 
 The composer file runs all of them in production mode. The final solution runs on http://localhost:8080 on your host system or any other external IP. The 500X ports are for inter-container communication only.
+
+The setup is in one batch file (Powershell), and it has some distinct parts you have to know.
+
+### Ports
+
+The default ports are provided by runtime settings. All services start with a line such as this:
+
+~~~
+webBuilder.UseStartup<Startup>().UseUrls(args);
+~~~
+
+That means, you can provide the bindings as runtime parameters. 
+
+### Images
+
+After a first build runs fine it's time to create the images. The appropriate *Dockerfile* files are in the folder *Sources*:
+
+* *DockerFile-Auth*
+* *DockerFile-MachineData*
+
+The build process includes the whole process, compiling and publishing and can take a while. Give your machine a few minutes. After that, you can quickly start the containers from these images.
+
+~~~
+docker build --tag authservice:1.0 -f DockerFile-Auth .
+docker build --tag machinedataservice:1.0 -f DockerFile-MachineData .
+~~~
+
+
 
 # Usage
 

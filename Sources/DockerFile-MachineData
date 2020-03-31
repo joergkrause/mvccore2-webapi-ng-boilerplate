@@ -1,19 +1,18 @@
 # create a debug build of all projects used by app server
 # for production readiness use docker_composer.yml
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM  mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build-ms-machinedata
+FROM  mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build-ms-machinedata
 WORKDIR /src
 COPY . .
-
 RUN dotnet restore "MicroServices/MachineData/ServiceLayer/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj"
 RUN dotnet build "MicroServices/MachineData/ServiceLayer/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/build
 
 FROM build-ms-machinedata AS publish-ms-machinedata
-RUN dotnet publish "MicroServices/MachineData/ServiceLayerJoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/publish
+RUN dotnet publish "MicroServices/MachineData/ServiceLayer/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/publish
 
 FROM base AS final-ms-machinedata
 WORKDIR /app

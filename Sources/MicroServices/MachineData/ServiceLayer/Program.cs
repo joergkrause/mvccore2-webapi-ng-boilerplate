@@ -15,8 +15,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
-              webBuilder.UseStartup<Startup>();
-              webBuilder.UseUrls("http://0.0.0.0:5005");
+              webBuilder.UseStartup<Startup>().UseUrls(args);
             });
   }
 }
