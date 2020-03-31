@@ -1,31 +1,22 @@
 # create a debug build of all projects used by app server
 # for production readiness use docker_composer.yml
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM  mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build-ms-authdata
+FROM  mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build-ms-authdata
 WORKDIR /src
-COPY ["Microservices/JoergIsAGeek.Workshop.Enterprise.ServiceBase/JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj", "/JoergIsAGeek.Workshop.Enterprise.ServiceBase/"]
-COPY ["Microservices/Authentication/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "ServiceLayer/"]
-COPY ["Microservices/Authentication/JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication/JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "src/JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication/"]
-COPY ["Microservices/Authentication/JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication/JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "src/JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication/"]
-COPY ["Database/JoergIsAGeek.Workshop.Enterprise.DomainModels/JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj", "."]
-COPY ["Database/JoergIsAGeek.Workshop.Enterprise.DataAccessLayer/JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj", "."]
-COPY ["Database/JoergIsAGeek.Workshop.Enterprise.Repository/JoergIsAGeek.Workshop.Enterprise.Repository.csproj", "."]
-
-RUN dotnet restore "ServiceLayer/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj"
 COPY . .
-WORKDIR "/src/ServiceLayer"
-RUN dotnet build "JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/build
+RUN dotnet restore "MicroServices/Authentication/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj"
+
+RUN dotnet build "MicroServices/Authentication/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/build
 
 FROM build-ms-authdata AS publish-ms-authdata
-RUN dotnet publish "JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/publish
+RUN dotnet publish "MicroServices/Authentication/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/publish
 
 FROM base AS final-ms-authdata
 WORKDIR /app
-EXPOSE 5005
+EXPOSE 5001
 COPY --from=publish-ms-authdata /app/publish .
 ENTRYPOINT ["dotnet", "JoergIsAGeek.Workshop.Enterprise.ServiceLayer.dll"]
-

@@ -7,21 +7,13 @@ EXPOSE 443
 
 FROM  mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build-ms-machinedata
 WORKDIR /src
-COPY ["Microservices/JoergIsAGeek.Workshop.Enterprise.ServiceBase/JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj", "/JoergIsAGeek.Workshop.Enterprise.ServiceBase/"]
-COPY ["Microservices/MachineData/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.MachineData/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "ServiceLayer/"]
-COPY ["Microservices/MachineData/JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.MachineData/JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "src/JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.MachineData/"]
-COPY ["Microservices/MachineData/JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.MachineData/JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "src/JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.MachineData/"]
-COPY ["Database/JoergIsAGeek.Workshop.Enterprise.DomainModels/JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj", "."]
-COPY ["Database/JoergIsAGeek.Workshop.Enterprise.DataAccessLayer/JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj", "."]
-COPY ["Database/JoergIsAGeek.Workshop.Enterprise.Repository/JoergIsAGeek.Workshop.Enterprise.Repository.csproj", "."]
-
-RUN dotnet restore "ServiceLayer/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj"
 COPY . .
-WORKDIR "/src/ServiceLayer"
-RUN dotnet build "JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/build
+
+RUN dotnet restore "MicroServices/MachineData/ServiceLayer/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj"
+RUN dotnet build "MicroServices/MachineData/ServiceLayer/JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/build
 
 FROM build-ms-machinedata AS publish-ms-machinedata
-RUN dotnet publish "JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/publish
+RUN dotnet publish "MicroServices/MachineData/ServiceLayerJoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj" -c Release -o /app/publish
 
 FROM base AS final-ms-machinedata
 WORKDIR /app

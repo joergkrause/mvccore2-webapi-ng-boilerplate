@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DomainModels", "Sources\Database\JoergIsAGeek.Workshop.Enterprise.DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj", "{F7012709-60FD-4A4E-9ACF-1C636776E43F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DomainModels", "Sources\Database\DomainModels\JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj", "{F7012709-60FD-4A4E-9ACF-1C636776E43F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.Repository", "Sources\Database\JoergIsAGeek.Workshop.Enterprise.Repository\JoergIsAGeek.Workshop.Enterprise.Repository.csproj", "{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.Repository", "Sources\Database\Repository\JoergIsAGeek.Workshop.Enterprise.Repository.csproj", "{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationServer", "ApplicationServer", "{581DA9F7-3C4B-4329-8AD2-4358C4188038}"
 EndProject
@@ -16,11 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebFrontEnd", "WebFrontEnd"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApps", "ConsoleApps", "{FCBB36E7-3E2F-443D-A9CD-A234B5790E2F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication", "Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication\JoergIsAGeek.Workshop.Enterprise.WebApplication.csproj", "{F2D9969E-10BC-4521-89B7-7651EA677ECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels", "Sources\WebApp\ViewModels\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.csproj", "{BCA30391-1AC1-4FFA-942F-5DC2418E364A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels", "Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels\JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.csproj", "{BCA30391-1AC1-4FFA-942F-5DC2418E364A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataAccessLayer", "Sources\Database\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj", "{9251CB79-CDB0-468C-80F1-E1392601824C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataAccessLayer", "Sources\Database\DataAccessLayer\JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.csproj", "{9251CB79-CDB0-468C-80F1-E1392601824C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServices", "MicroServices", "{6BFD38C2-22E5-4DA1-B3CB-16A3E061A1B3}"
 EndProject
@@ -28,21 +26,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MachineData", "MachineData", "{0523FDAA-B05D-439C-A320-D1B869DC6079}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "Sources\MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Authentication\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{55FABA94-5C7A-411D-9DA7-CC5EE0AA3A61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "Sources\MicroServices\Authentication\ServiceLayer\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{55FABA94-5C7A-411D-9DA7-CC5EE0AA3A61}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "Sources\MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{A5ACFC1B-B655-4C45-9F9D-9ACADCE1D315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceLayer", "Sources\MicroServices\MachineData\ServiceLayer\JoergIsAGeek.Workshop.Enterprise.ServiceLayer.csproj", "{A5ACFC1B-B655-4C45-9F9D-9ACADCE1D315}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceBase", "Sources\MicroServices\JoergIsAGeek.Workshop.Enterprise.ServiceBase\JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj", "{EE85CFE5-91EB-40BA-99A2-A61F428A1D30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.ServiceBase", "Sources\MicroServices\ServiceBase\JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj", "{EE85CFE5-91EB-40BA-99A2-A61F428A1D30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer", "Sources\MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.MachineData\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "{56C1242D-BEA9-41FD-80CD-4B29ABEFF454}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer", "Sources\MicroServices\MachineData\BusinessLogicLayer\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "{56C1242D-BEA9-41FD-80CD-4B29ABEFF454}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer", "Sources\MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "{3073F99F-04C5-4844-8D09-6C09F15CF3A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer", "Sources\MicroServices\Authentication\BusinessLogicLayer\JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj", "{3073F99F-04C5-4844-8D09-6C09F15CF3A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.SetupConsole", "JoergIsAGeek.Workshop.Enterprise.SetupConsole\JoergIsAGeek.Workshop.Enterprise.SetupConsole.csproj", "{98C42821-AE8D-4BD7-9EBF-B4AD373BDD3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataTransferObjects", "Sources\MicroServices\MachineData\DataTransferObjects\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "{D326AA9E-A9AB-4E83-9ED7-6BCE929FBAF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataTransferObjects", "Sources\MicroServices\MachineData\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.MachineData\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "{D326AA9E-A9AB-4E83-9ED7-6BCE929FBAF8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataTransferObjects", "Sources\MicroServices\Authentication\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "{FE4FD737-9D28-416F-A348-38AD80DED0AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.DataTransferObjects", "Sources\MicroServices\Authentication\DataTransferObjects\JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj", "{FE4FD737-9D28-416F-A348-38AD80DED0AE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C158D699-66D5-451D-A93A-D8942316F787}"
 EndProject
@@ -52,6 +48,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Sources\DockerFile-Auth = Sources\DockerFile-Auth
 		Sources\DockerFile-MachineData = Sources\DockerFile-MachineData
 	EndProjectSection
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "JoergIsAGeek.Workshop.Enterprise.FrontEnd", "Sources\WebApp\FrontEnd\JoergIsAGeek.Workshop.Enterprise.FrontEnd.njsproj", "{1997C914-4741-43BF-AE13-4C63ED9D606F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApi", "Sources\WebApp\WebApi\JoergIsAGeek.Workshop.Enterprise.WebApi.csproj", "{728351A7-4B9D-4E38-8794-629922327B26}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.SetupConsole", "SetupConsole\JoergIsAGeek.Workshop.Enterprise.SetupConsole.csproj", "{481751B3-BD1E-40D8-8AC3-593C0742AA88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,10 +69,6 @@ Global
 		{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F2D9969E-10BC-4521-89B7-7651EA677ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2D9969E-10BC-4521-89B7-7651EA677ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2D9969E-10BC-4521-89B7-7651EA677ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2D9969E-10BC-4521-89B7-7651EA677ECB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BCA30391-1AC1-4FFA-942F-5DC2418E364A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BCA30391-1AC1-4FFA-942F-5DC2418E364A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCA30391-1AC1-4FFA-942F-5DC2418E364A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -99,10 +97,6 @@ Global
 		{3073F99F-04C5-4844-8D09-6C09F15CF3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3073F99F-04C5-4844-8D09-6C09F15CF3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3073F99F-04C5-4844-8D09-6C09F15CF3A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{98C42821-AE8D-4BD7-9EBF-B4AD373BDD3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98C42821-AE8D-4BD7-9EBF-B4AD373BDD3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98C42821-AE8D-4BD7-9EBF-B4AD373BDD3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98C42821-AE8D-4BD7-9EBF-B4AD373BDD3B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D326AA9E-A9AB-4E83-9ED7-6BCE929FBAF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D326AA9E-A9AB-4E83-9ED7-6BCE929FBAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D326AA9E-A9AB-4E83-9ED7-6BCE929FBAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -111,6 +105,18 @@ Global
 		{FE4FD737-9D28-416F-A348-38AD80DED0AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE4FD737-9D28-416F-A348-38AD80DED0AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE4FD737-9D28-416F-A348-38AD80DED0AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1997C914-4741-43BF-AE13-4C63ED9D606F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1997C914-4741-43BF-AE13-4C63ED9D606F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1997C914-4741-43BF-AE13-4C63ED9D606F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1997C914-4741-43BF-AE13-4C63ED9D606F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{728351A7-4B9D-4E38-8794-629922327B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{728351A7-4B9D-4E38-8794-629922327B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{728351A7-4B9D-4E38-8794-629922327B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{728351A7-4B9D-4E38-8794-629922327B26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{481751B3-BD1E-40D8-8AC3-593C0742AA88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{481751B3-BD1E-40D8-8AC3-593C0742AA88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{481751B3-BD1E-40D8-8AC3-593C0742AA88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{481751B3-BD1E-40D8-8AC3-593C0742AA88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,7 +124,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F7012709-60FD-4A4E-9ACF-1C636776E43F} = {C158D699-66D5-451D-A93A-D8942316F787}
 		{9F5161CA-3B8A-4D5C-9630-EE99BD1FBB0A} = {C158D699-66D5-451D-A93A-D8942316F787}
-		{F2D9969E-10BC-4521-89B7-7651EA677ECB} = {344C7732-A990-4455-85DE-CFCC732EDE2E}
 		{BCA30391-1AC1-4FFA-942F-5DC2418E364A} = {344C7732-A990-4455-85DE-CFCC732EDE2E}
 		{9251CB79-CDB0-468C-80F1-E1392601824C} = {C158D699-66D5-451D-A93A-D8942316F787}
 		{6BFD38C2-22E5-4DA1-B3CB-16A3E061A1B3} = {581DA9F7-3C4B-4329-8AD2-4358C4188038}
@@ -129,10 +134,12 @@ Global
 		{EE85CFE5-91EB-40BA-99A2-A61F428A1D30} = {6BFD38C2-22E5-4DA1-B3CB-16A3E061A1B3}
 		{56C1242D-BEA9-41FD-80CD-4B29ABEFF454} = {0523FDAA-B05D-439C-A320-D1B869DC6079}
 		{3073F99F-04C5-4844-8D09-6C09F15CF3A1} = {DF058096-80A1-41B3-AC1D-A9A823EB3E13}
-		{98C42821-AE8D-4BD7-9EBF-B4AD373BDD3B} = {FCBB36E7-3E2F-443D-A9CD-A234B5790E2F}
 		{D326AA9E-A9AB-4E83-9ED7-6BCE929FBAF8} = {0523FDAA-B05D-439C-A320-D1B869DC6079}
 		{FE4FD737-9D28-416F-A348-38AD80DED0AE} = {DF058096-80A1-41B3-AC1D-A9A823EB3E13}
 		{C158D699-66D5-451D-A93A-D8942316F787} = {581DA9F7-3C4B-4329-8AD2-4358C4188038}
+		{1997C914-4741-43BF-AE13-4C63ED9D606F} = {344C7732-A990-4455-85DE-CFCC732EDE2E}
+		{728351A7-4B9D-4E38-8794-629922327B26} = {344C7732-A990-4455-85DE-CFCC732EDE2E}
+		{481751B3-BD1E-40D8-8AC3-593C0742AA88} = {FCBB36E7-3E2F-443D-A9CD-A234B5790E2F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A436E6D-866B-4938-ADF9-3BEDD52C8C87}
