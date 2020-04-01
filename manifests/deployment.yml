@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: core3boilerplate 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: core3boilerplate 
+    spec:
+      containers:
+        - name: core3boilerplate 
+          image: joergkrause.azurecr.io/core3boilerplate
+          ports:
+          - containerPort: 1433
