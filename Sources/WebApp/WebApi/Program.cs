@@ -17,7 +17,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
             .ConfigureWebHostDefaults(webBuilder =>
             {
               webBuilder.UseStartup<Startup>();
-              webBuilder.UseUrls(args);
+              webBuilder.UseUrls("http://0.0.0.0:5000");
             });
   }
 }

@@ -13,4 +13,4 @@ spec:
         - name: core3boilerplate 
           image: joergkrause.azurecr.io/core3boilerplate
           ports:
-          - containerPort: 1433
+          - containerPort: 5000
