@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using static System.Console;
 
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
 {
@@ -27,6 +28,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       // access to db globally configured      
       // get connectionstring from appsettings.json
       var connectionString = Configuration.GetConnectionString(nameof(MachineDataContext));
+      WriteLine("Connectionstring {0}", connectionString);
       services.AddDbContext<MachineDataContext>(o => o.UseSqlServer(connectionString), ServiceLifetime.Scoped);
       services.AddScoped(typeof(IAuthenticationRepository<IdentityUser, string>), typeof(AuthenticationDbRepository<IdentityUser, string>));
       services.AddScoped(typeof(IAuthenticationRepository<IdentityRole, string>), typeof(AuthenticationDbRepository<IdentityRole, string>));
@@ -72,6 +74,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       }
       app.UseRouting();
 
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>

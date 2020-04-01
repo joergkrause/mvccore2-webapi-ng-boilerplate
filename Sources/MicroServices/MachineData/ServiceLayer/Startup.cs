@@ -70,6 +70,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       }
       app.UseRouting();
 
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>

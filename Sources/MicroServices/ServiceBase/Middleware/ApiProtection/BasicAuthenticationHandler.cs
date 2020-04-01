@@ -31,6 +31,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware.ApiProtection 
     }
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync() {
+      
       if (!Request.Headers.ContainsKey("Authorization")) {
         //Authorization header not in request
         return AuthenticateResult.NoResult();

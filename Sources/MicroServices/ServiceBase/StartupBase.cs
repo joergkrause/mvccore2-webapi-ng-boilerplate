@@ -44,8 +44,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       {
         app.UseDeveloperExceptionPage();
       }
-      // we want to authenticate the client
-      app.UseAuthorization();
       // custom middleware
       app.UseUserContext();
     }
