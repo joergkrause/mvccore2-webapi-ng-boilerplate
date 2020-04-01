@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: core3boilerplate
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 1433 
+    selector:
+        app: core3boilerplate
