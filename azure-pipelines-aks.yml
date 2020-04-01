@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: '65ca041d-3ebd-4239-9ca7-a498561884ac'
   imageRepository: 'core3boilerplate'
   containerRegistry: 'joergkrause.azurecr.io'
-  dockerfilePath: 'Sources/Dockerfile'
+  dockerfilePath: 'Sources/DockerFile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'joergkrause1851c4f6-auth'
 
