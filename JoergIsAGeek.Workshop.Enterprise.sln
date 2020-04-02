@@ -44,9 +44,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E9A20052-5438-403D-9E8B-CA2E18AA0652}"
 	ProjectSection(SolutionItems) = preProject
+		azure-pipelines-aks.yml = azure-pipelines-aks.yml
+		azure-pipelines.yml = azure-pipelines.yml
 		docker-compose.yml = docker-compose.yml
-		Sources\DockerFile-Auth = Sources\DockerFile-Auth
-		Sources\DockerFile-MachineData = Sources\DockerFile-MachineData
 	EndProjectSection
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "JoergIsAGeek.Workshop.Enterprise.FrontEnd", "Sources\WebApp\FrontEnd\JoergIsAGeek.Workshop.Enterprise.FrontEnd.njsproj", "{1997C914-4741-43BF-AE13-4C63ED9D606F}"
@@ -54,6 +54,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.WebApi", "Sources\WebApp\WebApi\JoergIsAGeek.Workshop.Enterprise.WebApi.csproj", "{728351A7-4B9D-4E38-8794-629922327B26}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.SetupConsole", "SetupConsole\JoergIsAGeek.Workshop.Enterprise.SetupConsole.csproj", "{481751B3-BD1E-40D8-8AC3-593C0742AA88}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Files", "Build Files", "{6D993C0B-2671-4825-82DF-67041982B577}"
+	ProjectSection(SolutionItems) = preProject
+		Sources\.dockerignore = Sources\.dockerignore
+		Sources\BuildClientApp.ps1 = Sources\BuildClientApp.ps1
+		Sources\DockerFile = Sources\DockerFile
+		Sources\DockerFile-Auth = Sources\DockerFile-Auth
+		Sources\DockerFile-MachineData = Sources\DockerFile-MachineData
+		Sources\Launch.ps1 = Sources\Launch.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,6 +150,7 @@ Global
 		{1997C914-4741-43BF-AE13-4C63ED9D606F} = {344C7732-A990-4455-85DE-CFCC732EDE2E}
 		{728351A7-4B9D-4E38-8794-629922327B26} = {344C7732-A990-4455-85DE-CFCC732EDE2E}
 		{481751B3-BD1E-40D8-8AC3-593C0742AA88} = {FCBB36E7-3E2F-443D-A9CD-A234B5790E2F}
+		{6D993C0B-2671-4825-82DF-67041982B577} = {E9A20052-5438-403D-9E8B-CA2E18AA0652}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A436E6D-866B-4938-ADF9-3BEDD52C8C87}

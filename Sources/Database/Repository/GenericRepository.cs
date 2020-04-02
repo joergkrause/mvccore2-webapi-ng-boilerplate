@@ -25,7 +25,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     }
 
     public IEnumerable<T> Read(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths) {
-      if (Count() > 10000) {
+      if (Count(predicate) > 10000) {
         throw new ArgumentOutOfRangeException("to many results");
       }
       var model = Context.Set<T>().AsQueryable();
@@ -36,7 +36,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     }
 
     public IQueryable<T> Query(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths) {
-      if (Count() > 10000) {
+      if (Count(predicate) > 10000) {
         throw new ArgumentOutOfRangeException("to many results");
       }
       var model = Context.Set<T>().AsQueryable();
@@ -46,8 +46,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
       return model.Where(predicate).AsNoTracking();
     }
 
-    public int Count() {
-      return Context.Set<T>().Count();
+    public int Count(Expression<Func<T, bool>> predicate) {
+      return Context.Set<T>().Count(predicate);
     }
 
     public bool InsertOrUpdate(T model) {

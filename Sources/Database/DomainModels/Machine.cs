@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JoergIsAGeek.Workshop.Enterprise.DomainModels
 {
-  public class Machine : AuditableEntityBase, IHistoryTracking
+  public partial class Machine : AuditableEntityBase, IHistoryTracking
   {
     public string Name { get; set; }
 
@@ -16,5 +17,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.DomainModels
       return Location?[0] == location;
     }
 
+    public string PropertyBag { get; set; }
+
+    [NotMapped]
+    public MachineProps Properties { get {
+        return new MachineProps();
+      }
+      set {
+      }
+    }
+
+  }
+
+  public class MachineProps
+  {
+    public int InnerId { get; set; }
   }
 }

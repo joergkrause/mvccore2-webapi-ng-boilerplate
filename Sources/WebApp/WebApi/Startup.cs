@@ -183,7 +183,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
         // API users just need to have this particular claim to use the API        
         options.AddPolicy("ApiUser", policy =>
         {
-          // this is in Roles/UserRoles and connecting it to the policy simplifies the [Authoize] attribute
+          // this is in Roles/UserRoles and connecting it to the policy simplifies the [Authorize] attribute
           policy.RequireRole("User");
           // this is in the UserClaims table connected to particular users. weirdguest has no access, all others have access
           policy.RequireClaim("api_access");
