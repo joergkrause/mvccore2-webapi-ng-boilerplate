@@ -1,42 +1,61 @@
 version: '3' 
 services: 
-  wfe: 
-    image: workshop/frontend 
+  webapp: 
+    build:
+      context: ./Sources
+      dockerfile: DockerFile
     environment: 
       - AuthServiceUrl=http://localhost:5001/api/auth 
       - MachineDataServiceUrl=http://localhost:5005/api/machinedata 
     ports: 
-      - "8080:5000" 
+      - "5000:5000" 
     depends_on: 
-      - auth.api 
-      - machinedata.api
+      - authservice
+      - machinedataservice
   
-  auth.api: 
+  authservice: 
     build:
       context: ./Sources
       dockerfile: DockerFile-Auth
+    container_name: authservice
     environment: 
-      - ConnectionString=Server=sql.server;Database=MachineDataDatabase;UserId=SA;Pwd=Joerg1sA*Geek
+      - ConnectionString=Server=sqlserver;Database=MachineDataDatabase;UserId=SA;Pwd=p@ssword
     ports: 
       - "5001:5001" 
+    networks:
+       - workshopnet
     depends_on: 
-      - sql.server
+      - sqlserver
 
-  machinedata.api: 
+  machinedataservice: 
     build:
       context: ./Sources
       dockerfile: DockerFile-MachineData
+    container_name: machinedataservice
     environment: 
-      - ConnectionString=Server=sql.server;Database=MachineDataDatabase;UserId=SA;Pwd=Joerg1sA*Geek 
+      - ConnectionString=Server=sqlserver;Database=MachineDataDatabase;UserId=SA;Pwd=p@ssword 
     ports: 
       - "5005:5005" 
+    networks:
+       - workshopnet
     depends_on: 
-      - sql.server 
+      - sqlserver 
 
-  sql.server: 
+  sqlserver: 
     image: microsoft/mssql-server-linux:latest 
+    container_name: sqlserver
     environment: 
-      - SA_PASSWORD=Joerg1sA*Geek 
+      - SA_PASSWORD=p@ssw0rd 
       - ACCEPT_EULA=Y 
+    volumes:
+       - D:\sqlstoragewin:/var/opt/mssql
+    networks:
+       - workshopnet
     ports: 
-      - "5433:1433"
+      - "1433:1433"
+
+volumes:
+  db-data:
+
+networks:
+  workshopnet:

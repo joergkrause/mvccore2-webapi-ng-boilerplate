@@ -150,6 +150,18 @@ docker build --tag authservice:1.0 -f DockerFile-Auth .
 docker build --tag machinedataservice:1.0 -f DockerFile-MachineData .
 ~~~
 
+## Quick Start using Docker Compose
+
+To quickly start all parts, the API, SQL Server, and Frontend just run the build in Visual Studio. Then, launch all parts using *Docker Compose*:
+
+~~~
+$ docker-compose --project-name workshop up
+~~~
+
+Assure you're in the solution rool and a command prompt, that's where the *docker-compose.yml* file is located. It will take roughly 5 minutes to start all containers.
+
+Open the browser at location *http://localhost:5000*, then.
+
 # App Usage
 
 There are three demo users and some demo data available. The 'TestConsole' app adds these data:
