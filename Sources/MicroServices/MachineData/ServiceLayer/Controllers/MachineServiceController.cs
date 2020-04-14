@@ -10,7 +10,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
   /// </summary>
   [ApiController]
   [Route("api/[controller]")]
-  [Authorize]
+  [Authorize(Roles = "User, Admin")]
   public class MachineServiceController : Controller {
     private IMachineManager _machineManager;
 
@@ -29,6 +29,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpPost]
     [Route("")]
+    [Authorize(Policy = "Data:Write")]
     public bool AddMachine([FromBody] MachineDto machine) {
       return _machineManager.AddMachine(machine);
     }
@@ -39,6 +40,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpGet]
     [Route("")]
+    [Authorize(Policy = "Data:Read")]
     public IEnumerable<MachineDto> GetAllMachines() {
       return _machineManager.GetAllMachines();
     }
@@ -50,6 +52,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpGet]
     [Route("{id}")]
+    [Authorize(Policy = "Data:Read")]
     public MachineDto GetMachineById(int id) {
       return _machineManager.GetMachineById(id);
     }
@@ -61,18 +64,21 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     /// <returns></returns>
     [HttpGet]
     [Route("byVal/{value}")]
+    [Authorize(Policy = "Data:Read")]
     public IEnumerable<MachineDto> GetMachineForDataValue(double value) {
       return _machineManager.GetMachineForDataValue(value);
     }
 
     [HttpPut]
     [Route("")]
+    [Authorize(Policy = "Data:Read:Write")]
     public bool EditMachine([FromBody] MachineDto machine) {
       return _machineManager.EditMachine(machine);
     }
 
     [HttpDelete]
     [Route("{id}")]
+    [Authorize(Policy = "Data:Read:Write")]
     public bool DeleteMachine(int id) {
       var machine = new MachineDto { Id = id };
       return _machineManager.DeleteMachine(machine);

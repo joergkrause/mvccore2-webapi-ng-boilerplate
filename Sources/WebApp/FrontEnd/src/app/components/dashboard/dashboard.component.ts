@@ -1,10 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
-import { Subscription } from 'rxjs';
-
-import { AccountInfoViewModel, MachineViewModel } from '../../viewmodels/index';
+import { AccountInfoViewModel } from '../../viewmodels/index';
 import { AccountService, ApiService } from '../../services/index';
+import { ApiMachines, MachineViewModel } from '../../services/lib/frontendapi';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +17,7 @@ export class DashboardComponent implements OnInit {
   errors: string;
   isRequesting: boolean;
 
-  constructor(private accountService: AccountService, private apiService: ApiService) {
+  constructor(private accountService: AccountService, private apiService: ApiService, private apiMachinesService: ApiMachines) {
     this.machines = new Array<MachineViewModel>();    
   }
 
@@ -29,9 +27,10 @@ export class DashboardComponent implements OnInit {
       .then(user => this.user = user)
       .catch(error => this.error = error.message);
     // get demo data information
-    this.apiService.getMachines()
-      .then(machines => this.machines = machines)
-      .catch(error => this.error = error.message);
+    // this.apiService.getMachines()
+    this.apiMachinesService.getAll().toPromise()
+        .then(machines => this.machines = machines)
+        .catch(error => this.error = error.message);
   }
 
 }

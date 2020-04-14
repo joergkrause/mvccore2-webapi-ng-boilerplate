@@ -1,16 +1,12 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
-using JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware;
-using JoergIsAGeek.Workshop.UnitTests.DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.FileExtensions;
-using Microsoft.Extensions.Configuration.Json;
 using System;
-using System.IO;
+using System.Collections;
 using System.Linq;
 using System.Security.Claims;
 
-namespace JoergIsAGeek.Workshop.Enterprise.TestConsole
+namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
 {
   class Program
   {
@@ -19,21 +15,21 @@ namespace JoergIsAGeek.Workshop.Enterprise.TestConsole
       Console.WriteLine("Start creating database");
       var config = new ConfigurationBuilder()
          .AddJsonFile("appsettings.json", true, true)
+         .AddEnvironmentVariables()
          .Build();
       Console.WriteLine($"Using this connection string: ");
       var clr = Console.ForegroundColor;
       Console.ForegroundColor = ConsoleColor.Yellow;
       Console.WriteLine(GetCs(config));
       Console.ForegroundColor = ConsoleColor.Green;
-      Console.WriteLine("Hint: Change connection string in 'application.json'");
+      Console.WriteLine("Hint: Change connection string in 'application.json', if your run this in Visual Studio");
+      Console.WriteLine("Hint: Set connection string in environment variable 'WORKSHOP_ConnectionString_MachineDataContext', if your run this in Docker Container");
       Console.ForegroundColor = clr;
       if (TestInitialize(config))
       {
         TestToUseDatebase(config);
       }
       Console.WriteLine("Done");
-      Console.WriteLine("ENTER to close");
-      Console.ReadLine();
     }
 
 
@@ -42,7 +38,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.TestConsole
     {
       var init = new DatabaseInitializer();
       // no concrete value needed, this is for SaveChanges automation after init
-      IUserContextProvider contextProvider = new UserContextProvider(config);
+      IUserContextProvider contextProvider = new MockedUserContextProvider();
       contextProvider.SetUserIdentity(new ClaimsIdentity(new Claim[] {
         new Claim(ClaimTypes.Name, "Setup User"),
         new Claim(ClaimTypes.Role, "Administrator")
@@ -85,6 +81,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.TestConsole
 
     private static string GetCs(IConfiguration config)
     {
+      var csFromEnv = Environment.GetEnvironmentVariable("WORKSHOP_ConnectionString_MachineDataContext", EnvironmentVariableTarget.Process);
+      if (csFromEnv != null)
+      {
+        Console.WriteLine("Found env variable 'WORKSHOP_ConnectionString_MachineDataContext' with this connectionstring:");
+        Console.WriteLine(csFromEnv);
+        return csFromEnv;
+      }
+      Console.WriteLine("Fallback to 'application.json' setting and use default connectionstring");
       return config.GetConnectionString(nameof(MachineDataContext));
     }
 

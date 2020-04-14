@@ -2,6 +2,7 @@
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,25 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       services.AddScoped(typeof(IGenericRepository<Device, int>), typeof(GenericDbRepository<Device, int>));
       services.AddScoped(typeof(IGenericRepository<DataValue, int>), typeof(GenericDbRepository<DataValue, int>));
       services.AddScoped(typeof(IMachineManager), typeof(MachineManager));
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy("Data:Read:Write", policy =>
+        {
+          policy.RequireRole("User");
+          policy.RequireClaim("MachineData", "read", "write");
+        });
+        options.AddPolicy("Data:Read", policy =>
+        {
+          policy.RequireRole("User");
+          policy.RequireClaim("MachineData", "read");
+        });
+        options.AddPolicy("Data:Write", policy =>
+        {
+          policy.RequireRole("User");
+          policy.RequireClaim("MachineData", "write");
+        });
+      });
+      // common API options
       services.AddOpenApiDocument(cfg =>
       {
         cfg.Title = "Machine Data API";

@@ -1,0 +1,16 @@
+# create a build to setup the database and add some demo data
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1 AS base
+WORKDIR /app
+
+FROM  mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+WORKDIR /src
+COPY SetupConsole/ .
+COPY Database/ /Database/
+RUN dotnet restore "JoergIsAGeek.Workshop.Enterprise.SetupConsole.csproj"
+RUN dotnet build "JoergIsAGeek.Workshop.Enterprise.SetupConsole.csproj" -c Release -o /app/build
+
+FROM base AS final
+WORKDIR /app
+COPY --from=build /app/build .
+ENV WORKSHOP_ConnectionString_MachineDataContext "Data Source=sqlserver,1433;Initial Catalog=MachineDataDatabase;User ID=sa;Password=p@ssw0rd;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+ENTRYPOINT ["dotnet", "JoergIsAGeek.Workshop.Enterprise.SetupConsole.dll"]

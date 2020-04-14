@@ -3,7 +3,7 @@ using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using Microsoft.AspNetCore.Identity;
 using System;
 
-namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer
+namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
 {
   internal class DatabaseInitializer {
 
@@ -14,7 +14,7 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer
       var adminRole = new IdentityRole { Name = "Admin", Id = Guid.NewGuid().ToString("N") };
 
       // Add roles
-      context.Roles.AddRange(new [] { guestRole, userRole, adminRole });
+      context.Roles.AddRange(new[] { guestRole, userRole, adminRole });
       var hasher = new PasswordHasher<IdentityUser>();
       var guest = new IdentityUser
       {
@@ -63,7 +63,7 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer
         UserId = user.Id
       };
       context.UserClaims.Add(apiPolicyClaimForUser);
-      var apiPolicyClaimForAdmin = new IdentityUserClaim<string>      {
+      var apiPolicyClaimForAdmin = new IdentityUserClaim<string> {
         ClaimType = "api_access",
         ClaimValue = string.Empty,
         UserId = admin.Id
@@ -71,8 +71,23 @@ namespace JoergIsAGeek.Workshop.UnitTests.DataAccessLayer
       context.UserClaims.Add(apiPolicyClaimForAdmin);
       // weird guest has no access to the API backend (for demonstration purpose)
 
-      // we have currently no claims for roles, but this would be an additional option
-
+      // add claims used to manage backend policies
+      foreach (var u in (new IdentityUser[] { user, admin }))
+      {
+        context.UserClaims.Add(new IdentityUserClaim<string>
+        {
+          ClaimType = "MachineData",
+          ClaimValue = "read",
+          UserId = u.Id
+        });
+        context.UserClaims.Add(new IdentityUserClaim<string>
+        {
+          ClaimType = "MachineData",
+          ClaimValue = "write",
+          UserId = u.Id
+        });
+      }
+      context.SaveChanges();
       // Demo data
       var machine1 = new Machine {
         Name = "M1",

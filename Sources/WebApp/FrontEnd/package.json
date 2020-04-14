@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf ../WebApi/wwwroot/* && webpack --production && xcopy /s /y .\\wwwroot\\* ..\\WebApi\\wwwroot\\",
-    "debug": "rimraf ../WebApi/wwwroot/* && webpack --development && xcopy /s /y .\\wwwroot\\* ..\\WebApi\\wwwroot\\"
+    "debug": "rimraf ../WebApi/wwwroot/* && webpack --development && xcopy /s /y .\\wwwroot\\* ..\\WebApi\\wwwroot\\",
+    "proxy": "nswag openapi2tsclient /input:http://localhost:5000/swagger/v1/swagger.json /output:src/app/services/lib/frontendapi.ts /classname:Api{controller} /httpclass:HttpClient /template:angular /InjectionTokenType:InjectionToken"
   },
   "repository": "https://github.com/joergkrause/mvccore2ng-boilerplate",
   "author": "Joerg Krause - www.joergkrause.de",
@@ -21,6 +22,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
+    "angular-auth-oidc-client": "^10.0.15",
     "bootstrap": "^4.4.0",
     "core-js": "^3.4.3",
     "font-awesome": "^4.7.0",

@@ -25,7 +25,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       mapper = config.CreateMapper();
     }
 
-    public IEnumerable<MachineDto> GetAllMachines() {
+    public IEnumerable<MachineDto> GetAllMachines() {      
       return RepMachine.Read(m => true, m => m.Devices)
         .Select(m => mapper.Map<MachineDto>(m));
     }

@@ -13,17 +13,31 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Build images
   jobs:  
   - job: Build
-    displayName: Build
+    displayName: Build images
     pool:
       vmImage: 'ubuntu-latest'
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build WebApp image (Frontend)
       inputs:
         command: build
-        dockerfile: 'Sources/DockerFile'
+        dockerfile: 'Sources/Dockerfile'
+        tags: |
+          $(tag)
+    - task: Docker@3
+      displayName: Build WebApp image (Authentication Service)
+      inputs:
+        command: build
+        dockerfile: 'Sources/Dockerfile-Auth'
+        tags: |
+          $(tag)
+    - task: Docker@4
+      displayName: Build WebApp image (Machinedata Service)
+      inputs:
+        command: build
+        dockerfile: 'Sources/Dockerfile-MachineData'
         tags: |
           $(tag)

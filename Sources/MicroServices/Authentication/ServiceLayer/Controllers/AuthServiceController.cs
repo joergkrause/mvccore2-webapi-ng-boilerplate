@@ -126,6 +126,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
 
     [HttpPut]
     [Route("user")]
+    [Authorize(Roles="Admin")]
     [ProducesResponseType(typeof(IdentityResult), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public IdentityResult UpdateUser([FromBody] ApplicationUserDto user) {

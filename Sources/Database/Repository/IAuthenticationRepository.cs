@@ -8,7 +8,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 {
   public interface IAuthenticationRepository<T, U> where T : class
   {
-    int Count();
     bool Delete(T model);
     Task<bool> DeleteAsync(T model);
     T Find(U id);

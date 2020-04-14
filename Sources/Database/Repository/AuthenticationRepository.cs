@@ -21,13 +21,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
       get;
     }
 
-
     public IEnumerable<T> Read(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
     {
-      if (Count() > 10000)
-      {
-        throw new ArgumentOutOfRangeException("to many results");
-      }
       var model = Context.Set<T>().AsQueryable();
       foreach (var path in paths)
       {
@@ -38,21 +33,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     public IQueryable<T> Query(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
     {
-      if (Count() > 10000)
-      {
-        throw new ArgumentOutOfRangeException("to many results");
-      }
       var model = Context.Set<T>().AsQueryable();
       foreach (var path in paths)
       {
         model = model.Include(path);
       }
       return model.Where(predicate).AsNoTracking();
-    }
-
-    public int Count()
-    {
-      return Context.Set<T>().Count();
     }
 
     public bool Insert(T model)
@@ -186,14 +172,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
       return await Context.SaveChangesAsync() == 1;
     }
 
-    int IAuthenticationRepository<T, U>.Count()
-    {
-      throw new NotImplementedException();
-    }
-
     bool IAuthenticationRepository<T, U>.Delete(T model)
     {
-      throw new NotImplementedException();
+      return Delete(model);
     }
 
     T IAuthenticationRepository<T, U>.Find(U id)
@@ -203,12 +184,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     bool IAuthenticationRepository<T, U>.Insert(IEnumerable<T> models)
     {
-      throw new NotImplementedException();
+      return Insert(models);
     }
 
     bool IAuthenticationRepository<T, U>.Insert(T model)
     {
-      throw new NotImplementedException();
+      return Insert(model);
     }
 
     Task<bool> IAuthenticationRepository<T, U>.InsertAsync(IEnumerable<T> models)

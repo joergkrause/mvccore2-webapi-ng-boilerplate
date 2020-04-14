@@ -32,6 +32,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     }
 
     public IdentityResult CreateRole(ApplicationIdentityRoleDto roleDto) {
+      // this.UserIdentity.HasClaim(c => c.Type == "ADGroup" && c.Value == "xyz");
       roleDto.Id = GetSecureId();
       if (RepRoles.Insert(mapper.Map<IdentityRole>(roleDto))) {
         return IdentityResult.Success;

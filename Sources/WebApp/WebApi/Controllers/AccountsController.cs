@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
-using JoergIsAGeek.Workshop.Enterprise.WebApplication.Helpers;
-using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
 {

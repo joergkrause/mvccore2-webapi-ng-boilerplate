@@ -4,9 +4,16 @@ using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Security.Claims;
 
 namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 {
+
+  public enum Access
+  {
+    Read,
+    Write      
+  }
 
   /// <summary>
   /// Base class that provides all repositories and mapping to DTO types.
@@ -14,7 +21,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
   public abstract class Manager {
 
     protected IMapper mapper;
-    private IUserContextProvider userContext;
+    private readonly IUserContextProvider userContext;
 
     public Manager(IServiceProvider service) {
       // we pull the repos from container to avoid to many ctor params (see startup.cs for definitions)
@@ -24,6 +31,21 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       // user management
       this.userContext = service.GetService<IUserContextProvider>();
     }
+
+    #region User Management
+
+    protected ClaimsIdentity UserIdentity {
+      get {
+        return userContext.UserIdentity as ClaimsIdentity;
+      }
+    }
+
+    protected bool UserHasClaim(string type, Access value)
+    {
+      return UserIdentity.HasClaim(c => c.Type == type && String.Compare(c.Value, Enum.GetName(typeof(Access), value), true) == 0);
+    }
+
+    #endregion
 
     #region Demo Data
 

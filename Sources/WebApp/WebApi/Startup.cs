@@ -27,11 +27,17 @@ using System.Text;
 using System.Threading.Tasks;
 using JoergIsAGeek.ServiceProxy.Authentication;
 using JoergIsAGeek.ServiceProxy.MachineData;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
   public class Startup
   {
+    /// <summary>
+    /// All environment variables we use to configure containerized use this prefix.
+    /// </summary>
+    const string ENV_PREFIX = "WORKSHOP_";
 
     public Startup(IWebHostEnvironment env)
     {
@@ -48,31 +54,34 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      Func<string, string> getEnv = (name) => Environment.GetEnvironmentVariable($"{ENV_PREFIX}{name}", EnvironmentVariableTarget.Machine);
       // Add framework services
       services.AddHttpContextAccessor();
       services.AddMvc(option => option.EnableEndpointRouting = false);
       // Security using custom backend
-      services.AddIdentity<UserViewModel, RoleViewModel>()
-        .AddDefaultTokenProviders();
+      services.AddIdentity<UserViewModel, RoleViewModel>().AddDefaultTokenProviders();
       var rootHandler = new HttpClientHandler();
-      // Alternative way: static authentication of backend
-      //var byteArray = Encoding.ASCII.GetBytes("username:secretKey");
-      //apiClient.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-      services.AddSingleton<AuthServiceClient>(ctx =>
+      // Configuration: 
+      //   if an env variable exists we use this, otherwise we fallback to appsettings.json
+      //   this way we can configure the services in containers with pre-built images and now access to appsettings.json
+      var authServiceUri = getEnv($"{nameof(AuthServiceClient)}_backEndUri") ?? Configuration.GetValue<string>($"{nameof(AuthServiceClient)}_backEndUri");
+      var machineServiceUri = getEnv($"{nameof(MachineServiceClient)}_backEndUri") ?? Configuration.GetValue<string>($"{nameof(MachineServiceClient)}_backEndUri");
+      // Add backend REST services
+      services.AddSingleton(ctx =>
       {
         var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
         var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
-        var backendUri = new Uri(Configuration.GetValue<string>($"{nameof(AuthServiceClient)}-backEndUri"));
+        var backendUri = new Uri(authServiceUri);
         var httpClient = new HttpClient(degHandler);
         var apiClientAuthService = new AuthServiceClient(httpClient);
         apiClientAuthService.BaseUrl = backendUri.AbsoluteUri;
         return apiClientAuthService;
       });
-      services.AddSingleton<MachineServiceClient>(ctx =>
+      services.AddSingleton(ctx =>
       {
         var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
         var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
-        var backendUri = new Uri(Configuration.GetValue<string>($"{nameof(MachineServiceClient)}-backEndUri"));
+        var backendUri = new Uri(machineServiceUri);
         var httpClient = new HttpClient(degHandler);
         var apiClientMachineService = new MachineServiceClient(httpClient);
         apiClientMachineService.BaseUrl = backendUri.AbsoluteUri;
@@ -108,28 +117,27 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       });
 
       // JSON Web Token wire up
-      // Get options from app settings
-      var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
-
-      var SecretKey = Configuration.GetSection("Keys").GetValue<string>("TokenSecret");
+      var SecretKey = getEnv("TokenSecret") ?? Configuration.GetSection("Keys").GetValue<string>("TokenSecret");
       var _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
-      // TODO: Needed? Configure JwtIssuerOptions
       services.Configure<JwtIssuerOptions>(options =>
       {
-        options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
-        options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+        // Get options from app settings, but read env variables first
+        var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+        options.Issuer = getEnv("Issuer") ?? jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+        options.Audience = getEnv("Audience") ?? jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
         options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
       });
 
       var tokenValidationParameters = new TokenValidationParameters
       {
-        // The signing key must match!
+        // The signing key must match
         ValidateIssuerSigningKey = true,
+        // Audience we set but don't check actually --> it's not a federation service, it's just self issued token 
         ValidateAudience = false,
+        // Issuer we set but don't check actually --> it's not a federation service, it's just self issued token 
         ValidateIssuer = false,
         IssuerSigningKeys = new List<SecurityKey> { _signingKey },
-
         // Validate the token expiry
         ValidateLifetime = true,
       };
@@ -148,7 +156,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
           options.IncludeErrorDetails = true;
           options.TokenValidationParameters = tokenValidationParameters;
 #pragma warning disable CS1998 // #warning directive for await/async violation, it's just while debug code is in here
-        options.Events = new JwtBearerEvents
+          options.Events = new JwtBearerEvents
           {
             OnMessageReceived = async (context) =>
             {
@@ -174,7 +182,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
             }
           };
 #pragma warning restore CS1998 // #warning directive
-      });
+        });
       services.AddAuthorization(options =>
       {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
@@ -189,7 +197,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
           policy.RequireClaim("api_access");
         });
       });
-      // TODO: http://bitoftech.net/2014/12/15/secure-asp-net-web-api-using-api-key-authentication-hmac-authentication/
       // common API options
       services.Configure<ApiBehaviorOptions>(options =>
       {
@@ -206,8 +213,29 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
           return new BadRequestObjectResult(errors);
         };
       });
+      // for TS generator
+      services.AddOpenApiDocument(cfg =>
+      {
+        cfg.Title = "Frontend API";
+        cfg.Description = "OpenAPI 3 backend for Angular app.";
+        cfg.DocumentName = "v1";
+        cfg.PostProcess = document =>
+        {
+          document.Info.Contact = new OpenApiContact
+          {
+            Name = "Jörg Krause",
+            Email = "joerg@krause.net",
+            Url = "https://twitter.com/joergisageek"
+          };
+          document.Info.License = new OpenApiLicense
+          {
+            Name = "Use under MIT",
+            Url = "https://github.com/joergkrause/mvccore2-webapi-ng-boilerplate/blob/master/LICENSE"
+          };          
+        };
+      });
 
-      // support for object mappings
+      // support for object mappings using Automapper
       services.AddAutoMapper(typeof(ViewModelToDtoMappingProfile));
     }
 
@@ -235,6 +263,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
+        app.UseOpenApi();
+        app.UseSwaggerUi3();
       }
       else
       {
@@ -260,6 +290,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       });
       // run auth
       app.UseAuthentication();
+      app.UseAuthorization();
       // default file is index.html to serve out SPA
       app.UseDefaultFiles();
       // static parts such as JS, CSS, ...

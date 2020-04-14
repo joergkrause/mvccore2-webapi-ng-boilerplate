@@ -14,7 +14,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
   public abstract class Manager {
 
     protected IMapper mapper;
-    private IUserContextProvider userContext;
+    private readonly IUserContextProvider userContext;
 
     public Manager(IServiceProvider service) {
       // we pull the repos from container to avoid to many ctor params (see startup.cs for definitions)

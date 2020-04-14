@@ -3,7 +3,7 @@ services:
   webapp: 
     build:
       context: ./Sources
-      dockerfile: DockerFile
+      dockerfile: Dockerfile
     environment: 
       - AuthServiceUrl=http://localhost:5001/api/auth 
       - MachineDataServiceUrl=http://localhost:5005/api/machinedata 
@@ -16,7 +16,7 @@ services:
   authservice: 
     build:
       context: ./Sources
-      dockerfile: DockerFile-Auth
+      dockerfile: Dockerfile-Auth
     container_name: authservice
     environment: 
       - ConnectionString=Server=sqlserver;Database=MachineDataDatabase;UserId=SA;Pwd=p@ssword
@@ -30,7 +30,7 @@ services:
   machinedataservice: 
     build:
       context: ./Sources
-      dockerfile: DockerFile-MachineData
+      dockerfile: Dockerfile-MachineData
     container_name: machinedataservice
     environment: 
       - ConnectionString=Server=sqlserver;Database=MachineDataDatabase;UserId=SA;Pwd=p@ssword 

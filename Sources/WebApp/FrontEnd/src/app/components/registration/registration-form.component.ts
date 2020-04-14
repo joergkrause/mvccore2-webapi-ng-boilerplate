@@ -35,7 +35,7 @@ export class RegistrationFormComponent implements OnInit {
               this.router.navigate(['/login'], { queryParams: { brandNew: true, email: value.email } });
             }
           },
-          errors => this.errors = errors);
+          errors => this.errors = errors.error ? Object.values(errors.error).join('') : JSON.stringify(errors));
     }
   }
 }

@@ -55,16 +55,19 @@ if (Get-Command "nswag" -ErrorAction SilentlyContinue)
   }
   # Start SQL Server (without volume, so storage is ephemarel)
   docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=p@ssw0rd" -p 1433:1433 -d --net workshopnet --name sqlserver microsoft/mssql-server-linux:latest  
+  # create image and delete if exists (save, because this part is not running as deamon)
+  docker rmi setupconsole && docker container ls -a --filter=name=setupconsole
+
   $findimgs = (docker images --filter=reference='*service:1.0')
   # create image if not exists
   if (([Array]::Find($findimgs, [Predicate[string]]{ $args[0].Contains("authservice") })).Length > 0) {
     docker rmi authservice:1.0
-    docker build --tag authservice:1.0 -f DockerFile-Auth .
+    docker build --tag authservice:1.0 -f Dockerfile-Auth .
   }
   # create image if not exists
   if ([Array]::Find($findimgs, [Predicate[string]]{ $args[0].Contains("machinedataservice") })).Length > 0) {
     docker rmi machinedataservice:1.0
-    docker build --tag machinedataservice:1.0 -f DockerFile-MachineData .
+    docker build --tag machinedataservice:1.0 -f Dockerfile-MachineData .
   }
   # stop and remove (and ignore warnings)
   docker stop authservice

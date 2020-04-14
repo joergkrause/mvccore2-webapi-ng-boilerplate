@@ -14,11 +14,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   /// <summary>
   /// This controller provides demo data
   /// </summary>
-  [Authorize(Policy = "ApiUser")]  //Roles = "User"
+  [Authorize(Policy = "ApiUser")]  // Roles = "User" is implicit in this policy
   [Route("api/[controller]")]
   public class MachinesController : Controller {
 
-    MachineServiceClient client;
+    private readonly MachineServiceClient client;
     private readonly IMapper mapper;
 
     public MachinesController(MachineServiceClient client, IHttpContextAccessor httpContextAccessor, IMapper mapper) {

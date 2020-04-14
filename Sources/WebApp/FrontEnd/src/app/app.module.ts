@@ -9,6 +9,7 @@ import { AuthGuard } from './guards/index';
 
 import * as components from './components/index';
 import * as services from './services/index';
+import * as apis from './services/lib/frontendapi';
 
 import { routesConfig } from './configurations/routes';
 import { TokenInterceptorService, AuthenticateXHRBackend } from './services/index';
@@ -42,6 +43,7 @@ import { AdminModule } from './modules/admin/admin.module';
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     // handle expired tokens and denied access
     //{ provide: HTTP_INTERCEPTORS, useClass: AuthenticateXHRBackend, multi: true},
+    apis.ApiAccounts, apis.ApiMachines, apis.ApiAuth,
     // regular demo data
     services.ApiService,
     // Account data, user details
