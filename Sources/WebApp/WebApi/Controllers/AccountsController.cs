@@ -33,7 +33,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("{id:alpha}", Name = "GetUser")]
+    [HttpGet("{id:length(32)}", Name = "GetUser")]
     [ProducesResponseType(typeof(UserViewModel), 200)]
     [ProducesResponseType(typeof(string), 400)]
     public async Task<IActionResult> Get(string id)
@@ -46,7 +46,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
       return Ok(result);
     }
 
-    [HttpGet("{id:alpha}/claims", Name = "GetClaims")]
+    [HttpGet("{id:length(32)}/claims", Name = "GetClaims")]
     [ProducesResponseType(typeof(IEnumerable<ClaimViewModel>), 200)]
     [ProducesResponseType(typeof(string), 400)]
     public async Task<IActionResult> GetClaims(string id)
