@@ -2,12 +2,14 @@
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
 {
   internal class DatabaseInitializer {
 
-    internal void Seed(MachineDataContext context) {
+    internal void SeedAuthData(AuthenticationDataContext context) {
       // Demo user and admin for frontend administration
       var guestRole = new IdentityRole { Name = "Guest", Id = Guid.NewGuid().ToString("N") };
       var userRole = new IdentityRole { Name = "User", Id = Guid.NewGuid().ToString("N") };
@@ -88,6 +90,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
         });
       }
       context.SaveChanges();
+    }
+
+    internal void SeedDemoData(MachineDataContext context, IDictionary<string, string> demoUserIds)
+    {
       // Demo data
       var machine1 = new Machine {
         Name = "M1",
@@ -123,6 +129,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
 
       context.Machines.Add(machine1);
       context.Machines.Add(machine2);
+
+      var mo1 = new MachineOperator { UserId = demoUserIds.Single(d => String.Compare(d.Value, "dorisdemo", true) == 0).Key };
+      mo1.OperatedMachines.Add(machine1);
+      mo1.OperatedMachines.Add(machine2);
+      context.MachineOperators.Add(mo1);
+
       context.SaveChanges();
 
     }

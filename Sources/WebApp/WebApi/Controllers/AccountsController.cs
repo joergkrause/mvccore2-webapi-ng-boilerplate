@@ -3,6 +3,8 @@ using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
@@ -14,7 +16,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
   /// </summary>
   [Route("api/[controller]")]
   [Authorize()]
-  public class AccountsController : Controller
+  public class AccountsController : ControllerBase
   {
 
     private readonly UserManager<UserViewModel> _userManager;
@@ -31,9 +33,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet]
-    [Route("{id}")]
-    public async Task<ActionResult> Get(string id)
+    [HttpGet("{id:alpha}", Name = "GetUser")]
+    [ProducesResponseType(typeof(UserViewModel), 200)]
+    [ProducesResponseType(typeof(string), 400)]
+    public async Task<IActionResult> Get(string id)
     {
       var result = await _userManager.FindByIdAsync(id);
       if (result == null)
@@ -43,7 +46,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
       return Ok(result);
     }
 
-
+    [HttpGet("{id:alpha}/claims", Name = "GetClaims")]
+    [ProducesResponseType(typeof(IEnumerable<ClaimViewModel>), 200)]
+    [ProducesResponseType(typeof(string), 400)]
+    public async Task<IActionResult> GetClaims(string id)
+    {
+      var user = await _userManager.FindByIdAsync(id);
+      if (user == null)
+      {
+        return BadRequest("No User");
+      }
+      var result = await _userManager.GetClaimsAsync(user);
+      var claims = _mapper.Map<ClaimViewModel>(result);
+      return Ok(claims);
+    }
 
   }
 }

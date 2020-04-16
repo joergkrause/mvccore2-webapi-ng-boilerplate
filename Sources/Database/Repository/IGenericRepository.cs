@@ -1,22 +1,23 @@
-﻿using System;
+﻿using JoergIsAGeek.Workshop.Enterprise.DomainModels;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 
-namespace JoergIsAGeek.Workshop.Enterprise.Repository {
-  public interface IGenericRepository<T, U> where T : IEntityBase<U> {
+namespace JoergIsAGeek.Workshop.Enterprise.Repository
+{
+
+  /// <summary>
+  /// Extended interface for business logic developers.
+  /// </summary>
+  /// <typeparam name="T">Model type</typeparam>
+  /// <typeparam name="U">Primary key type</typeparam>
+  public interface IGenericRepository<T, U> : IRepository<T> where T : IEntityBase<U> {
     int Count(Expression<Func<T, bool>> predicate);
-    bool Delete(T model);
     T Find(U id);
     bool InsertOrUpdate(T model);
     bool InsertOrUpdate(IEnumerable<T> models);
     Task<bool> InsertOrUpdateAsync(T model);
     Task<bool> InsertOrUpdateAsync(IEnumerable<T> models);
-    Task<bool> DeleteAsync(T model);
-    IQueryable<T> Query(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths);
-    IEnumerable<T> Read(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths);
   }
 }

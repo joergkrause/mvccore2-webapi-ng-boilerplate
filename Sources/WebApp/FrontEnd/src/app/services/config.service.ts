@@ -1,25 +1,16 @@
-import { Injectable } from '@angular/core';
-
-@Injectable()
+/**
+ * Store the API's base URL in case we need to change it from default origin.
+ * */
 export class ConfigService {
 
-  _apiURI: string;
+  private static _apiURI: string = window.location.origin;
 
-  constructor() {
-    this._apiURI = '/api/';
-  }
-
-  public get apiURI() {
-    return this._apiURI;
+  public static get apiURI() {
+    return ConfigService._apiURI;
   }
 
-  public get accountURI() {
-    return this._apiURI + 'accounts/';
+  public static set apiURI(value: string) {
+    ConfigService._apiURI = value;
   }
-  public get dataURI() {
-    return this._apiURI + 'machines/';
-  }
-  public get authURI() {
-    return this._apiURI + 'auth/';
-  }
+
 }

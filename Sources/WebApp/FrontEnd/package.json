@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf ../WebApi/wwwroot/* && webpack --production && xcopy /s /y .\\wwwroot\\* ..\\WebApi\\wwwroot\\",
     "debug": "rimraf ../WebApi/wwwroot/* && webpack --development && xcopy /s /y .\\wwwroot\\* ..\\WebApi\\wwwroot\\",
-    "proxy": "nswag openapi2tsclient /input:http://localhost:5000/swagger/v1/swagger.json /output:src/app/services/lib/frontendapi.ts /classname:Api{controller} /httpclass:HttpClient /template:angular /InjectionTokenType:InjectionToken"
+    "proxy": "nswag openapi2tsclient /input:http://localhost:5000/swagger/v1/swagger.json /output:src/app/services/lib/frontendapi.services.ts /classname:Api{controller} /httpclass:HttpClient /template:angular /InjectionTokenType:InjectionToken"
   },
   "repository": "https://github.com/joergkrause/mvccore2ng-boilerplate",
   "author": "Joerg Krause - www.joergkrause.de",

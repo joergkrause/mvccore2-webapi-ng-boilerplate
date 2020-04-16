@@ -5,6 +5,7 @@ using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Linq;
@@ -17,8 +18,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   /// Login Management. Extensible support for one or multiple logons.
   /// </summary>
   [Route("api/[controller]")]
+  [ApiController]
   [AllowAnonymous]
-  public class AuthController : Controller {
+  public class AuthController : ControllerBase
+  {
 
     private readonly UserManager<UserViewModel> _userManager;
     private readonly IJwtFactory _jwtFactory;
@@ -27,9 +30,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     private readonly IMapper _mapper;
     private readonly SignInManager<UserViewModel> _signin;
 
-    public AuthController(UserManager<UserViewModel> userManager,
+    public AuthController(
+      UserManager<UserViewModel> userManager,
       SignInManager<UserViewModel> signin,
-      IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IMapper mapper) {
+      IJwtFactory jwtFactory, 
+      IOptions<JwtIssuerOptions> jwtOptions, 
+      IMapper mapper) {
       _userManager = userManager;
       _signin = signin;
       _jwtFactory = jwtFactory;
@@ -41,15 +47,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     }
 
     // POST api/auth/login
-    [HttpPost("login")]
-    public async Task<IActionResult> Post([FromBody]LogonViewModel credentials) {
+    [HttpPost("login", Name = "Login")]
+    [ProducesResponseType(typeof(TokenResponseViewModel), 200)]
+    [ProducesResponseType(typeof(ModelStateDictionary), 400)]
+    public async Task<ActionResult<TokenResponseViewModel>> Post([FromBody]LogonViewModel credentials) {
       if (!ModelState.IsValid) {
         return BadRequest(ModelState);
       }
       // user name used at logon is "email"
       var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
       if (identity == null) {
-        return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
+        return BadRequest(Errors.AddErrorToModelState("login_failure", "User not known.", ModelState));
       }
       var user = new UserViewModel {
         UserName = identity.Name,
@@ -57,16 +65,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       };
       // log user immediately in
       var result = await _signin.CheckPasswordSignInAsync(user, credentials.Password, true);
-      
+      if (!result.Succeeded)
+      {
+        return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
+      }
       // Serialize and return the response
-      var response = new {
-        id = identity.Claims.Single(c => c.Type == "id").Value,
-        auth_token = await _jwtFactory.GenerateEncodedToken(credentials.UserName, identity),
-        expires_in = (int)_jwtOptions.ValidFor.TotalSeconds
+      var response = new TokenResponseViewModel
+      {
+        Id = identity.Claims.Single(c => c.Type == "id").Value,
+        AuthToken = await _jwtFactory.GenerateEncodedToken(credentials.UserName, identity),
+        ExpiresIn = (int)_jwtOptions.ValidFor.TotalSeconds
       };
 
-      var json = JsonConvert.SerializeObject(response, _serializerSettings);
-      return Ok(json);
+      return response;
     }
 
 
@@ -76,7 +87,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>    
-    [HttpPost("register")]
+    [HttpPost("register", Name = "Register")]
+    [ProducesResponseType(typeof(string), 200)]
+    [ProducesResponseType(typeof(ModelStateDictionary), 400)]
     public async Task<IActionResult> Post([FromBody]RegistrationViewModel model) {
       if (!ModelState.IsValid) {
         return BadRequest(ModelState);

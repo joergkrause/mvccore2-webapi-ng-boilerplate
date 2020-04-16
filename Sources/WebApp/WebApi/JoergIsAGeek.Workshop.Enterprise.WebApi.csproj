@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.5.0" />
     <PackageReference Include="NSwag.AspNetCore" Version="13.3.0" />
+    <PackageReference Include="System.Text.Json" Version="4.7.1" />
   </ItemGroup>
   
   <ItemGroup>
@@ -33,5 +34,9 @@
     <Folder Include="Connected Services\MachineDataService\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="nswag openapi2csclient /input:Setup/MachineData-proxy-3.json  /classname:MachineServiceClient /namespace:JoergIsAGeek.ServiceProxy.MachineData /output:&quot;../Connected Services/MachineDataService/ServiceProxy.cs&quot; /ParameterDateTimeFormat:System.DateTime &#xD;&#xA;nswag openapi2csclient /input:Setup/Authentication-proxy-3.json  /classname:AuthenticationServiceClient /namespace:JoergIsAGeek.ServiceProxy.Authentication /output:&quot;../Connected Services/AuthenticationService/ServiceProxy.cs&quot; /ParameterDateTimeFormat:System.DateTime" />
+  </Target>
 
 </Project>

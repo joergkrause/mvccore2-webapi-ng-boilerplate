@@ -1,8 +1,11 @@
-﻿export * from './account.service';
-export * from './api.service';
+﻿// services used in controllers
+export * from './account.service';
+export * from './machinedata.service';
 export * from './emitter.service';
 export * from './auth.service';
 export * from './config.service';
-
+// supporting api
+export * from './lib/frontendapi.services';
+// helper for authentication
 export * from './auth/authenticate-backend.service';
 export * from './auth/tokeninterceptor.service';

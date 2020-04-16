@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { UserRegistrationViewModel } from '../../viewmodels/userregistration.viewmodel';
-import { AuthService } from '../../services/index';
+import { AccountService, ClaimViewModel } from '../../services/index';
 
 @Component({
   selector: 'profile-form',
@@ -11,15 +9,14 @@ import { AuthService } from '../../services/index';
 export class ProfileFormComponent implements OnInit {
 
   errors: string;
-  isRequesting: boolean;
-  submitted: boolean = false;
+  claims: ClaimViewModel[];
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private accountService: AccountService) {
 
   }
 
   ngOnInit() {
-    // TODO: Read current profile
+    this.accountService.getUserClaims().then(claims => this.claims = claims);
   }
 
   setProfile() {

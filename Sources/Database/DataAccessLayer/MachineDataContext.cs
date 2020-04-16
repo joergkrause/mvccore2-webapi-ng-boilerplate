@@ -17,7 +17,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
   /// The main context for working data and authentication.
   /// The Autofac container shall deliver the options for config.
   /// </summary>
-  public class MachineDataContext : IdentityDbContext {
+  public class MachineDataContext : DbContext {
 
     private readonly IUserContextProvider contextProvider;
 
@@ -36,6 +36,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
     public DbSet<Device> Devices { get; set; }
 
     public DbSet<DataValue> DataValues { get; set; }
+
+    public DbSet<MachineOperator> MachineOperators { get; set; }
 
     public override int SaveChanges() {
       var now = DateTime.Now;
@@ -116,46 +118,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       // external config for better readebility and flexibility
      
       builder.ApplyConfiguration(new MachineConfig());
+      builder.ApplyConfiguration(new MachineOperatorConfig());
+      builder.ApplyConfiguration(new DeviceConfig());
+      builder.ApplyConfiguration(new DataValueConfig());
       builder.ApplyConfiguration(new TrackHistoryConfig());
-      builder.ApplyConfiguration(new IdentityUserConfig());      
-      builder.ApplyConfiguration(new IdentityUserClaimConfig());
-      builder.ApplyConfiguration(new IdentityUserLoginConfig());
-      builder.ApplyConfiguration(new IdentityRoleConfig());
-      builder.ApplyConfiguration(new IdentityUserRoleConfig());
-      builder.ApplyConfiguration(new IdentityRoleClaimConfig());
-      // currently we don't store the tokens
-      builder.Ignore<IdentityUserToken<string>>();
-
-      // to configure derived classes, such as ApplicationUser, add particular Entity calls here after
-      // this is necessary to configure both, base type and derived type, to have both in the model for mapping
-      builder.Entity<IdentityUser>().ToTable("Users", "identity");
-      builder.Entity<IdentityUser>().Property<DateTime>(nameof(AuditableEntityBase.CreatedAt));
-      builder.Entity<IdentityUser>().Property<DateTime>(nameof(AuditableEntityBase.ModifiedAt));
-      builder.Entity<IdentityUser>().Property<string>(nameof(AuditableEntityBase.CreatedBy)).HasMaxLength(100);
-      builder.Entity<IdentityUser>().Property<string>(nameof(AuditableEntityBase.ModifiedBy)).HasMaxLength(100);
-      builder.Entity<IdentityRole>().ToTable("Roles", "identity");
-      builder.Entity<IdentityRole>().Property<DateTime>(nameof(AuditableEntityBase.CreatedAt));
-      builder.Entity<IdentityRole>().Property<DateTime>(nameof(AuditableEntityBase.ModifiedAt));
-      builder.Entity<IdentityRole>().Property<string>(nameof(AuditableEntityBase.CreatedBy)).HasMaxLength(100);
-      builder.Entity<IdentityRole>().Property<string>(nameof(AuditableEntityBase.ModifiedBy)).HasMaxLength(100);
-      builder.Entity<IdentityUserRole<string>>().ToTable("User_x_Roles", "identity");
-      //builder.Entity<IdentityUserRole<string>>().Property(ur => ur.UserId).HasColumnType("char(64)").IsUnicode(false);
-      //builder.Entity<IdentityUserRole<string>>().Property(ur => ur.RoleId).HasColumnType("char(64)").IsUnicode(false);
-      builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "identity");
-      // Examples:
-      //builder.Entity<ApplicationUser>()
-      //    .HasMany(e => e.Claims)
-      //    .WithOne()
-      //    .HasForeignKey(e => e.UserId)
-      //    .IsRequired()
-      //    .OnDelete(DeleteBehavior.SetNull);
-
-      //builder.Entity<ApplicationUser>()
-      //    .HasMany(e => e.Logins)
-      //    .WithOne()
-      //    .HasForeignKey(e => e.UserId)
-      //    .IsRequired()
-      //    .OnDelete(DeleteBehavior.SetNull);     
 
     }
 

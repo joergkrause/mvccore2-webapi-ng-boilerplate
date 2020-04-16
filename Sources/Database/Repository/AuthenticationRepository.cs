@@ -9,15 +9,20 @@ using System.Threading.Tasks;
 
 namespace JoergIsAGeek.Workshop.Enterprise.Repository
 {
-  public class AuthenticationDbRepository<T, U> : IAuthAdapter<T, U>, IAuthenticationRepository<T, U> where T : class
+  /// <summary>
+  /// Repo to support ASP.NET Identity on the backend server.
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <typeparam name="U"></typeparam>
+  public class AuthenticationDbRepository<T, U> : IAuthenticationRepository<T, U> where T : class
   {
 
-    public AuthenticationDbRepository(MachineDataContext context)
+    public AuthenticationDbRepository(AuthenticationDataContext context)
     {
       Context = context;
     }
 
-    protected MachineDataContext Context {
+    protected AuthenticationDataContext Context {
       get;
     }
 
@@ -172,16 +177,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
       return await Context.SaveChangesAsync() == 1;
     }
 
-    bool IAuthenticationRepository<T, U>.Delete(T model)
-    {
-      return Delete(model);
-    }
-
-    T IAuthenticationRepository<T, U>.Find(U id)
-    {
-      throw new NotImplementedException();
-    }
-
     bool IAuthenticationRepository<T, U>.Insert(IEnumerable<T> models)
     {
       return Insert(models);
@@ -200,16 +195,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     Task<bool> IAuthenticationRepository<T, U>.InsertAsync(T model)
     {
       return InsertAsync(model);
-    }
-
-    IQueryable<T> IAuthenticationRepository<T, U>.Query(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
-    {
-      return Query(predicate, paths);
-    }
-
-    IEnumerable<T> IAuthenticationRepository<T, U>.Read(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
-    {
-      return Read(predicate, paths);
     }
 
     bool IAuthenticationRepository<T, U>.Update(IEnumerable<T> models)
@@ -235,6 +220,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     public IEnumerable<T> AdapterRead(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] paths)
     {
       return Read(predicate, paths);
+    }
+
+    public int Count(Expression<Func<T, bool>> predicate)
+    {
+      return Context.Set<T>().Count(predicate);
     }
 
     #endregion

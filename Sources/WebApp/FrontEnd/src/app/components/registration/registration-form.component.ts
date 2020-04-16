@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserRegistrationViewModel } from '../../viewmodels/userregistration.viewmodel';
-import { AuthService } from '../../services/index';
+import { AuthService, IRegistrationViewModel } from '../../services/index';
 
 @Component({
   selector: 'registration-form',
@@ -15,19 +14,17 @@ export class RegistrationFormComponent implements OnInit {
   submitted: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
-
   }
 
   ngOnInit() {
-
   }
 
-  registerUser({ value, valid }: { value: UserRegistrationViewModel, valid: boolean }) {
+  registerUser({ value, valid }: { value: IRegistrationViewModel, valid: boolean }) {
     this.submitted = true;
     this.isRequesting = true;
     this.errors = '';
     if (valid) {
-      this.authService.register(value.email, value.password, value.firstName, value.lastName, value.location)
+      this.authService.register(value)
         .then(() => this.isRequesting = false)
         .then(
           result => {

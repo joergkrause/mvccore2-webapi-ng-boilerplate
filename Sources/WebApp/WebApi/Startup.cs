@@ -28,7 +28,6 @@ using System.Threading.Tasks;
 using JoergIsAGeek.ServiceProxy.Authentication;
 using JoergIsAGeek.ServiceProxy.MachineData;
 using NSwag;
-using NSwag.Generation.Processors.Security;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
@@ -58,33 +57,38 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       // Add framework services
       services.AddHttpContextAccessor();
       services.AddMvc(option => option.EnableEndpointRouting = false);
+      services.AddCors();
       // Security using custom backend
       services.AddIdentity<UserViewModel, RoleViewModel>().AddDefaultTokenProviders();
       var rootHandler = new HttpClientHandler();
       // Configuration: 
       //   if an env variable exists we use this, otherwise we fallback to appsettings.json
       //   this way we can configure the services in containers with pre-built images and now access to appsettings.json
-      var authServiceUri = getEnv($"{nameof(AuthServiceClient)}_backEndUri") ?? Configuration.GetValue<string>($"{nameof(AuthServiceClient)}_backEndUri");
+      var authServiceUri = getEnv($"{nameof(AuthenticationServiceClient)}_backEndUri") ?? Configuration.GetValue<string>($"{nameof(AuthenticationServiceClient)}_backEndUri");
       var machineServiceUri = getEnv($"{nameof(MachineServiceClient)}_backEndUri") ?? Configuration.GetValue<string>($"{nameof(MachineServiceClient)}_backEndUri");
       // Add backend REST services
       services.AddSingleton(ctx =>
-      {
-        var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
-        var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
-        var backendUri = new Uri(authServiceUri);
-        var httpClient = new HttpClient(degHandler);
-        var apiClientAuthService = new AuthServiceClient(httpClient);
-        apiClientAuthService.BaseUrl = backendUri.AbsoluteUri;
-        return apiClientAuthService;
-      });
+        {
+          var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
+          var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
+          var backendUri = new Uri(authServiceUri);
+          var httpClient = new HttpClient(degHandler);
+          var apiClientAuthService = new AuthenticationServiceClient(httpClient)
+          {
+            BaseUrl = backendUri.AbsoluteUri
+          };
+          return apiClientAuthService;
+        });
       services.AddSingleton(ctx =>
       {
         var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
         var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
         var backendUri = new Uri(machineServiceUri);
         var httpClient = new HttpClient(degHandler);
-        var apiClientMachineService = new MachineServiceClient(httpClient);
-        apiClientMachineService.BaseUrl = backendUri.AbsoluteUri;
+        var apiClientMachineService = new MachineServiceClient(httpClient)
+        {
+          BaseUrl = backendUri.AbsoluteUri
+        };
         return apiClientMachineService;
       });
       // WFE logic and identity based on view models
@@ -288,15 +292,16 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
           }
         });
       });
-      // run auth
+      app.UseRouting();
+      // run auth and policies
       app.UseAuthentication();
       app.UseAuthorization();
       // default file is index.html to serve out SPA
       app.UseDefaultFiles();
       // static parts such as JS, CSS, ...
       app.UseStaticFiles();
-      // Sites
-      app.UseMvc();
+      // make our endpoints available, don't configure MVC      
+      app.UseEndpoints(configure => configure.MapControllers());
     }
   }
 }

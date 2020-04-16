@@ -89,8 +89,6 @@
     <Folder Include="src\app\services\" />
     <Folder Include="src\app\services\auth\" />
     <Folder Include="src\app\services\lib\" />
-    <Folder Include="src\app\services\lib\models\" />
-    <Folder Include="src\app\viewmodels\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\assets\images\" />
     <Folder Include="src\lib\" />
@@ -125,7 +123,7 @@
     <TypeScriptCompile Include="src\app\pipes\index.ts" />
     <TypeScriptCompile Include="src\app\pipes\stringify.pipe.ts" />
     <TypeScriptCompile Include="src\app\services\account.service.ts" />
-    <TypeScriptCompile Include="src\app\services\api.service.ts" />
+    <TypeScriptCompile Include="src\app\services\machinedata.service.ts" />
     <TypeScriptCompile Include="src\app\services\auth.service.ts" />
     <TypeScriptCompile Include="src\app\services\auth\authenticate-backend.service.ts" />
     <TypeScriptCompile Include="src\app\services\auth\tokeninterceptor.service.ts" />
@@ -133,18 +131,7 @@
     <TypeScriptCompile Include="src\app\services\config.service.ts" />
     <TypeScriptCompile Include="src\app\services\emitter.service.ts" />
     <TypeScriptCompile Include="src\app\services\index.ts" />
-    <TypeScriptCompile Include="src\app\services\lib\machineDataAPI.ts" />
-    <TypeScriptCompile Include="src\app\services\lib\machineDataAPIContext.ts" />
-    <TypeScriptCompile Include="src\app\services\lib\models\index.ts" />
-    <TypeScriptCompile Include="src\app\services\lib\models\mappers.ts" />
-    <TypeScriptCompile Include="src\app\services\lib\models\parameters.ts" />
-    <TypeScriptCompile Include="src\app\viewmodels\accountinfo.viewmodel.ts" />
-    <TypeScriptCompile Include="src\app\viewmodels\base.ts" />
-    <TypeScriptCompile Include="src\app\viewmodels\credentials.viewmodel.ts" />
-    <TypeScriptCompile Include="src\app\viewmodels\index.ts" />
-    <TypeScriptCompile Include="src\app\viewmodels\machine.viewmodel.ts" />
-    <TypeScriptCompile Include="src\app\viewmodels\userprofile.viewmodel.ts" />
-    <TypeScriptCompile Include="src\app\viewmodels\userregistration.viewmodel.ts" />
+    <TypeScriptCompile Include="src\app\services\lib\frontendapi.services.ts" />
     <TypeScriptCompile Include="src\lib\machineDataAPI.ts" />
     <TypeScriptCompile Include="src\lib\machineDataAPIContext.ts" />
     <TypeScriptCompile Include="src\lib\models\index.ts" />

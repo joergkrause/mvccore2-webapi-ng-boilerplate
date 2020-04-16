@@ -8,10 +8,10 @@ using VM = JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentica
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
   internal class CustomRoleStore : ID.IRoleStore<VM.RoleViewModel> {
 
-    private readonly AuthServiceClient _authSrvClient;
+    private readonly AuthenticationServiceClient _authSrvClient;
     private readonly IMapper _mapper;
 
-    public CustomRoleStore(AuthServiceClient client, IMapper mapper) {
+    public CustomRoleStore(AuthenticationServiceClient client, IMapper mapper) {
       _authSrvClient = client;
       _mapper = mapper;
     }

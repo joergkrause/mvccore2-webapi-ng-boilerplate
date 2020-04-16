@@ -65,6 +65,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build Files", "Build Files"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JoergIsAGeek.Workshop.Enterprise.SetupConsole", "Sources\SetupConsole\JoergIsAGeek.Workshop.Enterprise.SetupConsole.csproj", "{A329B62A-C485-4E3D-96DB-E04C8EEB1204}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FederationServer", "FederationServer", "{E66CDDDE-C0A3-4794-A009-E25ED197207D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

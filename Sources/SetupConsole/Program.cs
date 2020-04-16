@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
@@ -17,17 +18,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
          .AddJsonFile("appsettings.json", true, true)
          .AddEnvironmentVariables()
          .Build();
-      Console.WriteLine($"Using this connection string: ");
+      Console.WriteLine($"Using these connection strings: ");
       var clr = Console.ForegroundColor;
       Console.ForegroundColor = ConsoleColor.Yellow;
-      Console.WriteLine(GetCs(config));
+      Console.WriteLine(GetCs<AuthenticationDataContext>(config));
+      Console.WriteLine(GetCs<MachineDataContext>(config));
       Console.ForegroundColor = ConsoleColor.Green;
-      Console.WriteLine("Hint: Change connection string in 'application.json', if your run this in Visual Studio");
+      Console.WriteLine("Hint: Change connection string in 'application.json', if you run this in Visual Studio");
       Console.WriteLine("Hint: Set connection string in environment variable 'WORKSHOP_ConnectionString_MachineDataContext', if your run this in Docker Container");
       Console.ForegroundColor = clr;
       if (TestInitialize(config))
       {
-        TestToUseDatebase(config);
+        TestDemoDatebase(config);
+        TestAuthDatebase(config);
       }
       Console.WriteLine("Done");
     }
@@ -45,15 +48,25 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
       }));
       try
       {
-        using (var context = new MachineDataContext(GetOptions(config), contextProvider))
+        var crossDbUserIds = new Dictionary<string, string>();
+        using (var context = new AuthenticationDataContext(GetOptions<AuthenticationDataContext>(config), contextProvider))
         {
-          Console.WriteLine("Deleting...");
+          Console.WriteLine("Deleting Auth DB...");
           context.Database.EnsureDeleted();
-          var dbName = context.Database.GetDbConnection();
-          Console.WriteLine("Creating...");
+          Console.WriteLine("Creating Auth DB...");
           context.Database.EnsureCreated();
-          Console.WriteLine("Seeding...");
-          init.Seed(context);
+          Console.WriteLine("Seeding Auth DB...");
+          init.SeedAuthData(context);
+          context.Users.ToList().ForEach(u => crossDbUserIds.Add(u.Id, u.UserName));
+        } // Dispose
+        using (var context = new MachineDataContext(GetOptions<MachineDataContext>(config), contextProvider))
+        {
+          Console.WriteLine("Deleting DemoData DB...");
+          context.Database.EnsureDeleted();
+          Console.WriteLine("Creating DemoData DB...");
+          context.Database.EnsureCreated();
+          Console.WriteLine("Seeding DemoData DB...");
+          init.SeedDemoData(context, crossDbUserIds);
         } // Dispose
         return true;
       }
@@ -68,10 +81,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
       }
     }
 
-    static void TestToUseDatebase(IConfiguration config)
+    static void TestDemoDatebase(IConfiguration config)
     {
       IUserContextProvider contextProvider = null;
-      using (var context = new MachineDataContext(GetOptions(config), contextProvider))
+      using (var context = new MachineDataContext(GetOptions<MachineDataContext>(config), contextProvider))
       {
         var machines = context.Machines.ToList();
         var count = context.Machines.Count();
@@ -79,7 +92,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
       } // Dispose
     }
 
-    private static string GetCs(IConfiguration config)
+    static void TestAuthDatebase(IConfiguration config)
+    {
+      IUserContextProvider contextProvider = null;
+      using (var context = new AuthenticationDataContext(GetOptions<AuthenticationDataContext>(config), contextProvider))
+      {
+        var users = context.Users.ToList();
+        Console.WriteLine($"Expected value after seeding is <3>. Current value is <{users.Count()}>.");
+        var countClaims = context.UserClaims.Count();
+        Console.WriteLine($"Expected value after seeding is <6>. Current value is <{countClaims}>.");
+      } // Dispose
+    }
+
+    private static string GetCs<T>(IConfiguration config) where T : DbContext
     {
       var csFromEnv = Environment.GetEnvironmentVariable("WORKSHOP_ConnectionString_MachineDataContext", EnvironmentVariableTarget.Process);
       if (csFromEnv != null)
@@ -89,13 +114,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
         return csFromEnv;
       }
       Console.WriteLine("Fallback to 'application.json' setting and use default connectionstring");
-      return config.GetConnectionString(nameof(MachineDataContext));
+      return config.GetConnectionString(typeof(T).Name);
     }
 
-    private static DbContextOptions<MachineDataContext> GetOptions(IConfiguration config)
+    private static DbContextOptions<T> GetOptions<T>(IConfiguration config) where T : DbContext
     {
-      var optionBuilder = new DbContextOptionsBuilder<MachineDataContext>();
-      optionBuilder.UseSqlServer(GetCs(config), o => o.EnableRetryOnFailure());
+      var optionBuilder = new DbContextOptionsBuilder<T>();
+      optionBuilder.UseSqlServer(GetCs<T>(config), o => o.EnableRetryOnFailure());
       return optionBuilder.Options;
     }
   }

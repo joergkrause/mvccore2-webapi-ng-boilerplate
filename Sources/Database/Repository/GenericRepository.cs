@@ -78,7 +78,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
       return result;
     }
 
-
     public bool Delete(T model) {
       Context.Entry(model).State = EntityState.Deleted;
       return Context.SaveChanges() == 1;

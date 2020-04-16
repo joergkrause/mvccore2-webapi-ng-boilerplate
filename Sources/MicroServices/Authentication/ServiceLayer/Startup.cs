@@ -27,9 +27,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       base.ConfigureServices(services);
       // access to db globally configured      
       // get connectionstring from appsettings.json
-      var connectionString = Configuration.GetConnectionString(nameof(MachineDataContext));
+      var connectionString = Configuration.GetConnectionString(nameof(AuthenticationDataContext));
       WriteLine("Connectionstring {0}", connectionString);
-      services.AddDbContext<MachineDataContext>(o => o.UseSqlServer(connectionString), ServiceLifetime.Scoped);
+      services.AddDbContext<AuthenticationDataContext>(o => o.UseSqlServer(connectionString), ServiceLifetime.Scoped);
       services.AddScoped(typeof(IAuthenticationRepository<IdentityUser, string>), typeof(AuthenticationDbRepository<IdentityUser, string>));
       services.AddScoped(typeof(IAuthenticationRepository<IdentityRole, string>), typeof(AuthenticationDbRepository<IdentityRole, string>));
       services.AddScoped(typeof(IAuthenticationRepository<IdentityUserClaim<string>, string>), typeof(AuthenticationDbRepository<IdentityUserClaim<string>, string>));

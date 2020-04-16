@@ -3,8 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { CredentialsViewModel } from '../../viewmodels/index';
-import { AuthService } from '../../services/index';
+import { AuthService, ILogonViewModel } from '../../services/index';
 
 @Component({
   selector: 'login-form',
@@ -16,17 +15,16 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
   errors: string;
   isRequesting: boolean;
-  submitted: boolean = false;  
-  credentials: CredentialsViewModel = { email: '', password: '' };
+  submitted: boolean = false;
+  credentials: ILogonViewModel = { userName: '', password: '' };
 
   constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-
     // subscribe to router event
     this.subscription = this.activatedRoute.queryParams.subscribe(
       (param: any) => {
-        this.credentials.email = param['email'];
+        this.credentials.userName = param['userName'];
       });
   }
 
@@ -35,12 +33,12 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  login({ value, valid }: { value: CredentialsViewModel, valid: boolean }) {
+  login({ value, valid }: { value: ILogonViewModel, valid: boolean }) {
     this.submitted = true;
     this.isRequesting = true;
     this.errors = '';
     if (valid) {
-      this.authService.login(value.email, value.password)
+      this.authService.login(value)
         .then(() => {
           this.isRequesting = false;
           return true;
@@ -50,7 +48,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
             this.router.navigate(['/dashboard']);
           }
         },
-        error => this.errors = error);
+          error => this.errors = error);
     }
   }
 }

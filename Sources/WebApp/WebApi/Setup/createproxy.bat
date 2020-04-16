@@ -1,0 +1,3 @@
+﻿rem This call is also in the pre-build event (as copy, not the batch file)
+nswag openapi2csclient /input:MachineData-proxy-3.json  /classname:MachineServiceClient /namespace:JoergIsAGeek.ServiceProxy.MachineData /output:"../Connected Services/MachineDataService/ServiceProxy.cs" /ParameterDateTimeFormat:System.DateTime 
+nswag openapi2csclient /input:Authentication-proxy-3.json  /classname:AuthenticationServiceClient /namespace:JoergIsAGeek.ServiceProxy.Authentication /output:"../Connected Services/AuthenticationService/ServiceProxy.cs" /ParameterDateTimeFormat:System.DateTime 

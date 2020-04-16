@@ -14,10 +14,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Middleware {
 
     private readonly IHttpContextAccessor _context;
     private readonly string backendSecret;
-    private Func<string, string> convertToBase64 = (s) => {
-      var bytes = Encoding.ASCII.GetBytes(s);
-      return Convert.ToBase64String(bytes);
-    };
+    private readonly Func<string, string> convertToBase64 = (s) => Convert.ToBase64String(Encoding.ASCII.GetBytes(s));
 
     public ApiAuthDelegatingHandler(IHttpContextAccessor context, IConfiguration configuration) {
       _context = context;
@@ -28,18 +25,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Middleware {
       InnerHandler = new HttpClientHandler();
     }
 
-
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) {
       var httpContext = _context.HttpContext;
       var userName = string.Empty;
       ClaimsIdentity claimsIdentity = ((ClaimsIdentity)httpContext.User.Identity);
       if (claimsIdentity.IsAuthenticated && claimsIdentity.AuthenticationType == "AuthenticationTypes.Federation") {
-        //var nameClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
-        //userName = ((ClaimsIdentity)httpContext.User.Identity).Claims.SingleOrDefault(c => c.Type == nameClaimType)?.Value;
         userName = ((ClaimsIdentity)httpContext.User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value;
         // a custom header that avoids retrieving the claims for the business layer again
         // using | avoids conflict while splitting because claim type identifiers might by URIs
         // HINT: an alternative way would be a cache in the backend service logic
+        // Add primary key to join tables between Auth DB and Working Data DB
+        // claimsIdentity.Claims.Append(new Claim(ClaimTypes.PrimarySid, httpContext.User.Id));
         request.Headers.Add("X-User-Claims", 
           claimsIdentity.Claims.Select(c => convertToBase64($"{c.Type}|{c.Value}")));
       }

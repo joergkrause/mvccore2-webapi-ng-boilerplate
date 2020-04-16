@@ -21,10 +21,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
   internal class CustomUserStore : IUserStore<UserViewModel>, IUserPasswordStore<UserViewModel>, IUserEmailStore<UserViewModel>, IUserClaimStore<UserViewModel>, IUserRoleStore<UserViewModel>
   {
 
-    private readonly AuthServiceClient authclient;
+    private readonly AuthenticationServiceClient authclient;
     private readonly IMapper mapper;
 
-    public CustomUserStore(AuthServiceClient authclient, IMapper mapper)
+    public CustomUserStore(AuthenticationServiceClient authclient, IMapper mapper)
     {
       this.authclient = authclient;
       this.mapper = mapper;

@@ -32,12 +32,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Areas.UserAdmin.Contro
     }
 
     // GET: api/Claim/5
-    //[HttpGet("{id}", Name = "Get")]
-    //public ClaimViewModel GetUserForClaim(string claimType) {
-    //  throw new NotImplementedException();
-    //  //var claim = _mapper.Map<Claim>(claimViewModel);
-    //  //return _userManager.GetUsersForClaimAsync(claim);
-    //}
+    [HttpGet("{id}", Name = "Get")]
+    public async Task<IEnumerable<UserViewModel>> GetUserForClaim(ClaimViewModel claimViewModel)
+    {
+      var claim = _mapper.Map<Claim>(claimViewModel);
+      return await _userManager.GetUsersForClaimAsync(claim);
+    }
 
     // POST: api/Claim
     [HttpPost]
@@ -48,19 +48,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Areas.UserAdmin.Contro
     }
 
     // PUT: api/Claim/5
-    [HttpPut("{id}")]
-    public async Task Put(int id, [FromBody] string value) {
-      UserViewModel user = null;
-      Claim claim = null;
-      Claim newClaim = null;
+    [HttpPut("{id}/{oldClaimType}/{newClaimType}")]
+    public async Task Put(string id, string oldClaimType, string newClaimType) {
+      UserViewModel user = await _userManager.FindByIdAsync(id);
+      Claim claim = new Claim(oldClaimType, null);
+      Claim newClaim = new Claim(newClaimType, null);
       await _userManager.ReplaceClaimAsync(user, claim, newClaim);
     }
 
-    // DELETE: api/ApiWithActions/5
+    // DELETE: api/Claim/5
     [HttpDelete("{id}")]
     public async Task Delete(string id, string claimType) {
-      UserViewModel user = null;
-      Claim claim = null;
+      UserViewModel user = await _userManager.FindByIdAsync(id);
+      Claim claim = new Claim(claimType, null);
       await _userManager.RemoveClaimAsync(user, claim);
     }
   }
