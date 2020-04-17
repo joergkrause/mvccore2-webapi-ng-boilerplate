@@ -32,10 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="angular.json" />
     <Content Include="package-lock.json" />
-    <Content Include="public\favicon.ico" />
-    <Content Include="public\index.html" />
     <Content Include="src\app\components\dashboard\dashboard.component.html" />
+    <Content Include="src\app\components\dashboard\dashboard.component.scss" />
     <Content Include="src\app\components\info\site-info.component.html" />
     <Content Include="src\app\components\login\login-form.component.html" />
     <Content Include="src\app\components\logout\logout-form.component.html" />
@@ -55,15 +55,13 @@
     <Content Include="src\assets\images\slider1.jpg" />
     <Content Include="src\assets\images\slider2.jpg" />
     <Content Include="src\assets\images\slider3.jpg" />
+    <Content Include="src\assets\main.scss" />
     <Content Include="src\index.html" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="webpack.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="dist\" />
-    <Folder Include="public\" />
     <Folder Include="src\" />
     <Folder Include="src\app\" />
     <Folder Include="src\app\components\" />
@@ -91,8 +89,6 @@
     <Folder Include="src\app\services\lib\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\assets\images\" />
-    <Folder Include="src\lib\" />
-    <Folder Include="src\lib\models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\main.ts" />
@@ -125,20 +121,13 @@
     <TypeScriptCompile Include="src\app\services\account.service.ts" />
     <TypeScriptCompile Include="src\app\services\machinedata.service.ts" />
     <TypeScriptCompile Include="src\app\services\auth.service.ts" />
-    <TypeScriptCompile Include="src\app\services\auth\authenticate-backend.service.ts" />
     <TypeScriptCompile Include="src\app\services\auth\tokeninterceptor.service.ts" />
     <TypeScriptCompile Include="src\app\services\base.service.ts" />
     <TypeScriptCompile Include="src\app\services\config.service.ts" />
     <TypeScriptCompile Include="src\app\services\emitter.service.ts" />
     <TypeScriptCompile Include="src\app\services\index.ts" />
     <TypeScriptCompile Include="src\app\services\lib\frontendapi.services.ts" />
-    <TypeScriptCompile Include="src\lib\machineDataAPI.ts" />
-    <TypeScriptCompile Include="src\lib\machineDataAPIContext.ts" />
-    <TypeScriptCompile Include="src\lib\models\index.ts" />
-    <TypeScriptCompile Include="src\lib\models\mappers.ts" />
-    <TypeScriptCompile Include="src\lib\models\parameters.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
-    <TypeScriptCompile Include="src\vendor.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

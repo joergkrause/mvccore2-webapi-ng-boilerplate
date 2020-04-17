@@ -7,5 +7,4 @@ export * from './config.service';
 // supporting api
 export * from './lib/frontendapi.services';
 // helper for authentication
-export * from './auth/authenticate-backend.service';
 export * from './auth/tokeninterceptor.service';

@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2015",
     "lib": [
       "dom",
-      "es2015"
+      "es2018"
     ],
-    "module": "commonjs",
-    "outDir": "./wwwroot/app",
+    "baseUrl": "./ ",
+    "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
@@ -22,6 +22,6 @@
     "node_modules"
   ],
   "files": [
-    "./src/main.ts", "./src/polyfills.ts", "./src/vendor.ts"    
+    "./src/main.ts", "./src/polyfills.ts"
   ]
 }

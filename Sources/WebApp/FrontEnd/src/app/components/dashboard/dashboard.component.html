@@ -1,48 +1,48 @@
-<div class="row">
-  <h2>Dashboard</h2>
-</div>
-<div class="row">
-  <div class="alert alert-danger" *ngIf="error">
-    {{error}}
-  </div>
-  <div class="col-md-6" *ngIf="user">
-    <div class="card">
-      <div class="card-block">
-        <h4>User Data</h4>
-      </div>
-      <div class="card-text">
-        <dl>
-          <dt>User Name</dt>
-          <dd>{{ user.userName }}</dd>
-        </dl>
-        <dl>
-          <dt>E-Mail</dt>
-          <dd>{{ user.email }}</dd>
-        </dl>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6" *ngIf="machines">
-    <div class="card">
-      <div class="card-block">
-        <h4>Machine Data</h4>
-      </div>
-      <div class="card-text">
-        <dl>
-          <dt>Number of Machines</dt>
-          <dd>{{ machines.length }}</dd>
-        </dl>
-        <dl>
-          <dt>List of Machines</dt>
-          <dd>
-            <ul>
-              <li *ngFor="let machine of machines">
-                {{ machine.name }} ( {{ machine.location }} )
-              </li>
-            </ul>
-          </dd>
-        </dl>
-      </div>
-    </div>
-  </div>
-</div>
+<h2>Dashboard</h2>
+<mat-card *ngIf="error">{{error}}</mat-card>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>User Data</mat-card-title>
+    <mat-card-subtitle>Profile Info and Claims</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <dl>
+      <dt>User Name</dt>
+      <dd>{{ user.userName }}</dd>
+      <dt>E-Mail</dt>
+      <dd>{{ user.email }}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>DETAILS</button>
+    <button mat-button>MORE...</button>
+  </mat-card-actions>
+</mat-card>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Machine Data</mat-card-title>
+    <mat-card-subtitle>Data from Demo Database</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <dl>
+      <dt>Number of Machines</dt>
+      <dd>{{ machines.length }}</dd>
+      <dt>List of Machines</dt>
+      <dd>
+        <ul>
+          <li *ngFor="let machine of machines">
+            {{ machine.name }} ( {{ machine.location }} )
+          </li>
+        </ul>
+      </dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>MANAGE</button>
+    <button mat-button>MORE...</button>
+  </mat-card-actions>
+</mat-card>

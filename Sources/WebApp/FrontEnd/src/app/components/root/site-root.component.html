@@ -1,12 +1,28 @@
-﻿<h1>Angular & ASP.NET Core Demo App</h1>
-<a routerLink='/login' *ngIf="!isLoggedIn">Login</a> <span *ngIf="!isLoggedIn"> | </span>
-<a routerLink='/logout' *ngIf="isLoggedIn">Logout</a> <span *ngIf="isLoggedIn"> | </span>
-<a routerLink='/register'>Register</a> |
-<a routerLink='/dashboard'>Dashboard</a> |
-<a routerLink='/info'>Info</a> |
+﻿<h1>Professional App Foundation</h1>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link
+     *ngIf="!isLoggedIn"
+     routerLink="/login"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">
+    Login
+  </a>
+  <a mat-tab-link
+     *ngIf="isLoggedIn"
+     routerLink="/logout"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">
+    Logout
+  </a>
+  <a mat-tab-link
+     *ngFor="let link of navLinks"
+     [routerLink]="link.path"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">
+    {{link.label}}
+  </a>
+</nav>
 <a routerLink='/admin'>Administration</a>
 <span class="pull-right" *ngIf="isLoggedIn">Welcome, {{ userName }}</span>
-<hr />
-<section class="main-container">
-  <router-outlet></router-outlet>
-</section>
+<router-outlet></router-outlet>
+

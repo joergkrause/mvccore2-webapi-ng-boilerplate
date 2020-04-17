@@ -13,6 +13,7 @@ export const routesConfig: Routes = [
     path: 'info',
     component: components.SiteInfoComponent,
     data: {
+      mainmenu: true,
       title: 'Site Info'
     }
   },
@@ -20,6 +21,7 @@ export const routesConfig: Routes = [
     path: 'register',
     component: components.RegistrationFormComponent,
     data: {
+      mainmenu: true,
       title: 'User Registration'
     }
   },
@@ -49,14 +51,17 @@ export const routesConfig: Routes = [
     component: components.DashboardComponent,
     canActivate: [AuthGuard],
     data: {
+      mainmenu: true,
       title: 'Dashboard'
     }
   },
   {
     path: 'admin',
     loadChildren: './modules/admin/admin.module#AdminModule',
+    canActivate: [AuthGuard],
     data: {
-      title: 'Administration'
+      mainmenu: true,
+      title: 'User Administration'
     }
   }
 

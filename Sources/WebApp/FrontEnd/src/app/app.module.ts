@@ -1,4 +1,8 @@
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -11,7 +15,7 @@ import * as components from './components/index';
 import * as services from './services/index';
 
 import { routesConfig } from './configurations/routes';
-import { TokenInterceptorService, AuthenticateXHRBackend, API_BASE_URL } from './services/index';
+import { TokenInterceptorService, API_BASE_URL } from './services/index';
 
 // The admin part is separated to it's own module
 import { AdminModule } from './modules/admin/admin.module';
@@ -19,6 +23,8 @@ import { AdminModule } from './modules/admin/admin.module';
 export function getBaseUrl(): string {
   return services.ConfigService.apiURI;
 }
+
+const material = [MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModule];
 
 @NgModule({
   declarations: [ 
@@ -36,7 +42,8 @@ export function getBaseUrl(): string {
     ReactiveFormsModule,
     RouterModule.forRoot(routesConfig),
     BrowserModule,    
-    HttpClientModule
+    HttpClientModule,
+    ...material
   ],
   providers: [
     // router config
@@ -44,8 +51,6 @@ export function getBaseUrl(): string {
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     // handle Bearer token for all requests
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
-    // handle expired tokens and denied access
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthenticateXHRBackend, multi: true },
     // Nswag's generated code can be configured here
     { provide: API_BASE_URL, useFactory: getBaseUrl },
     // regular demo data
