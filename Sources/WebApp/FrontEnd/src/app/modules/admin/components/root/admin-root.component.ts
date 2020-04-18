@@ -3,7 +3,7 @@
 @Component({
   selector: 'admin-root', 
   templateUrl: 'admin-root.component.html',
-  styleUrls: ['admin-root.component.css']
+  styleUrls: ['admin-root.component.scss']
 })
 export class AdminRootComponent implements OnInit {
 

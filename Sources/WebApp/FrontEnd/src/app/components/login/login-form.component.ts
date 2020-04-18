@@ -1,54 +1,61 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Subscription } from 'rxjs';
-
 import { AuthService, ILogonViewModel } from '../../services/index';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'login-form',
-  templateUrl: 'login-form.component.html'
+  templateUrl: 'login-form.component.html',
+  styleUrls: ['login-form.component.scss']
 })
-export class LoginFormComponent implements OnInit, OnDestroy {
+export class LoginFormComponent implements OnInit {
 
-  private subscription: Subscription;
+  public form: FormGroup;
+  public loginInvalid: boolean;
+  public formSubmitAttempt: boolean;
+  public errors: string;
+  private returnUrl: string;
 
-  errors: string;
-  isRequesting: boolean;
-  submitted: boolean = false;
-  credentials: ILogonViewModel = { userName: '', password: '' };
-
-  constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) { }
-
-  ngOnInit() {
-    // subscribe to router event
-    this.subscription = this.activatedRoute.queryParams.subscribe(
-      (param: any) => {
-        this.credentials.userName = param['userName'];
-      });
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService
+  ) {
   }
 
-  ngOnDestroy() {
-    // prevent memory leak by unsubscribing
-    this.subscription.unsubscribe();
-  }
+  async ngOnInit() {
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
 
-  login({ value, valid }: { value: ILogonViewModel, valid: boolean }) {
-    this.submitted = true;
-    this.isRequesting = true;
-    this.errors = '';
-    if (valid) {
-      this.authService.login(value)
-        .then(() => {
-          this.isRequesting = false;
-          return true;
-        })
-        .then(result => {
-          if (result) {
-            this.router.navigate(['/dashboard']);
-          }
-        },
-          error => this.errors = error);
+    this.form = this.fb.group({
+      username: ['', Validators.email],
+      password: ['', Validators.required]
+    });
+
+    if (await this.authService.isLoggedIn()) {
+      await this.router.navigate([this.returnUrl]);
     }
   }
+
+  async onSubmit() {
+    this.loginInvalid = false;
+    this.formSubmitAttempt = true;
+    if (this.form.valid) {
+      try {
+        const logonModel: ILogonViewModel = {
+          userName: this.form.get('username').value,
+          password: this.form.get('password').value
+        };
+        await this.authService.login(logonModel);
+        this.formSubmitAttempt = false;
+      } catch (err) {
+        this.loginInvalid = true;
+        this.errors = err;
+      }
+    } else {
+      this.formSubmitAttempt = false;
+    }
+  }
+
 }

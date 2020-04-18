@@ -27,6 +27,7 @@ export class AuthService extends BaseService {
     super();
     this.authNavStatus$ = this._authNavStatusSource.asObservable();
     this.authNavStatus$.subscribe(data => {
+      this.__loggedIn = data;
       console.log('AuthNav Changed', data);
     });
     // check for an old token
@@ -43,7 +44,7 @@ export class AuthService extends BaseService {
     }
   }
 
-  public register(model: IRegistrationViewModel): Promise<string> {
+  public async register(model: IRegistrationViewModel): Promise<string> {
     return this.api.post2(model as RegistrationViewModel).toPromise<string>();
   }
 
@@ -61,7 +62,6 @@ export class AuthService extends BaseService {
     localStorage.setItem('expires_in', res.expiresIn.toString());
     let currentTime = new Date().getTime().toString();
     localStorage.setItem('time', currentTime);
-    this.isLoggedIn = true;
     // pull user data and provide through emitter
     this.accounts.getUserDetails().then(user => {
       this.emitterService.get('USER_LOGON').emit(user);
@@ -70,21 +70,17 @@ export class AuthService extends BaseService {
     return Promise.resolve(true);
   }
 
-  public logout(): Promise<boolean> {
+  public async logout(): Promise<boolean> {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user_id');
     localStorage.removeItem('expires_in');
-    this.isLoggedIn = false;
     let o: Observable<boolean> = of(false);
     return o.delay(2000).mapTo(false).toPromise();
   }
 
-  public get isLoggedIn(): boolean {
+  public async isLoggedIn(): Promise<boolean> {
+    this._authNavStatusSource.next(this.__loggedIn);
     return this.__loggedIn;
-  }
-  public set isLoggedIn(value: boolean) {
-    this.__loggedIn = value;
-    this._authNavStatusSource.next(value);
   }
 
 }

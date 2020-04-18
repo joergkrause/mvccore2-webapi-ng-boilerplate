@@ -1,51 +1,50 @@
-﻿<div class="row" id="reg-form">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header bg-white">
-        <h4 class="card-title">Create your account</h4>
-      </div>
-      <div class="card-block">
+﻿<mat-card>
+  <mat-card-title>Create your account</mat-card-title>
+  <mat-card-content>
 
-        <form #f="ngForm" novalidate (ngSubmit)="registerUser(f)">
+    <form [formGroup]="form" novalidate (ngSubmit)="registerUser()" autocomplete="off" spellcheck="false">
 
-          <div class="form-group">
-            <label for="first-name">First name</label>
-            <input id="first-name" type="text" required name="firstName" class="form-control" placeholder="Your first name" tmFocus ngModel>
-          </div>
+      <mat-form-field appearance="legacy">
+        <mat-label>First Name</mat-label>
+        <input matInput id="firstName" type="text" formControlName="firstName" placeholder="Your first name" tmFocus>
+        <mat-error>Please enter a name</mat-error>
+      </mat-form-field>
 
-          <div class="form-group">
-            <label for="last-name">Last name</label>
-            <input id="last-name" type="text" required name="lastName" class="form-control" placeholder="Your last name" ngModel>
-          </div>
+      <mat-form-field appearance="legacy">
+        <mat-label>Last Name</mat-label>
+        <input matInput id="lastName" type="text" formControlName="lastName" placeholder="Your last name">
+        <mat-error>Please enter a name</mat-error>
+      </mat-form-field>
 
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input id="email" type="text" required name="email" validateEmail class="form-control" placeholder="Email" ngModel #email="ngModel">
-            <small [hidden]="email.valid || (email.pristine && !submitted)" class="text-danger">Please enter a valid email</small>
-          </div>
+      <mat-form-field appearance="legacy">
+        <mat-label>E-Mail (used as logon)</mat-label>
+        <input matInput id="email" type="text" formControlName="email" placeholder="Email">
+        <mat-error>Please enter a valid email</mat-error>
+        <mat-hint>This is used as logon id</mat-hint>
+      </mat-form-field>
 
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input id="password" type="password" required name="password" class="form-control" placeholder="Password" ngModel>
-          </div>
+      <mat-form-field appearance="legacy">
+        <mat-label>Password</mat-label>
+        <input matInput id="password" type="password" formControlName="password" placeholder="Password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error>Please enter initial password</mat-error>
+      </mat-form-field>
 
-          <div class="form-group">
-            <label for="location">Location</label>
-            <input id="location" type="text" required name="location" class="form-control" placeholder="Location" ngModel>
-          </div>
+      <mat-form-field appearance="legacy">
+        <mat-label>Location (City)</mat-label>
+        <input matInput id="location" type="text" formControlName="location" placeholder="Location" >
+        <mat-hint>Just an additional profile information</mat-hint>
+      </mat-form-field>
 
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary" [disabled]="f.invalid || isRequesting">Sign Up</button>
-            <div *ngIf="isRequesting">Registering...</div>
-          </div>
+      <button mat-raised-button color="primary" [disabled]="form.invalid || isRequesting">Sign Up</button>
+      <div *ngIf="isRequesting">Registering...</div>
 
-          <div *ngIf="errors" class="alert alert-danger" role="alert">
-            <strong>Oops!</strong> {{errors}}
-          </div>
-
-        </form>
-      </div>
-
-    </div>
-  </div>
-</div>
+    </form>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="errors" role="alert" color="red">
+  <mat-card-title>An error occured</mat-card-title>
+  {{errors}}
+</mat-card>

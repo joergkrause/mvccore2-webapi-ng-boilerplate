@@ -18,14 +18,6 @@ export const routesConfig: Routes = [
     }
   },
   {
-    path: 'register',
-    component: components.RegistrationFormComponent,
-    data: {
-      mainmenu: true,
-      title: 'User Registration'
-    }
-  },
-  {
     path: 'login/:email',
     component: components.LoginFormComponent,
     data: {
@@ -57,11 +49,18 @@ export const routesConfig: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: './modules/admin/admin.module#AdminModule',
+    loadChildren: () => import('../modules/admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard],
     data: {
+      mainmenu: false
+    }
+  },
+  {
+    path: 'register',
+    component: components.RegistrationFormComponent,
+    data: {
       mainmenu: true,
-      title: 'User Administration'
+      title: 'User Registration'
     }
   }
 

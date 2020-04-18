@@ -3,7 +3,7 @@
 @Component({
   selector: 'admin-roles', 
   templateUrl: 'admin-roles.component.html',
-  styleUrls: ['admin-roles.component.css']
+  styleUrls: ['admin-roles.component.scss']
 })
 export class AdminRolesComponent implements OnInit {
 

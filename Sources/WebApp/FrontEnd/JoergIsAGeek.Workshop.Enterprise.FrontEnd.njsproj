@@ -38,18 +38,22 @@
     <Content Include="src\app\components\dashboard\dashboard.component.scss" />
     <Content Include="src\app\components\info\site-info.component.html" />
     <Content Include="src\app\components\login\login-form.component.html" />
+    <Content Include="src\app\components\login\login-form.component.scss">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\app\components\logout\logout-form.component.html" />
     <Content Include="src\app\components\profile\profile-form.component.html" />
+    <Content Include="src\app\components\registration\registration-form.component.scss" />
     <Content Include="src\app\components\registration\registration-form.component.html" />
     <Content Include="src\app\components\root\site-root.component.css" />
     <Content Include="src\app\components\root\site-root.component.html" />
-    <Content Include="src\app\modules\admin\components\claims\admin-claims.component.css" />
+    <Content Include="src\app\modules\admin\components\claims\admin-claims.component.scss" />
     <Content Include="src\app\modules\admin\components\claims\admin-claims.component.html" />
-    <Content Include="src\app\modules\admin\components\roles\admin-roles.component.css" />
+    <Content Include="src\app\modules\admin\components\roles\admin-roles.component.scss" />
     <Content Include="src\app\modules\admin\components\roles\admin-roles.component.html" />
-    <Content Include="src\app\modules\admin\components\root\admin-root.component.css" />
+    <Content Include="src\app\modules\admin\components\root\admin-root.component.scss" />
     <Content Include="src\app\modules\admin\components\root\admin-root.component.html" />
-    <Content Include="src\app\modules\admin\components\users\admin-users.component.css" />
+    <Content Include="src\app\modules\admin\components\users\admin-users.component.scss" />
     <Content Include="src\app\modules\admin\components\users\admin-users.component.html" />
     <Content Include="src\assets\images\logo.png" />
     <Content Include="src\assets\images\slider1.jpg" />

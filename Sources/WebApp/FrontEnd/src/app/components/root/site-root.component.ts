@@ -23,11 +23,11 @@ export class SiteRootComponent implements OnInit, AfterViewInit {
     this.authService.authNavStatus$.subscribe(data => this.isLoggedIn = data);
   }
 
-  ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn;    
+  async ngOnInit() {
+    this.isLoggedIn = await this.authService.isLoggedIn();    
     this.navLinks.push(
       ...(this.router.config
-        .filter(r => r.data && r.data.mainmenu)
+        .filter(r => r.data && r.data.mainmenu === true)
         .map(r => {
           return {
             path: r.path,
@@ -35,7 +35,8 @@ export class SiteRootComponent implements OnInit, AfterViewInit {
           }
         }))
     );
-
+    const children = this.router.config.filter(r => r.loadChildren).map(r => r.children);
+    console.log(children);
   }
 
   ngAfterViewInit() {

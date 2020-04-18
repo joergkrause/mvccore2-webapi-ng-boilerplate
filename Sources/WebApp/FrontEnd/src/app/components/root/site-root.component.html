@@ -1,28 +1,42 @@
-﻿<h1>Professional App Foundation</h1>
-<nav mat-tab-nav-bar>
-  <a mat-tab-link
-     *ngIf="!isLoggedIn"
-     routerLink="/login"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
-    Login
-  </a>
-  <a mat-tab-link
-     *ngIf="isLoggedIn"
-     routerLink="/logout"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
-    Logout
-  </a>
-  <a mat-tab-link
-     *ngFor="let link of navLinks"
-     [routerLink]="link.path"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
-    {{link.label}}
-  </a>
-</nav>
-<a routerLink='/admin'>Administration</a>
-<span class="pull-right" *ngIf="isLoggedIn">Welcome, {{ userName }}</span>
-<router-outlet></router-outlet>
-
+﻿<div fxLayout fxLayoutAlign="center center">
+  <h1>Professional App Foundation</h1>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+       *ngIf="!isLoggedIn"
+       routerLink="/login"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+      Login
+    </a>
+    <a mat-tab-link
+       *ngIf="isLoggedIn"
+       routerLink="/logout"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+      Logout
+    </a>
+    <a mat-tab-link
+       *ngFor="let link of navLinks"
+       [routerLink]="link.path"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+      {{link.label}}
+    </a>
+    <a [matMenuTriggerFor]="appMenu"
+       mat-tab-link
+       [routerLink]="['/admin']"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+      User Administration
+    </a>
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item>User</button>
+      <button mat-menu-item>Roles</button>
+      <button mat-menu-item>Claims</button>
+    </mat-menu>
+  </nav>
+  <span class="pull-right" *ngIf="isLoggedIn">Welcome, {{ userName }}</span>
+  <div fxLayout="column" fxFlexAlign="center" fxLayoutAlign="center center">
+    <router-outlet></router-outlet>
+  </div>
+</div>

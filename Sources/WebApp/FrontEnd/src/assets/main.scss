@@ -1,5 +1,11 @@
-@import "@angular/material/prebuilt-themes/pink-bluegrey";
+@import "@angular/material/prebuilt-themes/deeppurple-amber";
 
-html, body {
-  height: 100%;
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
 }
