@@ -1,5 +1,6 @@
 ﻿<div fxLayout fxLayoutAlign="center center">
   <h1>Professional App Foundation</h1>
+  <span class="pull-right" *ngIf="isLoggedIn">Welcome, {{ userName }}</span>
   <nav mat-tab-nav-bar>
     <a mat-tab-link
        *ngIf="!isLoggedIn"
@@ -30,13 +31,11 @@
       User Administration
     </a>
     <mat-menu #appMenu="matMenu">
-      <button mat-menu-item>User</button>
-      <button mat-menu-item>Roles</button>
-      <button mat-menu-item>Claims</button>
+      <button mat-menu-item *ngFor="let link of navLinksLazy" [routerLink]="['/admin', { outlets: { manager: link.path }}]"> {{ link.label }}</button>
     </mat-menu>
-  </nav>
-  <span class="pull-right" *ngIf="isLoggedIn">Welcome, {{ userName }}</span>
-  <div fxLayout="column" fxFlexAlign="center" fxLayoutAlign="center center">
+  </nav>  
+  <div class="container">
     <router-outlet></router-outlet>
+    <router-outlet name="manager"></router-outlet>
   </div>
 </div>

@@ -9,7 +9,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/toPromise';
 import { EmitterService } from './emitter.service';
 import { AccountService } from './account.service';
-import { ApiAuth, ITokenResponseViewModel, IRegistrationViewModel, ILogonViewModel, RegistrationViewModel, LogonViewModel } from './lib/frontendapi.services';
+import { ApiAuth, ITokenResponseViewModel, IRegistrationViewModel, ILogonViewModel, RegistrationViewModel, LogonViewModel, IProviderViewModel } from './lib/frontendapi.services';
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -36,12 +36,17 @@ export class AuthService extends BaseService {
       let oldTime = localStorage.getItem('time');
       let compareTime = new Date().getTime();
       console.log('Last Expires In', lastToken, compareTime);
-      if (+oldTime + +lastToken < compareTime) {
+      if (+oldTime + (+lastToken * 1000) < compareTime) {
         this.logout();
       } else {
+        this.informListeners();
         this._authNavStatusSource.next(true);
       }
     }
+  }
+
+  public async providers(): Promise<IProviderViewModel[]> {
+    return this.api.getProviders().toPromise();
   }
 
   public async register(model: IRegistrationViewModel): Promise<string> {
@@ -62,12 +67,15 @@ export class AuthService extends BaseService {
     localStorage.setItem('expires_in', res.expiresIn.toString());
     let currentTime = new Date().getTime().toString();
     localStorage.setItem('time', currentTime);
-    // pull user data and provide through emitter
-    this.accounts.getUserDetails().then(user => {
-      this.emitterService.get('USER_LOGON').emit(user);
-    });
-    
+    this._authNavStatusSource.next(true);
+    this.informListeners();
     return Promise.resolve(true);
+  }
+
+  private async informListeners() {
+    // pull user data and provide through emitter
+    const user = await this.accounts.getUserDetails();
+    this.emitterService.get('USER_LOGON').emit(user);
   }
 
   public async logout(): Promise<boolean> {
@@ -75,6 +83,7 @@ export class AuthService extends BaseService {
     localStorage.removeItem('user_id');
     localStorage.removeItem('expires_in');
     let o: Observable<boolean> = of(false);
+    this._authNavStatusSource.next(false);
     return o.delay(2000).mapTo(false).toPromise();
   }
 

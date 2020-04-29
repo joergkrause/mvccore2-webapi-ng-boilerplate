@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels {
   public class MachineViewModel : BaseViewModel {
@@ -8,6 +9,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels {
 
     [StringLength(100)]
     public string Location { get; set; }
+
+    public DateTime? StartOperation { get; set; }
 
     public bool HasDevices { get; set; }
   }

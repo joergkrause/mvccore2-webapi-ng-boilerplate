@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { AuthService, EmitterService } from '../../services';
-import { Router } from '@angular/router';
+import { Router, LoadChildrenCallback } from '@angular/router';
 
 @Component({
   selector: 'site-root', 
@@ -12,6 +12,7 @@ export class SiteRootComponent implements OnInit, AfterViewInit {
   isLoggedIn: boolean = false;
   userName: string;
   navLinks: { path: string, label: string }[] = [];
+  navLinksLazy: { path: string, label: string }[] = [];
 
   constructor(
     private authService: AuthService,
@@ -19,7 +20,7 @@ export class SiteRootComponent implements OnInit, AfterViewInit {
     private router: Router,
     private cd: ChangeDetectorRef
   ) {
-    this.emitterService.get('USER_LOGON').subscribe(data => this.userName = data.userName);
+    this.emitterService.get('USER_LOGON').subscribe(data => this.userName = data.userName || data.email);
     this.authService.authNavStatus$.subscribe(data => this.isLoggedIn = data);
   }
 
@@ -35,8 +36,13 @@ export class SiteRootComponent implements OnInit, AfterViewInit {
           }
         }))
     );
-    const children = this.router.config.filter(r => r.loadChildren).map(r => r.children);
-    console.log(children);
+    const children = this.router.config.filter(r => r.outlet === 'manager');
+    this.navLinksLazy = children.map(c => {
+      return {
+        path: c.path,
+        label: c.data.title.toString()
+      }
+    });    
   }
 
   ngAfterViewInit() {

@@ -3,6 +3,7 @@ using JoergIsAGeek.ServiceProxy.Authentication;
 using JoergIsAGeek.ServiceProxy.MachineData;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using AspIdentityResult = Microsoft.AspNetCore.Identity.IdentityResult;
 
@@ -47,6 +48,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings {
         })
         .ForMember(c => c.Properties, opt => opt.Ignore())
         .ForMember(c => c.Subject, opt => opt.Ignore());
+      CreateMap<AuthenticationScheme, ProviderViewModel>()
+        .ForMember(a => a.Name, opt => opt.MapFrom(s => s.Name))
+        .ForMember(a => a.DisplayName, opt => opt.MapFrom(s => s.DisplayName))
+        .ForMember(a => a.Icon, opt => opt.Ignore());
       #endregion
 
       #region Account Admin

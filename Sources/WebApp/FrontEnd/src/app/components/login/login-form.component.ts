@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthService, ILogonViewModel } from '../../services/index';
+import { AuthService, ILogonViewModel, IProviderViewModel } from '../../services/index';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -16,6 +16,7 @@ export class LoginFormComponent implements OnInit {
   public formSubmitAttempt: boolean;
   public errors: string;
   private returnUrl: string;
+  public providers: IProviderViewModel[];
 
   constructor(
     private fb: FormBuilder,
@@ -29,13 +30,14 @@ export class LoginFormComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/dashboard';
 
     this.form = this.fb.group({
-      username: ['', Validators.email],
-      password: ['', Validators.required]
+      userName: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     });
 
     if (await this.authService.isLoggedIn()) {
       await this.router.navigate([this.returnUrl]);
     }
+    this.providers = await this.authService.providers();
   }
 
   async onSubmit() {
@@ -44,7 +46,7 @@ export class LoginFormComponent implements OnInit {
     if (this.form.valid) {
       try {
         const logonModel: ILogonViewModel = {
-          userName: this.form.get('username').value,
+          userName: this.form.get('userName').value,
           password: this.form.get('password').value
         };
         await this.authService.login(logonModel);

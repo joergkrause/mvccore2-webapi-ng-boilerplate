@@ -1,6 +1,15 @@
 <mat-card>
   <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()"autocomplete="off" spellcheck="false">
+    <mat-list *ngIf="providers">
+      <mat-list-item *ngFor="let provider of providers">
+        <mat-icon matListIcon>folder</mat-icon>
+        <h3 matLine> {{provider.name}} </h3>
+        <p matLine>
+          <span> {{provider.displayname}} </span>
+        </p>
+      </mat-list-item>
+    </mat-list>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off" spellcheck="false">
       <h2>Log In</h2>
       <mat-error *ngIf="loginInvalid">
         The username and password were not recognised
@@ -26,5 +35,5 @@
 </mat-card>
 <mat-card *ngIf="errors" role="alert" color="red">
   <mat-card-title>An error occured</mat-card-title>
-  {{errors}}
+  {{errors|json}}  
 </mat-card>

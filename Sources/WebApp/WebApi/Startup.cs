@@ -1,33 +1,37 @@
 ﻿using AutoMapper;
+using JoergIsAGeek.ServiceProxy.Authentication;
+using JoergIsAGeek.ServiceProxy.MachineData;
+using JoergIsAGeek.Workshop.Enterprise.WebApi.Authentication.Extensions;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication.Extensions;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Middleware;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Twitter;
+using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authentication.WsFederation;
+using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Logging;
+using NSwag;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using JoergIsAGeek.ServiceProxy.Authentication;
-using JoergIsAGeek.ServiceProxy.MachineData;
-using NSwag;
+using Microsoft.AspNetCore.Authentication;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
@@ -97,96 +101,38 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       services.AddScoped<IUserStore<UserViewModel>, CustomUserStore>();
       services.AddScoped<IRoleStore<RoleViewModel>, CustomRoleStore>();
       services.AddScoped<SignInManager<UserViewModel>, SignInManager<UserViewModel>>();
-      services.AddScoped<IJwtFactory, JwtFactory>();
-      // user account settings, consider moving to config file
-      services.Configure<IdentityOptions>(options =>
-      {
-        // Password settings
-        options.Password.RequireDigit = true;
-        options.Password.RequiredLength = 8;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireUppercase = true;
-        options.Password.RequireLowercase = false;
-        options.Password.RequiredUniqueChars = 6;
-
-        // Lockout settings
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-        options.Lockout.MaxFailedAccessAttempts = 10;
-        options.Lockout.AllowedForNewUsers = true;
-
-        // User settings
-        options.User.RequireUniqueEmail = true;
-
-        options.SignIn.RequireConfirmedEmail = false;
-      });
-
-      // JSON Web Token wire up
-      var SecretKey = getEnv("TokenSecret") ?? Configuration.GetSection("Keys").GetValue<string>("TokenSecret");
-      var _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
-
-      services.Configure<JwtIssuerOptions>(options =>
-      {
-        // Get options from app settings, but read env variables first
-        var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
-        options.Issuer = getEnv("Issuer") ?? jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
-        options.Audience = getEnv("Audience") ?? jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
-        options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
-      });
-
-      var tokenValidationParameters = new TokenValidationParameters
-      {
-        // The signing key must match
-        ValidateIssuerSigningKey = true,
-        // Audience we set but don't check actually --> it's not a federation service, it's just self issued token 
-        ValidateAudience = false,
-        // Issuer we set but don't check actually --> it's not a federation service, it's just self issued token 
-        ValidateIssuer = false,
-        IssuerSigningKeys = new List<SecurityKey> { _signingKey },
-        // Validate the token expiry
-        ValidateLifetime = true,
-      };
-
-      // Per default failed requests redirect to Account/Logon, 
-      // but here we have SPA with API and need to inform SPA app to handle this.
-      _ = services.AddAuthentication(options =>
+      // The whole JWT setup
+      services.AddLocalJwtAuthentication(getEnv, Configuration);
+      // use cli to add secrets: 
+      // One time: dotnet user-secrets init
+      // Than: dotnet user-secrets set "key" "value"
+      // Or right click solution, "Manage User Secrets" and edit secrets.json in your profile
+      // More info: https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.1&tabs=windows
+      if (!String.IsNullOrEmpty(Configuration["Authentication:Facebook"])) {
+        services.AddAuthentication().AddFacebook(options =>
         {
-          options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-          options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-          options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
-          options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
-          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
-        {
-          options.IncludeErrorDetails = true;
-          options.TokenValidationParameters = tokenValidationParameters;
-#pragma warning disable CS1998 // #warning directive for await/async violation, it's just while debug code is in here
-          options.Events = new JwtBearerEvents
-          {
-            OnMessageReceived = async (context) =>
-            {
-              Debug.WriteLine("====>  JWT Message received");
-            },
-            OnTokenValidated = async (context) =>
-            {
-              Debug.WriteLine("====>  JWT token validated");
-            },
-            OnAuthenticationFailed = c =>
-            {
-              Debug.WriteLine($"====>  JWT auth failed: {c.Exception}");
-              c.NoResult();
-              c.Response.StatusCode = 403;
-              c.Response.ContentType = "text/plain";
-              c.Response.WriteAsync(c.Exception.ToString()).Wait();
-              return Task.CompletedTask;
-            },
-            OnChallenge = c =>
-            {
-              c.HandleResponse();
-              return Task.CompletedTask;
-            }
-          };
-#pragma warning restore CS1998 // #warning directive
+          options.AppId = Configuration["Authentication:Facebook:AppId"];
+          options.ClientId = Configuration["Authentication:Facebook:ClientId"];
+          options.ClientSecret = Configuration["Authentication:Facebook:ClientSecret"];
         });
+      }
+      if (!String.IsNullOrEmpty(Configuration["Authentication:Twitter"]))
+      {
+        services.AddAuthentication().AddTwitter(options =>
+        {
+          options.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+          options.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
+        });
+      }
+      if (!String.IsNullOrEmpty(Configuration["Authentication:Microsoft"]))
+      {
+        services.AddAuthentication().AddMicrosoftAccount(options =>
+        {
+          options.ClientId = Configuration["Authentication:Facebook:Microsoft:ClientId"];
+          options.ClientSecret = Configuration["Authentication:Facebook:Microsoft:ClientSecret"];
+        });
+      }
+      // App specific policies
       services.AddAuthorization(options =>
       {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
@@ -246,7 +192,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     /// <summary>
     /// Unauthenticated ajax or API request returns 403 rather than Redirect to forbidden page
     /// </summary>
-    private static Task DontRedirectAjaxOrApiRequestToForbidden(AuthenticationFailedContext ctx)
+    private static Task DontRedirectAjaxOrApiRequestToForbidden(ResultContext<JwtBearerOptions> ctx)
     {
       bool isAjaxRequest = ctx.HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
       if (isAjaxRequest || (ctx.Request.Path.StartsWithSegments("/api")))

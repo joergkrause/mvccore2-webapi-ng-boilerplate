@@ -558,6 +558,9 @@ namespace JoergIsAGeek.ServiceProxy.MachineData
         [Newtonsoft.Json.JsonProperty("location", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Location { get; set; }
     
+        [Newtonsoft.Json.JsonProperty("startOperation", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset? StartOperation { get; set; }
+    
         [Newtonsoft.Json.JsonProperty("hasDevices", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool HasDevices { get; set; }
     

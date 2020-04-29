@@ -220,6 +220,11 @@
             "type": "string",
             "nullable": true
           },
+          "startOperation": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "hasDevices": {
             "type": "boolean"
           }

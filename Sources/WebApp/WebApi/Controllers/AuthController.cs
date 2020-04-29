@@ -2,12 +2,14 @@
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.Helpers;
 using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -24,26 +26,37 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   {
 
     private readonly UserManager<UserViewModel> _userManager;
-    private readonly IJwtFactory _jwtFactory;
-    private readonly JsonSerializerSettings _serializerSettings;
+    private readonly IJwtFactory _jwtFactory;    
     private readonly JwtIssuerOptions _jwtOptions;
     private readonly IMapper _mapper;
     private readonly SignInManager<UserViewModel> _signin;
+    private readonly IAuthenticationSchemeProvider _providers;
 
     public AuthController(
       UserManager<UserViewModel> userManager,
       SignInManager<UserViewModel> signin,
       IJwtFactory jwtFactory, 
-      IOptions<JwtIssuerOptions> jwtOptions, 
+      IOptions<JwtIssuerOptions> jwtOptions,
+      IAuthenticationSchemeProvider providers,
       IMapper mapper) {
       _userManager = userManager;
       _signin = signin;
       _jwtFactory = jwtFactory;
       _jwtOptions = jwtOptions.Value;
       _mapper = mapper;
-      _serializerSettings = new JsonSerializerSettings {
-        Formatting = Formatting.Indented
-      };
+      _providers = providers;
+    }
+
+    /// <summary>
+    /// Return the configured auth providers to have the UI dynamically adjusted.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [ProducesDefaultResponseType(typeof(IEnumerable<ProviderViewModel>))]
+    public async Task<IActionResult> GetProviders()
+    {
+      var providers = await _providers.GetAllSchemesAsync();
+      return Ok(_mapper.Map<IEnumerable<ProviderViewModel>>(providers));
     }
 
     // POST api/auth/login
@@ -101,7 +114,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       }
       return Ok("Account created");
     }
-
 
     private async Task<ClaimsIdentity> GetClaimsIdentity(string eMail, string password) {
       if (!string.IsNullOrEmpty(eMail) && !string.IsNullOrEmpty(password)) {

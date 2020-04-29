@@ -1,10 +1,7 @@
 <h2>Dashboard</h2>
 <mat-card *ngIf="error">{{error}}</mat-card>
-<div fxLayout="row"
-     fxLayout.xs="column"
-     fxFlexFill
-     fxLayoutAlign="center center">
-  <div fxFlex="50">
+<div fxLayout fxLayout.xs="column" fxFlexAlign="center" fxLayoutAlign="center" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+  <div fxFlex="40%" *ngIf="user; else noUser">
     <mat-card class="example-card">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
@@ -26,8 +23,8 @@
       </mat-card-actions>
     </mat-card>
   </div>
-  <div fxFlex="50">
-    <mat-card class="example-card">
+  <div fxFlex="40%" *ngIf="machines; else noMachines">
+    <mat-card class="example-card" *ngIf="machines; else noMachines">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>Machine Data</mat-card-title>
@@ -54,4 +51,6 @@
       </mat-card-actions>
     </mat-card>
   </div>
+  <ng-template #noUser>No User - please logon</ng-template>
+  <ng-template #noMachines>No Machines - please logon</ng-template>
 </div>

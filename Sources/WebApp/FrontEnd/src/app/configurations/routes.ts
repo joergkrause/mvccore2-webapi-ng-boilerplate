@@ -10,14 +10,6 @@ export const routesConfig: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'info',
-    component: components.SiteInfoComponent,
-    data: {
-      mainmenu: true,
-      title: 'Site Info'
-    }
-  },
-  {
     path: 'login/:email',
     component: components.LoginFormComponent,
     data: {
@@ -39,30 +31,38 @@ export const routesConfig: Routes = [
     }
   },
   {
-    path: 'dashboard',
-    component: components.DashboardComponent,
-    canActivate: [AuthGuard],
-    data: {
-      mainmenu: true,
-      title: 'Dashboard'
-    }
-  },
-  {
-    path: 'admin',
-    loadChildren: () => import('../modules/admin/admin.module').then(m => m.AdminModule),
-    canActivate: [AuthGuard],
-    data: {
-      mainmenu: false
-    }
-  },
-  {
     path: 'register',
     component: components.RegistrationFormComponent,
     data: {
       mainmenu: true,
       title: 'User Registration'
     }
+  },
+  {
+    path: 'info',
+    component: components.SiteInfoComponent,
+    data: {
+      mainmenu: true,
+      title: 'Site Info'
+    }
+  },
+  {
+    path: 'dashboard',
+    component: components.DashboardComponent,
+    canActivate: [AuthGuard],
+    data: {
+      mainmenu: true,
+      title: 'Dashboard',
+      role: 'User'
+    }
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('../modules/admin/admin.module').then(m => m.AdminModule),
+    data: {
+      mainmenu: false,
+      role: 'Admin'
+    }
   }
-
 ];
 

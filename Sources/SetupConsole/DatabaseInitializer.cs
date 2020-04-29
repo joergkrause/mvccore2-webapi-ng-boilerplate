@@ -97,11 +97,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
       // Demo data
       var machine1 = new Machine {
         Name = "M1",
-        Location = "A-100"
+        Location = "A-100",
+        StartOperation = DateTime.Now
       };
       var machine2 = new Machine {
         Name = "M2",
-        Location = "M-101"
+        Location = "M-101",
+        StartOperation = DateTime.Now
       };
       var device1 = new Device {
         Name = "BG A"

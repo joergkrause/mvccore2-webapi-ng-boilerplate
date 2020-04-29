@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,6 +17,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.DomainModels
     public bool IsInLocation(char location) {
       return Location?[0] == location;
     }
+
+    public DateTime? StartOperation { get; set; }
 
     public string PropertyBag { get; set; }
 

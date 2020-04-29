@@ -15,11 +15,17 @@ export class AccountService extends BaseService {
 
   getUserDetails(): Promise<UserViewModel> {
     let id = localStorage.getItem('user_id');
-    return this.api.get(id).toPromise<UserViewModel>();
+    if (id) {
+      return this.api.get(id).toPromise<UserViewModel>();
+    }
+    return Promise.reject('No User, please Logon');
   }
 
   getUserClaims(): Promise<ClaimViewModel[]> {
     let id = localStorage.getItem('user_id');
-    return this.api.getClaims(id).toPromise<ClaimViewModel[]>();
+    if (id) {
+      return this.api.getClaims(id).toPromise<ClaimViewModel[]>();
+    }
+    return Promise.reject('No User, please Logon');
   }
 }

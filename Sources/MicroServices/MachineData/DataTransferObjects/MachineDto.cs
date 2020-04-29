@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects {
 
@@ -13,6 +14,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects {
 
     [DataMember]
     public string Location { get; set; }
+
+    [DataMember]
+    public DateTime? StartOperation { get; set; }
 
     [DataMember] //(Name = "hd")]
     public bool HasDevices { get; set; }

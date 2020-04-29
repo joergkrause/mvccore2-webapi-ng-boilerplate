@@ -6,9 +6,9 @@ import { AuthService } from '../services/index';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService,private router: Router) {}
 
-  canActivate() {
-
-    if (!this.authService.isLoggedIn)
+  async canActivate() {
+    const loggedIn = await this.authService.isLoggedIn();
+    if (!loggedIn)
     {
        this.router.navigate(['/login']);
        return false;
