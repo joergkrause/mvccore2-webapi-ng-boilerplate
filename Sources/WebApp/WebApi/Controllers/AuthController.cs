@@ -21,7 +21,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   /// </summary>
   [Route("api/[controller]")]
   [ApiController]
-  [AllowAnonymous]
+  [Authorize]
   public class AuthController : ControllerBase
   {
 
@@ -60,6 +60,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     }
 
     // POST api/auth/login
+    [AllowAnonymous]
     [HttpPost("login", Name = "Login")]
     [ProducesResponseType(typeof(TokenResponseViewModel), 200)]
     [ProducesResponseType(typeof(ModelStateDictionary), 400)]
@@ -70,7 +71,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       // user name used at logon is "email"
       var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
       if (identity == null) {
-        return BadRequest(Errors.AddErrorToModelState("login_failure", "User not known.", ModelState));
+        return BadRequest(Errors.AddErrorToModelState("login_failure", "User not known.", ModelState));        
       }
       var user = new UserViewModel {
         UserName = identity.Name,
@@ -100,6 +101,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>    
+    [AllowAnonymous]
     [HttpPost("register", Name = "Register")]
     [ProducesResponseType(typeof(string), 200)]
     [ProducesResponseType(typeof(ModelStateDictionary), 400)]
@@ -109,10 +111,26 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       }
       var userIdentity = _mapper.Map<UserViewModel>(model);
       var result = await _userManager.CreateAsync(userIdentity, model.Password);
-      if (!result.Succeeded) {
+      if (result == null || !result.Succeeded) {
         return BadRequest(Errors.AddErrorsToModelState(result, ModelState));
       }
       return Ok("Account created");
+    }
+
+    
+    [HttpPost("changepassword", Name = "ChangePassword")]
+    [ProducesResponseType(typeof(string), 200)]
+    [ProducesResponseType(typeof(ModelStateDictionary), 400)]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel model) {
+      if (!ModelState.IsValid) {
+        return BadRequest(ModelState);
+      }
+      var userIdentity = await _userManager.GetUserAsync(User);
+      var result = await _userManager.ChangePasswordAsync(userIdentity, model.OldPassword, model.NewPassword);
+      if (result == null || !result.Succeeded) {
+        return BadRequest(Errors.AddErrorsToModelState(result, ModelState));
+      }
+      return Ok("Password changed");
     }
 
     private async Task<ClaimsIdentity> GetClaimsIdentity(string eMail, string password) {

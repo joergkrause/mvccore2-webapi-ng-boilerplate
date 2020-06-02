@@ -12,13 +12,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects {
     [DataMember]
     public string Name { get; set; }
 
-    [DataMember]
+    [DataMember(Name = "loc")]
     public string Location { get; set; }
 
     [DataMember]
     public DateTime? StartOperation { get; set; }
 
-    [DataMember] //(Name = "hd")]
+    [DataMember(Name = "hd")]
     public bool HasDevices { get; set; }
 
   }

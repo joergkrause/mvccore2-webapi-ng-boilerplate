@@ -8,21 +8,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using System.Text.Json;
 
-namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
-{
-  public abstract class StartupBase
-  {
-    public StartupBase(IConfiguration configuration)
-    {
+namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
+  public abstract class StartupBase {
+    public StartupBase(IConfiguration configuration) {
       Configuration = configuration;
     }
 
     public IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
-    public virtual void ConfigureServices(IServiceCollection services)
-    {
+    public virtual void ConfigureServices(IServiceCollection services) {
       // store user for middleware access
       services.AddScoped(typeof(IUserContextProvider), s => new UserContextProvider(Configuration));
       // access to db globally configured
@@ -30,18 +27,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       // backend protection, frontend shall provide username and passwordhash as basic auth
       services.AddAuthentication("Basic").AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null);
       // formatters
-      services.AddMvc(options =>
-      {
-        // because the API just serves the WFE, we format everything JSON conform
-        options.OutputFormatters.RemoveType<TextOutputFormatter>();
-      });
+      services
+        .AddMvc(options => {
+          // because the API just serves the WFE, we format everything JSON conform
+          options.OutputFormatters.RemoveType<TextOutputFormatter>();
+        })
+        .AddJsonOptions(options => {
+          options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;          
+        });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-      if (env.IsDevelopment())
-      {
+    public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+      if (env.IsDevelopment()) {
         app.UseDeveloperExceptionPage();
       }
       // custom middleware

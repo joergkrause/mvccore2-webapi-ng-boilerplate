@@ -79,7 +79,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceBase.Middleware.ApiProtection 
       userContext.SetUserIdentity(identity);
       var principal = new ClaimsPrincipal(identity);
       var ticket = new AuthenticationTicket(principal, Scheme.Name);
-      return AuthenticateResult.Success(ticket);
+      return await Task.FromResult(AuthenticateResult.Success(ticket));
     }
 
     protected override async Task HandleChallengeAsync(AuthenticationProperties properties) {

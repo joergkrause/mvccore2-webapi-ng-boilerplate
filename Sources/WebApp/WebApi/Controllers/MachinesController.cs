@@ -37,7 +37,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
     [HttpGet(Name = "GetAll")]
     [ProducesDefaultResponseType(typeof(IEnumerable<MachineViewModel>))]
     public async Task<IEnumerable<MachineViewModel>> Get()
-    {
+    {      
       var dto = await _client.GetAllMachinesAsync();
       return _mapper.Map<IEnumerable<MachineViewModel>>(dto);
     }

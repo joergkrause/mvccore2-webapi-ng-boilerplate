@@ -100,16 +100,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     public void SetPasswordHash(ApplicationUserDto userDto, string passwordHash) {
       var user = FindUserById(userDto.Id);
-      if (user == null) {
-        if (RepUsers.Update(mapper.Map<IdentityUser>(userDto))) {
-          userDto = mapper.Map<ApplicationUserDto>(RepUsers.Read(u => u.Email == userDto.Email).FirstOrDefault());
-        }
+      if (user != null) {
+          userDto.PasswordHash = passwordHash;
+          RepUsers.Update(mapper.Map<IdentityUser>(userDto));
       }
-      if (user == null) {
-        throw new ArgumentOutOfRangeException("User not found and not created");
-      }
-      userDto.PasswordHash = passwordHash;
-      RepUsers.Update(mapper.Map<IdentityUser>(userDto));
     }
 
     public ApplicationUserDto FindByEmail(string normalizedEmail) {
@@ -118,7 +112,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     }
 
     public string GetEmail(ApplicationUserDto user) {
-      return FindUserById(user.Id).Email;
+      return FindUserById(user.Id)?.Email;
     }
 
     public bool GetEmailConfirmed(ApplicationUserDto user) {
@@ -127,7 +121,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     }
 
     public string GetNormalizedEmail(ApplicationUserDto user) {
-      return FindUserById(user.Id).Email;
+      return FindUserById(user.Id)?.Email;
     }
 
     public void SetEmail(ApplicationUserDto userDto, string email) {

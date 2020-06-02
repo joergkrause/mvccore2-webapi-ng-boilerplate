@@ -83,11 +83,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
     public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
       // swagger UI and endpoint only at dev-time
-      // if (env.IsDevelopment())
-      {
-        app.UseOpenApi();
+      if (env.IsDevelopment())
+      {        
         app.UseSwaggerUi3();
       }
+      app.UseOpenApi();
       app.UseRouting();
 
       app.UseAuthentication();

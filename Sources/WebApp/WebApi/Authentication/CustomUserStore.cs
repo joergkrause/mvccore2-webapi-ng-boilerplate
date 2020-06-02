@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using JoergIsAGeek.ServiceProxy.Authentication;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
@@ -18,20 +19,24 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
   /// <remarks>
   /// See also more on interfaces: https://docs.microsoft.com/de-de/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity
   /// </remarks>
-  internal class CustomUserStore : IUserStore<UserViewModel>, IUserPasswordStore<UserViewModel>, IUserEmailStore<UserViewModel>, IUserClaimStore<UserViewModel>, IUserRoleStore<UserViewModel>
+  public class CustomUserStore : IUserStore<UserViewModel>, IUserPasswordStore<UserViewModel>, IUserEmailStore<UserViewModel>, IUserClaimStore<UserViewModel>, IUserRoleStore<UserViewModel>
   {
 
     private readonly AuthenticationServiceClient authclient;
     private readonly IMapper mapper;
+    private readonly ILogger logger;
 
-    public CustomUserStore(AuthenticationServiceClient authclient, IMapper mapper)
+    public CustomUserStore(AuthenticationServiceClient authclient, IMapper mapper) //, ILogger logger)
     {
       this.authclient = authclient;
       this.mapper = mapper;
+      this.logger = logger;
+ //     this.logger.LogDebug(@"CTOR {nameof(CustomUserStore)}");
     }
 
     public async Task<Microsoft.AspNetCore.Identity.IdentityResult> CreateAsync(UserViewModel user, CancellationToken cancellationToken)
     {
+ //     this.logger.LogInformation("CreateUser");
       var userDto = mapper.Map<ApplicationUserDto>(user);
       var result = await authclient.CreateUserAsync(userDto);
       return mapper.Map<Microsoft.AspNetCore.Identity.IdentityResult>(result);
@@ -67,7 +72,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<string> GetEmailAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      return await authclient.GetEmailAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken: cancellationToken);
+      // return await authclient.GetEmailAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken: cancellationToken);
+      return await Task.FromResult(user.Email);
     }
 
     public async Task<bool> GetEmailConfirmedAsync(UserViewModel user, CancellationToken cancellationToken)
@@ -78,13 +84,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<string> GetNormalizedEmailAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      return await authclient.GetNormalizedEmailAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken: cancellationToken);
+      return await Task.FromResult(user.Email);
     }
 
     public async Task<string> GetNormalizedUserNameAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      var result = await authclient.GetNormalizedUserNameAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken);
-      return result;
+      return await Task.FromResult(user.UserName);
     }
 
     public async Task<string> GetPasswordHashAsync(UserViewModel user, CancellationToken cancellationToken)
@@ -96,12 +101,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     public async Task<string> GetUserIdAsync(UserViewModel user, CancellationToken cancellationToken)
     {
       var result = await authclient.GetUserDtoIdAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken);
-      return result;
+      return await Task.FromResult(user.Id);
     }
 
     public async Task<string> GetUserNameAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      return await authclient.GetUserDtoNameAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken: cancellationToken);
+      return await Task.FromResult(user.UserName);
     }
 
     public Task<IList<UserViewModel>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken) {
@@ -133,24 +138,25 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task SetNormalizedEmailAsync(UserViewModel user, string normalizedEmail, CancellationToken cancellationToken)
     {
-      await authclient.SetNormalizedEmailAsync(normalizedEmail, mapper.Map<ApplicationUserDto>(user), cancellationToken);
+      user.Email = normalizedEmail;
+      await Task.FromResult(0);
     }
 
     public async Task SetNormalizedUserNameAsync(UserViewModel user, string normalizedName, CancellationToken cancellationToken)
     {
-      var User = mapper.Map<ApplicationUserDto>(user);
-      await authclient.SetNormalizedUserNameAsync(normalizedName, User, cancellationToken: cancellationToken);
+      user.UserName = normalizedName;
+      await Task.FromResult(0);
     }
 
-    public async Task SetPasswordHashAsync(UserViewModel user, string passwordHash, CancellationToken cancellationToken)
-    {
-       await authclient.SetPasswordHashAsync(passwordHash, mapper.Map<ApplicationUserDto>(user), cancellationToken);
+    public async Task SetPasswordHashAsync(UserViewModel user, string passwordHash, CancellationToken cancellationToken) {
+      user.PasswordHash = passwordHash;
+      await Task.FromResult(0);
     }
 
     public async Task SetUserNameAsync(UserViewModel user, string userName, CancellationToken cancellationToken)
     {
-      var userDto = mapper.Map<ApplicationUserDto>(user);
-      await authclient.SetUserDtoNameAsync(userName, userDto, cancellationToken);
+      user.UserName = userName;
+      await Task.FromResult(0);
     }
 
     public async Task<Microsoft.AspNetCore.Identity.IdentityResult> UpdateAsync(UserViewModel user, CancellationToken cancellationToken)

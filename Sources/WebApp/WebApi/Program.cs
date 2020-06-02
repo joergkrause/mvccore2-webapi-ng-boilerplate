@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 {
@@ -17,6 +18,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
             .ConfigureWebHostDefaults(webBuilder =>
             {
               webBuilder.UseStartup<Startup>();
+              webBuilder.ConfigureLogging(logging => {
+                logging.ClearProviders();
+                logging.AddConsole();
+              });
               webBuilder.UseUrls("http://0.0.0.0:5000");
             });
   }

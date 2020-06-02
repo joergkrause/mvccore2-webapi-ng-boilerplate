@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,23 +13,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication
   /// the registering of usernames that only differs in casing). We use a simplified normalization
   /// strategy in the backend instead. That approach makes the DTOs smaller but relais on DB support.
   /// </summary>
-  [DataContract(Name = "User")]
   public class ApplicationUserDto
   {
-    [DataMember]
     public string Id { get; set; }
 
-    [DataMember(Name = "PwHash")]
     public string PasswordHash { get; set; }
 
-    [DataMember(Name = "EmailConf")]
-    public virtual bool EmailConfirmed { get; set; }
+    public bool EmailConfirmed { get; set; }
 
-    [DataMember(Name = "Email")]
-    public virtual string Email { get; set; }
+    public string Email { get; set; }
 
-    [DataMember(Name = "Name")]
-    public virtual string UserName { get; set; }
+    public string UserName { get; set; }
 
   }
 }

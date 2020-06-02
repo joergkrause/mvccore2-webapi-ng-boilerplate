@@ -51,6 +51,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     }
 
     /// <summary>
+    /// The the Id of a user
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("user/id")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
+    public string GetUserDtoId([FromQuery] ApplicationUserDto user) {
+      return _authenticationManager.GetUserDtoId(user);
+    }
+
+    /// <summary>
     /// Find a user by hashed id.
     /// </summary>
     /// <param name="userId"></param>
@@ -72,56 +85,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
       return _authenticationManager.FindUserByName(normalizedUserName);
     }
 
-
-
-    /// <summary>
-    /// Get the normalized name of the given user. Checks both, Id and UserName fields.
-    /// </summary>
-    /// <param name="user"></param>
-    /// <returns></returns>
-    [HttpGet]
-    [Route("user/normalizedName")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public string GetNormalizedUserName([FromQuery] ApplicationUserDto user) {
-      return _authenticationManager.GetNormalizedUserName(user);
-    }
-
-    /// <summary>
-    /// The the Id of a user
-    /// </summary>
-    /// <param name="user"></param>
-    /// <returns></returns>
-    [HttpGet]
-    [Route("user/id")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public string GetUserDtoId([FromQuery] ApplicationUserDto user) {
-      return _authenticationManager.GetUserDtoId(user);
-    }
-
     [HttpGet]
     [Route("user/name")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
     public string GetUserDtoName([FromQuery] ApplicationUserDto user) {
       return _authenticationManager.GetUserDtoName(user);
-    }
-
-    [HttpPut]
-    [Route("user/normalizedName")]
-    [ProducesResponseType(typeof(void), 201)]
-    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public void SetNormalizedUserName([FromBody] ApplicationUserDto user, string normalizedName) {
-      _authenticationManager.SetNormalizedUserName(user, normalizedName);
-    }
-
-    [HttpPut]
-    [Route("user/name")]
-    [ProducesResponseType(typeof(void), 201)]
-    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public void SetUserDtoName([FromBody] ApplicationUserDto user, string userName) {
-      _authenticationManager.SetUserDtoName(user, userName);
     }
 
     [HttpPut]
@@ -149,28 +118,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
       return _authenticationManager.HasPassword(userDto);
     }
 
-    [HttpPut]
-    [Route("user/passwordHash")]
-    [ProducesResponseType(typeof(void), 201)]
-    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public void SetPasswordHash([FromBody] ApplicationUserDto userDto, string passwordHash) {
-      _authenticationManager.SetPasswordHash(userDto, passwordHash);
-    }
-
     [HttpGet]
     [Route("user/findByEmail/{normalizedEmail}")]
     public ApplicationUserDto FindByEmail(string normalizedEmail) {
       return _authenticationManager.FindByEmail(normalizedEmail);
     }
-
-    [HttpGet]
-    [Route("user/email")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public string GetEmail([FromQuery] ApplicationUserDto user) {
-      return _authenticationManager.GetEmail(user);
-    }
-
+    
     [HttpGet]
     [Route("user/emailConfirmed")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]

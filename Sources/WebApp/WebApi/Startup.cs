@@ -63,7 +63,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       services.AddMvc(option => option.EnableEndpointRouting = false);
       services.AddCors();
       // Security using custom backend
-      services.AddIdentity<UserViewModel, RoleViewModel>().AddDefaultTokenProviders();
+      services.AddIdentity<UserViewModel, RoleViewModel>()
+        .AddDefaultTokenProviders()
+        .AddUserStore<CustomUserStore>()
+        .AddRoleStore<CustomRoleStore>()
+        .AddUserManager<CustomUserManager>()
+        .AddRoleManager<CustomRoleManager>();
       var rootHandler = new HttpClientHandler();
       // Configuration: 
       //   if an env variable exists we use this, otherwise we fallback to appsettings.json
@@ -95,11 +100,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
         };
         return apiClientMachineService;
       });
-      // WFE logic and identity based on view models
-      services.AddScoped<UserManager<UserViewModel>, CustomUserManager>(); // calls IUSerStore
-      services.AddScoped<RoleManager<RoleViewModel>, CustomRoleManager>(); // calls IRoleStore
-      services.AddScoped<IUserStore<UserViewModel>, CustomUserStore>();
-      services.AddScoped<IRoleStore<RoleViewModel>, CustomRoleStore>();
       services.AddScoped<SignInManager<UserViewModel>, SignInManager<UserViewModel>>();
       // The whole JWT setup
       services.AddLocalJwtAuthentication(getEnv, Configuration);
@@ -212,8 +212,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
       if (env.IsDevelopment())
       {
-        app.UseDeveloperExceptionPage();
-        app.UseOpenApi();
+        app.UseDeveloperExceptionPage();        
         app.UseSwaggerUi3();
       }
       else
@@ -221,7 +220,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
         // TODO: Figure out how to handle global errors with SPA front end??
         app.UseExceptionHandler("/Home/Error");
       }
-
+      app.UseOpenApi();
       app.UseExceptionHandler(
       builder =>
       {

@@ -66,12 +66,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-      // swagger UI and endpoint only at dev-time
-      // if (env.IsDevelopment())
-      {
-        app.UseOpenApi();
+      // swagger UI and endpoint only at dev-time      
+      if (env.IsDevelopment())
+      {        
         app.UseSwaggerUi3(); // settings => settings.DocumentPath = "/swagger/v1/swagger.json");
       }
+      app.UseOpenApi();
       app.UseRouting();
 
       app.UseAuthentication();
