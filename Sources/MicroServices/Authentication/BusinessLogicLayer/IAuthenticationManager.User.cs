@@ -24,7 +24,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 
     bool HasPassword(ApplicationUserDto userDto);
 
-    void SetPasswordHash(ApplicationUserDto userDto, string passwordHash);
+    // void SetPasswordHash(ApplicationUserDto userDto, string passwordHash);
 
     ApplicationUserDto FindByEmail(string normalizedEmail);
    

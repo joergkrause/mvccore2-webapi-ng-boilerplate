@@ -17,7 +17,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authenticat
     [Required]
     [StringLength(80)]
     public string LastName { get; set; }
-    [StringLength(200)]
-    public string Location { get; set; }
+    
+    [Phone]
+    [StringLength(80)]
+    public string Phone { get; set; }
   }
 }

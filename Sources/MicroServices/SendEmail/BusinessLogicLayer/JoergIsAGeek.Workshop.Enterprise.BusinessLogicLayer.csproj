@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="../../../Database/DomainModels/JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj" />
     <ProjectReference Include="../../../Database/Repository/JoergIsAGeek.Workshop.Enterprise.Repository.csproj" />
-    <ProjectReference Include="../DataTransferObjects/JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties/" />

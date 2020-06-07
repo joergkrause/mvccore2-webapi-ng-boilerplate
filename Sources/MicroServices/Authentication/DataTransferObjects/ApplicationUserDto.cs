@@ -25,5 +25,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication
 
     public string UserName { get; set; }
 
+    public string ConcurrencyStamp { get; set; }
+
+    public string Phone { get; set; }
+
   }
 }

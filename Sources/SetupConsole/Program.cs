@@ -1,18 +1,20 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
+using JoergIsAGeek.Workshop.Enterprise.DomainModels;
+using JoergIsAGeek.Workshop.Enterprise.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 
-namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
-{
-  class Program
-  {
-    static void Main(string[] args)
-    {
+namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
+  class Program {
+    static void Main(string[] args) {
       Console.WriteLine("Start creating database");
       var config = new ConfigurationBuilder()
          .AddJsonFile("appsettings.json", true, true)
@@ -27,51 +29,71 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
       Console.WriteLine("Hint: Change connection string in 'application.json', if you run this in Visual Studio");
       Console.WriteLine("Hint: Set connection string in environment variable 'WORKSHOP_ConnectionString_MachineDataContext', if your run this in Docker Container");
       Console.ForegroundColor = clr;
-      if (TestInitialize(config))
-      {
-        TestDemoDatebase(config);
-        TestAuthDatebase(config);
+      var sp = SetupDependencyInjection(config);
+      if (TestInitialize(sp)) {
+        TestAuthDatebase(sp);
+        TestDemoDatebase(sp);        
       }
       Console.WriteLine("Done");
     }
 
-
-
-    static bool TestInitialize(IConfiguration config)
-    {
-      var init = new DatabaseInitializer();
+    static IServiceProvider SetupDependencyInjection(IConfiguration config) {
       // no concrete value needed, this is for SaveChanges automation after init
       IUserContextProvider contextProvider = new MockedUserContextProvider();
       contextProvider.SetUserIdentity(new ClaimsIdentity(new Claim[] {
         new Claim(ClaimTypes.Name, "Setup User"),
         new Claim(ClaimTypes.Role, "Administrator")
       }));
-      try
-      {
-        var crossDbUserIds = new Dictionary<string, string>();
-        using (var context = new AuthenticationDataContext(GetOptions<AuthenticationDataContext>(config), contextProvider))
-        {
-          Console.WriteLine("Deleting Auth DB...");
-          context.Database.EnsureDeleted();
-          Console.WriteLine("Creating Auth DB...");
-          context.Database.EnsureCreated();
-          Console.WriteLine("Seeding Auth DB...");
-          init.SeedAuthData(context);
-          context.Users.ToList().ForEach(u => crossDbUserIds.Add(u.Id, u.UserName));
-        } // Dispose
-        using (var context = new MachineDataContext(GetOptions<MachineDataContext>(config), contextProvider))
-        {
-          Console.WriteLine("Deleting DemoData DB...");
-          context.Database.EnsureDeleted();
-          Console.WriteLine("Creating DemoData DB...");
-          context.Database.EnsureCreated();
-          Console.WriteLine("Seeding DemoData DB...");
-          init.SeedDemoData(context, crossDbUserIds);
-        } // Dispose
+      // DI container
+      var serviceProvider = new ServiceCollection()
+            .AddLogging()
+            .AddSingleton<IUserContextProvider>(contextProvider)
+            .AddDbContext<AuthenticationDataContext>(opt => opt.UseSqlServer(GetCs<AuthenticationDataContext>(config)), ServiceLifetime.Transient)
+            .AddDbContext<MachineDataContext>(opt => opt.UseSqlServer(GetCs<MachineDataContext>(config)), ServiceLifetime.Transient)
+            .AddScoped<IGenericRepository<Machine, int>, GenericDbRepository<Machine, int>>()
+            .AddScoped<IGenericRepository<Device, int>, GenericDbRepository<Device, int>>()
+            .AddScoped<IGenericRepository<DataValue, int>, GenericDbRepository<DataValue, int>>()
+            .AddScoped<IGenericRepository<MachineOperator, int>, GenericDbRepository<MachineOperator, int>>()
+            .AddScoped<IAuthenticationRepository<IdentityRole, string>, AuthenticationRepository<IdentityRole, string>>()
+            .AddScoped<IAuthenticationRepository<IdentityUser, string>, AuthenticationRepository<IdentityUser, string>>()
+            .AddScoped<IAuthenticationRepository<IdentityUserClaim<string>, string>, AuthenticationRepository<IdentityUserClaim<string>, string>>()
+            .AddScoped<IAuthenticationRepository<IdentityUserRole<string>, string>, AuthenticationRepository<IdentityUserRole<string>, string>>()
+            .BuildServiceProvider();
+      //serviceProvider
+      //      .GetService<ILoggerFactory>()
+      //      .AddConsole(LogLevel.Debug);
+      return serviceProvider;
+    }
+
+
+    static bool TestInitialize(IServiceProvider serviceProvider) {
+
+      var init = new DatabaseInitializer(serviceProvider);
+
+      try {
+        IEnumerable<string> crossDbUserIds = null;
+        init.SeedAuthDb();
+        init.SeedAuthData();
+        // simulate business logic, we could combine this in a Unit of Work pattern in case we need transactions
+        var repRole = serviceProvider.GetService<IAuthenticationRepository<IdentityRole, string>>();
+        var repUserRole = serviceProvider.GetService<IAuthenticationRepository<IdentityUserRole<string>, string>>();
+        var repUser = serviceProvider.GetService<IAuthenticationRepository<IdentityUser, string>>();
+        // --> because of Transient we cannot re-use the context
+        // --> Transient is required if we use transactions that close after commit
+        //var userRoles = repRole.Query(r => r.Name == "User");
+        //var userInRole = repUserRole.Query(ur => userRoles.Any(r => r.Id == ur.RoleId));
+        //var userUsers = repUser.Query(u => userInRole.Any(ur => ur.UserId == u.Id));
+        // --> This is far less efficient, so we would add a UoW pattern instead a repo here
+        var userRoles = repRole.Read(r => r.Name == "User").Select(r => r.Id);
+        var userInRole = repUserRole.Read(ur => userRoles.Any(r => r == ur.RoleId)).Select(ur => ur.UserId);
+        var userUsers = repUser.Read(u => userInRole.Any(ur => ur == u.Id));
+        userUsers.ToList().ForEach(u => Console.WriteLine($"{u.Id}: {u.UserName}"));
+        crossDbUserIds = userUsers.Select(u => u.Id);
+        // Demo Data
+        init.SeedDemoDb();
+        init.SeedDemoData(crossDbUserIds);
         return true;
-      }
-      catch (Exception ex)
-      {
+      } catch (Exception ex) {
 
         var clr = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Red;
@@ -81,35 +103,27 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
       }
     }
 
-    static void TestDemoDatebase(IConfiguration config)
-    {
-      IUserContextProvider contextProvider = null;
-      using (var context = new MachineDataContext(GetOptions<MachineDataContext>(config), contextProvider))
-      {
-        var machines = context.Machines.ToList();
-        var count = context.Machines.Count();
-        Console.WriteLine($"Expected value after seeding is <2>. Current value is <{count}>.");
-      } // Dispose
+    static void TestDemoDatebase(IServiceProvider serviceProvider) {
+      var repMachine = serviceProvider.GetService<IGenericRepository<Machine, int>>();
+      var machines = repMachine.Read(m => true);
+      var count = repMachine.Count(m => true);
+      Console.WriteLine($"Expected value after seeding is <2>. Current value is <{count}>.");
     }
 
-    static void TestAuthDatebase(IConfiguration config)
-    {
-      IUserContextProvider contextProvider = null;
-      using (var context = new AuthenticationDataContext(GetOptions<AuthenticationDataContext>(config), contextProvider))
-      {
-        var users = context.Users.ToList();
-        Console.WriteLine($"Expected value after seeding is <3>. Current value is <{users.Count()}>.");
-        var countClaims = context.UserClaims.Count();
-        Console.WriteLine($"Expected value after seeding is <6>. Current value is <{countClaims}>.");
-      } // Dispose
+    static void TestAuthDatebase(IServiceProvider serviceProvider) {
+      var repIdentityUser = serviceProvider.GetService<IAuthenticationRepository<IdentityUser, string>>();
+      var repIdentityUserClaim = serviceProvider.GetService<IAuthenticationRepository<IdentityUserClaim<string>, string>>();
+      var users = repIdentityUser.Read(u => true);
+      Console.WriteLine($"Expected value after seeding is <3>. Current value is <{users.Count()}>.");
+      var countClaims = repIdentityUserClaim.Query(uc => true).Count();
+      Console.WriteLine($"Expected value after seeding is <6>. Current value is <{countClaims}>.");
     }
 
-    private static string GetCs<T>(IConfiguration config) where T : DbContext
-    {
-      var csFromEnv = Environment.GetEnvironmentVariable("WORKSHOP_ConnectionString_MachineDataContext", EnvironmentVariableTarget.Process);
-      if (csFromEnv != null)
-      {
-        Console.WriteLine("Found env variable 'WORKSHOP_ConnectionString_MachineDataContext' with this connectionstring:");
+    private static string GetCs<T>(IConfiguration config) where T : DbContext {
+      var key = $"WORKSHOP_ConnectionString_{typeof(T).Name}";
+      var csFromEnv = Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.Process);
+      if (csFromEnv != null) {
+        Console.WriteLine($"Found env variable '{key}' with this connectionstring:");
         Console.WriteLine(csFromEnv);
         return csFromEnv;
       }
@@ -117,8 +131,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole
       return config.GetConnectionString(typeof(T).Name);
     }
 
-    private static DbContextOptions<T> GetOptions<T>(IConfiguration config) where T : DbContext
-    {
+    private static DbContextOptions<T> GetOptions<T>(IConfiguration config) where T : DbContext {
       var optionBuilder = new DbContextOptionsBuilder<T>();
       optionBuilder.UseSqlServer(GetCs<T>(config), o => o.EnableRetryOnFailure());
       return optionBuilder.Options;

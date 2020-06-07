@@ -20,5 +20,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authenticat
     [StringLength(80)]
     public string UserName { get; set; }
 
+    [StringLength(80)]
+    [Phone]
+    public string PhoneNumber { get; set; }
+
   }
 }

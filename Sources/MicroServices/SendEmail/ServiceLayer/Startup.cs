@@ -25,19 +25,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
     public override void ConfigureServices(IServiceCollection services)
     {
       base.ConfigureServices(services);
-      // access to db globally configured      
-      // get connectionstring from appsettings.json
-      var connectionString = Configuration.GetConnectionString(nameof(AuthenticationDataContext));
-      WriteLine("Connectionstring {0}", connectionString);
-      services.AddDbContext<AuthenticationDataContext>(o => o.UseSqlServer(connectionString), ServiceLifetime.Scoped);
-      services.AddScoped(typeof(IAuthenticationRepository<IdentityUser, string>), typeof(AuthenticationRepository<IdentityUser, string>));
-      services.AddScoped(typeof(IAuthenticationRepository<IdentityRole, string>), typeof(AuthenticationRepository<IdentityRole, string>));
-      services.AddScoped(typeof(IAuthenticationRepository<IdentityUserClaim<string>, string>), typeof(AuthenticationRepository<IdentityUserClaim<string>, string>));
-      services.AddScoped(typeof(IAuthenticationRepository<IdentityUserRole<string>, string>), typeof(AuthenticationRepository<IdentityUserRole<string>, string>));
-      services.AddScoped(typeof(IAuthenticationManager), typeof(AuthenticationManager));
+      services.AddScoped(typeof(ISendManager), typeof(SendManager));
       services.AddOpenApiDocument(cfg =>
       {
-        cfg.Title = "Authentication API";
+        cfg.Title = "Send eMail API";
         cfg.Description = "OpenAPI 3 backend with simple Basic authentication using a static secret. This API supports ASP.NET Identity.";
         cfg.DocumentName = "v1";
         cfg.PostProcess = document =>

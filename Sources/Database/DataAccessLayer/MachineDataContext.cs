@@ -4,6 +4,7 @@ using JoergIsAGeek.Workshop.Enterprise.DomainModels.History;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +20,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
   /// </summary>
   public class MachineDataContext : DbContext {
 
+    public static readonly ILoggerFactory SqlLogger = LoggerFactory.Create(builder => { builder.AddConsole(); });
     private readonly IUserContextProvider contextProvider;
 
     public MachineDataContext(DbContextOptions<MachineDataContext> options, IUserContextProvider contextProvider) : base(options) {
@@ -27,8 +29,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {      
+      optionsBuilder.UseLoggerFactory(SqlLogger);
+      optionsBuilder.EnableSensitiveDataLogging(false);
       base.OnConfiguring(optionsBuilder);
-      optionsBuilder.EnableSensitiveDataLogging(true);
     }
 
     public DbSet<Machine> Machines { get; set; }

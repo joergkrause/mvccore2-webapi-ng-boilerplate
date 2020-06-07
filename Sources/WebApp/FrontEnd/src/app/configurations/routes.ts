@@ -39,6 +39,14 @@ export const routesConfig: Routes = [
     }
   },
   {
+    path: 'profile',
+    component: components.ProfileFormComponent,
+    data: {
+      mainmenu: true,
+      title: 'Your profile'
+    }
+  },
+  {
     path: 'info',
     component: components.SiteInfoComponent,
     data: {

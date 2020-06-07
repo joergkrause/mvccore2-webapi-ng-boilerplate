@@ -11,16 +11,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     public AuthenticationManager(IServiceProvider service) : base(service) {
       var mapperConfiguration = new MapperConfiguration(configure => {
-        configure.CreateMap<IdentityUser, ApplicationUserDto>();
-        configure.CreateMap<ApplicationUserDto, IdentityUser>();
+        configure.CreateMap<IdentityUser, ApplicationUserDto>()
+          .ForMember(u => u.Phone, opt => opt.MapFrom(i => i.PhoneNumber));
+        configure.CreateMap<ApplicationUserDto, IdentityUser>()
+          .ForMember(i => i.PhoneNumber, opt => opt.MapFrom(u => u.Phone));
         configure.CreateMap<IdentityRole, ApplicationIdentityRoleDto>()
           .ForMember(a => a.Name, opt => opt.MapFrom(i => i.Name))
           .ForMember(a => a.Id, opt => opt.MapFrom(i => i.Id));
         configure.CreateMap<ApplicationIdentityRoleDto, IdentityRole>()
           .ForMember(i => i.Name, opt => opt.MapFrom(a => a.Name))
           .ForMember(i => i.Id, opt => opt.MapFrom(a => a.Id))
-          .ForMember(i => i.NormalizedName, opt => opt.Ignore())
-          .ForMember(i => i.ConcurrencyStamp, opt => opt.Ignore());
+          .ForMember(i => i.NormalizedName, opt => opt.Ignore());
         configure.CreateMap<ClaimDto, IdentityUserClaim<string>>();
         configure.CreateMap<IdentityUserClaim<string>, ClaimDto>();
       });
@@ -98,13 +99,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       return !String.IsNullOrEmpty(RepUsers.Read(u => u.Id == userDto.Id).SingleOrDefault()?.PasswordHash);
     }
 
-    public void SetPasswordHash(ApplicationUserDto userDto, string passwordHash) {
-      var user = FindUserById(userDto.Id);
-      if (user != null) {
-          userDto.PasswordHash = passwordHash;
-          RepUsers.Update(mapper.Map<IdentityUser>(userDto));
-      }
-    }
+    //public void SetPasswordHash(ApplicationUserDto userDto, string passwordHash) {
+    //  var user = FindUserById(userDto.Id);
+    //  if (user != null) {
+    //      userDto.PasswordHash = passwordHash;
+    //      RepUsers.Update(mapper.Map<IdentityUser>(userDto));
+    //  }
+    //}
 
     public ApplicationUserDto FindByEmail(string normalizedEmail) {
       var user = RepUsers.Read(r => r.Email == normalizedEmail).SingleOrDefault();

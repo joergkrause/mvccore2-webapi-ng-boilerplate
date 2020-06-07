@@ -17,6 +17,13 @@
       Logout
     </a>
     <a mat-tab-link
+       *ngIf="isLoggedIn"
+       routerLink="/profile"
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+      Your Profile
+    </a>
+    <a mat-tab-link
        *ngFor="let link of navLinks"
        [routerLink]="link.path"
        routerLinkActive #rla="routerLinkActive"

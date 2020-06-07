@@ -26,7 +26,7 @@ export class RegistrationFormComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', Validators.required, Validators.email],
       password: ['', Validators.required],
-      location: [''],
+      phone: [''],
     });
 
   }
@@ -40,8 +40,8 @@ export class RegistrationFormComponent implements OnInit {
         firstName: this.form.get('firstName').value,
         lastName: this.form.get('lastName').value,
         email: this.form.get('email').value,
-        location: this.form.get('location').value,
-        password: this.form.get('password').value
+        password: this.form.get('password').value,
+        phone: this.form.get('phone').value        
       };
       this.authService.register(registerModel)
         .then(() => this.isRequesting = false)

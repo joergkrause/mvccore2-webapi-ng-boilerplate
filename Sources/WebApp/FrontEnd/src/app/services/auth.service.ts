@@ -9,7 +9,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/toPromise';
 import { EmitterService } from './emitter.service';
 import { AccountService } from './account.service';
-import { ApiAuth, ITokenResponseViewModel, IRegistrationViewModel, ILogonViewModel, RegistrationViewModel, LogonViewModel, IProviderViewModel } from './lib/frontendapi.services';
+import { ApiAuth, ITokenResponseViewModel, IRegistrationViewModel, ILogonViewModel, RegistrationViewModel, LogonViewModel, IProviderViewModel, ChangePasswordViewModel, IChangePasswordViewModel } from './lib/frontendapi.services';
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -51,6 +51,16 @@ export class AuthService extends BaseService {
 
   public async register(model: IRegistrationViewModel): Promise<string> {
     return this.api.post2(model as RegistrationViewModel).toPromise<string>();
+  }
+
+  public async changePassword(model: IChangePasswordViewModel): Promise<string> {
+    try {
+      const call = this.api.changePassword(model as ChangePasswordViewModel);
+      return call.toPromise<string>();
+    }
+    catch (err) {
+      return await err;
+    }
   }
 
   public async login(model: ILogonViewModel): Promise<boolean> {

@@ -62,8 +62,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     /// <param name="models"></param>
     /// <returns></returns>
     public bool InsertOrUpdate(IEnumerable<T> models) {
-      var result = true;
-      using (var t = Context.Database.BeginTransaction()) {
+      var result = false;
+      var strategy = Context.Database.CreateExecutionStrategy();
+      strategy.Execute(() => {
+        using var t = Context.Database.BeginTransaction();
         foreach (var model in models) {
           // the comparer is for both key types, string and int
           Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
@@ -74,7 +76,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
           }
         }
         t.Commit();
-      }
+        result = true;
+      });
       return result;
     }
 
@@ -92,8 +95,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     }
 
     public async Task<bool> InsertOrUpdateAsync(IEnumerable<T> models) {
-      var result = true;
-      using (var t = Context.Database.BeginTransaction()) {
+      var result = false;
+      var strategy = Context.Database.CreateExecutionStrategy();
+      await strategy.ExecuteAsync(async () => {
+        using var t = Context.Database.BeginTransaction();
         foreach (var model in models) {
           // the comparer is for both key types, string and int
           Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
@@ -104,7 +109,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
           }
         }
         t.Commit();
-      }
+        result = true;
+      });
       return result;
     }
 

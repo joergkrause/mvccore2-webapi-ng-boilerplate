@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using System.Text.Json;
 
 namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
   public abstract class StartupBase {
@@ -33,7 +32,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer {
           options.OutputFormatters.RemoveType<TextOutputFormatter>();
         })
         .AddJsonOptions(options => {
-          options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;          
+          // New to Core 3, this replaces the legacy Json.NET stuff from Newtonsoft
+          options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+          options.JsonSerializerOptions.DictionaryKeyPolicy = null;
+          options.JsonSerializerOptions.MaxDepth = 3;
         });
     }
 

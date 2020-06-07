@@ -15,5 +15,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication
 
     [DataMember]
     public string Name { get; set; }
+
+    [DataMember]
+    public string ConcurrencyStamp { get; set; }
   }
 }

@@ -42,6 +42,7 @@ import { AuthGuard } from './guards/index';
 
 import * as components from './components/index';
 import * as services from './services/index';
+import * as directives from './directives/index';
 
 import { routesConfig } from './configurations/routes';
 import { TokenInterceptorService, API_BASE_URL } from './services/index';
@@ -63,7 +64,9 @@ const material = [MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModu
     components.LoginFormComponent, 
     components.LogoutFormComponent, 
     components.RegistrationFormComponent,
-    components.ProfileFormComponent
+    components.ProfileFormComponent,    
+    directives.DiableAutofillDirective,
+    directives.RemoveHostDirective
   ],
   imports: [
     AdminModule,

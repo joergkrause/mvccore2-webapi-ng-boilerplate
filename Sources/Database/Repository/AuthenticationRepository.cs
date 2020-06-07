@@ -1,6 +1,7 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <typeparam name="U"></typeparam>
-  public class AuthenticationDbRepository<T, U> : IAuthenticationRepository<T, U> where T : class
+  public class AuthenticationRepository<T, U> : IAuthenticationRepository<T, U> where T : class
   {
 
-    public AuthenticationDbRepository(AuthenticationDataContext context)
+    public AuthenticationRepository(AuthenticationDataContext context)
     {
       Context = context;
     }
@@ -67,43 +68,47 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     /// <returns></returns>
     public bool Update(IEnumerable<T> models)
     {
-      var result = true;
-      using (var t = Context.Database.BeginTransaction())
-      {
-        foreach (var model in models)
-        {
-          // the comparer is for both key types, string and int
-          Context.Entry(model).State = EntityState.Modified;
-          var singleResult = Context.SaveChanges() == 1;
-          if (!singleResult)
-          {
-            t.Rollback();
-            break;
+      var result = false;
+      var strategy = Context.Database.CreateExecutionStrategy();
+      strategy.Execute(() => {
+        // need new Context
+        using (var t = Context.Database.BeginTransaction()) {
+          foreach (var model in models) {
+            // the comparer is for both key types, string and int
+            Context.Entry(model).State = EntityState.Modified;
+            var singleResult = Context.SaveChanges() == 1;
+            if (!singleResult) {
+              t.Rollback();
+              break;
+            }
           }
+          t.Commit();
+          result = true;
         }
-        t.Commit();
-      }
+      });
+      ((IDbContextPoolable)Context).ResetState();
       return result;
     }
 
     public bool Insert(IEnumerable<T> models)
     {
-      var result = true;
-      using (var t = Context.Database.BeginTransaction())
-      {
-        foreach (var model in models)
-        {
-          // the comparer is for both key types, string and int
-          Context.Entry(model).State = EntityState.Added;
-          var singleResult = Context.SaveChanges() == 1;
-          if (!singleResult)
-          {
-            t.Rollback();
-            break;
+      var result = false;
+      var strategy = Context.Database.CreateExecutionStrategy();
+      strategy.Execute(() => {
+        using (var t = Context.Database.BeginTransaction()) {
+          foreach (var model in models) {
+            // the comparer is for both key types, string and int
+            Context.Entry(model).State = EntityState.Added;
+            var singleResult = Context.SaveChanges() == 1;
+            if (!singleResult) {
+              t.Rollback();
+              break;
+            }
           }
+          t.Commit();
+          result = true;
         }
-        t.Commit();
-      }
+      });
       return result;
     }
 
@@ -131,43 +136,43 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     public async Task<bool> InsertAsync(IEnumerable<T> models)
     {
-      var result = true;
-      using (var t = Context.Database.BeginTransaction())
-      {
-        foreach (var model in models)
-        {
+      var result = false;
+      var strategy = Context.Database.CreateExecutionStrategy();
+      await strategy.ExecuteAsync(async () => {
+        using var t = Context.Database.BeginTransaction();
+        foreach (var model in models) {
           // the comparer is for both key types, string and int
           Context.Entry(model).State = EntityState.Added;
           var singleResult = await Context.SaveChangesAsync() == 1;
-          if (!singleResult)
-          {
+          if (!singleResult) {
             t.Rollback();
             break;
           }
         }
         t.Commit();
-      }
+        result = true;
+      });
       return result;
     }
 
     public async Task<bool> UpdateAsync(IEnumerable<T> models)
     {
-      var result = true;
-      using (var t = Context.Database.BeginTransaction())
-      {
-        foreach (var model in models)
-        {
+      var result = false;
+      var strategy = Context.Database.CreateExecutionStrategy();
+      await strategy.ExecuteAsync(async () => {
+        using var t = Context.Database.BeginTransaction();
+        foreach (var model in models) {
           // the comparer is for both key types, string and int
           Context.Entry(model).State = EntityState.Modified;
           var singleResult = await Context.SaveChangesAsync() == 1;
-          if (!singleResult)
-          {
+          if (!singleResult) {
             t.Rollback();
             break;
           }
         }
         t.Commit();
-      }
+        result = true;
+      });
       return result;
     }
 

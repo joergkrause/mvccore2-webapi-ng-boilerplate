@@ -4,6 +4,7 @@ using JoergIsAGeek.Workshop.Enterprise.DomainModels.History;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,15 +21,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
   public class AuthenticationDataContext : IdentityDbContext {
 
     private readonly IUserContextProvider contextProvider;
+    public static readonly ILoggerFactory SqlLogger = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
     public AuthenticationDataContext(DbContextOptions<AuthenticationDataContext> options, IUserContextProvider contextProvider) : base(options) {
       // forward of the user identity
       this.contextProvider = contextProvider;       
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {      
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+      optionsBuilder.UseLoggerFactory(SqlLogger);
+      optionsBuilder.EnableSensitiveDataLogging(false);
       base.OnConfiguring(optionsBuilder);
-      optionsBuilder.EnableSensitiveDataLogging(true);
     }
 
     public override int SaveChanges() {
@@ -73,17 +76,25 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
     /// <param name="contextUser">API provides a user object, if user is authenticated</param>
     /// <param name="timeStamp">The timestamp externally.</param>
     private void SaveInterceptor(string contextUser, DateTime timeStamp) {
-      var trackedItems = ChangeTracker.Entries<IAuditableEntityBase>();
+      var trackedItems = ChangeTracker.Entries();
       foreach (var item in trackedItems) {
-        switch (item.State) {
-          case EntityState.Added:
-            item.Entity.CreatedAt = timeStamp;
-            item.Entity.CreatedBy = contextUser ?? "TestUser";
-            goto case EntityState.Modified;
-          case EntityState.Modified:
-            item.Entity.ModifiedAt = timeStamp;
-            item.Entity.ModifiedBy = contextUser ?? "TestUser";
-            break;
+        // due to lack of a unified base class we need to detect the on-the-fly props
+        // for performance concerns: This is auth db, which has relatively few requests only (register/logon/profile change)
+        if (item.Properties.Any(p => p.Metadata.Name == nameof(AuditableEntityBase.CreatedAt))) {
+          switch (item.State) {
+            case EntityState.Added:
+              item.Property(nameof(AuditableEntityBase.CreatedAt)).CurrentValue = timeStamp;
+              item.Property(nameof(AuditableEntityBase.CreatedAt)).IsModified = true;
+              item.Property(nameof(AuditableEntityBase.CreatedBy)).CurrentValue = contextUser;
+              item.Property(nameof(AuditableEntityBase.CreatedBy)).IsModified = true;
+              goto case EntityState.Modified;
+            case EntityState.Modified:
+              item.Property(nameof(AuditableEntityBase.ModifiedAt)).CurrentValue = timeStamp;
+              item.Property(nameof(AuditableEntityBase.ModifiedAt)).IsModified = true;
+              item.Property(nameof(AuditableEntityBase.ModifiedBy)).CurrentValue = contextUser;
+              item.Property(nameof(AuditableEntityBase.ModifiedBy)).IsModified = true;
+              break;
+          }
         }
       }
       var historyItems = ChangeTracker.Entries<IHistoryTracking>().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);

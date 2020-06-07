@@ -321,6 +321,124 @@ export class ApiAuth {
         }
         return _observableOf<string>(<any>null);
     }
+
+    changePassword(model: ChangePasswordViewModel): Observable<string> {
+        let url_ = this.baseUrl + "/api/Auth/changepassword";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(model);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processChangePassword(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processChangePassword(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processChangePassword(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ModelStateDictionary.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+
+    confirmEmail(userId: string | null | undefined, confirmation: string | null | undefined): Observable<string> {
+        let url_ = this.baseUrl + "/api/Auth/confirmemail?";
+        if (userId !== undefined)
+            url_ += "userId=" + encodeURIComponent("" + userId) + "&";
+        if (confirmation !== undefined)
+            url_ += "confirmation=" + encodeURIComponent("" + confirmation) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processConfirmEmail(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processConfirmEmail(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processConfirmEmail(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ModelStateDictionary.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
 }
 
 @Injectable()
@@ -1375,10 +1493,11 @@ export class ApiUser {
 }
 
 export class UserViewModel implements IUserViewModel {
-    id!: string;
+    id?: string | undefined;
     email!: string;
     passwordHash?: string | undefined;
     userName?: string | undefined;
+    phoneNumber?: string | undefined;
 
     constructor(data?: IUserViewModel) {
         if (data) {
@@ -1395,6 +1514,7 @@ export class UserViewModel implements IUserViewModel {
             this.email = _data["email"];
             this.passwordHash = _data["passwordHash"];
             this.userName = _data["userName"];
+            this.phoneNumber = _data["phoneNumber"];
         }
     }
 
@@ -1411,15 +1531,17 @@ export class UserViewModel implements IUserViewModel {
         data["email"] = this.email;
         data["passwordHash"] = this.passwordHash;
         data["userName"] = this.userName;
+        data["phoneNumber"] = this.phoneNumber;
         return data; 
     }
 }
 
 export interface IUserViewModel {
-    id: string;
+    id?: string | undefined;
     email: string;
     passwordHash?: string | undefined;
     userName?: string | undefined;
+    phoneNumber?: string | undefined;
 }
 
 export class ClaimViewModel implements IClaimViewModel {
@@ -1899,7 +2021,7 @@ export class RegistrationViewModel implements IRegistrationViewModel {
     password!: string;
     firstName!: string;
     lastName!: string;
-    location?: string | undefined;
+    phone?: string | undefined;
 
     constructor(data?: IRegistrationViewModel) {
         if (data) {
@@ -1916,7 +2038,7 @@ export class RegistrationViewModel implements IRegistrationViewModel {
             this.password = _data["password"];
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
-            this.location = _data["location"];
+            this.phone = _data["phone"];
         }
     }
 
@@ -1933,7 +2055,7 @@ export class RegistrationViewModel implements IRegistrationViewModel {
         data["password"] = this.password;
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
-        data["location"] = this.location;
+        data["phone"] = this.phone;
         return data; 
     }
 }
@@ -1943,7 +2065,51 @@ export interface IRegistrationViewModel {
     password: string;
     firstName: string;
     lastName: string;
-    location?: string | undefined;
+    phone?: string | undefined;
+}
+
+export class ChangePasswordViewModel implements IChangePasswordViewModel {
+    oldPassword!: string;
+    newPassword!: string;
+    newPasswordRepeat!: string;
+
+    constructor(data?: IChangePasswordViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.oldPassword = _data["oldPassword"];
+            this.newPassword = _data["newPassword"];
+            this.newPasswordRepeat = _data["newPasswordRepeat"];
+        }
+    }
+
+    static fromJS(data: any): ChangePasswordViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new ChangePasswordViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["oldPassword"] = this.oldPassword;
+        data["newPassword"] = this.newPassword;
+        data["newPasswordRepeat"] = this.newPasswordRepeat;
+        return data; 
+    }
+}
+
+export interface IChangePasswordViewModel {
+    oldPassword: string;
+    newPassword: string;
+    newPasswordRepeat: string;
 }
 
 export class BaseViewModel implements IBaseViewModel {

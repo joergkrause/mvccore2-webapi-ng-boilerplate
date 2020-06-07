@@ -36,7 +36,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<Microsoft.AspNetCore.Identity.IdentityResult> CreateAsync(UserViewModel user, CancellationToken cancellationToken)
     {
- //     this.logger.LogInformation("CreateUser");
       var userDto = mapper.Map<ApplicationUserDto>(user);
       var result = await authclient.CreateUserAsync(userDto);
       return mapper.Map<Microsoft.AspNetCore.Identity.IdentityResult>(result);

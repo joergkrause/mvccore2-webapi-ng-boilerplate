@@ -341,57 +341,75 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _configurations_routes__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
+    var _directives_index__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
+    /*! ./directives/index */
+    "./src/app/directives/index.ts");
+    /* harmony import */
+
+
+    var _configurations_routes__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(
     /*! ./configurations/routes */
     "./src/app/configurations/routes.ts");
     /* harmony import */
 
 
-    var _modules_admin_admin_module__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(
+    var _modules_admin_admin_module__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(
     /*! ./modules/admin/admin.module */
     "./src/app/modules/admin/admin.module.ts");
     /* harmony import */
 
 
-    var _components_root_site_root_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(
+    var _components_root_site_root_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(
     /*! ./components/root/site-root.component */
     "./src/app/components/root/site-root.component.ts");
     /* harmony import */
 
 
-    var _components_info_site_info_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(
+    var _components_info_site_info_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(
     /*! ./components/info/site-info.component */
     "./src/app/components/info/site-info.component.ts");
     /* harmony import */
 
 
-    var _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(
+    var _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(
     /*! ./components/dashboard/dashboard.component */
     "./src/app/components/dashboard/dashboard.component.ts");
     /* harmony import */
 
 
-    var _components_login_login_form_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(
+    var _components_login_login_form_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(
     /*! ./components/login/login-form.component */
     "./src/app/components/login/login-form.component.ts");
     /* harmony import */
 
 
-    var _components_logout_logout_form_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(
+    var _components_logout_logout_form_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(
     /*! ./components/logout/logout-form.component */
     "./src/app/components/logout/logout-form.component.ts");
     /* harmony import */
 
 
-    var _components_registration_registration_form_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(
+    var _components_registration_registration_form_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(
     /*! ./components/registration/registration-form.component */
     "./src/app/components/registration/registration-form.component.ts");
     /* harmony import */
 
 
-    var _components_profile_profile_form_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(
+    var _components_profile_profile_form_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(
     /*! ./components/profile/profile-form.component */
-    "./src/app/components/profile/profile-form.component.ts"); //Angular Material Components
+    "./src/app/components/profile/profile-form.component.ts");
+    /* harmony import */
+
+
+    var _directives_disable_autofill_directive__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(
+    /*! ./directives/disable-autofill.directive */
+    "./src/app/directives/disable-autofill.directive.ts");
+    /* harmony import */
+
+
+    var _directives_remove_host_directive__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(
+    /*! ./directives/remove-host.directive */
+    "./src/app/directives/remove-host.directive.ts"); //Angular Material Components
     // The admin part is separated to it's own module
 
 
@@ -407,7 +425,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({
       type: AppModule,
-      bootstrap: [_components_root_site_root_component__WEBPACK_IMPORTED_MODULE_42__["SiteRootComponent"]]
+      bootstrap: [_components_root_site_root_component__WEBPACK_IMPORTED_MODULE_43__["SiteRootComponent"]]
     });
     AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
       factory: function AppModule_Factory(t) {
@@ -433,13 +451,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _services_index__WEBPACK_IMPORTED_MODULE_39__["EmitterService"], // APIs to server
       _services_index__WEBPACK_IMPORTED_MODULE_39__["ApiAccounts"], _services_index__WEBPACK_IMPORTED_MODULE_39__["ApiAuth"], _services_index__WEBPACK_IMPORTED_MODULE_39__["ApiMachines"], // prevent routes for non-authenticated users
       _guards_index__WEBPACK_IMPORTED_MODULE_37__["AuthGuard"]],
-      imports: [[_modules_admin_admin_module__WEBPACK_IMPORTED_MODULE_41__["AdminModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forRoot(_configurations_routes__WEBPACK_IMPORTED_MODULE_40__["routesConfig"]), _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]].concat(material, [_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_10__["MatAutocompleteModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_11__["MatDatepickerModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_12__["MatFormFieldModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_13__["MatRadioModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"], _angular_material_slider__WEBPACK_IMPORTED_MODULE_15__["MatSliderModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_16__["MatSlideToggleModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_17__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_18__["MatSidenavModule"], _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_19__["MatToolbarModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_20__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_21__["MatGridListModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_22__["MatCardModule"], _angular_material_stepper__WEBPACK_IMPORTED_MODULE_23__["MatStepperModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_24__["MatTabsModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_25__["MatExpansionModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_26__["MatButtonToggleModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_27__["MatChipsModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_28__["MatIconModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_29__["MatProgressSpinnerModule"], _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_30__["MatProgressBarModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_31__["MatDialogModule"], _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__["MatTooltipModule"], _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_33__["MatSnackBarModule"], _angular_material_table__WEBPACK_IMPORTED_MODULE_34__["MatTableModule"], _angular_material_sort__WEBPACK_IMPORTED_MODULE_35__["MatSortModule"], _angular_material_paginator__WEBPACK_IMPORTED_MODULE_36__["MatPaginatorModule"]])]
+      imports: [[_modules_admin_admin_module__WEBPACK_IMPORTED_MODULE_42__["AdminModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forRoot(_configurations_routes__WEBPACK_IMPORTED_MODULE_41__["routesConfig"]), _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]].concat(material, [_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_10__["MatAutocompleteModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_11__["MatDatepickerModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_12__["MatFormFieldModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_13__["MatRadioModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"], _angular_material_slider__WEBPACK_IMPORTED_MODULE_15__["MatSliderModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_16__["MatSlideToggleModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_17__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_18__["MatSidenavModule"], _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_19__["MatToolbarModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_20__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_21__["MatGridListModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_22__["MatCardModule"], _angular_material_stepper__WEBPACK_IMPORTED_MODULE_23__["MatStepperModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_24__["MatTabsModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_25__["MatExpansionModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_26__["MatButtonToggleModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_27__["MatChipsModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_28__["MatIconModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_29__["MatProgressSpinnerModule"], _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_30__["MatProgressBarModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_31__["MatDialogModule"], _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__["MatTooltipModule"], _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_33__["MatSnackBarModule"], _angular_material_table__WEBPACK_IMPORTED_MODULE_34__["MatTableModule"], _angular_material_sort__WEBPACK_IMPORTED_MODULE_35__["MatSortModule"], _angular_material_paginator__WEBPACK_IMPORTED_MODULE_36__["MatPaginatorModule"]])]
     });
 
     (function () {
       (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](AppModule, {
-        declarations: [_components_root_site_root_component__WEBPACK_IMPORTED_MODULE_42__["SiteRootComponent"], _components_info_site_info_component__WEBPACK_IMPORTED_MODULE_43__["SiteInfoComponent"], _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_44__["DashboardComponent"], _components_login_login_form_component__WEBPACK_IMPORTED_MODULE_45__["LoginFormComponent"], _components_logout_logout_form_component__WEBPACK_IMPORTED_MODULE_46__["LogoutFormComponent"], _components_registration_registration_form_component__WEBPACK_IMPORTED_MODULE_47__["RegistrationFormComponent"], _components_profile_profile_form_component__WEBPACK_IMPORTED_MODULE_48__["ProfileFormComponent"]],
-        imports: [_modules_admin_admin_module__WEBPACK_IMPORTED_MODULE_41__["AdminModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_22__["MatCardModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_24__["MatTabsModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_10__["MatAutocompleteModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_11__["MatDatepickerModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_12__["MatFormFieldModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_13__["MatRadioModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"], _angular_material_slider__WEBPACK_IMPORTED_MODULE_15__["MatSliderModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_16__["MatSlideToggleModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_17__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_18__["MatSidenavModule"], _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_19__["MatToolbarModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_20__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_21__["MatGridListModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_22__["MatCardModule"], _angular_material_stepper__WEBPACK_IMPORTED_MODULE_23__["MatStepperModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_24__["MatTabsModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_25__["MatExpansionModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_26__["MatButtonToggleModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_27__["MatChipsModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_28__["MatIconModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_29__["MatProgressSpinnerModule"], _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_30__["MatProgressBarModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_31__["MatDialogModule"], _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__["MatTooltipModule"], _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_33__["MatSnackBarModule"], _angular_material_table__WEBPACK_IMPORTED_MODULE_34__["MatTableModule"], _angular_material_sort__WEBPACK_IMPORTED_MODULE_35__["MatSortModule"], _angular_material_paginator__WEBPACK_IMPORTED_MODULE_36__["MatPaginatorModule"]]
+        declarations: [_components_root_site_root_component__WEBPACK_IMPORTED_MODULE_43__["SiteRootComponent"], _components_info_site_info_component__WEBPACK_IMPORTED_MODULE_44__["SiteInfoComponent"], _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_45__["DashboardComponent"], _components_login_login_form_component__WEBPACK_IMPORTED_MODULE_46__["LoginFormComponent"], _components_logout_logout_form_component__WEBPACK_IMPORTED_MODULE_47__["LogoutFormComponent"], _components_registration_registration_form_component__WEBPACK_IMPORTED_MODULE_48__["RegistrationFormComponent"], _components_profile_profile_form_component__WEBPACK_IMPORTED_MODULE_49__["ProfileFormComponent"], _directives_disable_autofill_directive__WEBPACK_IMPORTED_MODULE_50__["DiableAutofillDirective"], _directives_remove_host_directive__WEBPACK_IMPORTED_MODULE_51__["RemoveHostDirective"]],
+        imports: [_modules_admin_admin_module__WEBPACK_IMPORTED_MODULE_42__["AdminModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_22__["MatCardModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_24__["MatTabsModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_10__["MatAutocompleteModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_11__["MatDatepickerModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_12__["MatFormFieldModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_13__["MatRadioModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"], _angular_material_slider__WEBPACK_IMPORTED_MODULE_15__["MatSliderModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_16__["MatSlideToggleModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_17__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_18__["MatSidenavModule"], _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_19__["MatToolbarModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_20__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_21__["MatGridListModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_22__["MatCardModule"], _angular_material_stepper__WEBPACK_IMPORTED_MODULE_23__["MatStepperModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_24__["MatTabsModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_25__["MatExpansionModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_26__["MatButtonToggleModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_27__["MatChipsModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_28__["MatIconModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_29__["MatProgressSpinnerModule"], _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_30__["MatProgressBarModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_31__["MatDialogModule"], _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__["MatTooltipModule"], _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_33__["MatSnackBarModule"], _angular_material_table__WEBPACK_IMPORTED_MODULE_34__["MatTableModule"], _angular_material_sort__WEBPACK_IMPORTED_MODULE_35__["MatSortModule"], _angular_material_paginator__WEBPACK_IMPORTED_MODULE_36__["MatPaginatorModule"]]
       });
     })();
     /*@__PURE__*/
@@ -449,8 +467,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
-          declarations: [_components_index__WEBPACK_IMPORTED_MODULE_38__["SiteRootComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["SiteInfoComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["DashboardComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["LoginFormComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["LogoutFormComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["RegistrationFormComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["ProfileFormComponent"]],
-          imports: [_modules_admin_admin_module__WEBPACK_IMPORTED_MODULE_41__["AdminModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forRoot(_configurations_routes__WEBPACK_IMPORTED_MODULE_40__["routesConfig"]), _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]].concat(material, [_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_10__["MatAutocompleteModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_11__["MatDatepickerModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_12__["MatFormFieldModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_13__["MatRadioModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"], _angular_material_slider__WEBPACK_IMPORTED_MODULE_15__["MatSliderModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_16__["MatSlideToggleModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_17__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_18__["MatSidenavModule"], _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_19__["MatToolbarModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_20__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_21__["MatGridListModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_22__["MatCardModule"], _angular_material_stepper__WEBPACK_IMPORTED_MODULE_23__["MatStepperModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_24__["MatTabsModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_25__["MatExpansionModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_26__["MatButtonToggleModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_27__["MatChipsModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_28__["MatIconModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_29__["MatProgressSpinnerModule"], _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_30__["MatProgressBarModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_31__["MatDialogModule"], _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__["MatTooltipModule"], _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_33__["MatSnackBarModule"], _angular_material_table__WEBPACK_IMPORTED_MODULE_34__["MatTableModule"], _angular_material_sort__WEBPACK_IMPORTED_MODULE_35__["MatSortModule"], _angular_material_paginator__WEBPACK_IMPORTED_MODULE_36__["MatPaginatorModule"]]),
+          declarations: [_components_index__WEBPACK_IMPORTED_MODULE_38__["SiteRootComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["SiteInfoComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["DashboardComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["LoginFormComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["LogoutFormComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["RegistrationFormComponent"], _components_index__WEBPACK_IMPORTED_MODULE_38__["ProfileFormComponent"], _directives_index__WEBPACK_IMPORTED_MODULE_40__["DiableAutofillDirective"], _directives_index__WEBPACK_IMPORTED_MODULE_40__["RemoveHostDirective"]],
+          imports: [_modules_admin_admin_module__WEBPACK_IMPORTED_MODULE_42__["AdminModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forRoot(_configurations_routes__WEBPACK_IMPORTED_MODULE_41__["routesConfig"]), _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]].concat(material, [_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_10__["MatAutocompleteModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_11__["MatDatepickerModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_12__["MatFormFieldModule"], _angular_material_radio__WEBPACK_IMPORTED_MODULE_13__["MatRadioModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"], _angular_material_slider__WEBPACK_IMPORTED_MODULE_15__["MatSliderModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_16__["MatSlideToggleModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_17__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_18__["MatSidenavModule"], _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_19__["MatToolbarModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_20__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_21__["MatGridListModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_22__["MatCardModule"], _angular_material_stepper__WEBPACK_IMPORTED_MODULE_23__["MatStepperModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_24__["MatTabsModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_25__["MatExpansionModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_26__["MatButtonToggleModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_27__["MatChipsModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_28__["MatIconModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_29__["MatProgressSpinnerModule"], _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_30__["MatProgressBarModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_31__["MatDialogModule"], _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__["MatTooltipModule"], _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_33__["MatSnackBarModule"], _angular_material_table__WEBPACK_IMPORTED_MODULE_34__["MatTableModule"], _angular_material_sort__WEBPACK_IMPORTED_MODULE_35__["MatSortModule"], _angular_material_paginator__WEBPACK_IMPORTED_MODULE_36__["MatPaginatorModule"]]),
           providers: [// router config
           _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"], {
             provide: _angular_common__WEBPACK_IMPORTED_MODULE_5__["LocationStrategy"],
@@ -1275,7 +1293,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       });
     };
 
-    function LoginFormComponent_mat_list_2_mat_list_item_1_Template(rf, ctx) {
+    function LoginFormComponent_mat_list_4_mat_list_item_1_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-list-item");
 
@@ -1317,11 +1335,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
     }
 
-    function LoginFormComponent_mat_list_2_Template(rf, ctx) {
+    function LoginFormComponent_mat_list_4_Template(rf, ctx) {
       if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-list");
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, LoginFormComponent_mat_list_2_mat_list_item_1_Template, 8, 2, "mat-list-item", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, LoginFormComponent_mat_list_4_mat_list_item_1_Template, 8, 2, "mat-list-item", 7);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
@@ -1501,21 +1519,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-card");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-card-content");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-card-title");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, LoginFormComponent_mat_list_2_Template, 2, 1, "mat-list", 0);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "form", 1);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function LoginFormComponent_Template_form_ngSubmit_3_listener() {
-            return ctx.onSubmit();
-          });
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "h2");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5, "Log In");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Logon");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "mat-card-content");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, LoginFormComponent_mat_list_4_Template, 2, 1, "mat-list", 0);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "form", 1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function LoginFormComponent_Template_form_ngSubmit_5_listener() {
+            return ctx.onSubmit();
+          });
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, LoginFormComponent_mat_error_6_Template, 2, 0, "mat-error", 0);
 
@@ -1573,7 +1591,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
 
         if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.providers);
 
@@ -1581,7 +1599,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx.form);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.loginInvalid);
 
@@ -1594,7 +1612,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.errors);
         }
       },
-      directives: [_angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCard"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardContent"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroupDirective"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatLabel"], _angular_material_input__WEBPACK_IMPORTED_MODULE_7__["MatInput"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControlName"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatError"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButton"], _angular_material_list__WEBPACK_IMPORTED_MODULE_9__["MatList"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _angular_material_list__WEBPACK_IMPORTED_MODULE_9__["MatListItem"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__["MatIcon"], _angular_material_list__WEBPACK_IMPORTED_MODULE_9__["MatListIconCssMatStyler"], _angular_material_core__WEBPACK_IMPORTED_MODULE_11__["MatLine"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardTitle"]],
+      directives: [_angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCard"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardTitle"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardContent"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroupDirective"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatLabel"], _angular_material_input__WEBPACK_IMPORTED_MODULE_7__["MatInput"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControlName"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_6__["MatError"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButton"], _angular_material_list__WEBPACK_IMPORTED_MODULE_9__["MatList"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _angular_material_list__WEBPACK_IMPORTED_MODULE_9__["MatListItem"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_10__["MatIcon"], _angular_material_list__WEBPACK_IMPORTED_MODULE_9__["MatListIconCssMatStyler"], _angular_material_core__WEBPACK_IMPORTED_MODULE_11__["MatLine"]],
       pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_5__["JsonPipe"]],
       styles: ["mat-card[_ngcontent-%COMP%] {\n  max-width: 400px;\n  margin: 2em auto;\n  text-align: center;\n}\n\nmat-form-field[_ngcontent-%COMP%] {\n  display: block;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9sb2dpbi9DOlxcQXBwc1xcRGVtb3NcXGNvcmUzLWJvaWxlcnBsYXRlXFxTb3VyY2VzXFxXZWJBcHBcXEZyb250RW5kL3NyY1xcYXBwXFxjb21wb25lbnRzXFxsb2dpblxcbG9naW4tZm9ybS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9sb2dpbi9sb2dpbi1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZ0JBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0FDQ0Y7O0FERUE7RUFDRSxjQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2xvZ2luL2xvZ2luLWZvcm0uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJtYXQtY2FyZCB7XHJcbiAgbWF4LXdpZHRoOiA0MDBweDtcclxuICBtYXJnaW46IDJlbSBhdXRvO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxubWF0LWZvcm0tZmllbGQge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG59XHJcbiIsIm1hdC1jYXJkIHtcbiAgbWF4LXdpZHRoOiA0MDBweDtcbiAgbWFyZ2luOiAyZW0gYXV0bztcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG5tYXQtZm9ybS1maWVsZCB7XG4gIGRpc3BsYXk6IGJsb2NrO1xufSJdfQ== */"]
     });
@@ -1819,29 +1837,132 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _angular_material_card__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/material/card */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/card.js");
+    /* harmony import */
+
+
+    var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! @angular/material/form-field */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/form-field.js");
+    /* harmony import */
+
+
+    var _angular_material_input__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! @angular/material/input */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/input.js");
+    /* harmony import */
+
+
+    var _angular_material_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! @angular/material/button */
+    "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/button.js");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
+    function ProfileFormComponent_div_28_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Changing password...");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      }
+    }
+
+    function ProfileFormComponent_mat_card_29_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-card", 8);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-card-title");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "An error occured");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](4, "json");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      }
+
+      if (rf & 2) {
+        var ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](4, 1, ctx_r1.errors), "\n");
+      }
+    }
+
     var ProfileFormComponent = /*#__PURE__*/function () {
-      function ProfileFormComponent(accountService) {
+      function ProfileFormComponent(fb, authService, router) {
         _classCallCheck(this, ProfileFormComponent);
 
-        this.accountService = accountService;
+        this.fb = fb;
+        this.authService = authService;
+        this.router = router;
+        this.submitted = false;
+        this.formSubmitAttempt = false;
+        this.hide = true;
       }
 
       _createClass(ProfileFormComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this3 = this;
-
-          this.accountService.getUserClaims().then(function (claims) {
-            return _this3.claims = claims;
+          this.form = this.fb.group({
+            oldPassword: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            newPassword: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            newPasswordRepeat: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
           });
         }
       }, {
-        key: "setProfile",
-        value: function setProfile() {// TODO: Write profile
+        key: "onSubmit",
+        value: function onSubmit() {
+          var _this3 = this;
+
+          this.submitted = true;
+          this.formSubmitAttempt = true;
+          this.errors = '';
+
+          if (this.form.valid) {
+            var passwordModel = {
+              oldPassword: this.form.get('oldPassword').value,
+              newPassword: this.form.get('newPassword').value,
+              newPasswordRepeat: this.form.get('newPasswordRepeat').value
+            };
+            this.authService.changePassword(passwordModel).then(function () {
+              return _this3.formSubmitAttempt = false;
+            }).then(function (result) {
+              if (result) {
+                _this3.router.navigate(['/login'], {
+                  queryParams: {
+                    brandNew: true
+                  }
+                });
+              }
+            }, function (errors) {
+              return _this3.errors = errors.error ? Object.values(errors.error).join('') : JSON.stringify(errors);
+            });
+          }
         }
       }]);
 
@@ -1849,27 +1970,131 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }();
 
     ProfileFormComponent.ɵfac = function ProfileFormComponent_Factory(t) {
-      return new (t || ProfileFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_index__WEBPACK_IMPORTED_MODULE_1__["AccountService"]));
+      return new (t || ProfileFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_index__WEBPACK_IMPORTED_MODULE_1__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]));
     };
 
     ProfileFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: ProfileFormComponent,
       selectors: [["profile-form"]],
-      decls: 2,
+      decls: 30,
       vars: 3,
+      consts: [["autocomplete", "off", "spellcheck", "false", 3, "formGroup", "ngSubmit"], ["appearance", "legacy"], ["matInput", "", "type", "password", "placeholder", "old", "formControlName", "oldPassword"], ["matInput", "", "type", "password", "placeholder", "Password", "formControlName", "newPassword"], ["matInput", "", "type", "password", "placeholder", "Password", "formControlName", "newPasswordRepeat"], ["mat-raised-button", "", "color", "primary"], [4, "ngIf"], ["role", "alert", "color", "red", 4, "ngIf"], ["role", "alert", "color", "red"]],
       template: function ProfileFormComponent_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](0);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-card");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "json");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-card-title");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Your Profile");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "mat-card-content");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "form", 0);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function ProfileFormComponent_Template_form_ngSubmit_4_listener() {
+            return ctx.onSubmit();
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "fieldset");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "legend");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7, "Change your Password");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "mat-form-field", 1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "mat-label");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "Old Password");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](11, "input", 2);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "mat-error");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13, " Please provide your old password ");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "mat-form-field", 1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "mat-label");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](16, "New Password");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](17, "input", 3);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "mat-error");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](19, " Please provide a valid password ");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "mat-form-field", 1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "mat-label");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22, "Confirm New Password");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](23, "input", 4);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "mat-error");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25, " Please type the same password again ");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "button", 5);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](27, "Change");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](28, ProfileFormComponent_div_28_Template, 2, 0, "div", 6);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](29, ProfileFormComponent_mat_card_29_Template, 5, 3, "mat-card", 7);
         }
 
         if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 1, ctx.claims));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx.form);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](24);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.formSubmitAttempt);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.errors);
         }
       },
-      pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["JsonPipe"]],
-      encapsulation: 2
+      directives: [_angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCard"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardTitle"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardContent"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatLabel"], _angular_material_input__WEBPACK_IMPORTED_MODULE_6__["MatInput"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControlName"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatError"], _angular_material_button__WEBPACK_IMPORTED_MODULE_7__["MatButton"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgIf"]],
+      pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_8__["JsonPipe"]],
+      styles: ["mat-card[_ngcontent-%COMP%] {\n  max-width: 400px;\n  margin: 2em auto;\n  text-align: center;\n}\n\nmat-form-field[_ngcontent-%COMP%] {\n  display: block;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9wcm9maWxlL0M6XFxBcHBzXFxEZW1vc1xcY29yZTMtYm9pbGVycGxhdGVcXFNvdXJjZXNcXFdlYkFwcFxcRnJvbnRFbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHByb2ZpbGVcXHByb2ZpbGUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9wcm9maWxlL3Byb2ZpbGUtZm9ybS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtBQ0NGOztBREVBO0VBQ0UsY0FBQTtBQ0NGIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9wcm9maWxlL3Byb2ZpbGUtZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIm1hdC1jYXJkIHtcclxuICBtYXgtd2lkdGg6IDQwMHB4O1xyXG4gIG1hcmdpbjogMmVtIGF1dG87XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG5tYXQtZm9ybS1maWVsZCB7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuIiwibWF0LWNhcmQge1xuICBtYXgtd2lkdGg6IDQwMHB4O1xuICBtYXJnaW46IDJlbSBhdXRvO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbm1hdC1mb3JtLWZpZWxkIHtcbiAgZGlzcGxheTogYmxvY2s7XG59Il19 */"]
     });
     /*@__PURE__*/
 
@@ -1878,11 +2103,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
           selector: 'profile-form',
-          templateUrl: './profile-form.component.html'
+          templateUrl: './profile-form.component.html',
+          styleUrls: ['profile-form.component.scss']
         }]
       }], function () {
         return [{
-          type: _services_index__WEBPACK_IMPORTED_MODULE_1__["AccountService"]
+          type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]
+        }, {
+          type: _services_index__WEBPACK_IMPORTED_MODULE_1__["AuthService"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]
         }];
       }, null);
     })();
@@ -1954,19 +2184,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _angular_material_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var _directives_disable_autofill_directive__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ../../directives/disable-autofill.directive */
+    "./src/app/directives/disable-autofill.directive.ts");
+    /* harmony import */
+
+
+    var _angular_material_button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! @angular/material/button */
     "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/button.js");
     /* harmony import */
 
 
-    var _angular_material_icon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! @angular/material/icon */
     "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/icon.js");
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! @angular/common */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
@@ -2023,7 +2259,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             lastName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].email],
             password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            location: ['']
+            phone: ['']
           });
         }
       }, {
@@ -2040,8 +2276,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               firstName: this.form.get('firstName').value,
               lastName: this.form.get('lastName').value,
               email: this.form.get('email').value,
-              location: this.form.get('location').value,
-              password: this.form.get('password').value
+              password: this.form.get('password').value,
+              phone: this.form.get('phone').value
             };
             this.authService.register(registerModel).then(function () {
               return _this4.isRequesting = false;
@@ -2073,7 +2309,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       selectors: [["registration-form"]],
       decls: 44,
       vars: 7,
-      consts: [["novalidate", "", "autocomplete", "off", "spellcheck", "false", 3, "formGroup", "ngSubmit"], ["appearance", "legacy"], ["matInput", "", "id", "firstName", "type", "text", "formControlName", "firstName", "placeholder", "Your first name", "tmFocus", ""], ["matInput", "", "id", "lastName", "type", "text", "formControlName", "lastName", "placeholder", "Your last name"], ["matInput", "", "id", "email", "type", "text", "formControlName", "email", "placeholder", "Email"], ["matInput", "", "id", "password", "type", "password", "formControlName", "password", "placeholder", "Password"], ["mat-icon-button", "", "matSuffix", "", 3, "click"], ["matInput", "", "id", "location", "type", "text", "formControlName", "location", "placeholder", "Location"], ["mat-raised-button", "", "color", "primary", 3, "disabled"], [4, "ngIf"], ["role", "alert", "color", "red", 4, "ngIf"], ["role", "alert", "color", "red"]],
+      consts: [["novalidate", "", "autocomplete", "off", "spellcheck", "false", 3, "formGroup", "ngSubmit"], ["appearance", "legacy"], ["matInput", "", "id", "firstName", "type", "text", "formControlName", "firstName", "placeholder", "Your first name", "tmFocus", "", "appDisableAutofill", ""], ["matInput", "", "id", "lastName", "type", "text", "formControlName", "lastName", "placeholder", "Your last name", "appDisableAutofill", ""], ["matInput", "", "id", "email", "type", "text", "formControlName", "email", "placeholder", "Email", "appDisableAutofill", ""], ["matInput", "", "id", "password", "type", "password", "formControlName", "password", "placeholder", "Password", "appDisableAutofill", ""], ["mat-icon-button", "", "matSuffix", "", 3, "click"], ["matInput", "", "id", "phone", "type", "text", "formControlName", "phone", "placeholder", "Phone"], ["mat-raised-button", "", "color", "primary", 3, "disabled"], [4, "ngIf"], ["role", "alert", "color", "red", 4, "ngIf"], ["role", "alert", "color", "red"]],
       template: function RegistrationFormComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-card");
@@ -2188,7 +2424,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](35, "mat-label");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](36, "Location (City)");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](36, "Phone Number (optional)");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -2245,7 +2481,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.errors);
         }
       },
-      directives: [_angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCard"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardTitle"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardContent"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroupDirective"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatLabel"], _angular_material_input__WEBPACK_IMPORTED_MODULE_6__["MatInput"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControlName"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatError"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatHint"], _angular_material_button__WEBPACK_IMPORTED_MODULE_7__["MatButton"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatSuffix"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_8__["MatIcon"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgIf"]],
+      directives: [_angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCard"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardTitle"], _angular_material_card__WEBPACK_IMPORTED_MODULE_4__["MatCardContent"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroupDirective"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatLabel"], _angular_material_input__WEBPACK_IMPORTED_MODULE_6__["MatInput"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControlName"], _directives_disable_autofill_directive__WEBPACK_IMPORTED_MODULE_7__["DiableAutofillDirective"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatError"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatHint"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButton"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_5__["MatSuffix"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__["MatIcon"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"]],
       styles: ["mat-card[_ngcontent-%COMP%] {\n  max-width: 400px;\n  margin: 2em auto;\n  text-align: center;\n}\n\nmat-form-field[_ngcontent-%COMP%] {\n  display: block;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yZWdpc3RyYXRpb24vQzpcXEFwcHNcXERlbW9zXFxjb3JlMy1ib2lsZXJwbGF0ZVxcU291cmNlc1xcV2ViQXBwXFxGcm9udEVuZC9zcmNcXGFwcFxcY29tcG9uZW50c1xccmVnaXN0cmF0aW9uXFxyZWdpc3RyYXRpb24tZm9ybS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9yZWdpc3RyYXRpb24vcmVnaXN0cmF0aW9uLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUNDRjs7QURFQTtFQUNFLGNBQUE7QUNDRiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcmVnaXN0cmF0aW9uL3JlZ2lzdHJhdGlvbi1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsibWF0LWNhcmQge1xyXG4gIG1heC13aWR0aDogNDAwcHg7XHJcbiAgbWFyZ2luOiAyZW0gYXV0bztcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbm1hdC1mb3JtLWZpZWxkIHtcclxuICBkaXNwbGF5OiBibG9jaztcclxufVxyXG4iLCJtYXQtY2FyZCB7XG4gIG1heC13aWR0aDogNDAwcHg7XG4gIG1hcmdpbjogMmVtIGF1dG87XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxubWF0LWZvcm0tZmllbGQge1xuICBkaXNwbGF5OiBibG9jaztcbn0iXX0= */"]
     });
     /*@__PURE__*/
@@ -2362,7 +2598,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     function SiteRootComponent_span_3_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "span", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "span", 13);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -2380,25 +2616,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     function SiteRootComponent_a_5_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 13, 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 14, 8);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Login ");
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-      }
-
-      if (rf & 2) {
-        var _r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](1);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("active", _r7.isActive);
-      }
-    }
-
-    function SiteRootComponent_a_6_Template(rf, ctx) {
-      if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 14, 7);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Logout ");
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
@@ -2410,9 +2630,41 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
     }
 
+    function SiteRootComponent_a_6_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 15, 8);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Logout ");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      }
+
+      if (rf & 2) {
+        var _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](1);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("active", _r9.isActive);
+      }
+    }
+
     function SiteRootComponent_a_7_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 15, 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 16, 8);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Your Profile ");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      }
+
+      if (rf & 2) {
+        var _r10 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](1);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("active", _r10.isActive);
+      }
+    }
+
+    function SiteRootComponent_a_8_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 17, 8);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -2420,15 +2672,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       if (rf & 2) {
-        var link_r9 = ctx.$implicit;
+        var link_r11 = ctx.$implicit;
 
-        var _r10 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](1);
+        var _r12 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("routerLink", link_r9.path)("active", _r10.isActive);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("routerLink", link_r11.path)("active", _r12.isActive);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", link_r9.label, " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", link_r11.label, " ");
       }
     }
 
@@ -2448,9 +2700,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       return ["/admin", a1];
     };
 
-    function SiteRootComponent_button_13_Template(rf, ctx) {
+    function SiteRootComponent_button_14_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 18);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -2458,13 +2710,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       if (rf & 2) {
-        var link_r11 = ctx.$implicit;
+        var link_r13 = ctx.$implicit;
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](6, _c2, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](4, _c1, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](2, _c0, link_r11.path))));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](6, _c2, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](4, _c1, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](2, _c0, link_r13.path))));
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", link_r11.label, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", link_r13.label, "");
       }
     }
 
@@ -2554,9 +2806,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     SiteRootComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: SiteRootComponent,
       selectors: [["site-root"]],
-      decls: 17,
-      vars: 9,
-      consts: [["fxLayout", "", "fxLayoutAlign", "center center"], ["class", "pull-right", 4, "ngIf"], ["mat-tab-nav-bar", ""], ["mat-tab-link", "", "routerLink", "/login", "routerLinkActive", "", 3, "active", 4, "ngIf"], ["mat-tab-link", "", "routerLink", "/logout", "routerLinkActive", "", 3, "active", 4, "ngIf"], ["mat-tab-link", "", "routerLinkActive", "", 3, "routerLink", "active", 4, "ngFor", "ngForOf"], ["mat-tab-link", "", "routerLinkActive", "", 3, "matMenuTriggerFor", "routerLink", "active"], ["rla", "routerLinkActive"], ["appMenu", "matMenu"], ["mat-menu-item", "", 3, "routerLink", 4, "ngFor", "ngForOf"], [1, "container"], ["name", "manager"], [1, "pull-right"], ["mat-tab-link", "", "routerLink", "/login", "routerLinkActive", "", 3, "active"], ["mat-tab-link", "", "routerLink", "/logout", "routerLinkActive", "", 3, "active"], ["mat-tab-link", "", "routerLinkActive", "", 3, "routerLink", "active"], ["mat-menu-item", "", 3, "routerLink"]],
+      decls: 18,
+      vars: 10,
+      consts: [["fxLayout", "", "fxLayoutAlign", "center center"], ["class", "pull-right", 4, "ngIf"], ["mat-tab-nav-bar", ""], ["mat-tab-link", "", "routerLink", "/login", "routerLinkActive", "", 3, "active", 4, "ngIf"], ["mat-tab-link", "", "routerLink", "/logout", "routerLinkActive", "", 3, "active", 4, "ngIf"], ["mat-tab-link", "", "routerLink", "/profile", "routerLinkActive", "", 3, "active", 4, "ngIf"], ["mat-tab-link", "", "routerLinkActive", "", 3, "routerLink", "active", 4, "ngFor", "ngForOf"], ["mat-tab-link", "", "routerLinkActive", "", 3, "matMenuTriggerFor", "routerLink", "active"], ["rla", "routerLinkActive"], ["appMenu", "matMenu"], ["mat-menu-item", "", 3, "routerLink", 4, "ngFor", "ngForOf"], [1, "container"], ["name", "manager"], [1, "pull-right"], ["mat-tab-link", "", "routerLink", "/login", "routerLinkActive", "", 3, "active"], ["mat-tab-link", "", "routerLink", "/logout", "routerLinkActive", "", 3, "active"], ["mat-tab-link", "", "routerLink", "/profile", "routerLinkActive", "", 3, "active"], ["mat-tab-link", "", "routerLinkActive", "", 3, "routerLink", "active"], ["mat-menu-item", "", 3, "routerLink"]],
       template: function SiteRootComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -2575,27 +2827,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, SiteRootComponent_a_6_Template, 3, 1, "a", 4);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, SiteRootComponent_a_7_Template, 3, 3, "a", 5);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, SiteRootComponent_a_7_Template, 3, 1, "a", 5);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "a", 6, 7);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, SiteRootComponent_a_8_Template, 3, 3, "a", 6);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, " User Administration ");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "a", 7, 8);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "mat-menu", null, 8);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, SiteRootComponent_button_13_Template, 2, 8, "button", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11, " User Administration ");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "mat-menu", null, 9);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, SiteRootComponent_button_14_Template, 2, 8, "button", 10);
+
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "div", 10);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](15, "router-outlet");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "div", 11);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](16, "router-outlet", 11);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](16, "router-outlet");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](17, "router-outlet", 12);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -2603,9 +2857,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
 
         if (rf & 2) {
-          var _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](9);
+          var _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](10);
 
-          var _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](12);
+          var _r6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](13);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
@@ -2621,11 +2875,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.isLoggedIn);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.navLinks);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("matMenuTriggerFor", _r5)("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](8, _c3))("active", _r4.isActive);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("matMenuTriggerFor", _r6)("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction0"](9, _c3))("active", _r5.isActive);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
@@ -2633,7 +2891,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       },
       directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_4__["MatTabNav"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkWithHref"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_4__["MatTabLink"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkActive"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_5__["MatMenuTrigger"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_5__["_MatMenu"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterOutlet"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_5__["MatMenuItem"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLink"]],
-      styles: [".pull-right[_ngcontent-%COMP%] {\n  float: right;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9yb290L0M6XFxBcHBzXFxEZW1vc1xcY29yZTMtYm9pbGVycGxhdGVcXFNvdXJjZXNcXFdlYkFwcFxcRnJvbnRFbmQvc3JjXFxhcHBcXGNvbXBvbmVudHNcXHJvb3RcXHNpdGUtcm9vdC5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY29tcG9uZW50cy9yb290L3NpdGUtcm9vdC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFlBQUE7QUNDRiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcm9vdC9zaXRlLXJvb3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucHVsbC1yaWdodCB7XHJcbiAgZmxvYXQ6IHJpZ2h0O1xyXG59IiwiLnB1bGwtcmlnaHQge1xuICBmbG9hdDogcmlnaHQ7XG59Il19 */"]
+      encapsulation: 2
     });
     /*@__PURE__*/
 
@@ -2642,8 +2900,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
           selector: 'site-root',
-          templateUrl: 'site-root.component.html',
-          styleUrls: ['site-root.component.scss']
+          templateUrl: 'site-root.component.html'
         }]
       }], function () {
         return [{
@@ -2723,6 +2980,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         title: 'User Registration'
       }
     }, {
+      path: 'profile',
+      component: _components_index__WEBPACK_IMPORTED_MODULE_0__["ProfileFormComponent"],
+      data: {
+        mainmenu: true,
+        title: 'Your profile'
+      }
+    }, {
       path: 'info',
       component: _components_index__WEBPACK_IMPORTED_MODULE_0__["SiteInfoComponent"],
       data: {
@@ -2753,6 +3017,203 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
     }];
     /***/
+  },
+
+  /***/
+  "./src/app/directives/disable-autofill.directive.ts":
+  /*!**********************************************************!*\
+    !*** ./src/app/directives/disable-autofill.directive.ts ***!
+    \**********************************************************/
+
+  /*! exports provided: DiableAutofillDirective */
+
+  /***/
+  function srcAppDirectivesDisableAutofillDirectiveTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "DiableAutofillDirective", function () {
+      return DiableAutofillDirective;
+    });
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+
+    var DiableAutofillDirective = /*#__PURE__*/function () {
+      function DiableAutofillDirective(el, renderer) {
+        _classCallCheck(this, DiableAutofillDirective);
+
+        this.el = el;
+        this.renderer = renderer;
+      }
+
+      _createClass(DiableAutofillDirective, [{
+        key: "ngAfterViewInit",
+        value: function ngAfterViewInit() {
+          var randomString = Math.random().toString(36).slice(-6);
+          this.renderer.setAttribute(this.el.nativeElement, 'name', randomString);
+          this.renderer.setAttribute(this.el.nativeElement, 'autocomplete', randomString);
+        }
+      }]);
+
+      return DiableAutofillDirective;
+    }();
+
+    DiableAutofillDirective.ɵfac = function DiableAutofillDirective_Factory(t) {
+      return new (t || DiableAutofillDirective)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]));
+    };
+
+    DiableAutofillDirective.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({
+      type: DiableAutofillDirective,
+      selectors: [["", "appDisableAutofill", ""]]
+    });
+    /*@__PURE__*/
+
+    (function () {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DiableAutofillDirective, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{
+          selector: '[appDisableAutofill]'
+        }]
+      }], function () {
+        return [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]
+        }];
+      }, null);
+    })();
+    /***/
+
+  },
+
+  /***/
+  "./src/app/directives/index.ts":
+  /*!*************************************!*\
+    !*** ./src/app/directives/index.ts ***!
+    \*************************************/
+
+  /*! exports provided: RemoveHostDirective, DiableAutofillDirective */
+
+  /***/
+  function srcAppDirectivesIndexTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony import */
+
+
+    var _remove_host_directive__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! ./remove-host.directive */
+    "./src/app/directives/remove-host.directive.ts");
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "RemoveHostDirective", function () {
+      return _remove_host_directive__WEBPACK_IMPORTED_MODULE_0__["RemoveHostDirective"];
+    });
+    /* harmony import */
+
+
+    var _disable_autofill_directive__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! ./disable-autofill.directive */
+    "./src/app/directives/disable-autofill.directive.ts");
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "DiableAutofillDirective", function () {
+      return _disable_autofill_directive__WEBPACK_IMPORTED_MODULE_1__["DiableAutofillDirective"];
+    });
+    /***/
+
+  },
+
+  /***/
+  "./src/app/directives/remove-host.directive.ts":
+  /*!*****************************************************!*\
+    !*** ./src/app/directives/remove-host.directive.ts ***!
+    \*****************************************************/
+
+  /*! exports provided: RemoveHostDirective */
+
+  /***/
+  function srcAppDirectivesRemoveHostDirectiveTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "RemoveHostDirective", function () {
+      return RemoveHostDirective;
+    });
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+    /**
+     * Fixes a common issue with CSS not aware of angular. It removes the host component from physical DOM.
+     */
+
+
+    var RemoveHostDirective = /*#__PURE__*/function () {
+      function RemoveHostDirective(el) {
+        _classCallCheck(this, RemoveHostDirective);
+
+        this.el = el;
+      } //wait for the component to render completely
+
+
+      _createClass(RemoveHostDirective, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          var nativeElement = this.el.nativeElement,
+              parentElement = nativeElement.parentElement; // move all children out of the element
+
+          while (nativeElement.firstChild) {
+            parentElement.insertBefore(nativeElement.firstChild, nativeElement);
+          } // remove the empty element(the host)
+
+
+          parentElement.removeChild(nativeElement);
+        }
+      }]);
+
+      return RemoveHostDirective;
+    }();
+
+    RemoveHostDirective.ɵfac = function RemoveHostDirective_Factory(t) {
+      return new (t || RemoveHostDirective)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]));
+    };
+
+    RemoveHostDirective.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({
+      type: RemoveHostDirective,
+      selectors: [["", "remove-host", ""]]
+    });
+    /*@__PURE__*/
+
+    (function () {
+      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RemoveHostDirective, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{
+          selector: '[remove-host]'
+        }]
+      }], function () {
+        return [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]
+        }];
+      }, null);
+    })();
+    /***/
+
   },
 
   /***/
@@ -3938,34 +4399,64 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "login",
-        value: function login(model) {
+        key: "changePassword",
+        value: function changePassword(model) {
           return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-            var res, currentTime;
+            var call;
             return regeneratorRuntime.wrap(function _callee7$(_context7) {
               while (1) {
                 switch (_context7.prev = _context7.next) {
                   case 0:
-                    _context7.next = 2;
+                    _context7.prev = 0;
+                    call = this.api.changePassword(model);
+                    return _context7.abrupt("return", call.toPromise());
+
+                  case 5:
+                    _context7.prev = 5;
+                    _context7.t0 = _context7["catch"](0);
+                    _context7.next = 9;
+                    return _context7.t0;
+
+                  case 9:
+                    return _context7.abrupt("return", _context7.sent);
+
+                  case 10:
+                  case "end":
+                    return _context7.stop();
+                }
+              }
+            }, _callee7, this, [[0, 5]]);
+          }));
+        }
+      }, {
+        key: "login",
+        value: function login(model) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+            var res, currentTime;
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+              while (1) {
+                switch (_context8.prev = _context8.next) {
+                  case 0:
+                    _context8.next = 2;
                     return this.api.post(model).toPromise();
 
                   case 2:
-                    res = _context7.sent;
+                    res = _context8.sent;
 
                     if (res) {
-                      _context7.next = 5;
+                      _context8.next = 5;
                       break;
                     }
 
-                    return _context7.abrupt("return", Promise.reject());
+                    return _context8.abrupt("return", Promise.reject());
 
                   case 5:
                     if (res.authToken) {
-                      _context7.next = 7;
+                      _context8.next = 7;
                       break;
                     }
 
-                    return _context7.abrupt("return", Promise.resolve(false));
+                    return _context8.abrupt("return", Promise.resolve(false));
 
                   case 7:
                     // receive the token and store for all upcoming requests
@@ -3978,33 +4469,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this._authNavStatusSource.next(true);
 
                     this.informListeners();
-                    return _context7.abrupt("return", Promise.resolve(true));
+                    return _context8.abrupt("return", Promise.resolve(true));
 
                   case 15:
-                  case "end":
-                    return _context7.stop();
-                }
-              }
-            }, _callee7, this);
-          }));
-        }
-      }, {
-        key: "informListeners",
-        value: function informListeners() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-            var user;
-            return regeneratorRuntime.wrap(function _callee8$(_context8) {
-              while (1) {
-                switch (_context8.prev = _context8.next) {
-                  case 0:
-                    _context8.next = 2;
-                    return this.accounts.getUserDetails();
-
-                  case 2:
-                    user = _context8.sent;
-                    this.emitterService.get('USER_LOGON').emit(user);
-
-                  case 4:
                   case "end":
                     return _context8.stop();
                 }
@@ -4013,24 +4480,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "logout",
-        value: function logout() {
+        key: "informListeners",
+        value: function informListeners() {
           return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-            var o;
+            var user;
             return regeneratorRuntime.wrap(function _callee9$(_context9) {
               while (1) {
                 switch (_context9.prev = _context9.next) {
                   case 0:
-                    localStorage.removeItem('auth_token');
-                    localStorage.removeItem('user_id');
-                    localStorage.removeItem('expires_in');
-                    o = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(false);
+                    _context9.next = 2;
+                    return this.accounts.getUserDetails();
 
-                    this._authNavStatusSource.next(false);
+                  case 2:
+                    user = _context9.sent;
+                    this.emitterService.get('USER_LOGON').emit(user);
 
-                    return _context9.abrupt("return", o.delay(2000).mapTo(false).toPromise());
-
-                  case 6:
+                  case 4:
                   case "end":
                     return _context9.stop();
                 }
@@ -4039,23 +4504,49 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "isLoggedIn",
-        value: function isLoggedIn() {
+        key: "logout",
+        value: function logout() {
           return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+            var o;
             return regeneratorRuntime.wrap(function _callee10$(_context10) {
               while (1) {
                 switch (_context10.prev = _context10.next) {
                   case 0:
-                    this._authNavStatusSource.next(this.__loggedIn);
+                    localStorage.removeItem('auth_token');
+                    localStorage.removeItem('user_id');
+                    localStorage.removeItem('expires_in');
+                    o = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(false);
 
-                    return _context10.abrupt("return", this.__loggedIn);
+                    this._authNavStatusSource.next(false);
 
-                  case 2:
+                    return _context10.abrupt("return", o.delay(2000).mapTo(false).toPromise());
+
+                  case 6:
                   case "end":
                     return _context10.stop();
                 }
               }
             }, _callee10, this);
+          }));
+        }
+      }, {
+        key: "isLoggedIn",
+        value: function isLoggedIn() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+            return regeneratorRuntime.wrap(function _callee11$(_context11) {
+              while (1) {
+                switch (_context11.prev = _context11.next) {
+                  case 0:
+                    this._authNavStatusSource.next(this.__loggedIn);
+
+                    return _context11.abrupt("return", this.__loggedIn);
+
+                  case 2:
+                  case "end":
+                    return _context11.stop();
+                }
+              }
+            }, _callee11, this);
           }));
         }
       }]);
@@ -4361,7 +4852,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./src/app/services/index.ts ***!
     \***********************************/
 
-  /*! exports provided: AccountService, MachineDataService, EmitterService, AuthService, ConfigService, API_BASE_URL, ApiAccounts, ApiAuth, ApiMachines, ApiClaim, ApiRole, ApiUser, UserViewModel, ClaimViewModel, ProviderViewModel, MarshalByRefObject, Stream, TokenResponseViewModel, ModelStateDictionary, ModelStateEntry, ModelError, Exception, ModelValidationState, LogonViewModel, RegistrationViewModel, BaseViewModel, MachineViewModel, RoleViewModel, ApiException, TokenInterceptorService */
+  /*! exports provided: AccountService, MachineDataService, EmitterService, AuthService, ConfigService, API_BASE_URL, ApiAccounts, ApiAuth, ApiMachines, ApiClaim, ApiRole, ApiUser, UserViewModel, ClaimViewModel, ProviderViewModel, MarshalByRefObject, Stream, TokenResponseViewModel, ModelStateDictionary, ModelStateEntry, ModelError, Exception, ModelValidationState, LogonViewModel, RegistrationViewModel, ChangePasswordViewModel, BaseViewModel, MachineViewModel, RoleViewModel, ApiException, TokenInterceptorService */
 
   /***/
   function srcAppServicesIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -4557,6 +5048,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony reexport (safe) */
 
 
+    __webpack_require__.d(__webpack_exports__, "ChangePasswordViewModel", function () {
+      return _lib_frontendapi_services__WEBPACK_IMPORTED_MODULE_5__["ChangePasswordViewModel"];
+    });
+    /* harmony reexport (safe) */
+
+
     __webpack_require__.d(__webpack_exports__, "BaseViewModel", function () {
       return _lib_frontendapi_services__WEBPACK_IMPORTED_MODULE_5__["BaseViewModel"];
     });
@@ -4603,7 +5100,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     !*** ./src/app/services/lib/frontendapi.services.ts ***!
     \******************************************************/
 
-  /*! exports provided: API_BASE_URL, ApiAccounts, ApiAuth, ApiMachines, ApiClaim, ApiRole, ApiUser, UserViewModel, ClaimViewModel, ProviderViewModel, MarshalByRefObject, Stream, TokenResponseViewModel, ModelStateDictionary, ModelStateEntry, ModelError, Exception, ModelValidationState, LogonViewModel, RegistrationViewModel, BaseViewModel, MachineViewModel, RoleViewModel, ApiException */
+  /*! exports provided: API_BASE_URL, ApiAccounts, ApiAuth, ApiMachines, ApiClaim, ApiRole, ApiUser, UserViewModel, ClaimViewModel, ProviderViewModel, MarshalByRefObject, Stream, TokenResponseViewModel, ModelStateDictionary, ModelStateEntry, ModelError, Exception, ModelValidationState, LogonViewModel, RegistrationViewModel, ChangePasswordViewModel, BaseViewModel, MachineViewModel, RoleViewModel, ApiException */
 
   /***/
   function srcAppServicesLibFrontendapiServicesTs(module, __webpack_exports__, __webpack_require__) {
@@ -4729,6 +5226,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     __webpack_require__.d(__webpack_exports__, "RegistrationViewModel", function () {
       return RegistrationViewModel;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ChangePasswordViewModel", function () {
+      return ChangePasswordViewModel;
     });
     /* harmony export (binding) */
 
@@ -5244,6 +5747,157 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
         }
+      }, {
+        key: "changePassword",
+        value: function changePassword(model) {
+          var _this18 = this;
+
+          var url_ = this.baseUrl + "/api/Auth/changepassword";
+          url_ = url_.replace(/[?&]$/, "");
+          var content_ = JSON.stringify(model);
+          var options_ = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            })
+          };
+          return this.http.request("post", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this18.processChangePassword(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this18.processChangePassword(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processChangePassword",
+        value: function processChangePassword(response) {
+          var _this19 = this;
+
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator8 = _createForOfIteratorHelper(response.headers.keys()),
+                _step8;
+
+            try {
+              for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+                var key = _step8.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator8.e(err);
+            } finally {
+              _iterator8.f();
+            }
+          }
+
+          if (status === 200) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var result200 = null;
+              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this19.jsonParseReviver);
+              result200 = resultData200 !== undefined ? resultData200 : null;
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
+            }));
+          } else if (status === 400) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var result400 = null;
+              var resultData400 = _responseText === "" ? null : JSON.parse(_responseText, _this19.jsonParseReviver);
+              result400 = ModelStateDictionary.fromJS(resultData400);
+              return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+          } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+          }
+
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+        }
+      }, {
+        key: "confirmEmail",
+        value: function confirmEmail(userId, confirmation) {
+          var _this20 = this;
+
+          var url_ = this.baseUrl + "/api/Auth/confirmemail?";
+          if (userId !== undefined) url_ += "userId=" + encodeURIComponent("" + userId) + "&";
+          if (confirmation !== undefined) url_ += "confirmation=" + encodeURIComponent("" + confirmation) + "&";
+          url_ = url_.replace(/[?&]$/, "");
+          var options_ = {
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+              "Accept": "application/json"
+            })
+          };
+          return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this20.processConfirmEmail(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this20.processConfirmEmail(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processConfirmEmail",
+        value: function processConfirmEmail(response) {
+          var _this21 = this;
+
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator9 = _createForOfIteratorHelper(response.headers.keys()),
+                _step9;
+
+            try {
+              for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
+                var key = _step9.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator9.e(err);
+            } finally {
+              _iterator9.f();
+            }
+          }
+
+          if (status === 200) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var result200 = null;
+              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this21.jsonParseReviver);
+              result200 = resultData200 !== undefined ? resultData200 : null;
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
+            }));
+          } else if (status === 400) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var result400 = null;
+              var resultData400 = _responseText === "" ? null : JSON.parse(_responseText, _this21.jsonParseReviver);
+              result400 = ModelStateDictionary.fromJS(resultData400);
+              return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+          } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+          }
+
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+        }
       }]);
 
       return ApiAuth;
@@ -5293,7 +5947,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ApiMachines, [{
         key: "get",
         value: function get() {
-          var _this18 = this;
+          var _this22 = this;
 
           var url_ = this.baseUrl + "/api/Machines";
           url_ = url_.replace(/[?&]$/, "");
@@ -5305,11 +5959,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             })
           };
           return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this18.processGet(response_);
+            return _this22.processGet(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this18.processGet(response_);
+                return _this22.processGet(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -5319,87 +5973,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "processGet",
         value: function processGet(response) {
-          var _this19 = this;
-
-          var status = response.status;
-          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
-          var _headers = {};
-
-          if (response.headers) {
-            var _iterator8 = _createForOfIteratorHelper(response.headers.keys()),
-                _step8;
-
-            try {
-              for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
-                var key = _step8.value;
-                _headers[key] = response.headers.get(key);
-              }
-            } catch (err) {
-              _iterator8.e(err);
-            } finally {
-              _iterator8.f();
-            }
-          }
-
-          {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              var resultdefault = null;
-              var resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, _this19.jsonParseReviver);
-
-              if (Array.isArray(resultDatadefault)) {
-                resultdefault = [];
-
-                var _iterator9 = _createForOfIteratorHelper(resultDatadefault),
-                    _step9;
-
-                try {
-                  for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
-                    var item = _step9.value;
-                    resultdefault.push(MachineViewModel.fromJS(item));
-                  }
-                } catch (err) {
-                  _iterator9.e(err);
-                } finally {
-                  _iterator9.f();
-                }
-              }
-
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(resultdefault);
-            }));
-          }
-        }
-      }, {
-        key: "post",
-        value: function post(value) {
-          var _this20 = this;
-
-          var url_ = this.baseUrl + "/api/Machines";
-          url_ = url_.replace(/[?&]$/, "");
-          var content_ = JSON.stringify(value);
-          var options_ = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
-              "Content-Type": "application/json"
-            })
-          };
-          return this.http.request("post", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this20.processPost(response_);
-          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
-            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
-              try {
-                return _this20.processPost(response_);
-              } catch (e) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
-              }
-            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
-          }));
-        }
-      }, {
-        key: "processPost",
-        value: function processPost(response) {
-          var _this21 = this;
+          var _this23 = this;
 
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
@@ -5421,89 +5995,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
           }
 
-          if (status === 400) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              var result400 = null;
-              var resultData400 = _responseText === "" ? null : JSON.parse(_responseText, _this21.jsonParseReviver);
-              result400 = ModelStateDictionary.fromJS(resultData400);
-              return throwException("A server side error occurred.", status, _responseText, _headers, result400);
-            }));
-          } else {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
-            }));
-          }
-        }
-      }, {
-        key: "get2",
-        value: function get2(id) {
-          var _this22 = this;
-
-          var url_ = this.baseUrl + "/api/Machines/{id}";
-          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
-          url_ = url_.replace("{id}", encodeURIComponent("" + id));
-          url_ = url_.replace(/[?&]$/, "");
-          var options_ = {
-            observe: "response",
-            responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
-              "Accept": "application/json"
-            })
-          };
-          return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this22.processGet2(response_);
-          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
-            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
-              try {
-                return _this22.processGet2(response_);
-              } catch (e) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
-              }
-            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
-          }));
-        }
-      }, {
-        key: "processGet2",
-        value: function processGet2(response) {
-          var _this23 = this;
-
-          var status = response.status;
-          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
-          var _headers = {};
-
-          if (response.headers) {
-            var _iterator11 = _createForOfIteratorHelper(response.headers.keys()),
-                _step11;
-
-            try {
-              for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
-                var key = _step11.value;
-                _headers[key] = response.headers.get(key);
-              }
-            } catch (err) {
-              _iterator11.e(err);
-            } finally {
-              _iterator11.f();
-            }
-          }
-
           {
             return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
               var resultdefault = null;
               var resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, _this23.jsonParseReviver);
-              resultdefault = MachineViewModel.fromJS(resultDatadefault);
+
+              if (Array.isArray(resultDatadefault)) {
+                resultdefault = [];
+
+                var _iterator11 = _createForOfIteratorHelper(resultDatadefault),
+                    _step11;
+
+                try {
+                  for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
+                    var item = _step11.value;
+                    resultdefault.push(MachineViewModel.fromJS(item));
+                  }
+                } catch (err) {
+                  _iterator11.e(err);
+                } finally {
+                  _iterator11.f();
+                }
+              }
+
               return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(resultdefault);
             }));
           }
         }
       }, {
-        key: "put",
-        value: function put(id, value) {
+        key: "post",
+        value: function post(value) {
           var _this24 = this;
 
-          var url_ = this.baseUrl + "/api/Machines/{id}";
-          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
-          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          var url_ = this.baseUrl + "/api/Machines";
           url_ = url_.replace(/[?&]$/, "");
           var content_ = JSON.stringify(value);
           var options_ = {
@@ -5514,12 +6038,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               "Content-Type": "application/json"
             })
           };
-          return this.http.request("put", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this24.processPut(response_);
+          return this.http.request("post", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this24.processPost(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this24.processPut(response_);
+                return _this24.processPost(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -5527,8 +6051,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "processPut",
-        value: function processPut(response) {
+        key: "processPost",
+        value: function processPost(response) {
           var _this25 = this;
 
           var status = response.status;
@@ -5565,8 +6089,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
         }
       }, {
-        key: "delete",
-        value: function _delete(id) {
+        key: "get2",
+        value: function get2(id) {
           var _this26 = this;
 
           var url_ = this.baseUrl + "/api/Machines/{id}";
@@ -5576,14 +6100,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var options_ = {
             observe: "response",
             responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({})
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+              "Accept": "application/json"
+            })
           };
-          return this.http.request("delete", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this26.processDelete(response_);
+          return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this26.processGet2(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this26.processDelete(response_);
+                return _this26.processGet2(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -5591,8 +6117,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "processDelete",
-        value: function processDelete(response) {
+        key: "processGet2",
+        value: function processGet2(response) {
+          var _this27 = this;
+
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
           var _headers = {};
@@ -5610,6 +6138,132 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               _iterator13.e(err);
             } finally {
               _iterator13.f();
+            }
+          }
+
+          {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var resultdefault = null;
+              var resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, _this27.jsonParseReviver);
+              resultdefault = MachineViewModel.fromJS(resultDatadefault);
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(resultdefault);
+            }));
+          }
+        }
+      }, {
+        key: "put",
+        value: function put(id, value) {
+          var _this28 = this;
+
+          var url_ = this.baseUrl + "/api/Machines/{id}";
+          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
+          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          url_ = url_.replace(/[?&]$/, "");
+          var content_ = JSON.stringify(value);
+          var options_ = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+              "Content-Type": "application/json"
+            })
+          };
+          return this.http.request("put", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this28.processPut(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this28.processPut(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processPut",
+        value: function processPut(response) {
+          var _this29 = this;
+
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator14 = _createForOfIteratorHelper(response.headers.keys()),
+                _step14;
+
+            try {
+              for (_iterator14.s(); !(_step14 = _iterator14.n()).done;) {
+                var key = _step14.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator14.e(err);
+            } finally {
+              _iterator14.f();
+            }
+          }
+
+          if (status === 400) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var result400 = null;
+              var resultData400 = _responseText === "" ? null : JSON.parse(_responseText, _this29.jsonParseReviver);
+              result400 = ModelStateDictionary.fromJS(resultData400);
+              return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+          } else {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+            }));
+          }
+        }
+      }, {
+        key: "delete",
+        value: function _delete(id) {
+          var _this30 = this;
+
+          var url_ = this.baseUrl + "/api/Machines/{id}";
+          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
+          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          url_ = url_.replace(/[?&]$/, "");
+          var options_ = {
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({})
+          };
+          return this.http.request("delete", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this30.processDelete(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this30.processDelete(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processDelete",
+        value: function processDelete(response) {
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator15 = _createForOfIteratorHelper(response.headers.keys()),
+                _step15;
+
+            try {
+              for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
+                var key = _step15.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator15.e(err);
+            } finally {
+              _iterator15.f();
             }
           }
 
@@ -5672,7 +6326,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ApiClaim, [{
         key: "get",
         value: function get(id) {
-          var _this27 = this;
+          var _this31 = this;
 
           var url_ = this.baseUrl + "/api/useradmin/Claim?";
           if (id !== undefined) url_ += "id=" + encodeURIComponent("" + id) + "&";
@@ -5685,11 +6339,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             })
           };
           return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this27.processGet(response_);
+            return _this31.processGet(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this27.processGet(response_);
+                return _this31.processGet(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -5699,92 +6353,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "processGet",
         value: function processGet(response) {
-          var _this28 = this;
+          var _this32 = this;
 
-          var status = response.status;
-          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
-          var _headers = {};
-
-          if (response.headers) {
-            var _iterator14 = _createForOfIteratorHelper(response.headers.keys()),
-                _step14;
-
-            try {
-              for (_iterator14.s(); !(_step14 = _iterator14.n()).done;) {
-                var key = _step14.value;
-                _headers[key] = response.headers.get(key);
-              }
-            } catch (err) {
-              _iterator14.e(err);
-            } finally {
-              _iterator14.f();
-            }
-          }
-
-          if (status === 200) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              var result200 = null;
-              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this28.jsonParseReviver);
-
-              if (Array.isArray(resultData200)) {
-                result200 = [];
-
-                var _iterator15 = _createForOfIteratorHelper(resultData200),
-                    _step15;
-
-                try {
-                  for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
-                    var item = _step15.value;
-                    result200.push(ClaimViewModel.fromJS(item));
-                  }
-                } catch (err) {
-                  _iterator15.e(err);
-                } finally {
-                  _iterator15.f();
-                }
-              }
-
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
-            }));
-          } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-          }
-
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
-        }
-      }, {
-        key: "post",
-        value: function post(value) {
-          var _this29 = this;
-
-          var url_ = this.baseUrl + "/api/useradmin/Claim";
-          url_ = url_.replace(/[?&]$/, "");
-          var content_ = JSON.stringify(value);
-          var options_ = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
-              "Content-Type": "application/json"
-            })
-          };
-          return this.http.request("post", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this29.processPost(response_);
-          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
-            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
-              try {
-                return _this29.processPost(response_);
-              } catch (e) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
-              }
-            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
-          }));
-        }
-      }, {
-        key: "processPost",
-        value: function processPost(response) {
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
           var _headers = {};
@@ -5807,6 +6377,90 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           if (status === 200) {
             return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var result200 = null;
+              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this32.jsonParseReviver);
+
+              if (Array.isArray(resultData200)) {
+                result200 = [];
+
+                var _iterator17 = _createForOfIteratorHelper(resultData200),
+                    _step17;
+
+                try {
+                  for (_iterator17.s(); !(_step17 = _iterator17.n()).done;) {
+                    var item = _step17.value;
+                    result200.push(ClaimViewModel.fromJS(item));
+                  }
+                } catch (err) {
+                  _iterator17.e(err);
+                } finally {
+                  _iterator17.f();
+                }
+              }
+
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
+            }));
+          } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+          }
+
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+        }
+      }, {
+        key: "post",
+        value: function post(value) {
+          var _this33 = this;
+
+          var url_ = this.baseUrl + "/api/useradmin/Claim";
+          url_ = url_.replace(/[?&]$/, "");
+          var content_ = JSON.stringify(value);
+          var options_ = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+              "Content-Type": "application/json"
+            })
+          };
+          return this.http.request("post", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this33.processPost(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this33.processPost(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processPost",
+        value: function processPost(response) {
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator18 = _createForOfIteratorHelper(response.headers.keys()),
+                _step18;
+
+            try {
+              for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
+                var key = _step18.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator18.e(err);
+            } finally {
+              _iterator18.f();
+            }
+          }
+
+          if (status === 200) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
               return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
             }));
           } else if (status !== 200 && status !== 204) {
@@ -5820,7 +6474,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getUserForClaim",
         value: function getUserForClaim(id, claimViewModel) {
-          var _this30 = this;
+          var _this34 = this;
 
           var url_ = this.baseUrl + "/api/useradmin/Claim/{id}";
           if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
@@ -5837,11 +6491,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             })
           };
           return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this30.processGetUserForClaim(response_);
+            return _this34.processGetUserForClaim(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this30.processGetUserForClaim(response_);
+                return _this34.processGetUserForClaim(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -5851,91 +6505,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "processGetUserForClaim",
         value: function processGetUserForClaim(response) {
-          var _this31 = this;
+          var _this35 = this;
 
-          var status = response.status;
-          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
-          var _headers = {};
-
-          if (response.headers) {
-            var _iterator17 = _createForOfIteratorHelper(response.headers.keys()),
-                _step17;
-
-            try {
-              for (_iterator17.s(); !(_step17 = _iterator17.n()).done;) {
-                var key = _step17.value;
-                _headers[key] = response.headers.get(key);
-              }
-            } catch (err) {
-              _iterator17.e(err);
-            } finally {
-              _iterator17.f();
-            }
-          }
-
-          if (status === 200) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              var result200 = null;
-              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this31.jsonParseReviver);
-
-              if (Array.isArray(resultData200)) {
-                result200 = [];
-
-                var _iterator18 = _createForOfIteratorHelper(resultData200),
-                    _step18;
-
-                try {
-                  for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
-                    var item = _step18.value;
-                    result200.push(UserViewModel.fromJS(item));
-                  }
-                } catch (err) {
-                  _iterator18.e(err);
-                } finally {
-                  _iterator18.f();
-                }
-              }
-
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
-            }));
-          } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-          }
-
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
-        }
-      }, {
-        key: "delete",
-        value: function _delete(id, claimType) {
-          var _this32 = this;
-
-          var url_ = this.baseUrl + "/api/useradmin/Claim/{id}?";
-          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
-          url_ = url_.replace("{id}", encodeURIComponent("" + id));
-          if (claimType !== undefined) url_ += "claimType=" + encodeURIComponent("" + claimType) + "&";
-          url_ = url_.replace(/[?&]$/, "");
-          var options_ = {
-            observe: "response",
-            responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({})
-          };
-          return this.http.request("delete", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this32.processDelete(response_);
-          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
-            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
-              try {
-                return _this32.processDelete(response_);
-              } catch (e) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
-              }
-            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
-          }));
-        }
-      }, {
-        key: "processDelete",
-        value: function processDelete(response) {
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
           var _headers = {};
@@ -5958,6 +6529,89 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           if (status === 200) {
             return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var result200 = null;
+              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this35.jsonParseReviver);
+
+              if (Array.isArray(resultData200)) {
+                result200 = [];
+
+                var _iterator20 = _createForOfIteratorHelper(resultData200),
+                    _step20;
+
+                try {
+                  for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
+                    var item = _step20.value;
+                    result200.push(UserViewModel.fromJS(item));
+                  }
+                } catch (err) {
+                  _iterator20.e(err);
+                } finally {
+                  _iterator20.f();
+                }
+              }
+
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
+            }));
+          } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+          }
+
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+        }
+      }, {
+        key: "delete",
+        value: function _delete(id, claimType) {
+          var _this36 = this;
+
+          var url_ = this.baseUrl + "/api/useradmin/Claim/{id}?";
+          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
+          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          if (claimType !== undefined) url_ += "claimType=" + encodeURIComponent("" + claimType) + "&";
+          url_ = url_.replace(/[?&]$/, "");
+          var options_ = {
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({})
+          };
+          return this.http.request("delete", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this36.processDelete(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this36.processDelete(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processDelete",
+        value: function processDelete(response) {
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator21 = _createForOfIteratorHelper(response.headers.keys()),
+                _step21;
+
+            try {
+              for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
+                var key = _step21.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator21.e(err);
+            } finally {
+              _iterator21.f();
+            }
+          }
+
+          if (status === 200) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
               return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
             }));
           } else if (status !== 200 && status !== 204) {
@@ -5971,7 +6625,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "put",
         value: function put(id, oldClaimType, newClaimType) {
-          var _this33 = this;
+          var _this37 = this;
 
           var url_ = this.baseUrl + "/api/useradmin/Claim/{id}/{oldClaimType}/{newClaimType}";
           if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
@@ -5987,11 +6641,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({})
           };
           return this.http.request("put", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this33.processPut(response_);
+            return _this37.processPut(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this33.processPut(response_);
+                return _this37.processPut(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -6006,18 +6660,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _headers = {};
 
           if (response.headers) {
-            var _iterator20 = _createForOfIteratorHelper(response.headers.keys()),
-                _step20;
+            var _iterator22 = _createForOfIteratorHelper(response.headers.keys()),
+                _step22;
 
             try {
-              for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
-                var key = _step20.value;
+              for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
+                var key = _step22.value;
                 _headers[key] = response.headers.get(key);
               }
             } catch (err) {
-              _iterator20.e(err);
+              _iterator22.e(err);
             } finally {
-              _iterator20.f();
+              _iterator22.f();
             }
           }
 
@@ -6082,7 +6736,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ApiRole, [{
         key: "get",
         value: function get() {
-          var _this34 = this;
+          var _this38 = this;
 
           var url_ = this.baseUrl + "/api/useradmin/Role";
           url_ = url_.replace(/[?&]$/, "");
@@ -6094,11 +6748,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             })
           };
           return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this34.processGet(response_);
+            return _this38.processGet(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this34.processGet(response_);
+                return _this38.processGet(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -6108,92 +6762,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "processGet",
         value: function processGet(response) {
-          var _this35 = this;
+          var _this39 = this;
 
-          var status = response.status;
-          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
-          var _headers = {};
-
-          if (response.headers) {
-            var _iterator21 = _createForOfIteratorHelper(response.headers.keys()),
-                _step21;
-
-            try {
-              for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
-                var key = _step21.value;
-                _headers[key] = response.headers.get(key);
-              }
-            } catch (err) {
-              _iterator21.e(err);
-            } finally {
-              _iterator21.f();
-            }
-          }
-
-          if (status === 200) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              var result200 = null;
-              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this35.jsonParseReviver);
-
-              if (Array.isArray(resultData200)) {
-                result200 = [];
-
-                var _iterator22 = _createForOfIteratorHelper(resultData200),
-                    _step22;
-
-                try {
-                  for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
-                    var item = _step22.value;
-                    result200.push(RoleViewModel.fromJS(item));
-                  }
-                } catch (err) {
-                  _iterator22.e(err);
-                } finally {
-                  _iterator22.f();
-                }
-              }
-
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
-            }));
-          } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-          }
-
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
-        }
-      }, {
-        key: "post",
-        value: function post(role) {
-          var _this36 = this;
-
-          var url_ = this.baseUrl + "/api/useradmin/Role";
-          url_ = url_.replace(/[?&]$/, "");
-          var content_ = JSON.stringify(role);
-          var options_ = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
-              "Content-Type": "application/json"
-            })
-          };
-          return this.http.request("post", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this36.processPost(response_);
-          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
-            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
-              try {
-                return _this36.processPost(response_);
-              } catch (e) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
-              }
-            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
-          }));
-        }
-      }, {
-        key: "processPost",
-        value: function processPost(response) {
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
           var _headers = {};
@@ -6216,74 +6786,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           if (status === 200) {
             return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
-            }));
-          } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-          }
-
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
-        }
-      }, {
-        key: "getbyId",
-        value: function getbyId(id) {
-          var _this37 = this;
-
-          var url_ = this.baseUrl + "/api/useradmin/Role/{id}";
-          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
-          url_ = url_.replace("{id}", encodeURIComponent("" + id));
-          url_ = url_.replace(/[?&]$/, "");
-          var options_ = {
-            observe: "response",
-            responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
-              "Accept": "application/json"
-            })
-          };
-          return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this37.processGetbyId(response_);
-          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
-            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
-              try {
-                return _this37.processGetbyId(response_);
-              } catch (e) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
-              }
-            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
-          }));
-        }
-      }, {
-        key: "processGetbyId",
-        value: function processGetbyId(response) {
-          var _this38 = this;
-
-          var status = response.status;
-          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
-          var _headers = {};
-
-          if (response.headers) {
-            var _iterator24 = _createForOfIteratorHelper(response.headers.keys()),
-                _step24;
-
-            try {
-              for (_iterator24.s(); !(_step24 = _iterator24.n()).done;) {
-                var key = _step24.value;
-                _headers[key] = response.headers.get(key);
-              }
-            } catch (err) {
-              _iterator24.e(err);
-            } finally {
-              _iterator24.f();
-            }
-          }
-
-          if (status === 200) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
               var result200 = null;
-              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this38.jsonParseReviver);
-              result200 = RoleViewModel.fromJS(resultData200);
+              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this39.jsonParseReviver);
+
+              if (Array.isArray(resultData200)) {
+                result200 = [];
+
+                var _iterator24 = _createForOfIteratorHelper(resultData200),
+                    _step24;
+
+                try {
+                  for (_iterator24.s(); !(_step24 = _iterator24.n()).done;) {
+                    var item = _step24.value;
+                    result200.push(RoleViewModel.fromJS(item));
+                  }
+                } catch (err) {
+                  _iterator24.e(err);
+                } finally {
+                  _iterator24.f();
+                }
+              }
+
               return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
             }));
           } else if (status !== 200 && status !== 204) {
@@ -6295,13 +6818,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
         }
       }, {
-        key: "put",
-        value: function put(id, role) {
-          var _this39 = this;
+        key: "post",
+        value: function post(role) {
+          var _this40 = this;
 
-          var url_ = this.baseUrl + "/api/useradmin/Role/{id}";
-          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
-          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          var url_ = this.baseUrl + "/api/useradmin/Role";
           url_ = url_.replace(/[?&]$/, "");
           var content_ = JSON.stringify(role);
           var options_ = {
@@ -6312,12 +6833,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               "Content-Type": "application/json"
             })
           };
-          return this.http.request("put", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this39.processPut(response_);
+          return this.http.request("post", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this40.processPost(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this39.processPut(response_);
+                return _this40.processPost(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -6325,8 +6846,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "processPut",
-        value: function processPut(response) {
+        key: "processPost",
+        value: function processPost(response) {
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
           var _headers = {};
@@ -6360,9 +6881,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
         }
       }, {
-        key: "delete",
-        value: function _delete(id) {
-          var _this40 = this;
+        key: "getbyId",
+        value: function getbyId(id) {
+          var _this41 = this;
 
           var url_ = this.baseUrl + "/api/useradmin/Role/{id}";
           if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
@@ -6371,14 +6892,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var options_ = {
             observe: "response",
             responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({})
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+              "Accept": "application/json"
+            })
           };
-          return this.http.request("delete", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this40.processDelete(response_);
+          return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this41.processGetbyId(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this40.processDelete(response_);
+                return _this41.processGetbyId(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -6386,8 +6909,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "processDelete",
-        value: function processDelete(response) {
+        key: "processGetbyId",
+        value: function processGetbyId(response) {
+          var _this42 = this;
+
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
           var _headers = {};
@@ -6405,6 +6930,135 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               _iterator26.e(err);
             } finally {
               _iterator26.f();
+            }
+          }
+
+          if (status === 200) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var result200 = null;
+              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this42.jsonParseReviver);
+              result200 = RoleViewModel.fromJS(resultData200);
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
+            }));
+          } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+          }
+
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+        }
+      }, {
+        key: "put",
+        value: function put(id, role) {
+          var _this43 = this;
+
+          var url_ = this.baseUrl + "/api/useradmin/Role/{id}";
+          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
+          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          url_ = url_.replace(/[?&]$/, "");
+          var content_ = JSON.stringify(role);
+          var options_ = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+              "Content-Type": "application/json"
+            })
+          };
+          return this.http.request("put", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this43.processPut(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this43.processPut(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processPut",
+        value: function processPut(response) {
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator27 = _createForOfIteratorHelper(response.headers.keys()),
+                _step27;
+
+            try {
+              for (_iterator27.s(); !(_step27 = _iterator27.n()).done;) {
+                var key = _step27.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator27.e(err);
+            } finally {
+              _iterator27.f();
+            }
+          }
+
+          if (status === 200) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+            }));
+          } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+          }
+
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+        }
+      }, {
+        key: "delete",
+        value: function _delete(id) {
+          var _this44 = this;
+
+          var url_ = this.baseUrl + "/api/useradmin/Role/{id}";
+          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
+          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          url_ = url_.replace(/[?&]$/, "");
+          var options_ = {
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({})
+          };
+          return this.http.request("delete", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this44.processDelete(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this44.processDelete(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processDelete",
+        value: function processDelete(response) {
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator28 = _createForOfIteratorHelper(response.headers.keys()),
+                _step28;
+
+            try {
+              for (_iterator28.s(); !(_step28 = _iterator28.n()).done;) {
+                var key = _step28.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator28.e(err);
+            } finally {
+              _iterator28.f();
             }
           }
 
@@ -6469,7 +7123,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(ApiUser, [{
         key: "get",
         value: function get() {
-          var _this41 = this;
+          var _this45 = this;
 
           var url_ = this.baseUrl + "/api/useradmin/User";
           url_ = url_.replace(/[?&]$/, "");
@@ -6481,11 +7135,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             })
           };
           return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this41.processGet(response_);
+            return _this45.processGet(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this41.processGet(response_);
+                return _this45.processGet(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -6495,92 +7149,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "processGet",
         value: function processGet(response) {
-          var _this42 = this;
+          var _this46 = this;
 
-          var status = response.status;
-          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
-          var _headers = {};
-
-          if (response.headers) {
-            var _iterator27 = _createForOfIteratorHelper(response.headers.keys()),
-                _step27;
-
-            try {
-              for (_iterator27.s(); !(_step27 = _iterator27.n()).done;) {
-                var key = _step27.value;
-                _headers[key] = response.headers.get(key);
-              }
-            } catch (err) {
-              _iterator27.e(err);
-            } finally {
-              _iterator27.f();
-            }
-          }
-
-          if (status === 200) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              var result200 = null;
-              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this42.jsonParseReviver);
-
-              if (Array.isArray(resultData200)) {
-                result200 = [];
-
-                var _iterator28 = _createForOfIteratorHelper(resultData200),
-                    _step28;
-
-                try {
-                  for (_iterator28.s(); !(_step28 = _iterator28.n()).done;) {
-                    var item = _step28.value;
-                    result200.push(UserViewModel.fromJS(item));
-                  }
-                } catch (err) {
-                  _iterator28.e(err);
-                } finally {
-                  _iterator28.f();
-                }
-              }
-
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
-            }));
-          } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-          }
-
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
-        }
-      }, {
-        key: "post",
-        value: function post(user) {
-          var _this43 = this;
-
-          var url_ = this.baseUrl + "/api/useradmin/User";
-          url_ = url_.replace(/[?&]$/, "");
-          var content_ = JSON.stringify(user);
-          var options_ = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
-              "Content-Type": "application/json"
-            })
-          };
-          return this.http.request("post", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this43.processPost(response_);
-          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
-            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
-              try {
-                return _this43.processPost(response_);
-              } catch (e) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
-              }
-            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
-          }));
-        }
-      }, {
-        key: "processPost",
-        value: function processPost(response) {
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
           var _headers = {};
@@ -6603,74 +7173,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           if (status === 200) {
             return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
-            }));
-          } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
-              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-          }
-
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
-        }
-      }, {
-        key: "getById",
-        value: function getById(id) {
-          var _this44 = this;
-
-          var url_ = this.baseUrl + "/api/useradmin/User/{id}";
-          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
-          url_ = url_.replace("{id}", encodeURIComponent("" + id));
-          url_ = url_.replace(/[?&]$/, "");
-          var options_ = {
-            observe: "response",
-            responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
-              "Accept": "application/json"
-            })
-          };
-          return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this44.processGetById(response_);
-          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
-            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
-              try {
-                return _this44.processGetById(response_);
-              } catch (e) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
-              }
-            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
-          }));
-        }
-      }, {
-        key: "processGetById",
-        value: function processGetById(response) {
-          var _this45 = this;
-
-          var status = response.status;
-          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
-          var _headers = {};
-
-          if (response.headers) {
-            var _iterator30 = _createForOfIteratorHelper(response.headers.keys()),
-                _step30;
-
-            try {
-              for (_iterator30.s(); !(_step30 = _iterator30.n()).done;) {
-                var key = _step30.value;
-                _headers[key] = response.headers.get(key);
-              }
-            } catch (err) {
-              _iterator30.e(err);
-            } finally {
-              _iterator30.f();
-            }
-          }
-
-          if (status === 200) {
-            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
               var result200 = null;
-              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this45.jsonParseReviver);
-              result200 = UserViewModel.fromJS(resultData200);
+              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this46.jsonParseReviver);
+
+              if (Array.isArray(resultData200)) {
+                result200 = [];
+
+                var _iterator30 = _createForOfIteratorHelper(resultData200),
+                    _step30;
+
+                try {
+                  for (_iterator30.s(); !(_step30 = _iterator30.n()).done;) {
+                    var item = _step30.value;
+                    result200.push(UserViewModel.fromJS(item));
+                  }
+                } catch (err) {
+                  _iterator30.e(err);
+                } finally {
+                  _iterator30.f();
+                }
+              }
+
               return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
             }));
           } else if (status !== 200 && status !== 204) {
@@ -6682,13 +7205,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
         }
       }, {
-        key: "put",
-        value: function put(id, user) {
-          var _this46 = this;
+        key: "post",
+        value: function post(user) {
+          var _this47 = this;
 
-          var url_ = this.baseUrl + "/api/useradmin/User/{id}";
-          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
-          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          var url_ = this.baseUrl + "/api/useradmin/User";
           url_ = url_.replace(/[?&]$/, "");
           var content_ = JSON.stringify(user);
           var options_ = {
@@ -6699,12 +7220,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               "Content-Type": "application/json"
             })
           };
-          return this.http.request("put", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this46.processPut(response_);
+          return this.http.request("post", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this47.processPost(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this46.processPut(response_);
+                return _this47.processPost(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -6712,8 +7233,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "processPut",
-        value: function processPut(response) {
+        key: "processPost",
+        value: function processPost(response) {
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
           var _headers = {};
@@ -6747,9 +7268,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
         }
       }, {
-        key: "delete",
-        value: function _delete(id) {
-          var _this47 = this;
+        key: "getById",
+        value: function getById(id) {
+          var _this48 = this;
 
           var url_ = this.baseUrl + "/api/useradmin/User/{id}";
           if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
@@ -6758,14 +7279,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var options_ = {
             observe: "response",
             responseType: "blob",
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({})
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+              "Accept": "application/json"
+            })
           };
-          return this.http.request("delete", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
-            return _this47.processDelete(response_);
+          return this.http.request("get", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this48.processGetById(response_);
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
             if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
               try {
-                return _this47.processDelete(response_);
+                return _this48.processGetById(response_);
               } catch (e) {
                 return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
               }
@@ -6773,8 +7296,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }));
         }
       }, {
-        key: "processDelete",
-        value: function processDelete(response) {
+        key: "processGetById",
+        value: function processGetById(response) {
+          var _this49 = this;
+
           var status = response.status;
           var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
           var _headers = {};
@@ -6792,6 +7317,135 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               _iterator32.e(err);
             } finally {
               _iterator32.f();
+            }
+          }
+
+          if (status === 200) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              var result200 = null;
+              var resultData200 = _responseText === "" ? null : JSON.parse(_responseText, _this49.jsonParseReviver);
+              result200 = UserViewModel.fromJS(resultData200);
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(result200);
+            }));
+          } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+          }
+
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+        }
+      }, {
+        key: "put",
+        value: function put(id, user) {
+          var _this50 = this;
+
+          var url_ = this.baseUrl + "/api/useradmin/User/{id}";
+          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
+          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          url_ = url_.replace(/[?&]$/, "");
+          var content_ = JSON.stringify(user);
+          var options_ = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+              "Content-Type": "application/json"
+            })
+          };
+          return this.http.request("put", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this50.processPut(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this50.processPut(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processPut",
+        value: function processPut(response) {
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator33 = _createForOfIteratorHelper(response.headers.keys()),
+                _step33;
+
+            try {
+              for (_iterator33.s(); !(_step33 = _iterator33.n()).done;) {
+                var key = _step33.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator33.e(err);
+            } finally {
+              _iterator33.f();
+            }
+          }
+
+          if (status === 200) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+            }));
+          } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (_responseText) {
+              return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+          }
+
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(null);
+        }
+      }, {
+        key: "delete",
+        value: function _delete(id) {
+          var _this51 = this;
+
+          var url_ = this.baseUrl + "/api/useradmin/User/{id}";
+          if (id === undefined || id === null) throw new Error("The parameter 'id' must be defined.");
+          url_ = url_.replace("{id}", encodeURIComponent("" + id));
+          url_ = url_.replace(/[?&]$/, "");
+          var options_ = {
+            observe: "response",
+            responseType: "blob",
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({})
+          };
+          return this.http.request("delete", url_, options_).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["mergeMap"])(function (response_) {
+            return _this51.processDelete(response_);
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(function (response_) {
+            if (response_ instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponseBase"]) {
+              try {
+                return _this51.processDelete(response_);
+              } catch (e) {
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(e);
+              }
+            } else return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(response_);
+          }));
+        }
+      }, {
+        key: "processDelete",
+        value: function processDelete(response) {
+          var status = response.status;
+          var responseBlob = response instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"] ? response.body : response.error instanceof Blob ? response.error : undefined;
+          var _headers = {};
+
+          if (response.headers) {
+            var _iterator34 = _createForOfIteratorHelper(response.headers.keys()),
+                _step34;
+
+            try {
+              for (_iterator34.s(); !(_step34 = _iterator34.n()).done;) {
+                var key = _step34.value;
+                _headers[key] = response.headers.get(key);
+              }
+            } catch (err) {
+              _iterator34.e(err);
+            } finally {
+              _iterator34.f();
             }
           }
 
@@ -6863,6 +7517,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.email = _data["email"];
             this.passwordHash = _data["passwordHash"];
             this.userName = _data["userName"];
+            this.phoneNumber = _data["phoneNumber"];
           }
         }
       }, {
@@ -6873,6 +7528,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           data["email"] = this.email;
           data["passwordHash"] = this.passwordHash;
           data["userName"] = this.userName;
+          data["phoneNumber"] = this.phoneNumber;
           return data;
         }
       }], [{
@@ -7112,36 +7768,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (Array.isArray(_data["Keys"])) {
               this.keys = [];
 
-              var _iterator33 = _createForOfIteratorHelper(_data["Keys"]),
-                  _step33;
+              var _iterator35 = _createForOfIteratorHelper(_data["Keys"]),
+                  _step35;
 
               try {
-                for (_iterator33.s(); !(_step33 = _iterator33.n()).done;) {
-                  var item = _step33.value;
+                for (_iterator35.s(); !(_step35 = _iterator35.n()).done;) {
+                  var item = _step35.value;
                   this.keys.push(item);
                 }
               } catch (err) {
-                _iterator33.e(err);
+                _iterator35.e(err);
               } finally {
-                _iterator33.f();
+                _iterator35.f();
               }
             }
 
             if (Array.isArray(_data["Values"])) {
               this.values = [];
 
-              var _iterator34 = _createForOfIteratorHelper(_data["Values"]),
-                  _step34;
+              var _iterator36 = _createForOfIteratorHelper(_data["Values"]),
+                  _step36;
 
               try {
-                for (_iterator34.s(); !(_step34 = _iterator34.n()).done;) {
-                  var _item = _step34.value;
+                for (_iterator36.s(); !(_step36 = _iterator36.n()).done;) {
+                  var _item = _step36.value;
                   this.values.push(ModelStateEntry.fromJS(_item));
                 }
               } catch (err) {
-                _iterator34.e(err);
+                _iterator36.e(err);
               } finally {
-                _iterator34.f();
+                _iterator36.f();
               }
             }
 
@@ -7163,36 +7819,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (Array.isArray(this.keys)) {
             data["Keys"] = [];
 
-            var _iterator35 = _createForOfIteratorHelper(this.keys),
-                _step35;
+            var _iterator37 = _createForOfIteratorHelper(this.keys),
+                _step37;
 
             try {
-              for (_iterator35.s(); !(_step35 = _iterator35.n()).done;) {
-                var item = _step35.value;
+              for (_iterator37.s(); !(_step37 = _iterator37.n()).done;) {
+                var item = _step37.value;
                 data["Keys"].push(item);
               }
             } catch (err) {
-              _iterator35.e(err);
+              _iterator37.e(err);
             } finally {
-              _iterator35.f();
+              _iterator37.f();
             }
           }
 
           if (Array.isArray(this.values)) {
             data["Values"] = [];
 
-            var _iterator36 = _createForOfIteratorHelper(this.values),
-                _step36;
+            var _iterator38 = _createForOfIteratorHelper(this.values),
+                _step38;
 
             try {
-              for (_iterator36.s(); !(_step36 = _iterator36.n()).done;) {
-                var _item2 = _step36.value;
+              for (_iterator38.s(); !(_step38 = _iterator38.n()).done;) {
+                var _item2 = _step38.value;
                 data["Values"].push(_item2.toJSON());
               }
             } catch (err) {
-              _iterator36.e(err);
+              _iterator38.e(err);
             } finally {
-              _iterator36.f();
+              _iterator38.f();
             }
           }
 
@@ -7235,18 +7891,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (Array.isArray(_data["errors"])) {
               this.errors = [];
 
-              var _iterator37 = _createForOfIteratorHelper(_data["errors"]),
-                  _step37;
+              var _iterator39 = _createForOfIteratorHelper(_data["errors"]),
+                  _step39;
 
               try {
-                for (_iterator37.s(); !(_step37 = _iterator37.n()).done;) {
-                  var item = _step37.value;
+                for (_iterator39.s(); !(_step39 = _iterator39.n()).done;) {
+                  var item = _step39.value;
                   this.errors.push(ModelError.fromJS(item));
                 }
               } catch (err) {
-                _iterator37.e(err);
+                _iterator39.e(err);
               } finally {
-                _iterator37.f();
+                _iterator39.f();
               }
             }
 
@@ -7263,18 +7919,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (Array.isArray(this.errors)) {
             data["errors"] = [];
 
-            var _iterator38 = _createForOfIteratorHelper(this.errors),
-                _step38;
+            var _iterator40 = _createForOfIteratorHelper(this.errors),
+                _step40;
 
             try {
-              for (_iterator38.s(); !(_step38 = _iterator38.n()).done;) {
-                var item = _step38.value;
+              for (_iterator40.s(); !(_step40 = _iterator40.n()).done;) {
+                var item = _step40.value;
                 data["errors"].push(item.toJSON());
               }
             } catch (err) {
-              _iterator38.e(err);
+              _iterator40.e(err);
             } finally {
-              _iterator38.f();
+              _iterator40.f();
             }
           }
 
@@ -7444,7 +8100,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             this.password = _data["password"];
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
-            this.location = _data["location"];
+            this.phone = _data["phone"];
           }
         }
       }, {
@@ -7455,7 +8111,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           data["password"] = this.password;
           data["firstName"] = this.firstName;
           data["lastName"] = this.lastName;
-          data["location"] = this.location;
+          data["phone"] = this.phone;
           return data;
         }
       }], [{
@@ -7469,6 +8125,48 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }]);
 
       return RegistrationViewModel;
+    }();
+
+    var ChangePasswordViewModel = /*#__PURE__*/function () {
+      function ChangePasswordViewModel(data) {
+        _classCallCheck(this, ChangePasswordViewModel);
+
+        if (data) {
+          for (var property in data) {
+            if (data.hasOwnProperty(property)) this[property] = data[property];
+          }
+        }
+      }
+
+      _createClass(ChangePasswordViewModel, [{
+        key: "init",
+        value: function init(_data) {
+          if (_data) {
+            this.oldPassword = _data["oldPassword"];
+            this.newPassword = _data["newPassword"];
+            this.newPasswordRepeat = _data["newPasswordRepeat"];
+          }
+        }
+      }, {
+        key: "toJSON",
+        value: function toJSON(data) {
+          data = typeof data === 'object' ? data : {};
+          data["oldPassword"] = this.oldPassword;
+          data["newPassword"] = this.newPassword;
+          data["newPasswordRepeat"] = this.newPasswordRepeat;
+          return data;
+        }
+      }], [{
+        key: "fromJS",
+        value: function fromJS(data) {
+          data = typeof data === 'object' ? data : {};
+          var result = new ChangePasswordViewModel();
+          result.init(data);
+          return result;
+        }
+      }]);
+
+      return ChangePasswordViewModel;
     }();
 
     var BaseViewModel = /*#__PURE__*/function () {
@@ -7604,18 +8302,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       var _super5 = _createSuper(ApiException);
 
       function ApiException(message, status, response, headers, result) {
-        var _this48;
+        var _this52;
 
         _classCallCheck(this, ApiException);
 
-        _this48 = _super5.call(this);
-        _this48.isApiException = true;
-        _this48.message = message;
-        _this48.status = status;
-        _this48.response = response;
-        _this48.headers = headers;
-        _this48.result = result;
-        return _this48;
+        _this52 = _super5.call(this);
+        _this52.isApiException = true;
+        _this52.message = message;
+        _this52.status = status;
+        _this52.response = response;
+        _this52.headers = headers;
+        _this52.result = result;
+        return _this52;
       }
 
       _createClass(ApiException, null, [{
@@ -7727,19 +8425,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(MachineDataService, [{
         key: "getChartData",
         value: function getChartData() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-            return regeneratorRuntime.wrap(function _callee11$(_context11) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+            return regeneratorRuntime.wrap(function _callee12$(_context12) {
               while (1) {
-                switch (_context11.prev = _context11.next) {
+                switch (_context12.prev = _context12.next) {
                   case 0:
                     throw new Error('Not implemented');
 
                   case 1:
                   case "end":
-                    return _context11.stop();
+                    return _context12.stop();
                 }
               }
-            }, _callee11);
+            }, _callee12);
           }));
         }
       }, {

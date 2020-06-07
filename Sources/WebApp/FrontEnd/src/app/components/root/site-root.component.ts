@@ -1,11 +1,10 @@
 ﻿import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { AuthService, EmitterService } from '../../services';
-import { Router, LoadChildrenCallback } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'site-root', 
-  templateUrl: 'site-root.component.html',
-  styleUrls: ['site-root.component.scss']
+  templateUrl: 'site-root.component.html'
 })
 export class SiteRootComponent implements OnInit, AfterViewInit {
 
