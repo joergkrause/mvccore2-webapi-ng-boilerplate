@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AccountService, MachineDataService, UserViewModel, MachineViewModel } from '../../services/index';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,7 @@ export class DashboardComponent implements OnInit {
   errors: string;
   isRequesting: boolean;
 
-  constructor(private accountService: AccountService, private machineService: MachineDataService) {
+  constructor(private accountService: AccountService, private machineService: MachineDataService, private router: Router) {
     this.machines = [];
   }
 
@@ -28,6 +29,10 @@ export class DashboardComponent implements OnInit {
     this.machineService.getMachines()
       .then(machines => this.machines = machines)
       .catch(error => this.error = error.message);
+  }
+
+  showProfile() {
+    this.router.navigateByUrl('profile');
   }
 
 }

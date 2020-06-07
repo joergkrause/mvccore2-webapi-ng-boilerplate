@@ -64,22 +64,26 @@ export class AuthService extends BaseService {
   }
 
   public async login(model: ILogonViewModel): Promise<boolean> {
-    const res = await this.api.post(model as LogonViewModel).toPromise<ITokenResponseViewModel>();
-    if (!res) {
-      return Promise.reject();
+    try {
+      const res = await this.api.post(model as LogonViewModel).toPromise<ITokenResponseViewModel>();
+      if (!res) {
+        return Promise.reject('An unknown API error occured');
+      }
+      if (!res.authToken) {
+        return Promise.resolve(false);
+      }
+      // receive the token and store for all upcoming requests
+      localStorage.setItem('auth_token', res.authToken);
+      localStorage.setItem('user_id', res.id);
+      localStorage.setItem('expires_in', res.expiresIn.toString());
+      let currentTime = new Date().getTime().toString();
+      localStorage.setItem('time', currentTime);
+      this._authNavStatusSource.next(true);
+      this.informListeners();
+      return Promise.resolve(true);
+    } catch (e) {
+      return Promise.reject(e);
     }
-    if (!res.authToken) {
-      return Promise.resolve(false);
-    }
-    // receive the token and store for all upcoming requests
-    localStorage.setItem('auth_token', res.authToken);
-    localStorage.setItem('user_id', res.id);
-    localStorage.setItem('expires_in', res.expiresIn.toString());
-    let currentTime = new Date().getTime().toString();
-    localStorage.setItem('time', currentTime);
-    this._authNavStatusSource.next(true);
-    this.informListeners();
-    return Promise.resolve(true);
   }
 
   private async informListeners() {

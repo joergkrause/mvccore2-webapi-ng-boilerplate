@@ -23,11 +23,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
 
     private readonly MachineServiceClient _client;
     private readonly IMapper _mapper;
+    private readonly IAuthorizationService _authService;
 
-    public MachinesController(MachineServiceClient client, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+    public MachinesController(MachineServiceClient client, IAuthorizationService authService, IHttpContextAccessor httpContextAccessor, IMapper mapper)
     {
       _client = client;
       _mapper = mapper;
+      _authService = authService;
       // in case we need the user here we can retrieve the claimsprincipal
       var user = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
       Debug.WriteLine(user, "** USER");
@@ -59,11 +61,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
     {
       if (ModelState.IsValid)
       {
-        var machine = _mapper.Map<MachineDto>(value);
-        var result = await _client.AddMachineAsync(machine);
-        if (result)
-        {
-          return NoContent();
+        // programmatic auth via policy
+        var authResult = await _authService.AuthorizeAsync(User, "ApiAdmin");
+        if (authResult.Succeeded) {
+          var machine = _mapper.Map<MachineDto>(value);
+          var result = await _client.AddMachineAsync(machine);
+          if (result) {
+            return NoContent();
+          }
         }
       }
       return BadRequest(ModelState);

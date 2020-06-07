@@ -49,7 +49,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       return base.SaveChanges();
     }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken)) {
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
       var now = DateTime.Now;
       SaveInterceptor(this.contextProvider?.UserIdentity?.Name, now);
       ValidateInterceptor();

@@ -91,34 +91,29 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       }
     }
 
-    public string GetPasswordHash(ApplicationUserDto userDto) {
-      return RepUsers.Read(u => u.Id == userDto.Id).SingleOrDefault()?.PasswordHash;
+    public bool HasPassword(string id) {
+      return !String.IsNullOrEmpty(SafeFindUserById(id)?.PasswordHash);
     }
 
-    public bool HasPassword(ApplicationUserDto userDto) {
-      return !String.IsNullOrEmpty(RepUsers.Read(u => u.Id == userDto.Id).SingleOrDefault()?.PasswordHash);
+    public string GetPasswordHash(string id) {
+      return SafeFindUserById(id)?.PasswordHash;
     }
 
-    //public void SetPasswordHash(ApplicationUserDto userDto, string passwordHash) {
-    //  var user = FindUserById(userDto.Id);
-    //  if (user != null) {
-    //      userDto.PasswordHash = passwordHash;
-    //      RepUsers.Update(mapper.Map<IdentityUser>(userDto));
-    //  }
-    //}
+    public string GetNormalizedEmail(string id) {
+      return SafeFindUserById(id)?.NormalizedEmail;
+    }
+
+    public string GetUserDtoName(string id) {
+      return SafeFindUserById(id)?.UserName;
+    }
 
     public ApplicationUserDto FindByEmail(string normalizedEmail) {
       var user = RepUsers.Read(r => r.Email == normalizedEmail).SingleOrDefault();
       return user == null ? null : mapper.Map<ApplicationUserDto>(user);
     }
 
-    public string GetEmail(ApplicationUserDto user) {
-      return FindUserById(user.Id)?.Email;
-    }
-
-    public bool GetEmailConfirmed(ApplicationUserDto user) {
-      // TODO: Implement
-      return true;
+    public bool GetEmailConfirmed(string id) {
+      return SafeFindUserById(id)?.EmailConfirmed ?? false;
     }
 
     public string GetNormalizedEmail(ApplicationUserDto user) {
@@ -134,23 +129,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     public void SetEmailConfirmed(ApplicationUserDto userDto, bool confirmed) {
       var user = mapper.Map<IdentityUser>(FindUserById(userDto.Id));
       user.EmailConfirmed = confirmed;
-      RepUsers.Update(user);
-    }
-
-    public void SetNormalizedEmail(ApplicationUserDto userDto, string normalizedEmail) {
-      var user = mapper.Map<IdentityUser>(FindUserById(userDto.Id));
-      user.NormalizedEmail = normalizedEmail;
-      RepUsers.Update(mapper.Map<IdentityUser>(user));
-    }
-
-    public void SetNormalizedUserName(ApplicationUserDto userDto, string normalizedName) {
-      var user = mapper.Map<IdentityUser>(FindUserById(userDto.Id));
-      user.NormalizedUserName = normalizedName;
-      RepUsers.Update(user);
-    }
-    public void SetUserDtoName(ApplicationUserDto userDto, string userName) {
-      var user = SafeFindUser(userDto); 
-      user.UserName = userName;
       RepUsers.Update(user);
     }
 

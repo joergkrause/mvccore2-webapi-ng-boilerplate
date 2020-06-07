@@ -10,7 +10,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     #region Roles
 
-
     public string GetIdentityRoleDtoId(ApplicationIdentityRoleDto roleDto) {
       var role = RepRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).FirstOrDefault();
       return role?.Id;
@@ -103,8 +102,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       return roles;
     }
 
-    public bool IsUserInRole(ApplicationUserDto userDto, string roleName) {
-      var user = SafeFindUser(userDto);
+    public bool IsUserInRole(string id, string roleName) {
+      var user = SafeFindUserById(id);
       var role = RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
       if (role != null) {
         var result = RepUserRoles.Query(r => r.UserId == user.Id && r.RoleId == role.Id).Any();

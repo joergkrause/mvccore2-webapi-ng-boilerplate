@@ -30,7 +30,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     {
       this.authclient = authclient;
       this.mapper = mapper;
-      this.logger = logger;
+      // this.logger = logger;
  //     this.logger.LogDebug(@"CTOR {nameof(CustomUserStore)}");
     }
 
@@ -71,14 +71,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<string> GetEmailAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      // return await authclient.GetEmailAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken: cancellationToken);
       return await Task.FromResult(user.Email);
     }
 
     public async Task<bool> GetEmailConfirmedAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      var result = await authclient.GetEmailConfirmedAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken: cancellationToken);
-      return result;
+      return await authclient.GetEmailConfirmedAsync(user.Id, cancellationToken);
     }
 
     public async Task<string> GetNormalizedEmailAsync(UserViewModel user, CancellationToken cancellationToken)
@@ -93,13 +91,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<string> GetPasswordHashAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      // provide the id only because this is PK in database, it's safer than using the (clear) user name
-      return await authclient.GetPasswordHashAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken);
+      if (!String.IsNullOrEmpty(user.PasswordHash)) {
+        return await Task.FromResult(user.PasswordHash);
+      }
+      return await authclient.GetPasswordHashAsync(user.Id, cancellationToken);
     }
 
     public async Task<string> GetUserIdAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      var result = await authclient.GetUserDtoIdAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken);
       return await Task.FromResult(user.Id);
     }
 
@@ -115,9 +114,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     public async Task<bool> HasPasswordAsync(UserViewModel user, CancellationToken cancellationToken)
     {
       try
-      {
-        await authclient.HasPasswordAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, cancellationToken);
-        return true;
+      {        
+        return await authclient.HasPasswordAsync(user.Id, cancellationToken);
       }
       catch (Exception)
       {
@@ -200,7 +198,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     }
 
     public async Task<bool> IsInRoleAsync(UserViewModel user, string roleName, CancellationToken cancellationToken) {
-      var result = await authclient.IsInRoleAsync(user.Id, user.PasswordHash, true, user.Email, user.UserName, roleName, cancellationToken);
+      var result = await authclient.IsInRoleAsync(user.Id, roleName, cancellationToken);
       return result;
     }
 

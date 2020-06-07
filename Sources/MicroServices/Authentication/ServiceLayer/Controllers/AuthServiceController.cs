@@ -20,7 +20,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
   [Produces("application/json")]  
   [AllowAnonymous]
   public class AuthServiceController : Controller {
-    private IAuthenticationManager _authenticationManager;
+
+    private readonly IAuthenticationManager _authenticationManager;
 
     /// <summary>
     /// Ctor, injects the <see cref="IAuthenticationManager"/>.
@@ -50,28 +51,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
       return _authenticationManager.GetUsers();
     }
 
-    /// <summary>
-    /// The the Id of a user
-    /// </summary>
-    /// <param name="user"></param>
-    /// <returns></returns>
-    [HttpGet]
-    [Route("user/id")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public string GetUserDtoId([FromQuery] ApplicationUserDto user) {
-      return _authenticationManager.GetUserDtoId(user);
-    }
-
-    /// <summary>
+        /// <summary>
     /// Find a user by hashed id.
     /// </summary>
     /// <param name="userId"></param>
     /// <returns></returns>
     [HttpGet]
-    [Route("user/findById/{userId}")]    
-    public ApplicationUserDto FindUserById(string userId) {
-      return _authenticationManager.FindUserById(userId);
+    [Route("user/{id}/findById")]    
+    public ApplicationUserDto FindUserById(string id) {
+      return _authenticationManager.FindUserById(id);
     }
 
     /// <summary>
@@ -86,11 +74,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     }
 
     [HttpGet]
-    [Route("user/name")]
+    [Route("user/{id}/name")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public string GetUserDtoName([FromQuery] ApplicationUserDto user) {
-      return _authenticationManager.GetUserDtoName(user);
+    public string GetUserDtoName([FromRoute] string id) {
+      return _authenticationManager.GetUserDtoName(id);
     }
 
     [HttpPut]
@@ -103,19 +91,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     }
 
     [HttpGet]
-    [Route("user/passwordHash")]
-    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-    [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public string GetPasswordHash([FromQuery] ApplicationUserDto userDto) {
-      return _authenticationManager.GetPasswordHash(userDto);
-    }
-
-    [HttpGet]
-    [Route("user/hasPassword")]
+    [Route("user/{id}/hasPassword")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public bool HasPassword([FromQuery] ApplicationUserDto userDto) {
-      return _authenticationManager.HasPassword(userDto);
+    public bool HasPassword([FromRoute] string id) {
+      return _authenticationManager.HasPassword(id);
     }
 
     [HttpGet]
@@ -125,19 +105,19 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     }
     
     [HttpGet]
-    [Route("user/emailConfirmed")]
+    [Route("user/{id}/emailConfirmed")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public IActionResult GetEmailConfirmed([FromQuery] ApplicationUserDto user) {
-      return Ok(_authenticationManager.GetEmailConfirmed(user));
+    public IActionResult GetEmailConfirmed([FromRoute] string id) {
+      return Ok(_authenticationManager.GetEmailConfirmed(id));
     }
 
     [HttpGet]
-    [Route("user/normalizedEmail")]
+    [Route("user/{id}/normalizedEmail")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public string GetNormalizedEmail([FromQuery] ApplicationUserDto user) {
-      return _authenticationManager.GetNormalizedEmail(user);
+    public string GetNormalizedEmail([FromRoute] string id) {
+      return _authenticationManager.GetNormalizedEmail(id);
     }
 
     [HttpPut]
@@ -156,12 +136,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
       _authenticationManager.SetEmailConfirmed(user, confirmed);
     }
 
-    [HttpPut]
-    [Route("user/normalizedEmail")]
-    [ProducesResponseType(typeof(void), 201)]
+    [HttpGet]
+    [Route("user/{id}/passwordhash")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public void SetNormalizedEmail([FromBody] ApplicationUserDto user, string normalizedEmail) {
-      _authenticationManager.SetNormalizedEmail(user, normalizedEmail);
+    public IActionResult GetPasswordHashAsync([FromRoute] string id) {
+      return Ok(_authenticationManager.GetPasswordHash(id));
     }
 
     #endregion User
@@ -235,11 +215,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
     }
 
     [HttpGet]
-    [Route("role/isInRole")]
+    [Route("role/{id}/isInRole/{roleName}")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(IDictionary<string, string>), (int)HttpStatusCode.BadRequest)]
-    public bool IsInRole([FromQuery] ApplicationUserDto user, string roleName) {
-      return _authenticationManager.IsUserInRole(user, roleName);
+    public bool IsInRole([FromRoute] string id, [FromRoute] string roleName) {
+      return _authenticationManager.IsUserInRole(id, roleName);
     }
 
     [HttpGet]

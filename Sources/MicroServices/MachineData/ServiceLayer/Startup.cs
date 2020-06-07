@@ -37,18 +37,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
       {
         options.AddPolicy("Data:Read:Write", policy =>
         {
-          policy.RequireRole("User");
-          policy.RequireClaim("MachineData", "read", "write");
+          policy.RequireRole("User").RequireClaim("MachineData", "read", "write").Build();
         });
         options.AddPolicy("Data:Read", policy =>
         {
-          policy.RequireRole("User");
-          policy.RequireClaim("MachineData", "read");
+          policy.RequireRole("User").RequireClaim("MachineData", "read").Build();
         });
         options.AddPolicy("Data:Write", policy =>
         {
-          policy.RequireRole("User");
-          policy.RequireClaim("MachineData", "write");
+          policy.RequireRole("User").RequireClaim("MachineData", "write").Build();
         });
       });
       // common API options

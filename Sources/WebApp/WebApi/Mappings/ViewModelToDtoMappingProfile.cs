@@ -78,8 +78,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings {
 
       #region Demo Data
 
-      CreateMap<MachineDto, MachineViewModel>();
-      CreateMap<MachineViewModel, MachineDto>();
+      CreateMap<MachineDto, MachineViewModel>()
+        .ForMember(d => d.StartOperation, opt => opt.MapFrom(v => v.StartOperation.Value.DateTime));
+      CreateMap<MachineViewModel, MachineDto>()
+        .ForMember(v => v.StartOperation, opt => opt.MapFrom(d => d.StartOperation));
+        ;
 
       #endregion
     }

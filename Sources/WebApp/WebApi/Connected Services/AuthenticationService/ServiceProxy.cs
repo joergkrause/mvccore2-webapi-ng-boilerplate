@@ -261,110 +261,18 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<string> GetUserDtoIdAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName)
+        public System.Threading.Tasks.Task<ApplicationUserDto> FindUserByIdAsync(string id)
         {
-            return GetUserDtoIdAsync(id, passwordHash, emailConfirmed, email, userName, System.Threading.CancellationToken.None);
+            return FindUserByIdAsync(id, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<string> GetUserDtoIdAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<ApplicationUserDto> FindUserByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/id?");
-            if (id != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (passwordHash != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("PasswordHash") + "=").Append(System.Uri.EscapeDataString(ConvertToString(passwordHash, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (emailConfirmed != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("EmailConfirmed") + "=").Append(System.Uri.EscapeDataString(ConvertToString(emailConfirmed, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (email != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (userName != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("UserName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
-    
-            var client_ = _httpClient;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
-    
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-    
-                        ProcessResponse(client_, response_);
-    
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200") 
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_).ConfigureAwait(false);
-                            return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ == "400") 
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, string>>(response_, headers_).ConfigureAwait(false);
-                            throw new ApiException<System.Collections.Generic.IDictionary<string, string>>("A server side error occurred.", (int)response_.StatusCode, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        if (status_ != "200" && status_ != "204")
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
-                        }
-            
-                        return default(string);
-                    }
-                    finally
-                    {
-                        if (response_ != null)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-            }
-        }
-    
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<ApplicationUserDto> FindUserByIdAsync(string userId)
-        {
-            return FindUserByIdAsync(userId, System.Threading.CancellationToken.None);
-        }
-    
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<ApplicationUserDto> FindUserByIdAsync(string userId, System.Threading.CancellationToken cancellationToken)
-        {
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/findById/{userId}");
-            urlBuilder_.Replace("{userId}", System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/{id}/findById");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
             try
@@ -485,38 +393,18 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<string> GetUserDtoNameAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName)
+        public System.Threading.Tasks.Task<string> GetUserDtoNameAsync(string id)
         {
-            return GetUserDtoNameAsync(id, passwordHash, emailConfirmed, email, userName, System.Threading.CancellationToken.None);
+            return GetUserDtoNameAsync(id, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<string> GetUserDtoNameAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<string> GetUserDtoNameAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/name?");
-            if (id != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (passwordHash != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("PasswordHash") + "=").Append(System.Uri.EscapeDataString(ConvertToString(passwordHash, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (emailConfirmed != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("EmailConfirmed") + "=").Append(System.Uri.EscapeDataString(ConvertToString(emailConfirmed, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (email != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (userName != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("UserName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/{id}/name");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
             try
@@ -577,130 +465,18 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<string> GetPasswordHashAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName)
+        public System.Threading.Tasks.Task<bool> HasPasswordAsync(string id)
         {
-            return GetPasswordHashAsync(id, passwordHash, emailConfirmed, email, userName, System.Threading.CancellationToken.None);
+            return HasPasswordAsync(id, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<string> GetPasswordHashAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<bool> HasPasswordAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/passwordHash?");
-            if (id != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (passwordHash != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("PasswordHash") + "=").Append(System.Uri.EscapeDataString(ConvertToString(passwordHash, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (emailConfirmed != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("EmailConfirmed") + "=").Append(System.Uri.EscapeDataString(ConvertToString(emailConfirmed, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (email != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (userName != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("UserName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
-    
-            var client_ = _httpClient;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
-    
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-    
-                        ProcessResponse(client_, response_);
-    
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200") 
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_).ConfigureAwait(false);
-                            return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ == "400") 
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, string>>(response_, headers_).ConfigureAwait(false);
-                            throw new ApiException<System.Collections.Generic.IDictionary<string, string>>("A server side error occurred.", (int)response_.StatusCode, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        if (status_ != "200" && status_ != "204")
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
-                        }
-            
-                        return default(string);
-                    }
-                    finally
-                    {
-                        if (response_ != null)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-            }
-        }
-    
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<bool> HasPasswordAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName)
-        {
-            return HasPasswordAsync(id, passwordHash, emailConfirmed, email, userName, System.Threading.CancellationToken.None);
-        }
-    
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<bool> HasPasswordAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName, System.Threading.CancellationToken cancellationToken)
-        {
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/hasPassword?");
-            if (id != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (passwordHash != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("PasswordHash") + "=").Append(System.Uri.EscapeDataString(ConvertToString(passwordHash, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (emailConfirmed != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("EmailConfirmed") + "=").Append(System.Uri.EscapeDataString(ConvertToString(emailConfirmed, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (email != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (userName != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("UserName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/{id}/hasPassword");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
             try
@@ -827,38 +603,18 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<bool> GetEmailConfirmedAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName)
+        public System.Threading.Tasks.Task<bool> GetEmailConfirmedAsync(string id)
         {
-            return GetEmailConfirmedAsync(id, passwordHash, emailConfirmed, email, userName, System.Threading.CancellationToken.None);
+            return GetEmailConfirmedAsync(id, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<bool> GetEmailConfirmedAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<bool> GetEmailConfirmedAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/emailConfirmed?");
-            if (id != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (passwordHash != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("PasswordHash") + "=").Append(System.Uri.EscapeDataString(ConvertToString(passwordHash, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (emailConfirmed != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("EmailConfirmed") + "=").Append(System.Uri.EscapeDataString(ConvertToString(emailConfirmed, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (email != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (userName != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("UserName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/{id}/emailConfirmed");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
             try
@@ -905,6 +661,156 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
                         }
             
                         return default(bool);
+                    }
+                    finally
+                    {
+                        if (response_ != null)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+            }
+        }
+    
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<string> GetNormalizedEmailAsync(string id)
+        {
+            return GetNormalizedEmailAsync(id, System.Threading.CancellationToken.None);
+        }
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<string> GetNormalizedEmailAsync(string id, System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/{id}/normalizedEmail");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+    
+            var client_ = _httpClient;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = ((int)response_.StatusCode).ToString();
+                        if (status_ == "200") 
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_).ConfigureAwait(false);
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == "400") 
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, string>>(response_, headers_).ConfigureAwait(false);
+                            throw new ApiException<System.Collections.Generic.IDictionary<string, string>>("A server side error occurred.", (int)response_.StatusCode, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ != "200" && status_ != "204")
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                        }
+            
+                        return default(string);
+                    }
+                    finally
+                    {
+                        if (response_ != null)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+            }
+        }
+    
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task SetEmailAsync(string email, ApplicationUserDto user)
+        {
+            return SetEmailAsync(email, user, System.Threading.CancellationToken.None);
+        }
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task SetEmailAsync(string email, ApplicationUserDto user, System.Threading.CancellationToken cancellationToken)
+        {
+            if (user == null)
+                throw new System.ArgumentNullException("user");
+    
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/email?");
+            if (email != null) 
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
+    
+            var client_ = _httpClient;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(user, _settings.Value));
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = ((int)response_.StatusCode).ToString();
+                        if (status_ == "201") 
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == "400") 
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, string>>(response_, headers_).ConfigureAwait(false);
+                            throw new ApiException<System.Collections.Generic.IDictionary<string, string>>("A server side error occurred.", (int)response_.StatusCode, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ != "200" && status_ != "204")
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                        }
                     }
                     finally
                     {
@@ -997,38 +903,18 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<string> GetNormalizedEmailAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName)
+        public System.Threading.Tasks.Task<string> GetPasswordHashAsync(string id)
         {
-            return GetNormalizedEmailAsync(id, passwordHash, emailConfirmed, email, userName, System.Threading.CancellationToken.None);
+            return GetPasswordHashAsync(id, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<string> GetNormalizedEmailAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<string> GetPasswordHashAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/normalizedEmail?");
-            if (id != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (passwordHash != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("PasswordHash") + "=").Append(System.Uri.EscapeDataString(ConvertToString(passwordHash, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (emailConfirmed != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("EmailConfirmed") + "=").Append(System.Uri.EscapeDataString(ConvertToString(emailConfirmed, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (email != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (userName != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("UserName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/{id}/passwordhash");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
             try
@@ -1075,162 +961,6 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
                         }
             
                         return default(string);
-                    }
-                    finally
-                    {
-                        if (response_ != null)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-            }
-        }
-    
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task SetNormalizedEmailAsync(string normalizedEmail, ApplicationUserDto user)
-        {
-            return SetNormalizedEmailAsync(normalizedEmail, user, System.Threading.CancellationToken.None);
-        }
-    
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task SetNormalizedEmailAsync(string normalizedEmail, ApplicationUserDto user, System.Threading.CancellationToken cancellationToken)
-        {
-            if (user == null)
-                throw new System.ArgumentNullException("user");
-    
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/normalizedEmail?");
-            if (normalizedEmail != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("normalizedEmail") + "=").Append(System.Uri.EscapeDataString(ConvertToString(normalizedEmail, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
-    
-            var client_ = _httpClient;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(user, _settings.Value));
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("PUT");
-    
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
-    
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-    
-                        ProcessResponse(client_, response_);
-    
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "201") 
-                        {
-                            return;
-                        }
-                        else
-                        if (status_ == "400") 
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, string>>(response_, headers_).ConfigureAwait(false);
-                            throw new ApiException<System.Collections.Generic.IDictionary<string, string>>("A server side error occurred.", (int)response_.StatusCode, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        if (status_ != "200" && status_ != "204")
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (response_ != null)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-            }
-        }
-    
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task SetEmailAsync(string email, ApplicationUserDto user)
-        {
-            return SetEmailAsync(email, user, System.Threading.CancellationToken.None);
-        }
-    
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task SetEmailAsync(string email, ApplicationUserDto user, System.Threading.CancellationToken cancellationToken)
-        {
-            if (user == null)
-                throw new System.ArgumentNullException("user");
-    
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/user/email?");
-            if (email != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
-    
-            var client_ = _httpClient;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(user, _settings.Value));
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("PUT");
-    
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
-    
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-    
-                        ProcessResponse(client_, response_);
-    
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "201") 
-                        {
-                            return;
-                        }
-                        else
-                        if (status_ == "400") 
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, string>>(response_, headers_).ConfigureAwait(false);
-                            throw new ApiException<System.Collections.Generic.IDictionary<string, string>>("A server side error occurred.", (int)response_.StatusCode, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        if (status_ != "200" && status_ != "204")
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
-                            throw new ApiException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
-                        }
                     }
                     finally
                     {
@@ -1786,42 +1516,19 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<bool> IsInRoleAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName, string roleName)
+        public System.Threading.Tasks.Task<bool> IsInRoleAsync(string id, string roleName)
         {
-            return IsInRoleAsync(id, passwordHash, emailConfirmed, email, userName, roleName, System.Threading.CancellationToken.None);
+            return IsInRoleAsync(id, roleName, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<bool> IsInRoleAsync(string id, string passwordHash, bool? emailConfirmed, string email, string userName, string roleName, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<bool> IsInRoleAsync(string id, string roleName, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/role/isInRole?");
-            if (id != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (passwordHash != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("PasswordHash") + "=").Append(System.Uri.EscapeDataString(ConvertToString(passwordHash, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (emailConfirmed != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("EmailConfirmed") + "=").Append(System.Uri.EscapeDataString(ConvertToString(emailConfirmed, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (email != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Email") + "=").Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (userName != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("UserName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (roleName != null) 
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("roleName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(roleName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/role/{id}/isInRole/{roleName}");
+            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Replace("{roleName}", System.Uri.EscapeDataString(ConvertToString(roleName, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
             try
@@ -2512,14 +2219,14 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<string> GetIdentityRoleDtoIdAsync(string id, string name)
+        public System.Threading.Tasks.Task<string> GetIdentityRoleDtoIdAsync(string id, string name, string concurrencyStamp)
         {
-            return GetIdentityRoleDtoIdAsync(id, name, System.Threading.CancellationToken.None);
+            return GetIdentityRoleDtoIdAsync(id, name, concurrencyStamp, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<string> GetIdentityRoleDtoIdAsync(string id, string name, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<string> GetIdentityRoleDtoIdAsync(string id, string name, string concurrencyStamp, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/role/identityId?");
@@ -2531,6 +2238,10 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("Name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
+            if (concurrencyStamp != null) 
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("ConcurrencyStamp") + "=").Append(System.Uri.EscapeDataString(ConvertToString(concurrencyStamp, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
             urlBuilder_.Length--;
     
             var client_ = _httpClient;
@@ -2592,14 +2303,14 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<string> GetIdentityRoleDtoNameAsync(string id, string name)
+        public System.Threading.Tasks.Task<string> GetIdentityRoleDtoNameAsync(string id, string name, string concurrencyStamp)
         {
-            return GetIdentityRoleDtoNameAsync(id, name, System.Threading.CancellationToken.None);
+            return GetIdentityRoleDtoNameAsync(id, name, concurrencyStamp, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<string> GetIdentityRoleDtoNameAsync(string id, string name, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<string> GetIdentityRoleDtoNameAsync(string id, string name, string concurrencyStamp, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/role/identityName?");
@@ -2611,6 +2322,10 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("Name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
+            if (concurrencyStamp != null) 
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("ConcurrencyStamp") + "=").Append(System.Uri.EscapeDataString(ConvertToString(concurrencyStamp, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
             urlBuilder_.Length--;
     
             var client_ = _httpClient;
@@ -2672,14 +2387,14 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<string> GetNormalizedRoleNameAsync(string id, string name)
+        public System.Threading.Tasks.Task<string> GetNormalizedRoleNameAsync(string id, string name, string concurrencyStamp)
         {
-            return GetNormalizedRoleNameAsync(id, name, System.Threading.CancellationToken.None);
+            return GetNormalizedRoleNameAsync(id, name, concurrencyStamp, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<string> GetNormalizedRoleNameAsync(string id, string name, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<string> GetNormalizedRoleNameAsync(string id, string name, string concurrencyStamp, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/AuthService/role/normalizedName?");
@@ -2690,6 +2405,10 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
             if (name != null) 
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("Name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (concurrencyStamp != null) 
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("ConcurrencyStamp") + "=").Append(System.Uri.EscapeDataString(ConvertToString(concurrencyStamp, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
     
@@ -2889,6 +2608,12 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
         [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UserName { get; set; }
     
+        [Newtonsoft.Json.JsonProperty("concurrencyStamp", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ConcurrencyStamp { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("phone", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Phone { get; set; }
+    
     
     }
     
@@ -2930,6 +2655,9 @@ namespace JoergIsAGeek.ServiceProxy.Authentication
     
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("concurrencyStamp", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ConcurrencyStamp { get; set; }
     
     
     }

@@ -73,19 +73,18 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
       var strategy = Context.Database.CreateExecutionStrategy();
       strategy.Execute(() => {
         // need new Context
-        using (var t = Context.Database.BeginTransaction()) {
-          foreach (var model in models) {
-            // the comparer is for both key types, string and int
-            Context.Entry(model).State = EntityState.Modified;
-            var singleResult = Context.SaveChanges() == 1;
-            if (!singleResult) {
-              t.Rollback();
-              break;
-            }
+        using var t = Context.Database.BeginTransaction();
+        foreach (var model in models) {
+          // the comparer is for both key types, string and int
+          Context.Entry(model).State = EntityState.Modified;
+          var singleResult = Context.SaveChanges() == 1;
+          if (!singleResult) {
+            t.Rollback();
+            break;
           }
-          t.Commit();
-          result = true;
         }
+        t.Commit();
+        result = true;
       });
       ((IDbContextPoolable)Context).ResetState();
       return result;
@@ -97,19 +96,18 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
       var result = false;
       var strategy = Context.Database.CreateExecutionStrategy();
       strategy.Execute(() => {
-        using (var t = Context.Database.BeginTransaction()) {
-          foreach (var model in models) {
-            // the comparer is for both key types, string and int
-            Context.Entry(model).State = EntityState.Added;
-            var singleResult = Context.SaveChanges() == 1;
-            if (!singleResult) {
-              t.Rollback();
-              break;
-            }
+        using var t = Context.Database.BeginTransaction();
+        foreach (var model in models) {
+          // the comparer is for both key types, string and int
+          Context.Entry(model).State = EntityState.Added;
+          var singleResult = Context.SaveChanges() == 1;
+          if (!singleResult) {
+            t.Rollback();
+            break;
           }
-          t.Commit();
-          result = true;
         }
+        t.Commit();
+        result = true;
       });
       return result;
     }

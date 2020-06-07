@@ -35,8 +35,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     IEnumerable<ApplicationIdentityRoleDto> GetRoles();
 
     IEnumerable<string> GetRolesForUser(string userId);
-    bool IsUserInRole(ApplicationUserDto user, string roleName);
+    bool IsUserInRole(string id, string roleName);
     IEnumerable<ApplicationUserDto> GetUsersInRole(string roleName);
-
+    
   }
 }

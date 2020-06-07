@@ -15,30 +15,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     ApplicationUserDto FindUserById(string userId);
     ApplicationUserDto FindUserByName(string normalizedUserName);
     string GetNormalizedUserName(ApplicationUserDto user);
-    string GetUserDtoId(ApplicationUserDto user);
-    string GetUserDtoName(ApplicationUserDto user);
-    void SetNormalizedUserName(ApplicationUserDto user, string normalizedName);
-    void SetUserDtoName(ApplicationUserDto user, string userName);
+    string GetUserDtoName(string id);
     IdentityResult UpdateUser(ApplicationUserDto user);
-    string GetPasswordHash(ApplicationUserDto userDto);
 
-    bool HasPassword(ApplicationUserDto userDto);
-
-    // void SetPasswordHash(ApplicationUserDto userDto, string passwordHash);
+    bool HasPassword(string id);
 
     ApplicationUserDto FindByEmail(string normalizedEmail);
-   
-    string GetEmail(ApplicationUserDto user);
-    
-    bool GetEmailConfirmed(ApplicationUserDto user);
+      
+    bool GetEmailConfirmed(string id);
 
-    string GetNormalizedEmail(ApplicationUserDto user);
-    
+    string GetNormalizedEmail(string id);
+    string GetPasswordHash(string id);
     void SetEmail(ApplicationUserDto user, string email);
 
     void SetEmailConfirmed(ApplicationUserDto user, bool confirmed);
-
-    void SetNormalizedEmail(ApplicationUserDto user, string normalizedEmail);
 
     IEnumerable<ApplicationUserDto> GetUsers();
   }

@@ -33,17 +33,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 
-namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
-{
-  public class Startup
-  {
+namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
+  public class Startup {
     /// <summary>
     /// All environment variables we use to configure containerized use this prefix.
     /// </summary>
     const string ENV_PREFIX = "WORKSHOP_";
 
-    public Startup(IWebHostEnvironment env)
-    {
+    public Startup(IWebHostEnvironment env) {
       var builder = new ConfigurationBuilder()
           .SetBasePath(env.ContentRootPath)
           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -55,9 +52,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     public IConfigurationRoot Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
-    {
-      Func<string, string> getEnv = (name) => Environment.GetEnvironmentVariable($"{ENV_PREFIX}{name}", EnvironmentVariableTarget.Machine);
+    public void ConfigureServices(IServiceCollection services) {
+      static string getEnv(string name) => Environment.GetEnvironmentVariable($"{ENV_PREFIX}{name}", EnvironmentVariableTarget.Machine);
       // Add framework services
       services.AddHttpContextAccessor();
       services.AddMvc(option => option.EnableEndpointRouting = false);
@@ -76,26 +72,22 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       var authServiceUri = getEnv($"{nameof(AuthenticationServiceClient)}_backEndUri") ?? Configuration.GetValue<string>($"{nameof(AuthenticationServiceClient)}_backEndUri");
       var machineServiceUri = getEnv($"{nameof(MachineServiceClient)}_backEndUri") ?? Configuration.GetValue<string>($"{nameof(MachineServiceClient)}_backEndUri");
       // Add backend REST services
-      services.AddSingleton(ctx =>
-        {
-          var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
-          var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
-          var backendUri = new Uri(authServiceUri);
-          var httpClient = new HttpClient(degHandler);
-          var apiClientAuthService = new AuthenticationServiceClient(httpClient)
-          {
-            BaseUrl = backendUri.AbsoluteUri
-          };
-          return apiClientAuthService;
-        });
-      services.AddSingleton(ctx =>
-      {
+      services.AddSingleton(ctx => {
+        var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
+        var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
+        var backendUri = new Uri(authServiceUri);
+        var httpClient = new HttpClient(degHandler);
+        var apiClientAuthService = new AuthenticationServiceClient(httpClient) {
+          BaseUrl = backendUri.AbsoluteUri
+        };
+        return apiClientAuthService;
+      });
+      services.AddSingleton(ctx => {
         var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
         var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
         var backendUri = new Uri(machineServiceUri);
         var httpClient = new HttpClient(degHandler);
-        var apiClientMachineService = new MachineServiceClient(httpClient)
-        {
+        var apiClientMachineService = new MachineServiceClient(httpClient) {
           BaseUrl = backendUri.AbsoluteUri
         };
         return apiClientMachineService;
@@ -109,53 +101,53 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       // Or right click solution, "Manage User Secrets" and edit secrets.json in your profile
       // More info: https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.1&tabs=windows
       if (!String.IsNullOrEmpty(Configuration["Authentication:Facebook"])) {
-        services.AddAuthentication().AddFacebook(options =>
-        {
+        services.AddAuthentication().AddFacebook(options => {
           options.AppId = Configuration["Authentication:Facebook:AppId"];
           options.ClientId = Configuration["Authentication:Facebook:ClientId"];
           options.ClientSecret = Configuration["Authentication:Facebook:ClientSecret"];
         });
       }
-      if (!String.IsNullOrEmpty(Configuration["Authentication:Twitter"]))
-      {
-        services.AddAuthentication().AddTwitter(options =>
-        {
+      if (!String.IsNullOrEmpty(Configuration["Authentication:Twitter"])) {
+        services.AddAuthentication().AddTwitter(options => {
           options.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
           options.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
         });
       }
-      if (!String.IsNullOrEmpty(Configuration["Authentication:Microsoft"]))
-      {
-        services.AddAuthentication().AddMicrosoftAccount(options =>
-        {
+      if (!String.IsNullOrEmpty(Configuration["Authentication:Microsoft"])) {
+        services.AddAuthentication().AddMicrosoftAccount(options => {
           options.ClientId = Configuration["Authentication:Facebook:Microsoft:ClientId"];
           options.ClientSecret = Configuration["Authentication:Facebook:Microsoft:ClientSecret"];
         });
       }
       // App specific policies
-      services.AddAuthorization(options =>
-      {
+      services.AddAuthorization(options => {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser()
         .Build();
         // API users just need to have this particular claim to use the API        
-        options.AddPolicy("ApiUser", policy =>
-        {
-          // this is in Roles/UserRoles and connecting it to the policy simplifies the [Authorize] attribute
-          policy.RequireRole("User");
-          // this is in the UserClaims table connected to particular users. weirdguest has no access, all others have access
-          policy.RequireClaim("api_access");
+        // this is in Roles/UserRoles and connecting it to the policy simplifies the [Authorize] attribute
+        // this is in the UserClaims table connected to particular users. weirdguest has no access, all others have access
+        options.AddPolicy("ApiUser", policy => {
+          policy
+          .RequireAuthenticatedUser()
+          .RequireRole("User")
+          .RequireClaim("api_access")
+          .Build();
         });
+        options.AddPolicy("ApiAdmin", policy => {
+          policy
+          .RequireAuthenticatedUser()
+          .RequireRole("Admin")
+          .RequireClaim("api_access").Build();
+        });
+        // More: https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/october/cutting-edge-policy-based-authorization-in-asp-net-core
       });
       // common API options
-      services.Configure<ApiBehaviorOptions>(options =>
-      {
-        options.InvalidModelStateResponseFactory = actionContext =>
-        {
+      services.Configure<ApiBehaviorOptions>(options => {
+        options.InvalidModelStateResponseFactory = actionContext => {
           var errors = actionContext.ModelState
               .Where(e => e.Value.Errors.Count > 0)
-              .Select(e => new
-              {
+              .Select(e => new {
                 Name = e.Key,
                 Message = e.Value.Errors.First().ErrorMessage
               }).ToArray();
@@ -164,24 +156,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
         };
       });
       // for TS generator
-      services.AddOpenApiDocument(cfg =>
-      {
+      services.AddOpenApiDocument(cfg => {
         cfg.Title = "Frontend API";
         cfg.Description = "OpenAPI 3 backend for Angular app.";
         cfg.DocumentName = "v1";
-        cfg.PostProcess = document =>
-        {
-          document.Info.Contact = new OpenApiContact
-          {
+        cfg.PostProcess = document => {
+          document.Info.Contact = new OpenApiContact {
             Name = "Jörg Krause",
             Email = "joerg@krause.net",
             Url = "https://twitter.com/joergisageek"
           };
-          document.Info.License = new OpenApiLicense
-          {
+          document.Info.License = new OpenApiLicense {
             Name = "Use under MIT",
             Url = "https://github.com/joergkrause/mvccore2-webapi-ng-boilerplate/blob/master/LICENSE"
-          };          
+          };
         };
       });
 
@@ -192,46 +180,35 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
     /// <summary>
     /// Unauthenticated ajax or API request returns 403 rather than Redirect to forbidden page
     /// </summary>
-    private static Task DontRedirectAjaxOrApiRequestToForbidden(ResultContext<JwtBearerOptions> ctx)
-    {
+    private static Task DontRedirectAjaxOrApiRequestToForbidden(ResultContext<JwtBearerOptions> ctx) {
       bool isAjaxRequest = ctx.HttpContext.Request.Headers["x-requested-with"] == "XMLHttpRequest";
-      if (isAjaxRequest || (ctx.Request.Path.StartsWithSegments("/api")))
-      {
+      if (isAjaxRequest || (ctx.Request.Path.StartsWithSegments("/api"))) {
         ctx.Response.StatusCode = 403; // this is where the Angular interceptor comes into the game (401 will work, too)
-      }
-      else
-      {
+      } else {
         ctx.Response.StatusCode = 400; // API only
       }
       return Task.CompletedTask;
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
-    {
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory) {
 
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();        
+      if (env.IsDevelopment()) {
+        app.UseDeveloperExceptionPage();
         app.UseSwaggerUi3();
-      }
-      else
-      {
+      } else {
         // TODO: Figure out how to handle global errors with SPA front end??
         app.UseExceptionHandler("/Home/Error");
       }
       app.UseOpenApi();
       app.UseExceptionHandler(
-      builder =>
-      {
-        builder.Run(async context =>
-        {
+      builder => {
+        builder.Run(async context => {
           context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
           context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
           var error = context.Features.Get<IExceptionHandlerFeature>();
-          if (error != null)
-          {
+          if (error != null) {
             context.Response.AddApplicationError(error.Error.Message);
             await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
           }

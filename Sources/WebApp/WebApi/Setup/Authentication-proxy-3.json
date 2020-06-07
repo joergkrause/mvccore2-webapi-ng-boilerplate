@@ -1,5 +1,5 @@
 {
-  "x-generator": "NSwag v13.3.0.0 (NJsonSchema v10.1.11.0 (Newtonsoft.Json v12.0.0.0))",
+  "x-generator": "NSwag v13.6.0.0 (NJsonSchema v10.1.18.0 (Newtonsoft.Json v12.0.0.0))",
   "openapi": "3.0.0",
   "info": {
     "title": "Authentication API",
@@ -117,86 +117,7 @@
         }
       }
     },
-    "/api/AuthService/user/id": {
-      "get": {
-        "tags": [
-          "AuthService"
-        ],
-        "operationId": "AuthService_GetUserDtoId",
-        "parameters": [
-          {
-            "name": "Id",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 1
-          },
-          {
-            "name": "PasswordHash",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 2
-          },
-          {
-            "name": "EmailConfirmed",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "x-position": 3
-          },
-          {
-            "name": "Email",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 4
-          },
-          {
-            "name": "UserName",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 5
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/AuthService/user/findById/{userId}": {
+    "/api/AuthService/user/{id}/findById": {
       "get": {
         "tags": [
           "AuthService"
@@ -204,7 +125,7 @@
         "operationId": "AuthService_FindUserById",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -260,7 +181,7 @@
         }
       }
     },
-    "/api/AuthService/user/name": {
+    "/api/AuthService/user/{id}/name": {
       "get": {
         "tags": [
           "AuthService"
@@ -268,48 +189,14 @@
         "operationId": "AuthService_GetUserDtoName",
         "parameters": [
           {
-            "name": "Id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "nullable": true
             },
             "x-position": 1
-          },
-          {
-            "name": "PasswordHash",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 2
-          },
-          {
-            "name": "EmailConfirmed",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "x-position": 3
-          },
-          {
-            "name": "Email",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 4
-          },
-          {
-            "name": "UserName",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 5
           }
         ],
         "responses": {
@@ -339,86 +226,7 @@
         }
       }
     },
-    "/api/AuthService/user/passwordHash": {
-      "get": {
-        "tags": [
-          "AuthService"
-        ],
-        "operationId": "AuthService_GetPasswordHash",
-        "parameters": [
-          {
-            "name": "Id",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 1
-          },
-          {
-            "name": "PasswordHash",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 2
-          },
-          {
-            "name": "EmailConfirmed",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "x-position": 3
-          },
-          {
-            "name": "Email",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 4
-          },
-          {
-            "name": "UserName",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 5
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/AuthService/user/hasPassword": {
+    "/api/AuthService/user/{id}/hasPassword": {
       "get": {
         "tags": [
           "AuthService"
@@ -426,48 +234,14 @@
         "operationId": "AuthService_HasPassword",
         "parameters": [
           {
-            "name": "Id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "nullable": true
             },
             "x-position": 1
-          },
-          {
-            "name": "PasswordHash",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 2
-          },
-          {
-            "name": "EmailConfirmed",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "x-position": 3
-          },
-          {
-            "name": "Email",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 4
-          },
-          {
-            "name": "UserName",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 5
           }
         ],
         "responses": {
@@ -529,7 +303,7 @@
         }
       }
     },
-    "/api/AuthService/user/emailConfirmed": {
+    "/api/AuthService/user/{id}/emailConfirmed": {
       "get": {
         "tags": [
           "AuthService"
@@ -537,48 +311,14 @@
         "operationId": "AuthService_GetEmailConfirmed",
         "parameters": [
           {
-            "name": "Id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "nullable": true
             },
             "x-position": 1
-          },
-          {
-            "name": "PasswordHash",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 2
-          },
-          {
-            "name": "EmailConfirmed",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "x-position": 3
-          },
-          {
-            "name": "Email",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 4
-          },
-          {
-            "name": "UserName",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 5
           }
         ],
         "responses": {
@@ -606,55 +346,9 @@
             }
           }
         }
-      },
-      "put": {
-        "tags": [
-          "AuthService"
-        ],
-        "operationId": "AuthService_SetEmailConfirmed",
-        "parameters": [
-          {
-            "name": "confirmed",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "x-position": 2
-          }
-        ],
-        "requestBody": {
-          "x-name": "user",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApplicationUserDto"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "201": {
-            "description": ""
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
       }
     },
-    "/api/AuthService/user/normalizedEmail": {
+    "/api/AuthService/user/{id}/normalizedEmail": {
       "get": {
         "tags": [
           "AuthService"
@@ -662,48 +356,14 @@
         "operationId": "AuthService_GetNormalizedEmail",
         "parameters": [
           {
-            "name": "Id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "nullable": true
             },
             "x-position": 1
-          },
-          {
-            "name": "PasswordHash",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 2
-          },
-          {
-            "name": "EmailConfirmed",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "x-position": 3
-          },
-          {
-            "name": "Email",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 4
-          },
-          {
-            "name": "UserName",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 5
           }
         ],
         "responses": {
@@ -716,53 +376,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "AuthService"
-        ],
-        "operationId": "AuthService_SetNormalizedEmail",
-        "parameters": [
-          {
-            "name": "normalizedEmail",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 2
-          }
-        ],
-        "requestBody": {
-          "x-name": "user",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApplicationUserDto"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "201": {
-            "description": ""
           },
           "400": {
             "description": "",
@@ -812,6 +425,99 @@
         "responses": {
           "201": {
             "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/emailConfirmed": {
+      "put": {
+        "tags": [
+          "AuthService"
+        ],
+        "operationId": "AuthService_SetEmailConfirmed",
+        "parameters": [
+          {
+            "name": "confirmed",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationUserDto"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AuthService/user/{id}/passwordhash": {
+      "get": {
+        "tags": [
+          "AuthService"
+        ],
+        "operationId": "AuthService_GetPasswordHash",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "400": {
             "description": "",
@@ -1165,7 +871,7 @@
         }
       }
     },
-    "/api/AuthService/role/isInRole": {
+    "/api/AuthService/role/{id}/isInRole/{roleName}": {
       "get": {
         "tags": [
           "AuthService"
@@ -1173,8 +879,9 @@
         "operationId": "AuthService_IsInRole",
         "parameters": [
           {
-            "name": "Id",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "nullable": true
@@ -1182,48 +889,14 @@
             "x-position": 1
           },
           {
-            "name": "PasswordHash",
-            "in": "query",
+            "name": "roleName",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "nullable": true
             },
             "x-position": 2
-          },
-          {
-            "name": "EmailConfirmed",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "x-position": 3
-          },
-          {
-            "name": "Email",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 4
-          },
-          {
-            "name": "UserName",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 5
-          },
-          {
-            "name": "roleName",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 6
           }
         ],
         "responses": {
@@ -1595,6 +1268,15 @@
               "nullable": true
             },
             "x-position": 2
+          },
+          {
+            "name": "ConcurrencyStamp",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
           }
         ],
         "responses": {
@@ -1648,6 +1330,15 @@
               "nullable": true
             },
             "x-position": 2
+          },
+          {
+            "name": "ConcurrencyStamp",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
           }
         ],
         "responses": {
@@ -1701,6 +1392,15 @@
               "nullable": true
             },
             "x-position": 2
+          },
+          {
+            "name": "ConcurrencyStamp",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
           }
         ],
         "responses": {
@@ -1785,6 +1485,14 @@
           "userName": {
             "type": "string",
             "nullable": true
+          },
+          "concurrencyStamp": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -1833,6 +1541,10 @@
             "nullable": true
           },
           "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "concurrencyStamp": {
             "type": "string",
             "nullable": true
           }

@@ -53,7 +53,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     public bool InsertOrUpdate(T model) {
       ClearChanges();
       // the comparer is for both key types, string and int
-      Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
+      Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default) ? EntityState.Added : EntityState.Modified;
       return Context.SaveChanges() == 1;
     }
 
@@ -70,7 +70,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
         using var t = Context.Database.BeginTransaction();
         foreach (var model in models) {
           // the comparer is for both key types, string and int
-          Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
+          Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default) ? EntityState.Added : EntityState.Modified;
           var singleResult = Context.SaveChanges() == 1;
           if (!singleResult) {
             t.Rollback();
@@ -94,7 +94,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     public async Task<bool> InsertOrUpdateAsync(T model) {
       ClearChanges();
       // the comparer is for both key types, string and int
-      Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
+      Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default) ? EntityState.Added : EntityState.Modified;
       return await Context.SaveChangesAsync() == 1;
     }
 
@@ -106,7 +106,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
         using var t = Context.Database.BeginTransaction();
         foreach (var model in models) {
           // the comparer is for both key types, string and int
-          Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
+          Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default) ? EntityState.Added : EntityState.Modified;
           var singleResult = await Context.SaveChangesAsync() == 1;
           if (!singleResult) {
             t.Rollback();

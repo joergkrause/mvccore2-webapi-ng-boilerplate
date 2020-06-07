@@ -13,6 +13,7 @@ export class LoginFormComponent implements OnInit {
 
   public form: FormGroup;
   public loginInvalid: boolean;
+  public error: boolean;
   public formSubmitAttempt: boolean;
   public errors: string;
   private returnUrl: string;
@@ -42,6 +43,7 @@ export class LoginFormComponent implements OnInit {
 
   async onSubmit() {
     this.loginInvalid = false;
+    this.error = false;
     this.formSubmitAttempt = true;
     if (this.form.valid) {
       try {
@@ -49,10 +51,11 @@ export class LoginFormComponent implements OnInit {
           userName: this.form.get('userName').value,
           password: this.form.get('password').value
         };
-        await this.authService.login(logonModel);
+        this.loginInvalid = !(await this.authService.login(logonModel));
         this.formSubmitAttempt = false;
+        this.router.navigateByUrl('dashboard');
       } catch (err) {
-        this.loginInvalid = true;
+        this.error = true;
         this.errors = err;
       }
     } else {

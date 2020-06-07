@@ -123,10 +123,5 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
       return config.GetConnectionString(typeof(T).Name);
     }
 
-    private static DbContextOptions<T> GetOptions<T>(IConfiguration config) where T : DbContext {
-      var optionBuilder = new DbContextOptionsBuilder<T>();
-      optionBuilder.UseSqlServer(GetCs<T>(config), o => o.EnableRetryOnFailure());
-      return optionBuilder.Options;
-    }
   }
 }

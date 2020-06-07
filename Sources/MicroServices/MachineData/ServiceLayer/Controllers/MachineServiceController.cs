@@ -10,7 +10,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Controllers {
   /// </summary>
   [ApiController]
   [Route("api/[controller]")]
-  [Authorize(Roles = "User, Admin")]
+  [Authorize(Roles = "User")]
   public class MachineServiceController : Controller {
     private IMachineManager _machineManager;
 

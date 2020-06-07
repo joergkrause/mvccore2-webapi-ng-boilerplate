@@ -42,7 +42,7 @@ export const routesConfig: Routes = [
     path: 'profile',
     component: components.ProfileFormComponent,
     data: {
-      mainmenu: true,
+      mainmenu: false,
       title: 'Your profile'
     }
   },
