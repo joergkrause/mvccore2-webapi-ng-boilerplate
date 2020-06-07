@@ -51,6 +51,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     }
 
     public bool InsertOrUpdate(T model) {
+      ClearChanges();
       // the comparer is for both key types, string and int
       Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
       return Context.SaveChanges() == 1;
@@ -62,6 +63,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     /// <param name="models"></param>
     /// <returns></returns>
     public bool InsertOrUpdate(IEnumerable<T> models) {
+      ClearChanges();
       var result = false;
       var strategy = Context.Database.CreateExecutionStrategy();
       strategy.Execute(() => {
@@ -82,6 +84,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     }
 
     public bool Delete(T model) {
+      ClearChanges();
       Context.Entry(model).State = EntityState.Deleted;
       return Context.SaveChanges() == 1;
     }
@@ -89,12 +92,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     #region Async Calls
 
     public async Task<bool> InsertOrUpdateAsync(T model) {
+      ClearChanges();
       // the comparer is for both key types, string and int
       Context.Entry(model).State = EqualityComparer<U>.Default.Equals(model.Id, default(U)) ? EntityState.Added : EntityState.Modified;
       return await Context.SaveChangesAsync() == 1;
     }
 
     public async Task<bool> InsertOrUpdateAsync(IEnumerable<T> models) {
+      ClearChanges();
       var result = false;
       var strategy = Context.Database.CreateExecutionStrategy();
       await strategy.ExecuteAsync(async () => {
@@ -115,11 +120,16 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     }
 
     public async Task<bool> DeleteAsync(T model) {
+      ClearChanges();
       Context.Entry(model).State = EntityState.Deleted;
       return await Context.SaveChangesAsync() == 1;
     }
 
     #endregion
+
+    private void ClearChanges() {
+      Context.ChangeTracker.AcceptAllChanges();
+    }
 
   }
 }

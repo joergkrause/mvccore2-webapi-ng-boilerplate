@@ -1,6 +1,7 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
+using JoergIsAGeek.Workshop.Enterprise.SetupConsole.UoW;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
       var sp = SetupDependencyInjection(config);
       if (TestInitialize(sp)) {
         TestAuthDatebase(sp);
-        TestDemoDatebase(sp);        
+        TestDemoDatebase(sp);
       }
       Console.WriteLine("Done");
     }
@@ -58,6 +59,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
             .AddScoped<IAuthenticationRepository<IdentityUser, string>, AuthenticationRepository<IdentityUser, string>>()
             .AddScoped<IAuthenticationRepository<IdentityUserClaim<string>, string>, AuthenticationRepository<IdentityUserClaim<string>, string>>()
             .AddScoped<IAuthenticationRepository<IdentityUserRole<string>, string>, AuthenticationRepository<IdentityUserRole<string>, string>>()
+            .AddScoped<SetUserUnitOfWork>()
             .BuildServiceProvider();
       //serviceProvider
       //      .GetService<ILoggerFactory>()
@@ -74,19 +76,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
         IEnumerable<string> crossDbUserIds = null;
         init.SeedAuthDb();
         init.SeedAuthData();
-        // simulate business logic, we could combine this in a Unit of Work pattern in case we need transactions
-        var repRole = serviceProvider.GetService<IAuthenticationRepository<IdentityRole, string>>();
-        var repUserRole = serviceProvider.GetService<IAuthenticationRepository<IdentityUserRole<string>, string>>();
-        var repUser = serviceProvider.GetService<IAuthenticationRepository<IdentityUser, string>>();
-        // --> because of Transient we cannot re-use the context
-        // --> Transient is required if we use transactions that close after commit
-        //var userRoles = repRole.Query(r => r.Name == "User");
-        //var userInRole = repUserRole.Query(ur => userRoles.Any(r => r.Id == ur.RoleId));
-        //var userUsers = repUser.Query(u => userInRole.Any(ur => ur.UserId == u.Id));
-        // --> This is far less efficient, so we would add a UoW pattern instead a repo here
-        var userRoles = repRole.Read(r => r.Name == "User").Select(r => r.Id);
-        var userInRole = repUserRole.Read(ur => userRoles.Any(r => r == ur.RoleId)).Select(ur => ur.UserId);
-        var userUsers = repUser.Read(u => userInRole.Any(ur => ur == u.Id));
+        // simulate business logic, we could combine this in a Unit of Work pattern or in case we need transactions
+        var uow = serviceProvider.GetService<SetUserUnitOfWork>();
+        var userUsers = uow.RetrieveMachineUsers();
         userUsers.ToList().ForEach(u => Console.WriteLine($"{u.Id}: {u.UserName}"));
         crossDbUserIds = userUsers.Select(u => u.Id);
         // Demo Data

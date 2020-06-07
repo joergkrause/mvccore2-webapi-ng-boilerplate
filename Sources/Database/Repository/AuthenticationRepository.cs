@@ -49,14 +49,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     public bool Insert(T model)
     {
-      // the comparer is for both key types, string and int
+      ClearChanges();
       Context.Entry(model).State = EntityState.Added;
       return Context.SaveChanges() == 1;
     }
 
     public bool Update(T model)
     {
-      // the comparer is for both key types, string and int
+      ClearChanges();
       Context.Entry(model).State = EntityState.Modified;
       return Context.SaveChanges() == 1;
     }
@@ -68,6 +68,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     /// <returns></returns>
     public bool Update(IEnumerable<T> models)
     {
+      ClearChanges();
       var result = false;
       var strategy = Context.Database.CreateExecutionStrategy();
       strategy.Execute(() => {
@@ -92,6 +93,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     public bool Insert(IEnumerable<T> models)
     {
+      ClearChanges();
       var result = false;
       var strategy = Context.Database.CreateExecutionStrategy();
       strategy.Execute(() => {
@@ -114,6 +116,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     public bool Delete(T model)
     {
+      ClearChanges();
       Context.Entry(model).State = EntityState.Deleted;
       return Context.SaveChanges() == 1;
     }
@@ -122,6 +125,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     public async Task<bool> InsertAsync(T model)
     {
+      ClearChanges();
       // the comparer is for both key types, string and int
       Context.Entry(model).State = EntityState.Added;
       return await Context.SaveChangesAsync() == 1;
@@ -129,6 +133,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     public async Task<bool> UpdateAsync(T model)
     {
+      ClearChanges();
       // the comparer is for both key types, string and int
       Context.Entry(model).State = EntityState.Modified;
       return await Context.SaveChangesAsync() == 1;
@@ -136,6 +141,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     public async Task<bool> InsertAsync(IEnumerable<T> models)
     {
+      ClearChanges();
       var result = false;
       var strategy = Context.Database.CreateExecutionStrategy();
       await strategy.ExecuteAsync(async () => {
@@ -157,6 +163,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
 
     public async Task<bool> UpdateAsync(IEnumerable<T> models)
     {
+      ClearChanges();
       var result = false;
       var strategy = Context.Database.CreateExecutionStrategy();
       await strategy.ExecuteAsync(async () => {
@@ -233,6 +240,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.Repository
     }
 
     #endregion
+    /// <summary>
+    /// We clear the change tracker before any of the SaveChanges calls. That's because otherwise we could
+    /// accidentially write changes values the businsess layer has modified. But that would be unintended
+    /// usage of the simple repository pattern. 
+    /// </summary>
+    private void ClearChanges() {
+      Context.ChangeTracker.AcceptAllChanges();
+    }
+
 
   }
 }
