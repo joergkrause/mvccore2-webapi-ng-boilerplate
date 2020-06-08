@@ -57,9 +57,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
       return mapper.Map<UserViewModel>(user);
     }
 
-    public async Task<UserViewModel> FindByIdAsync(string userId, CancellationToken cancellationToken)
+    public async Task<UserViewModel> FindByIdAsync(string identifier, CancellationToken cancellationToken)
     {
-      var result = await authclient.FindUserByIdAsync(userId, cancellationToken: cancellationToken);
+      var result = await authclient.FindUserByIdAsync(identifier, cancellationToken: cancellationToken);
+      if (result == null) {
+        result = await authclient.FindByEmailAsync(identifier, cancellationToken: cancellationToken);
+      }
       return mapper.Map<UserViewModel>(result);
     }
 
@@ -99,12 +102,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication
 
     public async Task<string> GetUserIdAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      return await Task.FromResult(user.Id);
+      return await Task.FromResult(user.Email);
     }
 
     public async Task<string> GetUserNameAsync(UserViewModel user, CancellationToken cancellationToken)
     {
-      return await Task.FromResult(user.UserName);
+      return await Task.FromResult(user.Email);
     }
 
     public Task<IList<UserViewModel>> GetUsersForClaimAsync(Claim claim, CancellationToken cancellationToken) {

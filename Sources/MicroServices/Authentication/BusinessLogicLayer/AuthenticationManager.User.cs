@@ -83,7 +83,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     }
 
     public IdentityResult UpdateUser(ApplicationUserDto userDto) {
-      if (RepUsers.Update(mapper.Map<IdentityUser>(userDto))) {
+      var user = mapper.Map<IdentityUser>(userDto);
+      var csUser = FindUserById(userDto.Id);
+      user.ConcurrencyStamp = csUser.ConcurrencyStamp;
+      if (RepUsers.Update(user)) {
         return IdentityResult.Success;
       }
       else {
