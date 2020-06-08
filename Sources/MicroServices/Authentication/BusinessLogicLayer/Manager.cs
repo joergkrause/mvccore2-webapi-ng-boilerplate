@@ -1,50 +1,27 @@
 ﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Security.Claims;
 
 namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
   /// <summary>
-  /// Base class that provides all repositories and mapping to DTO types.
+  /// Base class that provides UoW pattern and mapping to DTO types.
+  /// This is an alternative way to show a pattern different from Repository.
+  /// In UoW you work directly on the transactional Context, less abstract but more powerful.
   /// </summary>
-  public abstract class Manager {
+  public abstract class Manager : UnitOfWork {
 
     protected IMapper mapper;
-    private readonly IUserContextProvider userContext;
+    private IUserContextProvider userContext;
 
-    public Manager(IServiceProvider service) {
-      // we pull the repos from container to avoid to many ctor params (see startup.cs for definitions)
-      this.RepRoles = service.GetService<IAuthenticationRepository<IdentityRole, string>>();
-      this.RepUsers = service.GetService<IAuthenticationRepository<IdentityUser, string>>();
-      this.RepUserClaims = service.GetService<IAuthenticationRepository<IdentityUserClaim<string>, string>>();
-      this.RepUserRoles = service.GetService<IAuthenticationRepository<IdentityUserRole<string>, string>>();
-      // user management
-      this.userContext = service.GetService<IUserContextProvider>();
+    public Manager(
+      AuthenticationDataContext context, 
+      IUserContextProvider userContext,
+      IMapper mapper) : base(context) {
+      this.userContext = userContext;
+      this.mapper = mapper;
     }
-
-    #region Authentication
-
-    protected IAuthenticationRepository<IdentityUser, string> RepUsers {
-      get;
-    }
-
-    protected IAuthenticationRepository<IdentityRole, string> RepRoles {
-      get;
-    }
-
-    protected IAuthenticationRepository<IdentityUserClaim<string>, string> RepUserClaims {
-      get;
-    }
-
-    protected IAuthenticationRepository<IdentityUserRole<string>, string> RepUserRoles {
-      get;
-    }
-
-    #endregion
 
     #region User Management
 

@@ -32,6 +32,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
   public class Startup {
@@ -69,25 +70,37 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       // Configuration: 
       //   if an env variable exists we use this, otherwise we fallback to appsettings.json
       //   this way we can configure the services in containers with pre-built images and now access to appsettings.json
-      var authServiceUri = getEnv($"{nameof(AuthenticationServiceClient)}_backEndUri") ?? Configuration.GetValue<string>($"{nameof(AuthenticationServiceClient)}_backEndUri");
+      var authServiceUri = getEnv($"AuthenticationServiceClient_backEndUri") ?? Configuration.GetValue<string>($"AuthenticationServiceClient_backEndUri");
       var machineServiceUri = getEnv($"{nameof(MachineServiceClient)}_backEndUri") ?? Configuration.GetValue<string>($"{nameof(MachineServiceClient)}_backEndUri");
       // Add backend REST services
-      services.AddSingleton(ctx => {
+      HttpClient getClient(IServiceProvider ctx) {
         var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
         var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
-        var backendUri = new Uri(authServiceUri);
         var httpClient = new HttpClient(degHandler);
-        var apiClientAuthService = new AuthenticationServiceClient(httpClient) {
-          BaseUrl = backendUri.AbsoluteUri
+        return httpClient;
+      }
+      var authBackendUri = new Uri(authServiceUri);
+      services.AddSingleton(ctx => {
+        var apiUserService = new UserServiceClient(getClient(ctx)) {
+          BaseUrl = authBackendUri.AbsoluteUri
         };
-        return apiClientAuthService;
+        return apiUserService;
       });
       services.AddSingleton(ctx => {
-        var httpContextAccessor = ctx.GetService<IHttpContextAccessor>();
-        var degHandler = new ApiAuthDelegatingHandler(httpContextAccessor, Configuration);
+        var apiRoleService = new RoleServiceClient(getClient(ctx)) {
+          BaseUrl = authBackendUri.AbsoluteUri
+        };
+        return apiRoleService;
+      });
+      services.AddSingleton(ctx => {
+        var apiClaimsService = new ClaimsServiceClient(getClient(ctx)) {
+          BaseUrl = authBackendUri.AbsoluteUri
+        };
+        return apiClaimsService;
+      });
+      services.AddSingleton(ctx => {
         var backendUri = new Uri(machineServiceUri);
-        var httpClient = new HttpClient(degHandler);
-        var apiClientMachineService = new MachineServiceClient(httpClient) {
+        var apiClientMachineService = new MachineServiceClient(getClient(ctx)) {
           BaseUrl = backendUri.AbsoluteUri
         };
         return apiClientMachineService;

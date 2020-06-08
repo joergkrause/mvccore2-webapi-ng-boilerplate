@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
 {
@@ -21,14 +22,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
         };
         userClaims.Add(userClaim);
       }
-      // This is transactional
-      RepUserClaims.Insert(userClaims);
+      Context.Entry(userClaims).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+      SaveChanges();
     }
 
     public IEnumerable<ClaimDto> GetClaims(string userId) {
       var user = mapper.Map<IdentityUser>(FindUserById(userId));
       var id = user.Id;
-      var claims = RepUserClaims.Read(c => c.UserId == id);
+      var claims = Context.Set<IdentityUserClaim<string>>().Where(c => c.UserId == id);
       var mappedClaims = mapper.Map<IEnumerable<IdentityUserClaim<string>>, IEnumerable<ClaimDto>>(claims);
       return mappedClaims;
     }

@@ -6,14 +6,19 @@
 
       <mat-form-field appearance="legacy">
         <mat-label>First Name</mat-label>
-        <input matInput id="firstName" type="text" formControlName="firstName" placeholder="Your first name" tmFocus appDisableAutofill>
+        <input matInput id="firstName" type="text" #firstName formControlName="firstName" placeholder="Your first name" tmFocus appDisableAutofill>
         <mat-error>Please enter a name</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="legacy">
         <mat-label>Last Name</mat-label>
-        <input matInput id="lastName" type="text" formControlName="lastName" placeholder="Your last name" appDisableAutofill>
+        <input matInput id="lastName" type="text" #lastName formControlName="lastName" placeholder="Your last name" appDisableAutofill>
         <mat-error>Please enter a name</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Your Unique User Name</mat-label>        
+        <input matInput type="text" readonly [value]="getUserName()" />
       </mat-form-field>
 
       <mat-form-field appearance="legacy">

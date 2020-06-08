@@ -1,6 +1,8 @@
-﻿using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
+﻿using AutoMapper;
+using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.Repository;
+using JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Mappings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -60,7 +62,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
           Type = OpenApiSecuritySchemeType.Basic,
           Description = "For testing: Type a space for Username and this value as the password: D99BCD2C-1FD4-4374-B68F-45E84C59D510",
         }));
-      });      
+      });
+      services.AddAutoMapper(typeof(AuthenticationMappingProfile));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

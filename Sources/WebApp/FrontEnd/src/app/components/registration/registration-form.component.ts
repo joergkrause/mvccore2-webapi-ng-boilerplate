@@ -4,6 +4,16 @@ import { Router } from '@angular/router';
 import { AuthService, IRegistrationViewModel } from '../../services/index';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+const umlautMap = {
+  '\u00dc': 'UE',
+  '\u00c4': 'AE',
+  '\u00d6': 'OE',
+  '\u00fc': 'ue',
+  '\u00e4': 'ae',
+  '\u00f6': 'oe',
+  '\u00df': 'ss',
+};
+
 @Component({
   selector: 'registration-form',
   templateUrl: './registration-form.component.html',
@@ -24,11 +34,27 @@ export class RegistrationFormComponent implements OnInit {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       phone: [''],
     });
+  }
 
+  replaceUmlauts(str: string) {
+    return str
+      .replace(/[\u00dc|\u00c4|\u00d6][a-z]/g, (a) => {
+        const big = umlautMap[a.slice(0, 1)];
+        return big.charAt(0) + big.charAt(1).toLowerCase() + a.slice(1);
+      })
+      .replace(new RegExp('[' + Object.keys(umlautMap).join('|') + ']', "g"),
+        (a) => umlautMap[a]
+      );
+  }
+
+  getUserName(): string {
+    const firstName: string = this.form.get('firstName').value || '';
+    const lastName: string = this.form.get('lastName').value || '';
+    return this.replaceUmlauts(`${firstName.toLowerCase()}${lastName.toLowerCase()}`);
   }
 
   registerUser() {

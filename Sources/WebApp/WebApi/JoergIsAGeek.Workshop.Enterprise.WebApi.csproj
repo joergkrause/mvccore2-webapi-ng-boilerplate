@@ -38,6 +38,6 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="nswag openapi2csclient /input:Setup/MachineData-proxy-3.json  /classname:MachineServiceClient /namespace:JoergIsAGeek.ServiceProxy.MachineData /output:&quot;Connected Services/MachineDataService/ServiceProxy.cs&quot; /ParameterDateTimeFormat:System.DateTime &#xD;&#xA;nswag openapi2csclient /input:Setup/Authentication-proxy-3.json  /classname:AuthenticationServiceClient /namespace:JoergIsAGeek.ServiceProxy.Authentication /output:&quot;Connected Services/AuthenticationService/ServiceProxy.cs&quot; /ParameterDateTimeFormat:System.DateTime" />
+    <Exec Command="nswag openapi2csclient /input:Setup/MachineData-proxy-3.json  /classname:MachineServiceClient /namespace:JoergIsAGeek.ServiceProxy.MachineData /output:&quot;Connected Services/MachineDataService/ServiceProxy.cs&quot; /ParameterDateTimeFormat:System.DateTime &#xD;&#xA;nswag openapi2csclient /input:Setup/Authentication-proxy-3.json /namespace:JoergIsAGeek.ServiceProxy.Authentication /output:&quot;Connected Services/AuthenticationService/ServiceProxy.cs&quot; /ParameterDateTimeFormat:System.DateTime" />
   </Target>
 </Project>

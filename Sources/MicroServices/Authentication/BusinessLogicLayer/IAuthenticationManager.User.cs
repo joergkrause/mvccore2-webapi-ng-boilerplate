@@ -12,9 +12,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
   public partial interface IAuthenticationManager
   {
     IdentityResult CreateUser(ApplicationUserDto user);
+    IdentityResult DeleteUser(string id);
     ApplicationUserDto FindUserById(string userId);
     ApplicationUserDto FindUserByName(string normalizedUserName);
-    string GetNormalizedUserName(ApplicationUserDto user);
     string GetUserDtoName(string id);
     IdentityResult UpdateUser(ApplicationUserDto user);
 
@@ -24,11 +24,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
       
     bool GetEmailConfirmed(string id);
 
-    string GetNormalizedEmail(string id);
     string GetPasswordHash(string id);
-    void SetEmail(ApplicationUserDto user, string email);
+    void SetEmail(string userId, string email);
 
-    void SetEmailConfirmed(ApplicationUserDto user, bool confirmed);
+    void SetEmailConfirmed(string userId, bool confirmed);
 
     IEnumerable<ApplicationUserDto> GetUsers();
   }

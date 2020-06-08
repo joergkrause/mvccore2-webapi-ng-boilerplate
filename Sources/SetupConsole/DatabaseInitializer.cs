@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
   internal class DatabaseInitializer {
@@ -55,20 +56,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
       // Get hasher (in UserManager it's being called in the background)
       var hasher = new PasswordHasher<IdentityUser>();
       var guest = new IdentityUser {
-        UserName = "Gerry Guest",
+        UserName = "gerryguest",
         Id = Guid.NewGuid().ToString("N"),
         Email = "gerry@guest.com",
       };
       guest.PasswordHash = hasher.HashPassword(guest, "P@ssw0rd");
       // Assign users to roles
       var user = new IdentityUser {
-        UserName = "Doris Demo",
+        UserName = "dorisdemo",
         Id = Guid.NewGuid().ToString("N"),
         Email = "doris@demo.com"
       };
       user.PasswordHash = hasher.HashPassword(user, "P@ssw0rd");
       var admin = new IdentityUser {
-        UserName = "Andy Admin",
+        UserName = "andyadmin",
         Id = Guid.NewGuid().ToString("N"),
         Email = "andy@admin.com"
       };
@@ -111,6 +112,37 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
           UserId = u.Id
         });
       }
+      // Set profile information in custom claims
+      repIdentityUserClaim.Insert(new IdentityUserClaim<string> {
+        ClaimType = ClaimTypes.GivenName,
+        ClaimValue = "Andy",
+        UserId = admin.Id
+      });
+      repIdentityUserClaim.Insert(new IdentityUserClaim<string> {
+        ClaimType = ClaimTypes.GivenName,
+        ClaimValue = "Doris",
+        UserId = user.Id
+      });
+      repIdentityUserClaim.Insert(new IdentityUserClaim<string> {
+        ClaimType = ClaimTypes.GivenName,
+        ClaimValue = "Gerry",
+        UserId = guest.Id
+      });
+      repIdentityUserClaim.Insert(new IdentityUserClaim<string> {
+        ClaimType = ClaimTypes.Surname,
+        ClaimValue = "Admin",
+        UserId = admin.Id
+      });
+      repIdentityUserClaim.Insert(new IdentityUserClaim<string> {
+        ClaimType = ClaimTypes.Surname,
+        ClaimValue = "Demo",
+        UserId = user.Id
+      });
+      repIdentityUserClaim.Insert(new IdentityUserClaim<string> {
+        ClaimType = ClaimTypes.Surname,
+        ClaimValue = "Guest",
+        UserId = guest.Id
+      });
     }
 
     internal void SeedDemoDb() {

@@ -8,16 +8,18 @@ using VM = JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentica
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
   internal class CustomRoleStore : ID.IRoleStore<VM.RoleViewModel> {
 
-    private readonly AuthenticationServiceClient _authSrvClient;
+    private readonly RoleServiceClient _authSrvClient;
     private readonly IMapper _mapper;
 
-    public CustomRoleStore(AuthenticationServiceClient client, IMapper mapper) {
+    public CustomRoleStore(RoleServiceClient client, IMapper mapper) {
       _authSrvClient = client;
       _mapper = mapper;
     }
 
-    public Task<ID.IdentityResult> CreateAsync(VM.RoleViewModel role, CancellationToken cancellationToken) {
-      throw new System.NotImplementedException();
+    public async Task<ID.IdentityResult> CreateAsync(VM.RoleViewModel role, CancellationToken cancellationToken) {
+      var appRole = _mapper.Map<ApplicationIdentityRoleDto>(role);
+      await _authSrvClient.CreateRoleAsync(appRole, cancellationToken);
+      return ID.IdentityResult.Success;
     }
 
     public Task<ID.IdentityResult> DeleteAsync(VM.RoleViewModel role, CancellationToken cancellationToken) {

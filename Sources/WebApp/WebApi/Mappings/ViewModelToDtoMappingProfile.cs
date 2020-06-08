@@ -16,7 +16,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Mappings {
       # region Auth
       // Map the viewmodels used in angular to the store models
       CreateMap<RegistrationViewModel, UserViewModel>()
-        .ForMember(au => au.UserName, map => map.MapFrom(vm => $"{vm.FirstName} {vm.LastName}".Trim()));
+        .ForMember(au => au.UserName, map => map.MapFrom(vm => $"{vm.FirstName.ToLower()}{vm.LastName.ToLower()}".Trim()));
       // Map the store models to the backend DTOs
       // The name differences is mostly because of the modifications made by the [DataMember] attributes
       // It shows, that shorten of names can save bandwidth between app server and WFE

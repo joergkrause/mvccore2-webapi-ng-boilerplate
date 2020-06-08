@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
 using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -9,43 +10,22 @@ using System.Linq;
 namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
   public partial class AuthenticationManager : Manager, IAuthenticationManager {
 
-    public AuthenticationManager(IServiceProvider service) : base(service) {
-      var mapperConfiguration = new MapperConfiguration(configure => {
-        configure.CreateMap<IdentityUser, ApplicationUserDto>()
-          .ForMember(u => u.Phone, opt => opt.MapFrom(i => i.PhoneNumber));
-        configure.CreateMap<ApplicationUserDto, IdentityUser>()
-          .ForMember(i => i.PhoneNumber, opt => opt.MapFrom(u => u.Phone));
-        configure.CreateMap<IdentityRole, ApplicationIdentityRoleDto>()
-          .ForMember(a => a.Name, opt => opt.MapFrom(i => i.Name))
-          .ForMember(a => a.Id, opt => opt.MapFrom(i => i.Id));
-        configure.CreateMap<ApplicationIdentityRoleDto, IdentityRole>()
-          .ForMember(i => i.Name, opt => opt.MapFrom(a => a.Name))
-          .ForMember(i => i.Id, opt => opt.MapFrom(a => a.Id))
-          .ForMember(i => i.NormalizedName, opt => opt.Ignore());
-        configure.CreateMap<ClaimDto, IdentityUserClaim<string>>();
-        configure.CreateMap<IdentityUserClaim<string>, ClaimDto>();
-      });
-      mapper = mapperConfiguration.CreateMapper();
+    public AuthenticationManager(
+      AuthenticationDataContext context, 
+      IUserContextProvider userContext,
+      IMapper mapper) 
+      : base(context, userContext, mapper) {
     }
 
     private static string GetSecureId() {
       return Guid.NewGuid().ToString("N");
     }
 
-    public IdentityResult CreateRole(ApplicationIdentityRoleDto roleDto) {
-      // this.UserIdentity.HasClaim(c => c.Type == "ADGroup" && c.Value == "xyz");
-      roleDto.Id = GetSecureId();
-      if (RepRoles.Insert(mapper.Map<IdentityRole>(roleDto))) {
-        return IdentityResult.Success;
-      }
-      else {
-        return IdentityResult.Failed();
-      }
-    }
-
     public IdentityResult CreateUser(ApplicationUserDto userDto) {
       userDto.Id = GetSecureId();
-      if (RepUsers.Insert(mapper.Map<IdentityUser>(userDto))) {
+      var user = mapper.Map<IdentityUser>(userDto);
+      Context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+      if (SaveChanges() == 1) {
         return IdentityResult.Success;
       }
       else {
@@ -53,23 +33,14 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       }
     }
 
-    public IdentityResult DeleteRole(string roleId) {
-      if (RepRoles.Delete(new IdentityRole { Id = roleId })) {
+    public IdentityResult DeleteUser(string id) {
+      var user = new IdentityUser { Id = id };
+      Context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+      if (SaveChanges() == 1) {
         return IdentityResult.Success;
-      }
-      else {
+      } else {
         return IdentityResult.Failed();
       }
-    }
-
-    public ApplicationIdentityRoleDto FindRoleById(string roleId) {
-      var role = RepRoles.Read(r => r.Id == roleId).SingleOrDefault();
-      return role != null ? mapper.Map<ApplicationIdentityRoleDto>(role) : null;
-    }
-
-    public ApplicationIdentityRoleDto FindRoleByName(string normalizedRoleName) {
-      var role = RepRoles.Read(r => r.Name == normalizedRoleName).SingleOrDefault();
-      return role == null ? null : mapper.Map<ApplicationIdentityRoleDto>(role);
     }
 
     public ApplicationUserDto FindUserById(string userId) {
@@ -86,7 +57,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       var user = mapper.Map<IdentityUser>(userDto);
       var csUser = FindUserById(userDto.Id);
       user.ConcurrencyStamp = csUser.ConcurrencyStamp;
-      if (RepUsers.Update(user)) {
+      Context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+      if (SaveChanges() == 1) {
         return IdentityResult.Success;
       }
       else {
@@ -102,16 +74,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       return SafeFindUserById(id)?.PasswordHash;
     }
 
-    public string GetNormalizedEmail(string id) {
-      return SafeFindUserById(id)?.NormalizedEmail;
-    }
-
     public string GetUserDtoName(string id) {
       return SafeFindUserById(id)?.UserName;
     }
 
     public ApplicationUserDto FindByEmail(string normalizedEmail) {
-      var user = RepUsers.Read(r => r.Email == normalizedEmail).SingleOrDefault();
+      var user = Context.Set<IdentityUser>().Where(r => r.Email == normalizedEmail).SingleOrDefault();
       return user == null ? null : mapper.Map<ApplicationUserDto>(user);
     }
 
@@ -123,43 +91,31 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       return FindUserById(user.Id)?.Email;
     }
 
-    public void SetEmail(ApplicationUserDto userDto, string email) {
-      var user = FindUserById(userDto.Id);
+    public void SetEmail(string userId, string email) {
+      var user = FindUserById(userId);
       user.Email = email;
-      RepUsers.Update(mapper.Map<IdentityUser>(user));
+      UpdateUser(user);
     }
 
-    public void SetEmailConfirmed(ApplicationUserDto userDto, bool confirmed) {
-      var user = mapper.Map<IdentityUser>(FindUserById(userDto.Id));
+    public void SetEmailConfirmed(string userId, bool confirmed) {
+      var user = FindUserById(userId);
       user.EmailConfirmed = confirmed;
-      RepUsers.Update(user);
+      UpdateUser(user);
     }
 
     public IEnumerable<ApplicationUserDto> GetUsers() {
-      return mapper.Map<IEnumerable<ApplicationUserDto>>(RepUsers.Read(r => true));
+      return mapper.Map<IEnumerable<ApplicationUserDto>>(Context.Set<IdentityUser>().ToList());
     }
 
     #region private helpers
 
-    private IdentityUser SafeFindUser(ApplicationUserDto userDto) {
-      var userObj = FindUserById(userDto.Id);
-      if (userObj == null) {
-        userObj = FindUserByName(userDto.UserName);
-        if (userObj == null) {
-          throw new ArgumentOutOfRangeException("Id");
-        }
-      }
-      var user = mapper.Map<IdentityUser>(userObj);
-      return user;
-    }
-
     private IdentityUser SafeFindUserById(string userId) {
-      var user = RepUsers.Read(u => u.Id == userId).SingleOrDefault();
+      var user = Context.Set<IdentityUser>().SingleOrDefault(u => u.Id == userId);
       return user;
     }
 
     private IdentityUser SafeFindUserByName(string normalizedUserName) {
-      var user = RepUsers.Read(u => u.NormalizedUserName == normalizedUserName || u.UserName == normalizedUserName).SingleOrDefault();
+      var user = Context.Set<IdentityUser>().SingleOrDefault(u => u.NormalizedUserName == normalizedUserName || u.UserName == normalizedUserName);
       return user;
     }
 

@@ -111,6 +111,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       if (result == null || !result.Succeeded) {
         return BadRequest(Errors.AddErrorsToModelState(result, ModelState));
       }
+      // Save additional profile data
+      await _userManager.AddClaimAsync(userIdentity, new Claim(ClaimTypes.Surname, model.LastName));
+      await _userManager.AddClaimAsync(userIdentity, new Claim(ClaimTypes.GivenName, model.FirstName));
+      await _userManager.AddClaimAsync(userIdentity, new Claim(ClaimTypes.HomePhone, model.Phone));
       return Ok("Account created");
     }
 

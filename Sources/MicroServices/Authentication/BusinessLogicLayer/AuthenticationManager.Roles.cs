@@ -10,34 +10,30 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     #region Roles
 
+    public IdentityResult CreateRole(ApplicationIdentityRoleDto roleDto) {
+      roleDto.Id = GetSecureId();
+      var role = mapper.Map<IdentityRole>(roleDto);
+      Context.Entry(role).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+      if (SaveChanges() == 1) {
+        return IdentityResult.Success;
+      } else {
+        return IdentityResult.Failed();
+      }
+    }
+
     public string GetIdentityRoleDtoId(ApplicationIdentityRoleDto roleDto) {
-      var role = RepRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).FirstOrDefault();
+      var role = Context.Set<IdentityRole>().Where(r => r.Id == roleDto.Id || r.Name == roleDto.Name).FirstOrDefault();
       return role?.Id;
     }
 
     public string GetIdentityRoleDtoName(ApplicationIdentityRoleDto roleDto) {
-      var role = RepRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).SingleOrDefault();
+      var role = Context.Set<IdentityRole>().Where(r => r.Id == roleDto.Id || r.Name == roleDto.Name).SingleOrDefault();
       return role?.Name;
     }
 
     public string GetNormalizedRoleName(ApplicationIdentityRoleDto roleDto) {
-      var role = RepRoles.Read(r => r.Id == roleDto.Id || r.Name == roleDto.Name).SingleOrDefault();
+      var role = Context.Set<IdentityRole>().Where(r => r.Id == roleDto.Id || r.Name == roleDto.Name).SingleOrDefault();
       return role?.Name.Trim();
-    }
-
-    public string GetNormalizedUserName(ApplicationUserDto userDto) {
-      var user = RepUsers.Read(r => r.Id == userDto.Id || r.UserName == userDto.UserName).SingleOrDefault();
-      return user?.UserName.Trim();
-    }
-
-    public string GetUserDtoId(ApplicationUserDto userDto) {
-      var user = RepUsers.Read(r => r.Id == userDto.Id || r.UserName == userDto.UserName).SingleOrDefault();
-      return user?.Id;
-    }
-
-    public string GetUserDtoName(ApplicationUserDto userDto) {
-      var user = RepUsers.Read(r => r.Id == userDto.Id || r.UserName == userDto.UserName).SingleOrDefault();
-      return user?.UserName;
     }
 
     public void SetIdentityRoleDtoName(ApplicationIdentityRoleDto role, string roleName) {
@@ -50,7 +46,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
 
     public IdentityResult UpdateRole(ApplicationIdentityRoleDto roleDto) {
-      if (RepRoles.Update(mapper.Map<IdentityRole>(roleDto))) {
+      var role = mapper.Map<IdentityRole>(roleDto);
+      Context.Entry(role).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+      if (SaveChanges() == 1) {
         return IdentityResult.Success;
       }
       else {
@@ -59,7 +57,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     }
 
     public IEnumerable<ApplicationIdentityRoleDto> GetRoles() {
-      return mapper.Map<IEnumerable<ApplicationIdentityRoleDto>>(RepRoles.Read(r => true));
+      return mapper.Map<IEnumerable<ApplicationIdentityRoleDto>>(Context.Set<IdentityRole>());
     }
 
     #endregion
@@ -67,58 +65,79 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     #region UserRoles
 
     public void AddToRole(ApplicationUserDto user, string roleName) {
-      var role = this.RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
+      var role = Context.Set<IdentityRole>().SingleOrDefault(r => r.Name == roleName);
       if (role != null) {
         var newRole = new IdentityUserRole<string> {
           RoleId = role.Id,
           UserId = user.Id
         };
-        this.RepUserRoles.Insert(newRole);
+        Context.Entry(newRole).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+        SaveChanges();
       }
     }
 
     public void RemoveFromRole(ApplicationUserDto user, string roleName) {
-      var role = this.RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
+      var role = Context.Set<IdentityRole>().SingleOrDefault(r => r.Name == roleName);
       if (role != null) {
         var roleToDelete = new IdentityUserRole<string>
         {
           RoleId = role.Id,
           UserId = user.Id
         };
-        this.RepUserRoles.Delete(roleToDelete);
+        Context.Entry(roleToDelete).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+        SaveChanges();
       }
     }
 
     public IEnumerable<string> GetRoles(ApplicationUserDto user) {
       var id = user.Id;
-      var roleIds = RepUserRoles.Read(r => r.UserId == id).Select(r => r.RoleId);
-      var result = RepRoles.Read(r => roleIds.Contains(r.Id));
+      var roleIds = Context.Set<IdentityUserRole<string>>().Where(r => r.UserId == id).Select(r => r.RoleId);
+      var result = Context.Set<IdentityRole>().Where(r => roleIds.Contains(r.Id));
       return result.Select(r => r.Name);
     }
 
     public IEnumerable<string> GetRolesForUser(string userId) {
-      var roleIds = RepUserRoles.Read(r => r.UserId == userId).Select(r => r.RoleId).ToList();
-      var roles = RepRoles.Read(r => roleIds.Contains(r.Id)).Select(r => r.Name);
+      var roleIds = Context.Set<IdentityUserRole<string>>().Where(r => r.UserId == userId).Select(r => r.RoleId).ToList();
+      var roles = Context.Set<IdentityRole>().Where(r => roleIds.Contains(r.Id)).Select(r => r.Name);
       return roles;
     }
 
     public bool IsUserInRole(string id, string roleName) {
       var user = SafeFindUserById(id);
-      var role = RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
+      var role = Context.Set<IdentityRole>().Where(r => r.Name == roleName).SingleOrDefault();
       if (role != null) {
-        var result = RepUserRoles.Query(r => r.UserId == user.Id && r.RoleId == role.Id).Any();
+        var result = Context.Set<IdentityUserRole<string>>().Where(r => r.UserId == user.Id && r.RoleId == role.Id).Any();
         return result;
       }
       return false;
     }
 
     public IEnumerable<ApplicationUserDto> GetUsersInRole(string roleName) {
-      var role = RepRoles.Read(r => r.Name == roleName).SingleOrDefault();
-      var userIds = RepUserRoles.Read(r => r.RoleId == role.Id).Select(r => r.UserId);
-      var users = RepUsers.Read(u => userIds.Contains(u.Id));
+      var role = Context.Set<IdentityRole>().SingleOrDefault(r => r.Name == roleName);
+      var userIds = Context.Set<IdentityUserRole<string>>().Where(r => r.RoleId == role.Id).Select(r => r.UserId);
+      var users = Context.Set<IdentityUser>().Where(u => userIds.Contains(u.Id));
       return mapper.Map<IEnumerable<ApplicationUserDto>>(users);
     }
 
+    public IdentityResult DeleteRole(string roleId) {
+      var role = new IdentityRole { Id = roleId };
+      Context.Entry(role).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+      if (SaveChanges() == 1) {
+        return IdentityResult.Success;
+      } else {
+        return IdentityResult.Failed();
+      }
+    }
+
+    public ApplicationIdentityRoleDto FindRoleById(string roleId) {
+      var role = Context.Set<IdentityRole>().SingleOrDefault(r => r.Id == roleId);
+      return role != null ? mapper.Map<ApplicationIdentityRoleDto>(role) : null;
+    }
+
+    public ApplicationIdentityRoleDto FindRoleByName(string normalizedRoleName) {
+      var role = Context.Set<IdentityRole>().SingleOrDefault(r => r.Name == normalizedRoleName);
+      return role == null ? null : mapper.Map<ApplicationIdentityRoleDto>(role);
+    }
 
     #endregion
 
