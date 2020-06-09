@@ -1,15 +1,7 @@
-<div class="row">
-	<div class="col-md-6">
-		<div class="card">
-			<div class="card-block">
-
-				<h4>Logout</h4>
-
-				<div class="alert alert-warning" *ngIf="!loggedOut">You're about logging out.</div>
-
-				<div class="alert alert-success" *ngIf="loggedOut">You're successfully being logged out.</div>
-
-			</div>
-		</div>
-	</div>
-</div>
+<mat-card>
+  <mat-card-title>Logout</mat-card-title>
+  <mat-card-content>
+    <app-alert *ngIf="!loggedOut" text="You're about logging out." [close]="false" type="success"></app-alert>
+    <app-alert *ngIf="loggedOut" text="You're successfully being logged out." [close]="false" type="warning"></app-alert>
+  </mat-card-content>
+</mat-card>

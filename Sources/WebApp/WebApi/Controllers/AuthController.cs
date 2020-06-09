@@ -101,7 +101,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     [AllowAnonymous]
     [HttpPost("register", Name = "Register")]
     [ProducesResponseType(typeof(string), 200)]
-    [ProducesResponseType(typeof(ModelStateDictionary), 400)]
+    [ProducesResponseType(typeof(ModelStateEntry), 400)]
     public async Task<IActionResult> Post([FromBody] RegistrationViewModel model) {
       if (!ModelState.IsValid) {
         return BadRequest(ModelState);
@@ -121,7 +121,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
 
     [HttpPost("changepassword", Name = "ChangePassword")]
     [ProducesResponseType(typeof(string), 200)]
-    [ProducesResponseType(typeof(ModelStateDictionary), 400)]
+    [ProducesResponseType(typeof(ModelStateEntry), 400)]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel model) {
       if (!ModelState.IsValid) {
         return BadRequest(ModelState);
@@ -140,7 +140,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     [AllowAnonymous]
     [HttpGet("confirmemail", Name = "ConfirmEmail")]
     [ProducesResponseType(typeof(string), 200)]
-    [ProducesResponseType(typeof(ModelStateDictionary), 400)]
+    [ProducesResponseType(typeof(ModelStateEntry), 400)]
     public async Task<IActionResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string confirmation) {
       if (!ModelState.IsValid) {
         return BadRequest(ModelState);
@@ -148,7 +148,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       var user = await _userManager.FindByIdAsync(userId);
       var result = await _userManager.ConfirmEmailAsync(user, confirmation);
       if (result == null || !result.Succeeded) {
-        return BadRequest("Not authorized");
+        return BadRequest(Errors.AddErrorToModelState("Forbidden", "Not authorized", ModelState));
       }
       // TODO: Direct View ?
       return Ok("Email confirmed");

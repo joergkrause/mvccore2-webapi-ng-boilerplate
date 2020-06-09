@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" version="9.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" version="3.1.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../../Database/DomainModels/JoergIsAGeek.Workshop.Enterprise.DomainModels.csproj" PrivateAssets="All" />

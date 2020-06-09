@@ -49,6 +49,8 @@
     <Content Include="src\app\components\registration\registration-form.component.scss" />
     <Content Include="src\app\components\registration\registration-form.component.html" />
     <Content Include="src\app\components\root\site-root.component.html" />
+    <Content Include="src\app\components\shared\alert\alert.component.scss" />
+    <Content Include="src\app\components\shared\alert\alert.component.html" />
     <Content Include="src\app\modules\admin\components\claims\admin-claims.component.scss" />
     <Content Include="src\app\modules\admin\components\claims\admin-claims.component.html" />
     <Content Include="src\app\modules\admin\components\roles\admin-roles.component.scss" />
@@ -78,6 +80,8 @@
     <Folder Include="src\app\components\profile\" />
     <Folder Include="src\app\components\registration\" />
     <Folder Include="src\app\components\root\" />
+    <Folder Include="src\app\components\shared\" />
+    <Folder Include="src\app\components\shared\alert\" />
     <Folder Include="src\app\configurations\" />
     <Folder Include="src\app\directives\" />
     <Folder Include="src\app\guards\" />
@@ -109,6 +113,8 @@
     <TypeScriptCompile Include="src\app\components\profile\profile-form.component.ts" />
     <TypeScriptCompile Include="src\app\components\registration\registration-form.component.ts" />
     <TypeScriptCompile Include="src\app\components\root\site-root.component.ts" />
+    <TypeScriptCompile Include="src\app\components\shared\alert\alert.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\components\shared\alert\alert.component.ts" />
     <TypeScriptCompile Include="src\app\configurations\routes.ts" />
     <TypeScriptCompile Include="src\app\directives\disable-autofill.directive.ts">
       <SubType>Code</SubType>

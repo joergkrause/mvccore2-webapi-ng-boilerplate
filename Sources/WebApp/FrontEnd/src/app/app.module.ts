@@ -49,6 +49,7 @@ import { TokenInterceptorService, API_BASE_URL } from './services/index';
 
 // The admin part is separated to it's own module
 import { AdminModule } from './modules/admin/admin.module';
+import { AlertComponent } from './components/shared/alert/alert.component';
 
 export function getBaseUrl(): string {
   return services.ConfigService.apiURI;
@@ -66,7 +67,8 @@ const material = [MatButtonModule, MatCheckboxModule, MatCardModule, MatTabsModu
     components.RegistrationFormComponent,
     components.ProfileFormComponent,    
     directives.DiableAutofillDirective,
-    directives.RemoveHostDirective
+    directives.RemoveHostDirective,
+    AlertComponent
   ],
   imports: [
     AdminModule,

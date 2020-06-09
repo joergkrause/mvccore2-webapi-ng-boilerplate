@@ -18,7 +18,7 @@
 
       <mat-form-field appearance="legacy">
         <mat-label>Your Unique User Name</mat-label>        
-        <input matInput type="text" formControlName="userName" [value]="getUserName()" />
+        <input matInput type="text" formControlName="userName" [ngModel]="getUserName()" />
         <mat-error *ngIf="form.controls['userName'].invalid && form.controls['userName'].hasError('required')">Please enter a username</mat-error>
         <mat-error *ngIf="form.controls['userName'].invalid && form.controls['userName'].hasError('pattern')">The username must contain only letters and digits</mat-error>
         <mat-hint>This is a unique identifier for logon and password recovery</mat-hint>
@@ -33,8 +33,8 @@
 
       <mat-form-field appearance="legacy">
         <mat-label>Password</mat-label>
-        <input matInput id="password" type="password" formControlName="password" placeholder="Password" appDisableAutofill>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <input matInput id="password" [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Password" appDisableAutofill>
+        <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error>Please enter initial password</mat-error>
@@ -47,12 +47,12 @@
       </mat-form-field>
 
       <button mat-raised-button color="primary" [disabled]="form.invalid || isRequesting">Sign Up</button>
-      <div *ngIf="isRequesting">Registering...</div>
+      <app-alert *ngIf="isRequesting" text="Registering..." [close]="false" type="success"></app-alert>
 
     </form>
   </mat-card-content>
 </mat-card>
-<mat-card *ngIf="errors" role="alert" color="red">
-  <mat-card-title>An error occured</mat-card-title>
-  {{errors}}
-</mat-card>
+<app-alert *ngIf="errors" role="alert" [close]="true" type="danger">
+  <h4>An error occured</h4>
+  <div>{{errors}}</div>
+</app-alert>

@@ -25,9 +25,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     }
 
     public IEnumerable<ClaimDto> GetClaims(string userId) {
-      var user = mapper.Map<IdentityUser>(FindUserById(userId));
-      var id = user.Id;
-      var claims = Context.Set<IdentityUserClaim<string>>().Where(c => c.UserId == id);
+      var claims = Context.Set<IdentityUserClaim<string>>().Where(c => c.UserId == userId);
       var mappedClaims = mapper.Map<IEnumerable<IdentityUserClaim<string>>, IEnumerable<ClaimDto>>(claims);
       return mappedClaims;
     }

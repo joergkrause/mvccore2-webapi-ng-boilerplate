@@ -29,7 +29,7 @@
         </mat-error>
       </mat-form-field>
       <button mat-raised-button color="primary">Login</button>
-      <div *ngIf="formSubmitAttempt">Logging in...</div>
+      <app-alert *ngIf="formSubmitAttempt" text="Logging in..." [close]="false" type="success"></app-alert>
     </form>
   </mat-card-content>
 </mat-card>
