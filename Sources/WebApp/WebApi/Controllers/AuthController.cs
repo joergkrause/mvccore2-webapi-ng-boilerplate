@@ -112,6 +112,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
         return BadRequest(Errors.AddErrorsToModelState(result, ModelState));
       }
       // Save additional profile data
+      userIdentity = await _userManager.FindByEmailAsync(model.Email);
       await _userManager.AddClaimAsync(userIdentity, new Claim(ClaimTypes.Surname, model.LastName));
       await _userManager.AddClaimAsync(userIdentity, new Claim(ClaimTypes.GivenName, model.FirstName));
       await _userManager.AddClaimAsync(userIdentity, new Claim(ClaimTypes.HomePhone, model.Phone));

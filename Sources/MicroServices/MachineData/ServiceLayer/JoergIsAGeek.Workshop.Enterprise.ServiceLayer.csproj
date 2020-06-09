@@ -12,6 +12,7 @@
     <ProjectReference Include="../../ServiceBase/JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj" />
     <ProjectReference Include="../BusinessLogicLayer/JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.csproj" />
     <ProjectReference Include="../DataTransferObjects/JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.csproj" />
+       
   </ItemGroup>
 
 </Project>

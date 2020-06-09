@@ -2019,6 +2019,7 @@ export interface ILogonViewModel {
 export class RegistrationViewModel implements IRegistrationViewModel {
     email!: string;
     password!: string;
+    userName!: string;
     firstName!: string;
     lastName!: string;
     phone?: string | undefined;
@@ -2036,6 +2037,7 @@ export class RegistrationViewModel implements IRegistrationViewModel {
         if (_data) {
             this.email = _data["email"];
             this.password = _data["password"];
+            this.userName = _data["userName"];
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
             this.phone = _data["phone"];
@@ -2053,6 +2055,7 @@ export class RegistrationViewModel implements IRegistrationViewModel {
         data = typeof data === 'object' ? data : {};
         data["email"] = this.email;
         data["password"] = this.password;
+        data["userName"] = this.userName;
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
         data["phone"] = this.phone;
@@ -2063,6 +2066,7 @@ export class RegistrationViewModel implements IRegistrationViewModel {
 export interface IRegistrationViewModel {
     email: string;
     password: string;
+    userName: string;
     firstName: string;
     lastName: string;
     phone?: string | undefined;

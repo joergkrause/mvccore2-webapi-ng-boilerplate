@@ -53,11 +53,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
       return user == null ? null : mapper.Map<ApplicationUserDto>(user);
     }
 
-    public IdentityResult UpdateUser(ApplicationUserDto userDto) {
-      var user = mapper.Map<IdentityUser>(userDto);
+    public IdentityResult UpdateUser(ApplicationUserDto userDto) {      
       var csUser = FindUserById(userDto.Id);
-      user.ConcurrencyStamp = csUser.ConcurrencyStamp;
-      Context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+      csUser.UserName = userDto.UserName;
+      csUser.Email = userDto.Email;
+      csUser.EmailConfirmed = userDto.EmailConfirmed;
+      csUser.PasswordHash = userDto.PasswordHash;
+      csUser.Phone = userDto.Phone;
       if (SaveChanges() == 1) {
         return IdentityResult.Success;
       }

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "ng build",
+    "clean": "",
     "debug": "ng serve",
     "proxy": "nswag openapi2tsclient /input:http://localhost:5000/swagger/v1/swagger.json /output:src/app/services/lib/frontendapi.services.ts /classname:Api{controller} /httpclass:HttpClient /template:angular /InjectionTokenType:InjectionToken"
   },

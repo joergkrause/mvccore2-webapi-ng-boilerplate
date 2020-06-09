@@ -12,7 +12,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     #region Claims
 
     public void AddClaims(string userId, IEnumerable<ClaimDto> claims) {
-      var userClaims = new List<IdentityUserClaim<string>>();
       foreach (var claim in claims) {
         var userClaim = new IdentityUserClaim<string>
         {
@@ -20,9 +19,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
           ClaimValue = claim.ClaimValue,
           UserId = userId
         };
-        userClaims.Add(userClaim);
-      }
-      Context.Entry(userClaims).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+        Context.Entry(userClaim).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+      }      
       SaveChanges();
     }
 
@@ -35,11 +33,23 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer
     }
 
     public void ReplaceClaim(string userId, ClaimDto claim, ClaimDto newClaim) {
-      throw new NotImplementedException();
+      var userClaim = Context.Set<IdentityUserClaim<string>>().SingleOrDefault(c => c.ClaimType == claim.ClaimType && c.UserId == userId);
+      if (userClaim != null) {
+        userClaim.ClaimValue = newClaim.ClaimValue;
+        userClaim.ClaimType = newClaim.ClaimType;
+        Context.Entry(userClaim).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+      }
+      SaveChanges();
     }
 
     public void RemoveClaims(string userId, IEnumerable<ClaimDto> claims) {
-      throw new NotImplementedException();
+      foreach (var claim in claims) {        
+        var userClaim = Context.Set<IdentityUserClaim<string>>().SingleOrDefault(c => c.ClaimType == claim.ClaimType && c.UserId == userId);
+        if (userClaim != null) {
+          Context.Entry(userClaim).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+        }
+      }
+      SaveChanges();
     }
 
     #endregion

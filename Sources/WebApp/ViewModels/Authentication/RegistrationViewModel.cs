@@ -8,9 +8,17 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authenticat
     [EmailAddress]
     [StringLength(200)]
     public string Email { get; set; }
+    
     [Required]
     [DataType(DataType.Password)]
     public string Password { get; set; }
+
+    [Required]
+    [StringLength(160)]
+    public string UserName { get; set; }
+
+    #region Profile Claims
+
     [Required]
     [StringLength(80)]
     public string FirstName { get; set; }
@@ -21,5 +29,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authenticat
     [Phone]
     [StringLength(80)]
     public string Phone { get; set; }
+
+    #endregion
   }
 }
