@@ -15,7 +15,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
   /// All users, including guests, can use this. But they have to have a valid account.
   /// </summary>
   [Route("api/[controller]")]
-  [Authorize()]
+  [Authorize(Policy = "ApiUser")]
   public class AccountsController : ControllerBase
   {
 
@@ -29,7 +29,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
     }
 
     /// <summary>
-    /// Information about the currently logged on user.
+    /// Information about the currently logged on user. 
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

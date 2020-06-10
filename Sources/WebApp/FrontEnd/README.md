@@ -1,3 +1,5 @@
-# JoergIsAGeek.Workshop.Enterprise.FrontEnd
+# FrontEnd
 
-Pure static Frontend using Angular 9, Bootstrap 4 and the WebAPI as Backend service.
+Pure static Frontend using Angular 9, Angular Material and the WebAPI as Backend service.
+
+

@@ -17,7 +17,7 @@ export class AlertComponent implements OnInit {
   text: string;
 
   @Input()
-  type: AlertType;
+  type: AlertType = AlertType.success;
 
   @Input()
   close: boolean;
@@ -25,7 +25,6 @@ export class AlertComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.type = AlertType.success;
     this.close = false;
   }
 

@@ -252,7 +252,7 @@ export class ApiAuth {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
             let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = ModelStateDictionary.fromJS(resultData400);
+            result400 = AuthenticationErrorViewModel.fromJS(resultData400);
             return throwException("A server side error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -311,7 +311,7 @@ export class ApiAuth {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
             let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = ModelStateEntry.fromJS(resultData400);
+            result400 = AuthenticationErrorViewModel.fromJS(resultData400);
             return throwException("A server side error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -429,7 +429,7 @@ export class ApiAuth {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
             let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = ModelStateEntry.fromJS(resultData400);
+            result400 = AuthenticationErrorViewModel.fromJS(resultData400);
             return throwException("A server side error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1739,19 +1739,11 @@ export interface ITokenResponseViewModel {
     expiresIn?: number;
 }
 
-export class ModelStateDictionary implements IModelStateDictionary {
-    root?: ModelStateEntry | undefined;
-    maxAllowedErrors?: number;
-    hasReachedMaxErrors?: boolean;
+export class AuthenticationErrorViewModel implements IAuthenticationErrorViewModel {
     errorCount?: number;
-    count?: number;
-    keys?: string[];
-    values?: ModelStateEntry[];
-    isValid?: boolean;
-    validationState?: ModelValidationState;
-    item?: ModelStateEntry | undefined;
+    errors?: string[] | undefined;
 
-    constructor(data?: IModelStateDictionary) {
+    constructor(data?: IAuthenticationErrorViewModel) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1762,69 +1754,133 @@ export class ModelStateDictionary implements IModelStateDictionary {
 
     init(_data?: any) {
         if (_data) {
-            this.root = _data["Root"] ? ModelStateEntry.fromJS(_data["Root"]) : <any>undefined;
-            this.maxAllowedErrors = _data["MaxAllowedErrors"];
-            this.hasReachedMaxErrors = _data["HasReachedMaxErrors"];
-            this.errorCount = _data["ErrorCount"];
-            this.count = _data["Count"];
-            if (Array.isArray(_data["Keys"])) {
-                this.keys = [] as any;
-                for (let item of _data["Keys"])
-                    this.keys!.push(item);
+            this.errorCount = _data["errorCount"];
+            if (Array.isArray(_data["errors"])) {
+                this.errors = [] as any;
+                for (let item of _data["errors"])
+                    this.errors!.push(item);
             }
-            if (Array.isArray(_data["Values"])) {
-                this.values = [] as any;
-                for (let item of _data["Values"])
-                    this.values!.push(ModelStateEntry.fromJS(item));
-            }
-            this.isValid = _data["IsValid"];
-            this.validationState = _data["ValidationState"];
-            this.item = _data["Item"] ? ModelStateEntry.fromJS(_data["Item"]) : <any>undefined;
         }
     }
 
-    static fromJS(data: any): ModelStateDictionary {
+    static fromJS(data: any): AuthenticationErrorViewModel {
         data = typeof data === 'object' ? data : {};
-        let result = new ModelStateDictionary();
+        let result = new AuthenticationErrorViewModel();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["Root"] = this.root ? this.root.toJSON() : <any>undefined;
-        data["MaxAllowedErrors"] = this.maxAllowedErrors;
-        data["HasReachedMaxErrors"] = this.hasReachedMaxErrors;
-        data["ErrorCount"] = this.errorCount;
-        data["Count"] = this.count;
-        if (Array.isArray(this.keys)) {
-            data["Keys"] = [];
-            for (let item of this.keys)
-                data["Keys"].push(item);
+        data["errorCount"] = this.errorCount;
+        if (Array.isArray(this.errors)) {
+            data["errors"] = [];
+            for (let item of this.errors)
+                data["errors"].push(item);
         }
-        if (Array.isArray(this.values)) {
-            data["Values"] = [];
-            for (let item of this.values)
-                data["Values"].push(item.toJSON());
-        }
-        data["IsValid"] = this.isValid;
-        data["ValidationState"] = this.validationState;
-        data["Item"] = this.item ? this.item.toJSON() : <any>undefined;
         return data; 
     }
 }
 
-export interface IModelStateDictionary {
-    root?: ModelStateEntry | undefined;
-    maxAllowedErrors?: number;
-    hasReachedMaxErrors?: boolean;
+export interface IAuthenticationErrorViewModel {
     errorCount?: number;
-    count?: number;
-    keys?: string[];
-    values?: ModelStateEntry[];
-    isValid?: boolean;
-    validationState?: ModelValidationState;
-    item?: ModelStateEntry | undefined;
+    errors?: string[] | undefined;
+}
+
+export class LogonViewModel implements ILogonViewModel {
+    userName!: string;
+    password!: string;
+
+    constructor(data?: ILogonViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.userName = _data["userName"];
+            this.password = _data["password"];
+        }
+    }
+
+    static fromJS(data: any): LogonViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new LogonViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userName"] = this.userName;
+        data["password"] = this.password;
+        return data; 
+    }
+}
+
+export interface ILogonViewModel {
+    userName: string;
+    password: string;
+}
+
+export class RegistrationViewModel implements IRegistrationViewModel {
+    email!: string;
+    password!: string;
+    userName!: string;
+    firstName!: string;
+    lastName!: string;
+    phone?: string | undefined;
+
+    constructor(data?: IRegistrationViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.email = _data["email"];
+            this.password = _data["password"];
+            this.userName = _data["userName"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.phone = _data["phone"];
+        }
+    }
+
+    static fromJS(data: any): RegistrationViewModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegistrationViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["password"] = this.password;
+        data["userName"] = this.userName;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["phone"] = this.phone;
+        return data; 
+    }
+}
+
+export interface IRegistrationViewModel {
+    email: string;
+    password: string;
+    userName: string;
+    firstName: string;
+    lastName: string;
+    phone?: string | undefined;
 }
 
 export abstract class ModelStateEntry implements IModelStateEntry {
@@ -1976,102 +2032,6 @@ export enum ModelValidationState {
     Skipped = 3,
 }
 
-export class LogonViewModel implements ILogonViewModel {
-    userName!: string;
-    password!: string;
-
-    constructor(data?: ILogonViewModel) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.userName = _data["userName"];
-            this.password = _data["password"];
-        }
-    }
-
-    static fromJS(data: any): LogonViewModel {
-        data = typeof data === 'object' ? data : {};
-        let result = new LogonViewModel();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["userName"] = this.userName;
-        data["password"] = this.password;
-        return data; 
-    }
-}
-
-export interface ILogonViewModel {
-    userName: string;
-    password: string;
-}
-
-export class RegistrationViewModel implements IRegistrationViewModel {
-    email!: string;
-    password!: string;
-    userName!: string;
-    firstName!: string;
-    lastName!: string;
-    phone?: string | undefined;
-
-    constructor(data?: IRegistrationViewModel) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.email = _data["email"];
-            this.password = _data["password"];
-            this.userName = _data["userName"];
-            this.firstName = _data["firstName"];
-            this.lastName = _data["lastName"];
-            this.phone = _data["phone"];
-        }
-    }
-
-    static fromJS(data: any): RegistrationViewModel {
-        data = typeof data === 'object' ? data : {};
-        let result = new RegistrationViewModel();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["email"] = this.email;
-        data["password"] = this.password;
-        data["userName"] = this.userName;
-        data["firstName"] = this.firstName;
-        data["lastName"] = this.lastName;
-        data["phone"] = this.phone;
-        return data; 
-    }
-}
-
-export interface IRegistrationViewModel {
-    email: string;
-    password: string;
-    userName: string;
-    firstName: string;
-    lastName: string;
-    phone?: string | undefined;
-}
-
 export class ChangePasswordViewModel implements IChangePasswordViewModel {
     oldPassword!: string;
     newPassword!: string;
@@ -2195,6 +2155,94 @@ export interface IMachineViewModel extends IBaseViewModel {
     location?: string | undefined;
     startOperation?: Date | undefined;
     hasDevices?: boolean;
+}
+
+export class ModelStateDictionary implements IModelStateDictionary {
+    root?: ModelStateEntry | undefined;
+    maxAllowedErrors?: number;
+    hasReachedMaxErrors?: boolean;
+    errorCount?: number;
+    count?: number;
+    keys?: string[];
+    values?: ModelStateEntry[];
+    isValid?: boolean;
+    validationState?: ModelValidationState;
+    item?: ModelStateEntry | undefined;
+
+    constructor(data?: IModelStateDictionary) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.root = _data["Root"] ? ModelStateEntry.fromJS(_data["Root"]) : <any>undefined;
+            this.maxAllowedErrors = _data["MaxAllowedErrors"];
+            this.hasReachedMaxErrors = _data["HasReachedMaxErrors"];
+            this.errorCount = _data["ErrorCount"];
+            this.count = _data["Count"];
+            if (Array.isArray(_data["Keys"])) {
+                this.keys = [] as any;
+                for (let item of _data["Keys"])
+                    this.keys!.push(item);
+            }
+            if (Array.isArray(_data["Values"])) {
+                this.values = [] as any;
+                for (let item of _data["Values"])
+                    this.values!.push(ModelStateEntry.fromJS(item));
+            }
+            this.isValid = _data["IsValid"];
+            this.validationState = _data["ValidationState"];
+            this.item = _data["Item"] ? ModelStateEntry.fromJS(_data["Item"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): ModelStateDictionary {
+        data = typeof data === 'object' ? data : {};
+        let result = new ModelStateDictionary();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["Root"] = this.root ? this.root.toJSON() : <any>undefined;
+        data["MaxAllowedErrors"] = this.maxAllowedErrors;
+        data["HasReachedMaxErrors"] = this.hasReachedMaxErrors;
+        data["ErrorCount"] = this.errorCount;
+        data["Count"] = this.count;
+        if (Array.isArray(this.keys)) {
+            data["Keys"] = [];
+            for (let item of this.keys)
+                data["Keys"].push(item);
+        }
+        if (Array.isArray(this.values)) {
+            data["Values"] = [];
+            for (let item of this.values)
+                data["Values"].push(item.toJSON());
+        }
+        data["IsValid"] = this.isValid;
+        data["ValidationState"] = this.validationState;
+        data["Item"] = this.item ? this.item.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IModelStateDictionary {
+    root?: ModelStateEntry | undefined;
+    maxAllowedErrors?: number;
+    hasReachedMaxErrors?: boolean;
+    errorCount?: number;
+    count?: number;
+    keys?: string[];
+    values?: ModelStateEntry[];
+    isValid?: boolean;
+    validationState?: ModelValidationState;
+    item?: ModelStateEntry | undefined;
 }
 
 export class RoleViewModel implements IRoleViewModel {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthService, ILogonViewModel, IProviderViewModel } from '../../services/index';
+import { AuthService, ILogonViewModel, IProviderViewModel, IAuthenticationErrorViewModel } from '../../services/index';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginFormComponent implements OnInit {
   public loginInvalid: boolean;
   public error: boolean;
   public formSubmitAttempt: boolean;
-  public errors: string;
+  public errors: string[];
   private returnUrl: string;
   public providers: IProviderViewModel[];
 
@@ -44,6 +44,7 @@ export class LoginFormComponent implements OnInit {
   async onSubmit() {
     this.loginInvalid = false;
     this.error = false;
+    this.errors = [];
     this.formSubmitAttempt = true;
     if (this.form.valid) {
       try {
@@ -56,7 +57,7 @@ export class LoginFormComponent implements OnInit {
         this.router.navigateByUrl('dashboard');
       } catch (err) {
         this.error = true;
-        this.errors = err;
+        this.errors = (err as IAuthenticationErrorViewModel).errors;
       }
     } else {
       this.formSubmitAttempt = false;

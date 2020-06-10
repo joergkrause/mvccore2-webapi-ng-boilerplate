@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService, IChangePasswordViewModel } from '../../services/index';
+import { AuthService, IChangePasswordViewModel, IAuthenticationErrorViewModel } from '../../services/index';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 export class ProfileFormComponent implements OnInit {
 
   public form: FormGroup;
-  public errors: string;
+  public error: boolean;
+  public errors: string[];
   public submitted: boolean = false;
   public formSubmitAttempt: boolean = false;
   public hide = true;
@@ -32,7 +33,8 @@ export class ProfileFormComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.formSubmitAttempt = true;
-    this.errors = '';
+    this.error = false;
+    this.errors = [];
     if (this.form.valid) {
       const passwordModel: IChangePasswordViewModel = {
         oldPassword: this.form.get('oldPassword').value,
@@ -47,7 +49,8 @@ export class ProfileFormComponent implements OnInit {
               this.router.navigate(['/login'], { queryParams: { brandNew: true } });
             }
           },
-          errors => this.errors = errors.error ? Object.values(errors.error).join('') : JSON.stringify(errors));
+          err => this.errors = (err as IAuthenticationErrorViewModel).errors
+        );
     }
   }
 }

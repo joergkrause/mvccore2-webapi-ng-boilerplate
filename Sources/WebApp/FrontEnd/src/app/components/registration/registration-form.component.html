@@ -54,5 +54,5 @@
 </mat-card>
 <app-alert *ngIf="errors" role="alert" [close]="true" type="danger">
   <h4>An error occured</h4>
-  <div>{{errors}}</div>
+  <app-alert *ngFor="let error of errors" type="danger" [text]="error" [close]="false"></app-alert>
 </app-alert>

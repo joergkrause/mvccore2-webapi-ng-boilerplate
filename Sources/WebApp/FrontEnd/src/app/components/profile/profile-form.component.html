@@ -33,5 +33,5 @@
 </mat-card>
 <mat-card *ngIf="errors" role="alert" color="red">
   <mat-card-title>An error occured</mat-card-title>
-  {{errors|json}}
+  <app-alert *ngFor="let error of errors" type="danger" [text]="error" [close]="false"></app-alert>
 </mat-card>

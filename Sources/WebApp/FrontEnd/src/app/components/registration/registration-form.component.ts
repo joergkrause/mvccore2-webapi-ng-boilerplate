@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService, IRegistrationViewModel } from '../../services/index';
+import { AuthService, IRegistrationViewModel, IAuthenticationErrorViewModel } from '../../services/index';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 const umlautMap = {
@@ -22,7 +22,8 @@ const umlautMap = {
 export class RegistrationFormComponent implements OnInit {
 
   public form: FormGroup;
-  public errors: string;
+  public error: boolean;
+  public errors: string[];
   public isRequesting: boolean;
   public submitted: boolean = false;
   public hide = true;
@@ -61,7 +62,8 @@ export class RegistrationFormComponent implements OnInit {
   registerUser() {
     this.submitted = true;
     this.isRequesting = true;
-    this.errors = '';
+    this.error = false;
+    this.errors = [];
     if (this.form.valid) {
       const registerModel: IRegistrationViewModel = {
         firstName: this.form.get('firstName').value,
@@ -79,7 +81,8 @@ export class RegistrationFormComponent implements OnInit {
               this.router.navigate(['/login'], { queryParams: { brandNew: true, email: registerModel.email } });
             }
           },
-          errors => this.errors = errors.error ? Object.values(errors.error).join('') : JSON.stringify(errors));
+          err => this.errors = (err as IAuthenticationErrorViewModel).errors
+        );
     }
   }
 }

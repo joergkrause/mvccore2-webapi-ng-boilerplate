@@ -21,7 +21,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
   /// Login Management. Extensible support for one or multiple logons.
   /// </summary>
   [Route("api/[controller]")]
-  [ApiController]
+  // [ApiController] no automatic response, we use special view models instead
   [Authorize]
   public class AuthController : ControllerBase {
 
@@ -62,15 +62,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     [AllowAnonymous]
     [HttpPost("login", Name = "Login")]
     [ProducesResponseType(typeof(TokenResponseViewModel), 200)]
-    [ProducesResponseType(typeof(ModelStateDictionary), 400)]
+    [ProducesResponseType(typeof(AuthenticationErrorViewModel), 400)]
     public async Task<ActionResult<TokenResponseViewModel>> Post([FromBody] LogonViewModel credentials) {
       if (!ModelState.IsValid) {
-        return BadRequest(ModelState);
+        return BadRequest(AuthenticationErrorViewModel.Init(ModelState));
       }
       // user name used at logon is "email"
       var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
       if (identity == null) {
-        return BadRequest(Errors.AddErrorToModelState("login_failure", "User not known.", ModelState));
+        return BadRequest(AuthenticationErrorViewModel.Init(Errors.AddErrorToModelState("login_failure", "User not known.", ModelState)));
       }
       var user = new UserViewModel {
         UserName = identity.Name,
@@ -79,7 +79,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       // log user immediately in
       var result = await _signin.CheckPasswordSignInAsync(user, credentials.Password, true);
       if (!result.Succeeded) {
-        return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
+        return BadRequest(AuthenticationErrorViewModel.Init(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState)));
       }
       // Serialize and return the response
       var response = new TokenResponseViewModel {
@@ -101,7 +101,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     [AllowAnonymous]
     [HttpPost("register", Name = "Register")]
     [ProducesResponseType(typeof(string), 200)]
-    [ProducesResponseType(typeof(ModelStateEntry), 400)]
+    [ProducesResponseType(typeof(AuthenticationErrorViewModel), 400)]
     public async Task<IActionResult> Post([FromBody] RegistrationViewModel model) {
       if (!ModelState.IsValid) {
         return BadRequest(ModelState);
@@ -109,7 +109,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       var userIdentity = _mapper.Map<UserViewModel>(model);
       var result = await _userManager.CreateAsync(userIdentity, model.Password);
       if (result == null || !result.Succeeded) {
-        return BadRequest(Errors.AddErrorsToModelState(result, ModelState));
+        return BadRequest(AuthenticationErrorViewModel.Init(Errors.AddErrorsToModelState(result, ModelState)));
       }
       // Save additional profile data
       userIdentity = await _userManager.FindByEmailAsync(model.Email);
@@ -132,7 +132,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       }
       var result = await _userManager.ChangePasswordAsync(userIdentity, model.OldPassword, model.NewPassword);
       if (result == null || !result.Succeeded) {
-        return BadRequest(Errors.AddErrorsToModelState(result, ModelState));
+        return BadRequest(AuthenticationErrorViewModel.Init(Errors.AddErrorsToModelState(result, ModelState)));
       }
       return Ok("Password changed");
     }
@@ -140,7 +140,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
     [AllowAnonymous]
     [HttpGet("confirmemail", Name = "ConfirmEmail")]
     [ProducesResponseType(typeof(string), 200)]
-    [ProducesResponseType(typeof(ModelStateEntry), 400)]
+    [ProducesResponseType(typeof(AuthenticationErrorViewModel), 400)]
     public async Task<IActionResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string confirmation) {
       if (!ModelState.IsValid) {
         return BadRequest(ModelState);
@@ -148,7 +148,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       var user = await _userManager.FindByIdAsync(userId);
       var result = await _userManager.ConfirmEmailAsync(user, confirmation);
       if (result == null || !result.Succeeded) {
-        return BadRequest(Errors.AddErrorToModelState("Forbidden", "Not authorized", ModelState));
+        return BadRequest(AuthenticationErrorViewModel.Init(Errors.AddErrorToModelState("Forbidden", "Not authorized", ModelState)));
       }
       // TODO: Direct View ?
       return Ok("Email confirmed");

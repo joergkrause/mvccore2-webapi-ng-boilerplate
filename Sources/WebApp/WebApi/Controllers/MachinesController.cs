@@ -18,6 +18,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers
   /// </summary>
   [Authorize(Policy = "ApiUser")]  // Roles = "User" is implicit in this policy
   [Route("api/[controller]")]
+  // [ApiController] no automatic response, we use special view models instead
   public class MachinesController : ControllerBase
   {
 
