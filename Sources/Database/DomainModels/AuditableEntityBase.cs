@@ -14,6 +14,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.DomainModels {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
+
+    //[Timestamp]
+    //public byte[] MyProperty { get; set; }
+
+
     [Column(TypeName = "datetime2")]
     public DateTime CreatedAt { get; set; }
 

@@ -7,6 +7,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.DomainModels
 {
   public partial class Machine : AuditableEntityBase, IHistoryTracking
   {
+
+
     public string Name { get; set; }
 
     [RegularExpression(@"[A-Z]-\d{3}")] //B-100,C-123

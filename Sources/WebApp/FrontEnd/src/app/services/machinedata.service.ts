@@ -1,12 +1,16 @@
-import { Injectable } from '@angular/core';
-import { ApiMachines, MachineViewModel } from './lib/frontendapi.services';
+import { MachineViewModel } from './lib/frontendapi.services';
+import { BaseService } from './base.service';
 
 type chartPoint = Array<{ x: number, y: number, v: number }>;
 
-@Injectable()
-export class MachineDataService {
+export class MachineDataService extends BaseService {
 
-  constructor(private api: ApiMachines) {
+  constructor() {
+    super();
+  }
+
+  public static get instance(): MachineDataService {
+    return BaseService.getSingleton<MachineDataService>(MachineDataService);
   }
 
   public async getChartData(): Promise<chartPoint> {
@@ -14,7 +18,7 @@ export class MachineDataService {
   }
 
   public getMachines(): Promise<MachineViewModel[]> {
-    return this.api.get().toPromise();
+    return this.apiMachines.get();
   }
 
 }

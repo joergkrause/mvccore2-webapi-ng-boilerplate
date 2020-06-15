@@ -1,27 +1,24 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "lib": [
-      "dom",
-      "es2018"
-    ],
-    "baseUrl": "./ ",
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "noStrictGenericChecks": true,
+    "lib": ["es2018", "es5", "dom"],
+    "jsx": "react",
+    "declaration": true,
+    "reactNamespace": "JSX",
     "experimentalDecorators": true,
-    "removeComments": false,
     "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "removeComments": false,
+    "outDir": "out-tsc",
+    "baseUrl": "./src",
     "typeRoots": [
-      "./node_modules/@types"
+      "node_modules/@types", 
+      "src/types"
     ]
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "files": [
-    "./src/main.ts", "./src/polyfills.ts"
-  ],
+  "files": ["./src/main.ts"]
 }

@@ -1,22 +1,20 @@
-﻿import { Injectable } from '@angular/core';
-
+﻿import { ApiAccounts, UserViewModel, ClaimViewModel } from './lib/frontendapi.services';
 import { BaseService } from './base.service';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-import { ApiAccounts, UserViewModel, ClaimViewModel } from './lib/frontendapi.services';
-
-@Injectable()
 export class AccountService extends BaseService {
 
-  constructor(private api: ApiAccounts) {
+  constructor() {
     super();
+  }
+
+  public static get instance(): AccountService {
+    return BaseService.getSingleton<AccountService>(AccountService);
   }
 
   getUserDetails(): Promise<UserViewModel> {
     let id = localStorage.getItem('user_id');
     if (id) {
-      return this.api.get(id).toPromise<UserViewModel>();
+      return this.apiAccounts.get(id);
     }
     return Promise.reject('No User, please Logon');
   }
@@ -24,7 +22,7 @@ export class AccountService extends BaseService {
   getUserClaims(): Promise<ClaimViewModel[]> {
     let id = localStorage.getItem('user_id');
     if (id) {
-      return this.api.getClaims(id).toPromise<ClaimViewModel[]>();
+      return this.apiAccounts.getClaims(id);
     }
     return Promise.reject('No User, please Logon');
   }

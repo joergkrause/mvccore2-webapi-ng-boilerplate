@@ -1,16 +1,62 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WebAPI Core 3 + Angular 9 Material Prototype with Token Auth v1.2</title>
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <base href="/" />
+  <title>WebAPI Core 3 + Web Components Prototype with Token Auth v1.5</title>
+  <style>
+    body,
+    html {
+      height: 100%;
+    }
+
+    .bg {
+      height: 100% !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      background-size: cover !important;
+      overflow: hidden;
+    }
+
+    #splash::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 20px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 4px grey;
+      border-radius: 2px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: lightskyblue;
+      border-radius: 2px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: skyblue;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="mat-typography mat-app-background">
+  <!-- App Code -->
+  <div id="main" class="container">
     <site-root></site-root>
   </div>
+  <!-- Footer Code -->
+  <footer class="container z-top">
+    Professional App Foundation &copy; Comzept GbR &amp; Jörg Krause 2016-2020
+    <span class="float-right"><small>Made with @nyaf &amp; &#x2764; in Berlin</small></span>
+  </footer>
 </body>
+
 </html>

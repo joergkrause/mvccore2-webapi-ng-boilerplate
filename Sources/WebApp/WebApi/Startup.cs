@@ -33,6 +33,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using System.Runtime.InteropServices.ComTypes;
+using JoergIsAGeek.Workshop.Enterprise.WebApi.Middleware;
+using Microsoft.Extensions.Options;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
   public class Startup {
@@ -226,6 +228,13 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
             await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
           }
         });
+      });
+      // app.UseOptionsCors(); // self made as an example
+      app.UseCors(options => {
+        options.WithOrigins("http://localhost:9000") // WebPack Dev Server
+        .AllowAnyHeader()
+        .AllowCredentials()
+        .AllowAnyMethod();
       });
       app.UseRouting();
       // run auth and policies

@@ -1,15 +1,21 @@
-@import "@angular/material/prebuilt-themes/deeppurple-amber";
+@import "~bootstrap";
 
-body {
-  margin: 0;
-  height: 100vh;
-  font-family: sans-serif;
+$dark: #212121;
+$darkActive: lightskyblue;
+$light: #e5e5e5;
+
+blockquote {
+  border-left: 4px solid gray;
+  background-color: gainsboro;
+  padding: 15px 5px 5px 10px;  
 }
 
-h1 {
-  text-align: center;
-}
-
-.container {
-  margin: 15px;
+footer {
+	position: fixed;
+	bottom: 0px;
+	border-top: 1px $light solid;
+	width: 100%;
+	padding: 5px;
+	background-color: $light;
+	color: $dark;
 }
