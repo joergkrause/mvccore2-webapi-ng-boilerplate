@@ -1,10 +1,10 @@
 import { StoreParams } from "@nyaf/store";
 
-import { RegistrationViewModel, AuthenticationErrorViewModel } from "../../../services/lib/frontendapi.services";
+import { IRegistrationViewModel, IAuthenticationErrorViewModel } from "../../../services/lib/frontendapi.services";
 
 export interface RegistrationStore {
-	current: RegistrationViewModel;
-	result: AuthenticationErrorViewModel;
+	current: IRegistrationViewModel;
+	result: IAuthenticationErrorViewModel;
 }
 
 /**
@@ -14,7 +14,7 @@ export type registrationStoreType = RegistrationStore;
 
 import registrationReducer from '../reducer/registration.reducer';
 import registrationActions from '../actions/registration.actions';
-import store from "../../..//services/flux/stores/global.store";
+import store from "../../../services/flux/stores/global.store";
 
 const initialState: registrationStoreType = {
 	current: null,

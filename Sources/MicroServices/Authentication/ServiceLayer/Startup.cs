@@ -63,7 +63,11 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer
           Description = "For testing: Type a space for Username and this value as the password: D99BCD2C-1FD4-4374-B68F-45E84C59D510",
         }));
       });
-      services.AddAutoMapper(typeof(AuthenticationMappingProfile));
+      services.AddSingleton(typeof(IDecryptResolver), typeof(DecryptResolver));
+      services.AddSingleton(ctx => new MapperConfiguration(cfg =>
+      {
+        cfg.AddProfile(new AuthenticationMappingProfile(ctx.GetService<IDecryptResolver>()));
+      }).CreateMapper());
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

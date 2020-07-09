@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Security.Claims;
+using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.IdentityModels;
 
 namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
   internal class DatabaseInitializer {
@@ -55,20 +56,20 @@ namespace JoergIsAGeek.Workshop.Enterprise.SetupConsole {
       repIdentityRole.Insert(new[] { guestRole, userRole, adminRole });
       // Get hasher (in UserManager it's being called in the background)
       var hasher = new PasswordHasher<IdentityUser>();
-      var guest = new IdentityUser {
+      var guest = new IdentityUserEx {
         UserName = "gerryguest",
         Id = Guid.NewGuid().ToString("N"),
         Email = "gerry@guest.com",
       };
       guest.PasswordHash = hasher.HashPassword(guest, "P@ssw0rd");
       // Assign users to roles
-      var user = new IdentityUser {
+      var user = new IdentityUserEx {
         UserName = "dorisdemo",
         Id = Guid.NewGuid().ToString("N"),
         Email = "doris@demo.com"
       };
       user.PasswordHash = hasher.HashPassword(user, "P@ssw0rd");
-      var admin = new IdentityUser {
+      var admin = new IdentityUserEx {
         UserName = "andyadmin",
         Id = Guid.NewGuid().ToString("N"),
         Email = "andy@admin.com"

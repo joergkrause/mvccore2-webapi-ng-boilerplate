@@ -1,7 +1,7 @@
-import { RegistrationViewModel, AuthenticationErrorViewModel } from "../../../services/lib/frontendapi.services";
+import { IRegistrationViewModel, IAuthenticationErrorViewModel } from "../../../services/lib/frontendapi.services";
 export interface RegistrationStore {
-    current: RegistrationViewModel;
-    result: AuthenticationErrorViewModel;
+    current: IRegistrationViewModel;
+    result: IAuthenticationErrorViewModel;
 }
 /**
  * We export a single store type that contains all single stores as one default.

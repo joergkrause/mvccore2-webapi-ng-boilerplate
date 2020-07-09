@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JoergIsAGeek.Workshop.Enterprise.DomainModels.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +8,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.DomainModels
 {
   public partial class Machine : AuditableEntityBase, IHistoryTracking
   {
-
 
     public string Name { get; set; }
 

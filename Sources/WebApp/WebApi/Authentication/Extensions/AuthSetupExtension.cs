@@ -1,4 +1,5 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.WebApplication.Authentication;
+using JoergIsAGeek.Workshop.Enterprise.WebApplication.ViewModels.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -47,7 +48,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApi.Authentication.Extensions
 
         options.SignIn.RequireConfirmedEmail = false;
       });
-
       // JSON Web Token wire up
       var SecretKey = getEnv("TokenSecret") ?? Configuration.GetSection("Keys").GetValue<string>("TokenSecret");
       var _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
@@ -76,14 +76,15 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApi.Authentication.Extensions
 
       // Per default failed requests redirect to Account/Logon, 
       // but here we have SPA with API and need to inform SPA app to handle this.
-      _ = services.AddAuthentication(options =>
+      services.AddAuthentication(options =>
       {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-      }).AddJwtBearer(options =>
+      })        
+        .AddJwtBearer(options =>
       {
         options.IncludeErrorDetails = true;
         options.TokenValidationParameters = tokenValidationParameters;
@@ -115,6 +116,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApi.Authentication.Extensions
         };
 #pragma warning restore CS1998 // #warning directive
       });
+
     }
 
   }

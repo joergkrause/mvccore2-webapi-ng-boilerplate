@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer.Authentication;
 using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer;
+using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.IdentityModels;
 using JoergIsAGeek.Workshop.Enterprise.DataTransferObjects.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -23,7 +24,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
 
     public IdentityResult CreateUser(ApplicationUserDto userDto) {
       userDto.Id = GetSecureId();
-      var user = mapper.Map<IdentityUser>(userDto);
+      var user = mapper.Map<IdentityUserEx>(userDto);
       Context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Added;
       if (SaveChanges() == 1) {
         return IdentityResult.Success;
@@ -106,19 +107,21 @@ namespace JoergIsAGeek.Workshop.Enterprise.BusinessLogicLayer {
     }
 
     public IEnumerable<ApplicationUserDto> GetUsers() {
-      return mapper.Map<IEnumerable<ApplicationUserDto>>(Context.Set<IdentityUser>().ToList());
+      var models = Context.Set<IdentityUser>().ToList();
+      var ex = mapper.Map<IEnumerable<IdentityUserEx>>(models);
+      return mapper.Map<IEnumerable<ApplicationUserDto>>(ex);
     }
 
     #region private helpers
 
-    private IdentityUser SafeFindUserById(string userId) {
+    private IdentityUserEx SafeFindUserById(string userId) {
       var user = Context.Set<IdentityUser>().SingleOrDefault(u => u.Id == userId);
-      return user;
+      return (IdentityUserEx)user;
     }
 
-    private IdentityUser SafeFindUserByName(string normalizedUserName) {
+    private IdentityUserEx SafeFindUserByName(string normalizedUserName) {
       var user = Context.Set<IdentityUser>().SingleOrDefault(u => u.NormalizedUserName == normalizedUserName || u.UserName == normalizedUserName);
-      return user;
+      return (IdentityUserEx)user;
     }
 
 

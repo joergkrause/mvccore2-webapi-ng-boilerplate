@@ -1,5 +1,7 @@
 ﻿using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Configuration;
+using JoergIsAGeek.Workshop.Enterprise.DataAccessLayer.Encryption;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels;
+using JoergIsAGeek.Workshop.Enterprise.DomainModels.Attributes;
 using JoergIsAGeek.Workshop.Enterprise.DomainModels.History;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -38,7 +40,28 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
       var now = DateTime.Now;
       SaveInterceptor(this.contextProvider?.UserIdentity?.Name, now);
       ValidateInterceptor();
+      CryptoInterceptor();
       return base.SaveChanges();
+    }
+
+    private void CryptoInterceptor() {
+      // Look for properties with EncryptAttribute and encrypt.
+      foreach (var item in ChangeTracker
+        .Entries() // no filter due to Identity Models
+        .Where(item => item.State == EntityState.Added || item.State == EntityState.Modified)) {
+        foreach (var property in item.Entity.GetType().GetProperties()) {
+          var toEncrypt = property.GetCustomAttributes(true).OfType<EncryptAttribute>().Any();
+          if (!toEncrypt) {
+            continue;
+          }
+          var val = item.Property(property.Name).CurrentValue?.ToString();
+          if (val != null) {
+            var enc = AesOperation.EncryptString("b14ca5898a4e4133bbce2ea2315a1916", val);
+            item.Property(property.Name).CurrentValue = enc;
+          }
+        }
+
+      }
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {

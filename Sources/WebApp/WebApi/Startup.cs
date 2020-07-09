@@ -35,6 +35,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Runtime.InteropServices.ComTypes;
 using JoergIsAGeek.Workshop.Enterprise.WebApi.Middleware;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
   public class Startup {
@@ -61,13 +62,6 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       services.AddHttpContextAccessor();
       services.AddMvc(option => option.EnableEndpointRouting = false);
       services.AddCors();
-      // Security using custom backend
-      services.AddIdentity<UserViewModel, RoleViewModel>()
-        .AddDefaultTokenProviders()
-        .AddUserStore<CustomUserStore>()
-        .AddRoleStore<CustomRoleStore>()
-        .AddUserManager<CustomUserManager>()
-        .AddRoleManager<CustomRoleManager>();
       var rootHandler = new HttpClientHandler();
       // Configuration: 
       //   if an env variable exists we use this, otherwise we fallback to appsettings.json
@@ -107,14 +101,61 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         };
         return apiClientMachineService;
       });
-      services.AddScoped<SignInManager<UserViewModel>, SignInManager<UserViewModel>>();
-      // The whole JWT setup
-      services.AddLocalJwtAuthentication(getEnv, Configuration);
+      // The whole user management setup for INTERNAL authentication (own backend with own token generation)
       // use cli to add secrets: 
       // One time: dotnet user-secrets init
       // Than: dotnet user-secrets set "key" "value"
       // Or right click solution, "Manage User Secrets" and edit secrets.json in your profile
       // More info: https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.1&tabs=windows
+      services.AddIdentity<UserViewModel, RoleViewModel>()
+        .AddDefaultTokenProviders()
+        .AddUserStore<CustomUserStore>()
+        .AddRoleStore<CustomRoleStore>()
+        .AddUserManager<CustomUserManager>()
+        .AddRoleManager<CustomRoleManager>();
+      services.AddScoped<SignInManager<UserViewModel>, SignInManager<UserViewModel>>();
+      // The whole JWT setup for INTERNAL authentication (own backend with own token generation)
+      services.AddLocalJwtAuthentication(getEnv, Configuration);
+      // Configure EXTERNAL Authentication mechanisms
+      if (false) {
+        // Windows
+        //services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
+        //// Client Cert
+        //services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
+        //        .AddCertificate(options => // code from ASP.NET Core sample
+        //        {
+        //          options.AllowedCertificateTypes = CertificateTypes.All;
+        //          options.Events = new CertificateAuthenticationEvents {
+        //            OnCertificateValidated = context => {
+        //              var validationService =
+        //              context.HttpContext.RequestServices.GetService<MyCertificateValidationService>();
+
+        //              if (validationService.ValidateCertificate(context.ClientCertificate)) {
+        //                var claims = new[]
+        //                {
+        //        new Claim(ClaimTypes.NameIdentifier, context.ClientCertificate.Subject, ClaimValueTypes.String, context.Options.ClaimsIssuer),
+        //        new Claim(ClaimTypes.Name, context.ClientCertificate.Subject, ClaimValueTypes.String, context.Options.ClaimsIssuer)
+        //        };
+
+        //                context.Principal = new ClaimsPrincipal(new ClaimsIdentity(claims, context.Scheme.Name));
+        //                context.Success();
+        //              } else {
+        //                context.Fail("invalid cert");
+        //              }
+
+        //              return Task.CompletedTask;
+        //            }
+        //          };
+        //        });
+
+        //// Azure AD
+        //services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+        //.AddAzureAD(options => Configuration.Bind("AzureAd", options));
+        //services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options => {
+        //  options.Authority = options.Authority + "/v2.0/"; // Microsoft identity platform
+        //  options.TokenValidationParameters.ValidateIssuer = false; // accept several
+        //});
+      }
       if (!String.IsNullOrEmpty(Configuration["Authentication:Facebook"])) {
         services.AddAuthentication().AddFacebook(options => {
           options.AppId = Configuration["Authentication:Facebook:AppId"];
@@ -134,6 +175,8 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
           options.ClientSecret = Configuration["Authentication:Facebook:Microsoft:ClientSecret"];
         });
       }
+
+
       // App specific policies
       services.AddAuthorization(options => {
         options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
@@ -142,11 +185,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         // API users just need to have this particular claim to use the API        
         // this is in Roles/UserRoles and connecting it to the policy simplifies the [Authorize] attribute
         // this is in the UserClaims table connected to particular users. weirdguest has no access, all others have access
-        options.AddPolicy("ApiUser", policy => {
+        options.AddPolicy("ADPolicy", policy => {
           policy
           .RequireAuthenticatedUser()
-          .RequireRole("User")
-          .RequireClaim("api_access")
+          // .AuthenticationSchemes = new List<string>() { "Bearer", "ClientCert" }
+          .RequireRole("ADSecutiryGroup")
+          //.RequireClaim("api_access")
           .Build();
         });
         options.AddPolicy("ApiAdmin", policy => {
@@ -212,7 +256,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
         app.UseDeveloperExceptionPage();
         app.UseSwaggerUi3();
       } else {
-        // TODO: Figure out how to handle global errors with SPA front end??
+        // nur mVC
         app.UseExceptionHandler("/Home/Error");
       }
       app.UseOpenApi();
@@ -231,7 +275,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication {
       });
       // app.UseOptionsCors(); // self made as an example
       app.UseCors(options => {
-        options.WithOrigins("http://localhost:9000") // WebPack Dev Server
+        options.WithOrigins("http://frontend:9000") // WebPack Dev Server
         .AllowAnyHeader()
         .AllowCredentials()
         .AllowAnyMethod();

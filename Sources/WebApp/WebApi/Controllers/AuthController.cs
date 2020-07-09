@@ -119,6 +119,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       return Ok("Account created");
     }
 
+    [Authorize(Policy= "ADPolicy")]
     [HttpPost("changepassword", Name = "ChangePassword")]
     [ProducesResponseType(typeof(string), 200)]
     [ProducesResponseType(typeof(ModelStateEntry), 400)]
@@ -126,6 +127,9 @@ namespace JoergIsAGeek.Workshop.Enterprise.WebApplication.Controllers {
       if (!ModelState.IsValid) {
         return BadRequest(ModelState);
       }
+
+      // User.
+
       var userIdentity = await _userManager.GetUserAsync(User);
       if (userIdentity == null) {
         return BadRequest("Not authorized");

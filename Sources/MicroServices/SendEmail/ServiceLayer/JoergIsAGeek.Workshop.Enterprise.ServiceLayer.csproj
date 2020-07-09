@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
-    <PackageReference Include="NSwag.AspNetCore" Version="13.6.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.6.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../ServiceBase/JoergIsAGeek.Workshop.Enterprise.ServiceBase.csproj" />
