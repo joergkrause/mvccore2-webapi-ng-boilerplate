@@ -6,6 +6,7 @@ using JoergIsAGeek.Workshop.Enterprise.DomainModels.History;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,16 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
   public class AuthenticationDataContext : IdentityDbContext {
 
     private readonly IUserContextProvider contextProvider;
+    private readonly IConfiguration configuration;
     public static readonly ILoggerFactory SqlLogger = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
-    public AuthenticationDataContext(DbContextOptions<AuthenticationDataContext> options, IUserContextProvider contextProvider) : base(options) {
+    public AuthenticationDataContext(
+      DbContextOptions<AuthenticationDataContext> options, 
+      IUserContextProvider contextProvider,
+      IConfiguration configuration) : base(options) {
       // forward of the user identity
-      this.contextProvider = contextProvider;       
+      this.contextProvider = contextProvider;
+      this.configuration = configuration;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
@@ -45,10 +51,12 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
     }
 
     private void CryptoInterceptor() {
+      var key = this.configuration.GetSection("Keys").GetValue<string>("Encrypt");
       // Look for properties with EncryptAttribute and encrypt.
       foreach (var item in ChangeTracker
         .Entries() // no filter due to Identity Models
-        .Where(item => item.State == EntityState.Added || item.State == EntityState.Modified)) {
+        .Where(item => item.State == EntityState.Added || item.State == EntityState.Modified)
+        ) {
         foreach (var property in item.Entity.GetType().GetProperties()) {
           var toEncrypt = property.GetCustomAttributes(true).OfType<EncryptAttribute>().Any();
           if (!toEncrypt) {
@@ -56,11 +64,10 @@ namespace JoergIsAGeek.Workshop.Enterprise.DataAccessLayer {
           }
           var val = item.Property(property.Name).CurrentValue?.ToString();
           if (val != null) {
-            var enc = AesOperation.EncryptString("b14ca5898a4e4133bbce2ea2315a1916", val);
+            var enc = AesOperation.EncryptString(key, val);
             item.Property(property.Name).CurrentValue = enc;
           }
         }
-
       }
     }
 

@@ -26,7 +26,7 @@ namespace JoergIsAGeek.Workshop.Enterprise.ServiceLayer.Mappings {
           continue;
         }
         var val = property.GetValue(model)?.ToString();
-        if (val != null) { // "b14ca5898a4e4133bbce2ea2315a1916"
+        if (val != null) { 
           property.SetValue(model, AesOperation.DecryptString(key, val));
         }
       }

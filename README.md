@@ -1,17 +1,16 @@
-# Content
+# Purpose
 
-Multi tier application with ASP.NET Core WebAPI, WebAPI service layer and Entity Framework Core backend. The frontend is made with Angular 9.
+Multi tier application with ASP.NET Core WebAPI, WebAPI service layer and Entity Framework Core backend. The frontend is made with Web Component and @nyaf.
 
 Currently running ASP.NET Core 3.1 and EF 3.1 Core and build against Core 3.1 (Assemblys are .NET Standard 2.1).
 
 ## Requirements
 
-For Windows users this is your "must have":
+For Windows users this is your preferred environment:
 
-* Windows 10
-* Powershell
-* Docker Community Edition 
-* Visual Studio 2019
+* Windows 10 Pro
+* Docker Community Edition (nice to have, it works wothout Docker)
+* Visual Studio 2019 16.6 (latest version strongly recommended)
 * .NET Core SDK 3.1
 
 > I assume that your docker installation setup supports Linux containers. We don't need Windows here.
@@ -19,9 +18,8 @@ For Windows users this is your "must have":
 For Linux users, this is what you'll need:
 
 * Ubuntu 16+ (recommended)
-* Powershell Core for Linux
 * Docker Community Edition 
-* Visual Studio Code
+* Visual Studio Code (and some extensions to support C#)
 * .NET Core SDK 3.1
 
 ## Usage (Overview)
@@ -33,15 +31,17 @@ The next sections below for details for each step.
 * Run "ConsoleApps/SetupConsole" app to create database
 * Start the service layers - it runs on port 5001 (Authentication Service) and 5005 (Demo Service) by default
 * Go to FrontEnd project's folder and execute `npm run build`
-	* This creates the Angular app
+	* This creates the Web app
 * Now build the WebFrontEnd's API
 	* The service layers can output their OpenAPI definition files, but these are included in the package for convenience.
 * Start the front end API - it's on port 5000 by default.
-* Start the front end host - it's on port 8080 by default. This requires CORS to be enabled.
+* Start the front end host - it's on port 8080 by default. This requires CORS to be enabled (it is in the project, of course).
+
+If you use Visual Studio the Solution is set  to "Multiple Startup Projects" and hence requires no multiple manual start actions, just hit **F5**.
 
 # Setup
 
-This section guides ypou through the elementary setup steps.
+This section guides you through the elementary setup steps.
 
 ## Settings
 
@@ -49,9 +49,9 @@ The database environment needs a connection string. The test environment can mak
 
 ### Windows (for VS Environment on Windows 10) and SQLLocalDB
 
-The connection string goes to (localdb)\JoergIsAGeek. You must change this in SetupConsole and the ServiceLayers (micro services).
+The connection string goes to (localdb)\MSSQLLocalDb. You can change this in SetupConsole and the ServiceLayers (micro services).
 
-Create a DB instance on the console like that:
+If you want to use another instance, just create a DB instance on the console like that:
 
 ~~~
 sqllocaldb create JoergIsAGeek
@@ -59,7 +59,7 @@ sqllocaldb create JoergIsAGeek
 
 Locate the connection strings in the *appsettings.json* file, one for the setup and one for each service runtime. 
 
-This is an example for the sqllocaldb:
+This is an example for the *sqllocaldb*:
 
 ~~~
 "ConnectionStrings": {
@@ -75,6 +75,8 @@ The WebFrontEnd has no direct DB access.
 
 As an alternative way you can use a Docker container running MS SQL Server Developer Edition on Linux.
 
+> The project creates two databases, one for authentication and one for demo data. That's a common scenario, as usually you'll handle your identity stuff elsewhere. Also, in a more advanced scenario, you'll replace the internal identity stuff with external one (IdentityServer, OAuth federation service), so keeping it separate fromthe beginning is a good architectural choice.
+
 ### Build Proxies
 
 The WebAPI consumes two services. That demonstrates a Microservice approach. To have a CI/CD flow, the build process includes pulling of the OpenAPI 3 descriptions. This process includes these steps:
@@ -88,12 +90,11 @@ The WebAPI consumes two services. That demonstrates a Microservice approach. To 
 7. Cal Nswag to create the proxies. That places the C# proxy files in the folder "Conntected Services"
 8. Build the project. Run!
 
-> The build script is using Powershell.
-> See here: *Sources\WebApp\JoergIsAGeek.Workshop.Enterprise.WebApplication\BuildClientApp.ps1*
+> The build script is currently placed in a pre-build event of the WebApi project. Check the **.csproj* file!
 
 ### API
 
-The service layer exposes the API as OpenAPI 2 (f.k.a. Swagger, powered by NSwag). The frontend uses NSwag to create the proxy. 
+The service layer exposes the API as OpenAPI 3 (f.k.a. Swagger, powered by NSwag). The frontend uses NSwag to create the proxy. 
 Changes require to recreate the proxy. This is part of the build step.
 
 ### Angular
@@ -107,8 +108,6 @@ npm run build
 
 This makes a production build and copies the final bundle to the *wwwroot* folder of the WebApi project for delivery.
 
-The file *Launch.ps1* creates a network with all the 4 containers (see below) to get everything running.
-
 ### Docker Support
 
 The easiest way to run all parts is Docker. There are no specific settings required, you can skip installing SQL Server and Core SDK.
@@ -120,7 +119,7 @@ There are 4 containers:
 * Linux with MSSQL 2017 for database --> Port 1433
 * Linux with ASPNET Core for micro service 1 (AuthService) --> Port 5001
 * Linux with ASPNET Core for micro service 2 (MachineDataService) --> Port 5005
-* Linux with ASPNET Core for web front end (Angular App) --> Port 5000, exposed externally as Port 8080
+* Linux with ASPNET Core for web front end (Web App) --> Port 5000, exposed externally as Port 8080
 
 The composer file runs all of them in production mode. The final solution runs on http://localhost:8080 on your host system or any other external IP. The 500X ports are for inter-container communication only.
 
@@ -195,6 +194,6 @@ in the Role "User" can access these data.
 
 # Frontend
 
-Currently on Angular 9.1. I will update this from time to time.
+This is made on Web Components, which is a HTML 5 native technology all current browsers support 100%. It's made with TypeScript, WebPack, and my @nyaf framework.
 
-
+Have a look at https://github.com/joergkrause/nyaf for more informatio n regarding the underlying codes. It's much smaller than Angular but nonetheless extremely powerful fore SPA apps.
