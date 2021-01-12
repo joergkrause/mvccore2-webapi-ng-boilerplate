@@ -4,6 +4,8 @@ Multi tier application with ASP.NET Core WebAPI, WebAPI service layer and Entity
 
 Currently running ASP.NET Core 3.1 and EF 3.1 Core and build against Core 3.1 (Assemblys are .NET Standard 2.1).
 
+> The Project is no longer maintened! A new version using .NET 5 is available on Azure DevOps: https://joergkrause@dev.azure.com/joergkrause/Core3%20Microservice%20Boilerplate/_git/Core3%20Microservice%20Boilerplate
+
 ## Requirements
 
 For Windows users this is your preferred environment:
